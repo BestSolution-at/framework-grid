@@ -22,14 +22,31 @@ package at.bestsolution.framework.grid;
 
 import org.eclipse.jdt.annotation.NonNull;
 
-
+/**
+ * Provides the content to the grid
+ *
+ * @param <R>
+ *            the content type
+ */
 public interface GridContentProvider<R> {
+	/**
+	 * @return the size
+	 */
 	public int size();
-	public @NonNull R getElementAt(int index);
 
-//	public void addContentChangedHandler();
-//
-//	public interface ContentChangedHandler {
-//		public void contentChanged();
-//	}
+	/**
+	 * Retrieve the element at the given index
+	 *
+	 * @param index
+	 *            the index
+	 * @return the element
+	 * @throws IllegalArgumentException if index is negative or index >= {@link #size()}
+	 */
+	public @NonNull R getElementAt(int index) throws IllegalArgumentException;
+
+	// public void addContentChangedHandler();
+	//
+	// public interface ContentChangedHandler {
+	// public void contentChanged();
+	// }
 }
