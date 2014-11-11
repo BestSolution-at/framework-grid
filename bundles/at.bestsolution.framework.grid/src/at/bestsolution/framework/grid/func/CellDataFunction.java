@@ -29,6 +29,7 @@ package at.bestsolution.framework.grid.func;
  *            the cell value type
  * @param <D>
  *            the return type
+ * @since 1.0
  */
 public interface CellDataFunction<R, C, D> {
 	/**

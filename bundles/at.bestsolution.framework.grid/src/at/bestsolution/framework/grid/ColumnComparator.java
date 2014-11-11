@@ -31,6 +31,7 @@ import org.eclipse.jdt.annotation.NonNull;
  *            the row type
  * @param <C>
  *            the cell value type
+ * @since 1.0
  */
 @FunctionalInterface
 public interface ColumnComparator<R, C> {

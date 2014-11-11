@@ -29,6 +29,7 @@ package at.bestsolution.framework.grid.func;
  *            the cell value
  * @param <O>
  *            the filter data
+ * @since 1.0
  */
 public interface CellValueMatcher<R, C, O> {
 	/**

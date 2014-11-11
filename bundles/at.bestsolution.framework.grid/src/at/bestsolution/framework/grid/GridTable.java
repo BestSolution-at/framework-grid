@@ -20,5 +20,13 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid;
 
-public interface GridTable<R> extends Grid<R,GridContentProvider<R>> {
+/**
+ * Table interface
+ *
+ * @param <R>
+ *            the row type
+ * @since 1.0
+ */
+public interface GridTable<R> extends Grid<R, GridContentProvider<R>> {
+	// nothing needed
 }

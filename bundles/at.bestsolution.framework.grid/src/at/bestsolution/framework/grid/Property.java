@@ -25,6 +25,7 @@ package at.bestsolution.framework.grid;
  *
  * @param <T>
  *            the type
+ * @since 1.0
  */
 public interface Property<T> {
 	/**
