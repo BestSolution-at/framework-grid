@@ -20,6 +20,27 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.func;
 
-public interface CellValueMatcher<R,C,O> {
+/**
+ * Match the cell value against the filter data
+ *
+ * @param <R>
+ *            the row data
+ * @param <C>
+ *            the cell value
+ * @param <O>
+ *            the filter data
+ */
+public interface CellValueMatcher<R, C, O> {
+	/**
+	 * Try to match the cell value
+	 *
+	 * @param row
+	 *            the row
+	 * @param cellValue
+	 *            the cell value
+	 * @param filterData
+	 *            the filter data
+	 * @return <code>true</code> if value matches the filter data
+	 */
 	public boolean apply(R row, C cellValue, O filterData);
 }

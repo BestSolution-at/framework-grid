@@ -27,8 +27,6 @@ import java.util.function.Function;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import at.bestsolution.framework.basic.Property;
-
 /**
  * Base interface of grid
  *

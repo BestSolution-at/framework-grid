@@ -44,9 +44,4 @@ public interface GridContentProvider<R> {
 	 */
 	public @NonNull R getElementAt(int index) throws IllegalArgumentException;
 
-	// public void addContentChangedHandler();
-	//
-	// public interface ContentChangedHandler {
-	// public void contentChanged();
-	// }
 }

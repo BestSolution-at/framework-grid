@@ -5,5 +5,4 @@ Bundle-SymbolicName: at.bestsolution.framework.grid
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: at.bestsolution.framework.grid
-Import-Package: at.bestsolution.framework.basic
 Require-Bundle: org.eclipse.jdt.annotation;bundle-version="2.0.0";resolution:=optional

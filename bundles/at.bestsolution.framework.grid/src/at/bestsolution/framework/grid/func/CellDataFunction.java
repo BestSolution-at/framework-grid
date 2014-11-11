@@ -20,6 +20,25 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.func;
 
-public interface CellDataFunction<R,C,D> {
+/**
+ * Converts the cell value into a UI representation
+ *
+ * @param <R>
+ *            the row type
+ * @param <C>
+ *            the cell value type
+ * @param <D>
+ *            the return type
+ */
+public interface CellDataFunction<R, C, D> {
+	/**
+	 * Apply the function on the value
+	 *
+	 * @param row
+	 *            the row
+	 * @param cellValue
+	 *            the cell
+	 * @return the value to present in the UI
+	 */
 	public D apply(R row, C cellValue);
 }
