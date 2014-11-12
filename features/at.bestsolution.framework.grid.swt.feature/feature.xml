@@ -16,7 +16,6 @@ http://www.BestSolution.at
 This file is part of framework-grid which was developed with funding
 from DI Christoph Hermann - InformationsTechnologie Beratung Hermann
 /Austria.
-
    </copyright>
 
    <license url="http://www.example.com/license">
@@ -38,7 +37,6 @@ from DI Christoph Hermann - InformationsTechnologie Beratung Hermann
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
-
    </license>
 
    <plugin
@@ -54,5 +52,11 @@ from DI Christoph Hermann - InformationsTechnologie Beratung Hermann
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="at.bestsolution.framework.grid.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>
