@@ -225,7 +225,7 @@
               </execution>
             </executions>
           </plugin>
-          <plugin>
+          <!--  plugin>
             <groupId>org.eclipse.cbi.maven.plugins</groupId>
             <artifactId>eclipse-jarsigner-plugin</artifactId>
             <version>${cbi-plugins.version}</version>
@@ -238,7 +238,7 @@
                 <phase>verify</phase>
               </execution>
             </executions>
-          </plugin>
+          </plugin-->
           <plugin>
             <groupId>org.eclipse.tycho.extras</groupId>
             <artifactId>tycho-pack200b-plugin</artifactId>
