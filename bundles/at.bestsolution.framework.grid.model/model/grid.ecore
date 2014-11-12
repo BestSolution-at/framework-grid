@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="grid" nsURI="http://www.bestsolution.at/framework/grid/1.0"
+    nsPrefix="grid">
+  <eClassifiers xsi:type="ecore:EClass" name="MResourceBundle">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="locale" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" eType="#//MResourceBundleEntry"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MResourceBundleEntry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MGrid">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
+        eType="#//MGridColumn" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="configurations" upperBound="-1"
+        eType="#//MGridConfigurationSet" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultConfiguration" eType="#//MGridConfigurationSet"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resources" upperBound="-1"
+        eType="#//MResourceBundle"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MGridConfigurationSet">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="viewConfiguration" eType="#//MGridConfiguration"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewSelectionMode" eType="#//MSelectionMode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exportConfiguration" eType="#//MGridConfiguration"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultSortColumn" eType="#//MGridColumn"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MGridConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
+        eType="#//MGridConfigurationColumn" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MGridConfigurationColumn">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" eType="#//MGridColumn"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MGridColumn">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="titleKey" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cellValueFunction" eType="#//MCellValueFunction"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cellTextFunction" eType="#//MCellTextFunction"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignment" eType="#//MAlignment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="autoFilterConfiguration"
+        eType="#//MAutoFilterConfiguration" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MCellValueFunction" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MPathCellValueFunction" eSuperTypes="#//MCellValueFunction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="segments" upperBound="-1"
+        eType="#//MPathSegment" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MPathSegment" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MSimplePathSegment" eSuperTypes="#//MPathSegment">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attributeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MCellTextFunction" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MLocalizedCellTextFunction" eSuperTypes="#//MCellTextFunction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MAutoFilterConfiguration" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MComboAutoFilterConfiguration" eSuperTypes="#//MAutoFilterConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="predefinedValues" upperBound="-1"
+        eType="#//MAutoFilterEntry" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultSelection" eType="#//MAutoFilterEntry"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cellTextFunction" eType="#//MCellTextFunction"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MFreeTextAutoFilterConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchType" eType="#//MAutoFilterMatchType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MAutoFilterEntry" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resourceKey" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MTextAutoFilterEntry" eSuperTypes="#//MAutoFilterEntry"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MDefaultAutoFilterEntry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//MDefaultAutoFilterEntryType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MSelectionMode">
+    <eLiterals name="SINGLE_ROW" literal="SINGLE_ROW"/>
+    <eLiterals name="SINGLE_CELL" value="1" literal="SINGLE_CELL"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MAlignment">
+    <eLiterals name="LEFT"/>
+    <eLiterals name="CENTER" value="1"/>
+    <eLiterals name="RIGHT" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MDefaultAutoFilterEntryType">
+    <eLiterals name="ALL"/>
+    <eLiterals name="EMPTY" value="1"/>
+    <eLiterals name="NOT_EMPTY" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MAutoFilterMatchType">
+    <eLiterals name="SUBSTRING"/>
+  </eClassifiers>
+</ecore:EPackage>
