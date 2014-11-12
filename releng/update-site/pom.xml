@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<name>grid framework - Updatesite</name>
+	<groupId>at.bestsolution.framework.grid</groupId>
+	<artifactId>update-site</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>eclipse-update-site</packaging>
+
+	<parent>
+		<groupId>at.bestsolution.framework.grid</groupId>
+		<artifactId>releng</artifactId>
+		<relativePath>../root-releng/pom.xml</relativePath>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<p2repo-zip-path>${project.build.directory}/site_assembly.zip</p2repo-zip-path>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<configuration>
+					<archiveSite>true</archiveSite>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.5.3</version>
+				<executions>
+					<execution>
+						<id>build-p2-obr-index</id>
+						<phase>package</phase>
+						<configuration>
+							<urlTemplate>plugins/%f</urlTemplate>
+							<mavenRepository>${project.build.directory}/site/plugins</mavenRepository>
+							<obrRepository>${project.build.directory}/site/repository.xml</obrRepository>
+						</configuration>
+						<goals>
+							<goal>index</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>build-obr-index</id>
+						<phase>package</phase>
+						<configuration>
+							<urlTemplate>%f</urlTemplate>
+							<mavenRepository>${project.build.directory}/site/plugins</mavenRepository>
+							<obrRepository>${project.build.directory}/site/plugins/repository.xml</obrRepository>
+						</configuration>
+						<goals>
+							<goal>index</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>create-obr-archive</id>
+						<phase>package</phase>
+						<configuration>
+							<tasks>
+								<zip 	destfile="${project.build.directory}/obr.zip">
+									<fileset dir="${project.build.directory}/site/plugins" />
+								</zip>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
