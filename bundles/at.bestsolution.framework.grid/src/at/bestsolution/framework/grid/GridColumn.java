@@ -29,7 +29,7 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.func.CellDataFunction;
-import at.bestsolution.framework.grid.func.CellValueMatcher;
+import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 
 /**
  * Column of a grid
@@ -119,7 +119,7 @@ public interface GridColumn<R, C> {
 	 * @return the provider property
 	 */
 	@NonNull
-	Property<@NonNull Function<@NonNull R, @Nullable C>> cellValueProviderProperty();
+	Property<@NonNull Function<@NonNull R, @Nullable C>> cellValueFunctionProperty();
 
 	/**
 	 * The text provider who converts the cell value to a rendered text
@@ -132,7 +132,7 @@ public interface GridColumn<R, C> {
 	 * @return the provider property
 	 */
 	@NonNull
-	Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textProviderProperty();
+	Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textFunctionProperty();
 
 	/**
 	 * The icon provider who converts the cell value to a rendered icon
@@ -143,7 +143,7 @@ public interface GridColumn<R, C> {
 	 * @return the provider property
 	 */
 	@NonNull
-	Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable URI>> iconProviderProperty();
+	Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable URI>> iconFunctionProperty();
 
 	/**
 	 * The auto filter type
@@ -154,7 +154,7 @@ public interface GridColumn<R, C> {
 	 * @return the property
 	 */
 	@NonNull
-	Property<@NonNull AutoFilterType> autoFilterType();
+	Property<@NonNull AutoFilterType> autoFilterTypeProperty();
 
 	/**
 	 * The auto filter matcher used to match elements
@@ -165,7 +165,7 @@ public interface GridColumn<R, C> {
 	 * @return the matcher property
 	 */
 	@NonNull
-	Property<@NonNull CellValueMatcher<@NonNull R, @Nullable C, @NonNull Object>> autoFilterMatcher();
+	Property<@NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull Object>> autoFilterMatcherFunctionProperty();
 
 	/**
 	 * Provides predefined filter values
@@ -176,7 +176,7 @@ public interface GridColumn<R, C> {
 	 * @return the provider property
 	 */
 	@NonNull
-	Property<@NonNull Supplier<@NonNull List<@NonNull Object>>> autoFilterDataProvider();
+	Property<@NonNull Supplier<@NonNull List<@NonNull Object>>> autoFilterDataSupplierProperty();
 
 	/**
 	 * Converts the predefined auto filter types as text
@@ -187,7 +187,7 @@ public interface GridColumn<R, C> {
 	 * @return the provider property
 	 */
 	@NonNull
-	Property<Function<@NonNull Object, @Nullable CharSequence>> autoFilterTextProvider();
+	Property<Function<@NonNull Object, @Nullable CharSequence>> autoFilterTextFunctionProperty();
 
 	/**
 	 * Property for the sort of this column
@@ -195,7 +195,7 @@ public interface GridColumn<R, C> {
 	 * @return the provider
 	 */
 	@NonNull
-	Property<@Nullable ColumnComparator<@NonNull R, @Nullable C>> sorter();
+	Property<@Nullable ColumnComparator<@NonNull R, @Nullable C>> sorterProperty();
 
 	/**
 	 * A function who accepts 3 arguments

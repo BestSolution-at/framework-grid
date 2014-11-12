@@ -58,12 +58,13 @@ public interface Grid<R, CP extends GridContentProvider<R>> {
 	 *
 	 * @param id
 	 *            the id of the column
-	 * @param cellValueProvider
-	 *            the cell value provider
+	 * @param cellValueFunction
+	 *            the cell value function
 	 * @return column instance
+	 * @see GridColumn#cellValueFunctionProperty()
 	 */
-	public <C> @NonNull GridColumn<@NonNull R, C> createColumn(String id,
-			@NonNull Function<@NonNull R, @Nullable C> cellValueProvider);
+	public <C> @NonNull GridColumn<@NonNull R, @Nullable C> createColumn(String id,
+			@NonNull Function<@NonNull R, @Nullable C> cellValueFunction);
 
 	/**
 	 * The selection mode.
