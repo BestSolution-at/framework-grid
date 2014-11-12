@@ -938,7 +938,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		// Initialize classes, features, and operations; add parameters
 		initEClass(mResourceBundleEClass, MResourceBundle.class, "MResourceBundle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMResourceBundle_Locale(), ecorePackage.getEString(), "locale", null, 0, 1, MResourceBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMResourceBundle_Entries(), this.getMResourceBundleEntry(), null, "entries", null, 0, 1, MResourceBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMResourceBundle_Entries(), this.getMResourceBundleEntry(), null, "entries", null, 0, -1, MResourceBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mResourceBundleEntryEClass, MResourceBundleEntry.class, "MResourceBundleEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMResourceBundleEntry_Key(), ecorePackage.getEString(), "key", null, 0, 1, MResourceBundleEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -948,7 +948,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		initEReference(getMGrid_Columns(), this.getMGridColumn(), null, "columns", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGrid_Configurations(), this.getMGridConfigurationSet(), null, "configurations", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGrid_DefaultConfiguration(), this.getMGridConfigurationSet(), null, "defaultConfiguration", null, 0, 1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMGrid_Resources(), this.getMResourceBundle(), null, "resources", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMGrid_Resources(), this.getMResourceBundle(), null, "resources", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mGridConfigurationSetEClass, MGridConfigurationSet.class, "MGridConfigurationSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMGridConfigurationSet_ViewConfiguration(), this.getMGridConfiguration(), null, "viewConfiguration", null, 0, 1, MGridConfigurationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -21,6 +21,7 @@
  */
 package at.bestsolution.framework.grid.model.grid;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -75,29 +76,19 @@ public interface MResourceBundle extends EObject {
 	void setLocale(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Entries</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Entries</b></em>' containment reference list.
+	 * The list contents are of type {@link at.bestsolution.framework.grid.model.grid.MResourceBundleEntry}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Entries</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Entries</em>' containment reference.
-	 * @see #setEntries(MResourceBundleEntry)
+	 * @return the value of the '<em>Entries</em>' containment reference list.
 	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMResourceBundle_Entries()
 	 * @model containment="true"
 	 * @generated
 	 */
-	MResourceBundleEntry getEntries();
-
-	/**
-	 * Sets the value of the '{@link at.bestsolution.framework.grid.model.grid.MResourceBundle#getEntries <em>Entries</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Entries</em>' containment reference.
-	 * @see #getEntries()
-	 * @generated
-	 */
-	void setEntries(MResourceBundleEntry value);
+	EList<MResourceBundleEntry> getEntries();
 
 } // MResourceBundle

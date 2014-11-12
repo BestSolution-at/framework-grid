@@ -25,14 +25,18 @@ import at.bestsolution.framework.grid.model.grid.GridPackage;
 import at.bestsolution.framework.grid.model.grid.MResourceBundle;
 import at.bestsolution.framework.grid.model.grid.MResourceBundleEntry;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -77,14 +81,14 @@ public class MResourceBundleImpl extends MinimalEObjectImpl.Container implements
 	protected String locale = LOCALE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getEntries() <em>Entries</em>}' containment reference.
+	 * The cached value of the '{@link #getEntries() <em>Entries</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getEntries()
 	 * @generated
 	 * @ordered
 	 */
-	protected MResourceBundleEntry entries;
+	protected EList<MResourceBundleEntry> entries;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -131,42 +135,11 @@ public class MResourceBundleImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MResourceBundleEntry getEntries() {
+	public EList<MResourceBundleEntry> getEntries() {
+		if (entries == null) {
+			entries = new EObjectContainmentEList<MResourceBundleEntry>(MResourceBundleEntry.class, this, GridPackage.MRESOURCE_BUNDLE__ENTRIES);
+		}
 		return entries;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetEntries(MResourceBundleEntry newEntries, NotificationChain msgs) {
-		MResourceBundleEntry oldEntries = entries;
-		entries = newEntries;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GridPackage.MRESOURCE_BUNDLE__ENTRIES, oldEntries, newEntries);
-			if (msgs == null) return notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEntries(MResourceBundleEntry newEntries) {
-		if (newEntries != entries) {
-			NotificationChain msgs = null;
-			if (entries != null)
-				msgs = ((InternalEObject)entries).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GridPackage.MRESOURCE_BUNDLE__ENTRIES, null, msgs);
-			if (newEntries != null)
-				msgs = ((InternalEObject)newEntries).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GridPackage.MRESOURCE_BUNDLE__ENTRIES, null, msgs);
-			msgs = basicSetEntries(newEntries, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GridPackage.MRESOURCE_BUNDLE__ENTRIES, newEntries, newEntries));
 	}
 
 	/**
@@ -178,7 +151,7 @@ public class MResourceBundleImpl extends MinimalEObjectImpl.Container implements
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GridPackage.MRESOURCE_BUNDLE__ENTRIES:
-				return basicSetEntries(null, msgs);
+				return ((InternalEList<?>)getEntries()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -204,6 +177,7 @@ public class MResourceBundleImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -211,7 +185,8 @@ public class MResourceBundleImpl extends MinimalEObjectImpl.Container implements
 				setLocale((String)newValue);
 				return;
 			case GridPackage.MRESOURCE_BUNDLE__ENTRIES:
-				setEntries((MResourceBundleEntry)newValue);
+				getEntries().clear();
+				getEntries().addAll((Collection<? extends MResourceBundleEntry>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -229,7 +204,7 @@ public class MResourceBundleImpl extends MinimalEObjectImpl.Container implements
 				setLocale(LOCALE_EDEFAULT);
 				return;
 			case GridPackage.MRESOURCE_BUNDLE__ENTRIES:
-				setEntries((MResourceBundleEntry)null);
+				getEntries().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -246,7 +221,7 @@ public class MResourceBundleImpl extends MinimalEObjectImpl.Container implements
 			case GridPackage.MRESOURCE_BUNDLE__LOCALE:
 				return LOCALE_EDEFAULT == null ? locale != null : !LOCALE_EDEFAULT.equals(locale);
 			case GridPackage.MRESOURCE_BUNDLE__ENTRIES:
-				return entries != null;
+				return entries != null && !entries.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

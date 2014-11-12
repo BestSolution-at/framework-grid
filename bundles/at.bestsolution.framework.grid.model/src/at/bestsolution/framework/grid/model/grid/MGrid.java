@@ -111,7 +111,7 @@ public interface MGrid extends EObject {
 	void setDefaultConfiguration(MGridConfigurationSet value);
 
 	/**
-	 * Returns the value of the '<em><b>Resources</b></em>' reference list.
+	 * Returns the value of the '<em><b>Resources</b></em>' containment reference list.
 	 * The list contents are of type {@link at.bestsolution.framework.grid.model.grid.MResourceBundle}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -119,9 +119,9 @@ public interface MGrid extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Resources</em>' reference list.
+	 * @return the value of the '<em>Resources</em>' containment reference list.
 	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGrid_Resources()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<MResourceBundle> getResources();

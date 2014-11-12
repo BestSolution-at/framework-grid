@@ -103,7 +103,7 @@ public interface GridPackage extends EPackage {
 	int MRESOURCE_BUNDLE__LOCALE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Entries</b></em>' containment reference.
+	 * The feature id for the '<em><b>Entries</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -213,7 +213,7 @@ public interface GridPackage extends EPackage {
 	int MGRID__DEFAULT_CONFIGURATION = 2;
 
 	/**
-	 * The feature id for the '<em><b>Resources</b></em>' reference list.
+	 * The feature id for the '<em><b>Resources</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -984,10 +984,10 @@ public interface GridPackage extends EPackage {
 	EAttribute getMResourceBundle_Locale();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link at.bestsolution.framework.grid.model.grid.MResourceBundle#getEntries <em>Entries</em>}'.
+	 * Returns the meta object for the containment reference list '{@link at.bestsolution.framework.grid.model.grid.MResourceBundle#getEntries <em>Entries</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Entries</em>'.
+	 * @return the meta object for the containment reference list '<em>Entries</em>'.
 	 * @see at.bestsolution.framework.grid.model.grid.MResourceBundle#getEntries()
 	 * @see #getMResourceBundle()
 	 * @generated
@@ -1070,10 +1070,10 @@ public interface GridPackage extends EPackage {
 	EReference getMGrid_DefaultConfiguration();
 
 	/**
-	 * Returns the meta object for the reference list '{@link at.bestsolution.framework.grid.model.grid.MGrid#getResources <em>Resources</em>}'.
+	 * Returns the meta object for the containment reference list '{@link at.bestsolution.framework.grid.model.grid.MGrid#getResources <em>Resources</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Resources</em>'.
+	 * @return the meta object for the containment reference list '<em>Resources</em>'.
 	 * @see at.bestsolution.framework.grid.model.grid.MGrid#getResources()
 	 * @see #getMGrid()
 	 * @generated
@@ -1597,7 +1597,7 @@ public interface GridPackage extends EPackage {
 		EAttribute MRESOURCE_BUNDLE__LOCALE = eINSTANCE.getMResourceBundle_Locale();
 
 		/**
-		 * The meta object literal for the '<em><b>Entries</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Entries</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1665,7 +1665,7 @@ public interface GridPackage extends EPackage {
 		EReference MGRID__DEFAULT_CONFIGURATION = eINSTANCE.getMGrid_DefaultConfiguration();
 
 		/**
-		 * The meta object literal for the '<em><b>Resources</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Resources</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

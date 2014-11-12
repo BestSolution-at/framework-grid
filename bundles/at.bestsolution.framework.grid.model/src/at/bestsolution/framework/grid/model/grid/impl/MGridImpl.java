@@ -26,22 +26,15 @@ import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MGridColumn;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationSet;
 import at.bestsolution.framework.grid.model.grid.MResourceBundle;
-
 import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -99,7 +92,7 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 	protected MGridConfigurationSet defaultConfiguration;
 
 	/**
-	 * The cached value of the '{@link #getResources() <em>Resources</em>}' reference list.
+	 * The cached value of the '{@link #getResources() <em>Resources</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getResources()
@@ -196,7 +189,7 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 	 */
 	public EList<MResourceBundle> getResources() {
 		if (resources == null) {
-			resources = new EObjectResolvingEList<MResourceBundle>(MResourceBundle.class, this, GridPackage.MGRID__RESOURCES);
+			resources = new EObjectContainmentEList<MResourceBundle>(MResourceBundle.class, this, GridPackage.MGRID__RESOURCES);
 		}
 		return resources;
 	}
@@ -213,6 +206,8 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 				return ((InternalEList<?>)getColumns()).basicRemove(otherEnd, msgs);
 			case GridPackage.MGRID__CONFIGURATIONS:
 				return ((InternalEList<?>)getConfigurations()).basicRemove(otherEnd, msgs);
+			case GridPackage.MGRID__RESOURCES:
+				return ((InternalEList<?>)getResources()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
