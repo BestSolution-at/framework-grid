@@ -62,6 +62,26 @@ public interface GridColumn<R, C> {
 	}
 
 	/**
+	 * Column alignment
+	 *
+	 * @since 1.0
+	 */
+	public enum Alignment {
+		/**
+		 * Left alignment
+		 */
+		LEFT,
+		/**
+		 * Center alignment
+		 */
+		CENTER,
+		/**
+		 * right alignment
+		 */
+		RIGHT
+	}
+
+	/**
 	 * The label property
 	 *
 	 * @return the label property
@@ -155,6 +175,17 @@ public interface GridColumn<R, C> {
 	 */
 	@NonNull
 	Property<@NonNull AutoFilterType> autoFilterTypeProperty();
+
+	/**
+	 * The alignment
+	 * <p>
+	 * Default alignment {@link Alignment#LEFT}
+	 * </p>
+	 *
+	 * @return the property
+	 */
+	@NonNull
+	Property<@NonNull Alignment> alignmentProperty();
 
 	/**
 	 * The auto filter matcher used to match elements

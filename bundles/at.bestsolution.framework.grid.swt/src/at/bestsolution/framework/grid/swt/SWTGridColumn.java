@@ -64,6 +64,8 @@ public class SWTGridColumn<R, C> implements GridColumn<R, C> {
 	@SuppressWarnings(value = "all")
 	private final @NonNull Property<@NonNull AutoFilterType> autoFilterTypeProperty = new SimpleProperty<>(
 			AutoFilterType.NONE);
+	private final @NonNull Property<@NonNull Alignment> alignmentProperty = new SimpleProperty<>(
+			Alignment.LEFT);
 	private final @NonNull Property<@NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull Object>> autoFilterMatcherProperty = new SimpleProperty<>(
 			Util.defaultToStringMatcher());
 	private final @NonNull Property<@NonNull Supplier<@NonNull List<@NonNull Object>>> autoFilterDataSupplierProperty = new SimpleProperty<>(
@@ -151,4 +153,8 @@ public class SWTGridColumn<R, C> implements GridColumn<R, C> {
 		return sorterProperty;
 	}
 
+	@Override
+	public @NonNull Property<@NonNull Alignment> alignmentProperty() {
+		return alignmentProperty;
+	}
 }
