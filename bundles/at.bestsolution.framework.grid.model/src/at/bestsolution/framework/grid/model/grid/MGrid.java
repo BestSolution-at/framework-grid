@@ -55,6 +55,7 @@ public interface MGrid extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Columns</b></em>' containment reference list.
 	 * The list contents are of type {@link at.bestsolution.framework.grid.model.grid.MGridColumn}.
+	 * It is bidirectional and its opposite is '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getGrid <em>Grid</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Columns</em>' containment reference list isn't clear,
@@ -63,7 +64,8 @@ public interface MGrid extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Columns</em>' containment reference list.
 	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGrid_Columns()
-	 * @model containment="true"
+	 * @see at.bestsolution.framework.grid.model.grid.MGridColumn#getGrid
+	 * @model opposite="grid" containment="true"
 	 * @generated
 	 */
 	EList<MGridColumn> getColumns();
@@ -71,6 +73,7 @@ public interface MGrid extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Configurations</b></em>' containment reference list.
 	 * The list contents are of type {@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet}.
+	 * It is bidirectional and its opposite is '{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getGrid <em>Grid</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Configurations</em>' containment reference list isn't clear,
@@ -79,7 +82,8 @@ public interface MGrid extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Configurations</em>' containment reference list.
 	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGrid_Configurations()
-	 * @model containment="true"
+	 * @see at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getGrid
+	 * @model opposite="grid" containment="true"
 	 * @generated
 	 */
 	EList<MGridConfigurationSet> getConfigurations();

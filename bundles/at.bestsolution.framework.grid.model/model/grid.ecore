@@ -13,9 +13,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MGrid">
     <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
-        eType="#//MGridColumn" containment="true"/>
+        eType="#//MGridColumn" containment="true" eOpposite="#//MGridColumn/grid"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="configurations" upperBound="-1"
-        eType="#//MGridConfigurationSet" containment="true"/>
+        eType="#//MGridConfigurationSet" containment="true" eOpposite="#//MGridConfigurationSet/grid"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultConfiguration" eType="#//MGridConfigurationSet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resources" upperBound="-1"
         eType="#//MResourceBundle" containment="true"/>
@@ -25,6 +25,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewSelectionMode" eType="#//MSelectionMode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="exportConfiguration" eType="#//MGridConfiguration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultSortColumn" eType="#//MGridColumn"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="grid" eType="#//MGrid"
+        eOpposite="#//MGrid/configurations"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MGridConfiguration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
@@ -35,6 +37,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MGridColumn">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="grid" eType="#//MGrid"
+        eOpposite="#//MGrid/columns"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="titleKey" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>

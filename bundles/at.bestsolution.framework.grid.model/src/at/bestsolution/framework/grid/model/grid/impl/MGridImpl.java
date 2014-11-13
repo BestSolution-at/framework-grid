@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -127,7 +128,7 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 	 */
 	public EList<MGridColumn> getColumns() {
 		if (columns == null) {
-			columns = new EObjectContainmentEList<MGridColumn>(MGridColumn.class, this, GridPackage.MGRID__COLUMNS);
+			columns = new EObjectContainmentWithInverseEList<MGridColumn>(MGridColumn.class, this, GridPackage.MGRID__COLUMNS, GridPackage.MGRID_COLUMN__GRID);
 		}
 		return columns;
 	}
@@ -139,7 +140,7 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 	 */
 	public EList<MGridConfigurationSet> getConfigurations() {
 		if (configurations == null) {
-			configurations = new EObjectContainmentEList<MGridConfigurationSet>(MGridConfigurationSet.class, this, GridPackage.MGRID__CONFIGURATIONS);
+			configurations = new EObjectContainmentWithInverseEList<MGridConfigurationSet>(MGridConfigurationSet.class, this, GridPackage.MGRID__CONFIGURATIONS, GridPackage.MGRID_CONFIGURATION_SET__GRID);
 		}
 		return configurations;
 	}
@@ -192,6 +193,23 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 			resources = new EObjectContainmentEList<MResourceBundle>(MResourceBundle.class, this, GridPackage.MGRID__RESOURCES);
 		}
 		return resources;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GridPackage.MGRID__COLUMNS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getColumns()).basicAdd(otherEnd, msgs);
+			case GridPackage.MGRID__CONFIGURATIONS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getConfigurations()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**

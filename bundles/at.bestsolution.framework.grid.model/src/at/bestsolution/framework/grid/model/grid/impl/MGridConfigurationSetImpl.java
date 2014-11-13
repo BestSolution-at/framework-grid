@@ -22,6 +22,7 @@
 package at.bestsolution.framework.grid.model.grid.impl;
 
 import at.bestsolution.framework.grid.model.grid.GridPackage;
+import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MGridColumn;
 import at.bestsolution.framework.grid.model.grid.MGridConfiguration;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationSet;
@@ -29,11 +30,13 @@ import at.bestsolution.framework.grid.model.grid.MSelectionMode;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,6 +49,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationSetImpl#getViewSelectionMode <em>View Selection Mode</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationSetImpl#getExportConfiguration <em>Export Configuration</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationSetImpl#getDefaultSortColumn <em>Default Sort Column</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationSetImpl#getGrid <em>Grid</em>}</li>
  * </ul>
  * </p>
  *
@@ -268,6 +272,91 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public MGrid getGrid() {
+		if (eContainerFeatureID() != GridPackage.MGRID_CONFIGURATION_SET__GRID) return null;
+		return (MGrid)eInternalContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetGrid(MGrid newGrid, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newGrid, GridPackage.MGRID_CONFIGURATION_SET__GRID, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGrid(MGrid newGrid) {
+		if (newGrid != eInternalContainer() || (eContainerFeatureID() != GridPackage.MGRID_CONFIGURATION_SET__GRID && newGrid != null)) {
+			if (EcoreUtil.isAncestor(this, newGrid))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newGrid != null)
+				msgs = ((InternalEObject)newGrid).eInverseAdd(this, GridPackage.MGRID__CONFIGURATIONS, MGrid.class, msgs);
+			msgs = basicSetGrid(newGrid, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GridPackage.MGRID_CONFIGURATION_SET__GRID, newGrid, newGrid));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetGrid((MGrid)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
+				return basicSetGrid(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
+				return eInternalContainer().eInverseRemove(this, GridPackage.MGRID__CONFIGURATIONS, MGrid.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -282,6 +371,8 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 			case GridPackage.MGRID_CONFIGURATION_SET__DEFAULT_SORT_COLUMN:
 				if (resolve) return getDefaultSortColumn();
 				return basicGetDefaultSortColumn();
+			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
+				return getGrid();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -305,6 +396,9 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 				return;
 			case GridPackage.MGRID_CONFIGURATION_SET__DEFAULT_SORT_COLUMN:
 				setDefaultSortColumn((MGridColumn)newValue);
+				return;
+			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
+				setGrid((MGrid)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -330,6 +424,9 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 			case GridPackage.MGRID_CONFIGURATION_SET__DEFAULT_SORT_COLUMN:
 				setDefaultSortColumn((MGridColumn)null);
 				return;
+			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
+				setGrid((MGrid)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -350,6 +447,8 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 				return exportConfiguration != null;
 			case GridPackage.MGRID_CONFIGURATION_SET__DEFAULT_SORT_COLUMN:
 				return defaultSortColumn != null;
+			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
+				return getGrid() != null;
 		}
 		return super.eIsSet(featureID);
 	}
