@@ -57,6 +57,10 @@ public interface ColumnComparator<R, C> {
 	 *
 	 * @param c
 	 *            the default comparator
+	 * @param <R>
+	 *            the row type
+	 * @param <C>
+	 *            the cell type
 	 * @return a column comparator
 	 */
 	public static <R, C> ColumnComparator<R, C> create(@NonNull Comparator<C> c) {

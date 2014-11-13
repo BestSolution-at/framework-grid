@@ -32,6 +32,9 @@
 
 		<!-- Features -->
 		<module>../../features/at.bestsolution.framework.grid.swt.feature</module>
+		<module>../../features/at.bestsolution.framework.grid.model.feature</module>
+
+		<module>../at.bestsolution.framework.grid.doc</module>
 
 		<!-- Repos -->
 		<module>../update-site</module>
@@ -47,22 +50,23 @@
 
 	<pluginRepositories>
 		<pluginRepository>
-			<id>tycho</id>
+			<id>tycho-sonatype</id>
 			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
 		<pluginRepository>
-      		<id>eclipse</id>
-      		<url>${eclipse-repo.url}</url>
-      		<releases>
-        		<enabled>true</enabled>
-      		</releases>
+      		<id>tycho</id>
+      		<url>https://repo.eclipse.org/content/repositories/tycho</url>
       		<snapshots>
         		<enabled>true</enabled>
       		</snapshots>
+      		<releases>
+      			<enabled>true</enabled>
+      		</releases>
     	</pluginRepository>
+
 	</pluginRepositories>
 
 	<build>

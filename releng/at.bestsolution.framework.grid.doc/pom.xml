@@ -1,0 +1,124 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<name>grid framework - Documentation</name>
+	<groupId>at.bestsolution.framework.grid</groupId>
+	<artifactId>at.bestsolution.framework.grid.doc</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>eclipse-plugin</packaging>
+
+	<parent>
+		<groupId>at.bestsolution.framework.grid</groupId>
+		<artifactId>releng</artifactId>
+		<relativePath>../root-releng/pom.xml</relativePath>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>at.bestsolution.framework.grid</groupId>
+			<artifactId>at.bestsolution.framework.grid.model.feature</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>at.bestsolution.framework.grid</groupId>
+			<artifactId>at.bestsolution.framework.grid.swt.feature</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<properties>
+		<doc.output.folder>${project.build.directory}/gen-doc/</doc.output.folder>
+	</properties>
+
+	<build>
+		<resources>
+			<!-- to ensure that the feature lookup of the ui test works -->
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>META-INF/</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-document-bundle-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<!-- Need to wait for tycho update -->
+				<!--  configuration>
+					<javadocOptions>
+						<additionalArguments>
+							<additionalArgument>-tag generated:X:""</additionalArgument>
+						</additionalArguments>
+					</javadocOptions>
+				</configuration-->
+				<executions>
+					<execution>
+						<id>javadoc</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>javadoc</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<additionalFileSets>
+						<fileSet>
+							<directory>${project.build.directory}/reference</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileSet>
+					</additionalFileSets>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>build-server</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>deploy</id>
+								<phase>install</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete includeemptydirs="false">
+											<fileset dir="${download-publish-path}">
+												<include name="**" />
+											</fileset>
+										</delete>
+										<copy includeemptydirs="false" todir="${download-publish-path}">
+											<fileset dir="target/reference">
+												<include name="**" />
+											</fileset>
+										</copy>
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="at.bestsolution.framework.grid.swt.feature"
-      label="SWT Grid"
+      id="at.bestsolution.framework.grid.model.feature"
+      label="Modeled Grid"
       version="1.0.0.qualifier"
       provider-name="BestSolution.at">
 
    <description url="http://www.example.com/description">
-      SWT Grid implementation
+	Grid model
    </description>
 
    <copyright url="http://www.example.com/copyright">
@@ -38,25 +38,5 @@ from DI Christoph Hermann - InformationsTechnologie Beratung Hermann
  See the License for the specific language governing permissions and
  limitations under the License.
    </license>
-
-   <plugin
-         id="at.bestsolution.framework.grid"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="at.bestsolution.framework.grid.swt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="at.bestsolution.framework.grid.model"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
 </feature>

@@ -31,6 +31,7 @@ package at.bestsolution.framework.grid.func;
  *            the return type
  * @since 1.0
  */
+@FunctionalInterface
 public interface CellDataFunction<R, C, D> {
 	/**
 	 * Apply the function on the value

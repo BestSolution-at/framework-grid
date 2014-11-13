@@ -41,7 +41,7 @@ public interface GridContentProvider<R> {
 	 * @param index
 	 *            the index
 	 * @return the element
-	 * @throws IllegalArgumentException if index is negative or index >= {@link #size()}
+	 * @throws IllegalArgumentException if index is negative or index &gt;= {@link #size()}
 	 */
 	public @NonNull R getElementAt(int index) throws IllegalArgumentException;
 
