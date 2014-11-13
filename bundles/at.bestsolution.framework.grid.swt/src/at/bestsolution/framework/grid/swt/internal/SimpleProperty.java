@@ -42,7 +42,8 @@ public class SimpleProperty<T> implements Property<T> {
 	}
 
 	/**
-	 * @param initialValue the initial value
+	 * @param initialValue
+	 *            the initial value
 	 */
 	public SimpleProperty(T initialValue) {
 		this.value = initialValue;
@@ -51,7 +52,11 @@ public class SimpleProperty<T> implements Property<T> {
 	@Override
 	public void set(T value) {
 		checkDisposed();
+		T oldValue = this.value;
 		this.value = value;
+		for (ChangeListener<T> listener : listenerList) {
+			listener.valueChanged(this, oldValue, value);
+		}
 	}
 
 	@Override
@@ -82,5 +87,4 @@ public class SimpleProperty<T> implements Property<T> {
 		checkDisposed();
 		listenerList.remove(listener);
 	}
-
 }
