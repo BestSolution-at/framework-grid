@@ -99,11 +99,11 @@
 								<configuration>
 									<tasks>
 										<delete includeemptydirs="false">
-											<fileset dir="${download-publish-path}">
+											<fileset dir="${download-publish-path}/repos">
 												<include name="**" />
 											</fileset>
 										</delete>
-										<copy includeemptydirs="false" todir="${download-publish-path}">
+										<copy includeemptydirs="false" todir="${download-publish-path}/repos">
 											<fileset dir="target">
 												<include name="**" />
 											</fileset>

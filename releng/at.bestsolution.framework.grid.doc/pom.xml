@@ -103,11 +103,11 @@
 								<configuration>
 									<tasks>
 										<delete includeemptydirs="false">
-											<fileset dir="${download-publish-path}">
+											<fileset dir="${download-publish-path}/javadoc">
 												<include name="**" />
 											</fileset>
 										</delete>
-										<copy includeemptydirs="false" todir="${download-publish-path}">
+										<copy includeemptydirs="false" todir="${download-publish-path}/javadoc">
 											<fileset dir="target/reference">
 												<include name="**" />
 											</fileset>
