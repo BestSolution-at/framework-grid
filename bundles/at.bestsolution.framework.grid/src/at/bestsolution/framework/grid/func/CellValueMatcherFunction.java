@@ -31,6 +31,7 @@ package at.bestsolution.framework.grid.func;
  *            the filter data
  * @since 1.0
  */
+@FunctionalInterface
 public interface CellValueMatcherFunction<R, C, O> {
 	/**
 	 * Try to match the cell value

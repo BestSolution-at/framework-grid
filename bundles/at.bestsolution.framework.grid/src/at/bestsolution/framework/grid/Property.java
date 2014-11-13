@@ -70,6 +70,7 @@ public interface Property<T> {
 	 * @param <T>
 	 *            the type
 	 */
+	@FunctionalInterface
 	public interface ChangeListener<T> {
 		/**
 		 * Handle the changed value
