@@ -103,7 +103,7 @@ public interface GridPackage extends EPackage {
 	int MRESOURCE_BUNDLE__LOCALE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Entries</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Entries</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -286,13 +286,22 @@ public interface GridPackage extends EPackage {
 	int MGRID_CONFIGURATION_SET__DEFAULT_SORT_COLUMN = 3;
 
 	/**
+	 * The feature id for the '<em><b>Grid</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MGRID_CONFIGURATION_SET__GRID = 4;
+
+	/**
 	 * The number of structural features of the '<em>MGrid Configuration Set</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_CONFIGURATION_SET_FEATURE_COUNT = 4;
+	int MGRID_CONFIGURATION_SET_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>MGrid Configuration Set</em>' class.
@@ -397,13 +406,22 @@ public interface GridPackage extends EPackage {
 	int MGRID_COLUMN__ID = 0;
 
 	/**
+	 * The feature id for the '<em><b>Grid</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MGRID_COLUMN__GRID = 1;
+
+	/**
 	 * The feature id for the '<em><b>Title Key</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__TITLE_KEY = 1;
+	int MGRID_COLUMN__TITLE_KEY = 2;
 
 	/**
 	 * The feature id for the '<em><b>Width</b></em>' attribute.
@@ -412,7 +430,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__WIDTH = 2;
+	int MGRID_COLUMN__WIDTH = 3;
 
 	/**
 	 * The feature id for the '<em><b>Min Width</b></em>' attribute.
@@ -421,7 +439,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__MIN_WIDTH = 3;
+	int MGRID_COLUMN__MIN_WIDTH = 4;
 
 	/**
 	 * The feature id for the '<em><b>Max Width</b></em>' attribute.
@@ -430,7 +448,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__MAX_WIDTH = 4;
+	int MGRID_COLUMN__MAX_WIDTH = 5;
 
 	/**
 	 * The feature id for the '<em><b>Auto Width</b></em>' attribute.
@@ -439,7 +457,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__AUTO_WIDTH = 5;
+	int MGRID_COLUMN__AUTO_WIDTH = 6;
 
 	/**
 	 * The feature id for the '<em><b>Cell Value Function</b></em>' containment reference.
@@ -448,7 +466,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__CELL_VALUE_FUNCTION = 6;
+	int MGRID_COLUMN__CELL_VALUE_FUNCTION = 7;
 
 	/**
 	 * The feature id for the '<em><b>Cell Text Function</b></em>' containment reference.
@@ -457,7 +475,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__CELL_TEXT_FUNCTION = 7;
+	int MGRID_COLUMN__CELL_TEXT_FUNCTION = 8;
 
 	/**
 	 * The feature id for the '<em><b>Alignment</b></em>' attribute.
@@ -466,7 +484,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__ALIGNMENT = 8;
+	int MGRID_COLUMN__ALIGNMENT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Auto Filter Configuration</b></em>' containment reference.
@@ -475,7 +493,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__AUTO_FILTER_CONFIGURATION = 9;
+	int MGRID_COLUMN__AUTO_FILTER_CONFIGURATION = 10;
 
 	/**
 	 * The number of structural features of the '<em>MGrid Column</em>' class.
@@ -484,7 +502,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN_FEATURE_COUNT = 10;
+	int MGRID_COLUMN_FEATURE_COUNT = 11;
 
 	/**
 	 * The number of operations of the '<em>MGrid Column</em>' class.
@@ -984,10 +1002,10 @@ public interface GridPackage extends EPackage {
 	EAttribute getMResourceBundle_Locale();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link at.bestsolution.framework.grid.model.grid.MResourceBundle#getEntries <em>Entries</em>}'.
+	 * Returns the meta object for the containment reference '{@link at.bestsolution.framework.grid.model.grid.MResourceBundle#getEntries <em>Entries</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Entries</em>'.
+	 * @return the meta object for the containment reference '<em>Entries</em>'.
 	 * @see at.bestsolution.framework.grid.model.grid.MResourceBundle#getEntries()
 	 * @see #getMResourceBundle()
 	 * @generated
@@ -1135,6 +1153,17 @@ public interface GridPackage extends EPackage {
 	EReference getMGridConfigurationSet_DefaultSortColumn();
 
 	/**
+	 * Returns the meta object for the container reference '{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getGrid <em>Grid</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Grid</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getGrid()
+	 * @see #getMGridConfigurationSet()
+	 * @generated
+	 */
+	EReference getMGridConfigurationSet_Grid();
+
+	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MGridConfiguration <em>MGrid Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1196,6 +1225,17 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getMGridColumn_Id();
+
+	/**
+	 * Returns the meta object for the container reference '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getGrid <em>Grid</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Grid</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MGridColumn#getGrid()
+	 * @see #getMGridColumn()
+	 * @generated
+	 */
+	EReference getMGridColumn_Grid();
 
 	/**
 	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getTitleKey <em>Title Key</em>}'.
@@ -1597,7 +1637,7 @@ public interface GridPackage extends EPackage {
 		EAttribute MRESOURCE_BUNDLE__LOCALE = eINSTANCE.getMResourceBundle_Locale();
 
 		/**
-		 * The meta object literal for the '<em><b>Entries</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Entries</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1715,6 +1755,14 @@ public interface GridPackage extends EPackage {
 		EReference MGRID_CONFIGURATION_SET__DEFAULT_SORT_COLUMN = eINSTANCE.getMGridConfigurationSet_DefaultSortColumn();
 
 		/**
+		 * The meta object literal for the '<em><b>Grid</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MGRID_CONFIGURATION_SET__GRID = eINSTANCE.getMGridConfigurationSet_Grid();
+
+		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationImpl <em>MGrid Configuration</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1767,6 +1815,14 @@ public interface GridPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MGRID_COLUMN__ID = eINSTANCE.getMGridColumn_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Grid</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MGRID_COLUMN__GRID = eINSTANCE.getMGridColumn_Grid();
 
 		/**
 		 * The meta object literal for the '<em><b>Title Key</b></em>' attribute feature.

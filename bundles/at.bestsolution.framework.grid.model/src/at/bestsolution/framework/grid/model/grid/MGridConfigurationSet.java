@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getViewSelectionMode <em>View Selection Mode</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getExportConfiguration <em>Export Configuration</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getDefaultSortColumn <em>Default Sort Column</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getGrid <em>Grid</em>}</li>
  * </ul>
  * </p>
  *
@@ -156,5 +157,33 @@ public interface MGridConfigurationSet extends EObject {
 	 * @generated
 	 */
 	void setDefaultSortColumn(MGridColumn value);
+
+	/**
+	 * Returns the value of the '<em><b>Grid</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link at.bestsolution.framework.grid.model.grid.MGrid#getConfigurations <em>Configurations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Grid</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Grid</em>' container reference.
+	 * @see #setGrid(MGrid)
+	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGridConfigurationSet_Grid()
+	 * @see at.bestsolution.framework.grid.model.grid.MGrid#getConfigurations
+	 * @model opposite="configurations" transient="false"
+	 * @generated
+	 */
+	MGrid getGrid();
+
+	/**
+	 * Sets the value of the '{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getGrid <em>Grid</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Grid</em>' container reference.
+	 * @see #getGrid()
+	 * @generated
+	 */
+	void setGrid(MGrid value);
 
 } // MGridConfigurationSet

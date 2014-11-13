@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getId <em>Id</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getGrid <em>Grid</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getTitleKey <em>Title Key</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getWidth <em>Width</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getMinWidth <em>Min Width</em>}</li>
@@ -81,6 +82,34 @@ public interface MGridColumn extends EObject {
 	 * @generated
 	 */
 	void setId(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Grid</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link at.bestsolution.framework.grid.model.grid.MGrid#getColumns <em>Columns</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Grid</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Grid</em>' container reference.
+	 * @see #setGrid(MGrid)
+	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGridColumn_Grid()
+	 * @see at.bestsolution.framework.grid.model.grid.MGrid#getColumns
+	 * @model opposite="columns" transient="false"
+	 * @generated
+	 */
+	MGrid getGrid();
+
+	/**
+	 * Sets the value of the '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getGrid <em>Grid</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Grid</em>' container reference.
+	 * @see #getGrid()
+	 * @generated
+	 */
+	void setGrid(MGrid value);
 
 	/**
 	 * Returns the value of the '<em><b>Title Key</b></em>' attribute.

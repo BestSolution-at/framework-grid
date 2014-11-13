@@ -26,6 +26,7 @@ import at.bestsolution.framework.grid.model.grid.MAlignment;
 import at.bestsolution.framework.grid.model.grid.MAutoFilterConfiguration;
 import at.bestsolution.framework.grid.model.grid.MCellTextFunction;
 import at.bestsolution.framework.grid.model.grid.MCellValueFunction;
+import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MGridColumn;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -36,6 +37,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,6 +47,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getId <em>Id</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getGrid <em>Grid</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getTitleKey <em>Title Key</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getWidth <em>Width</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getMinWidth <em>Min Width</em>}</li>
@@ -282,6 +285,47 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public MGrid getGrid() {
+		if (eContainerFeatureID() != GridPackage.MGRID_COLUMN__GRID) return null;
+		return (MGrid)eInternalContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetGrid(MGrid newGrid, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newGrid, GridPackage.MGRID_COLUMN__GRID, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGrid(MGrid newGrid) {
+		if (newGrid != eInternalContainer() || (eContainerFeatureID() != GridPackage.MGRID_COLUMN__GRID && newGrid != null)) {
+			if (EcoreUtil.isAncestor(this, newGrid))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newGrid != null)
+				msgs = ((InternalEObject)newGrid).eInverseAdd(this, GridPackage.MGRID__COLUMNS, MGrid.class, msgs);
+			msgs = basicSetGrid(newGrid, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GridPackage.MGRID_COLUMN__GRID, newGrid, newGrid));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getTitleKey() {
 		return titleKey;
 	}
@@ -401,7 +445,7 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 		cellValueFunction = newCellValueFunction;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GridPackage.MGRID_COLUMN__CELL_VALUE_FUNCTION, oldCellValueFunction, newCellValueFunction);
-			if (msgs == null) return notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -444,7 +488,7 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 		cellTextFunction = newCellTextFunction;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GridPackage.MGRID_COLUMN__CELL_TEXT_FUNCTION, oldCellTextFunction, newCellTextFunction);
-			if (msgs == null) return notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -508,7 +552,7 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 		autoFilterConfiguration = newAutoFilterConfiguration;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GridPackage.MGRID_COLUMN__AUTO_FILTER_CONFIGURATION, oldAutoFilterConfiguration, newAutoFilterConfiguration);
-			if (msgs == null) return notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -538,8 +582,26 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GridPackage.MGRID_COLUMN__GRID:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetGrid((MGrid)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GridPackage.MGRID_COLUMN__GRID:
+				return basicSetGrid(null, msgs);
 			case GridPackage.MGRID_COLUMN__CELL_VALUE_FUNCTION:
 				return basicSetCellValueFunction(null, msgs);
 			case GridPackage.MGRID_COLUMN__CELL_TEXT_FUNCTION:
@@ -556,10 +618,26 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case GridPackage.MGRID_COLUMN__GRID:
+				return eInternalContainer().eInverseRemove(this, GridPackage.MGRID__COLUMNS, MGrid.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GridPackage.MGRID_COLUMN__ID:
 				return getId();
+			case GridPackage.MGRID_COLUMN__GRID:
+				return getGrid();
 			case GridPackage.MGRID_COLUMN__TITLE_KEY:
 				return getTitleKey();
 			case GridPackage.MGRID_COLUMN__WIDTH:
@@ -592,6 +670,9 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 		switch (featureID) {
 			case GridPackage.MGRID_COLUMN__ID:
 				setId((String)newValue);
+				return;
+			case GridPackage.MGRID_COLUMN__GRID:
+				setGrid((MGrid)newValue);
 				return;
 			case GridPackage.MGRID_COLUMN__TITLE_KEY:
 				setTitleKey((String)newValue);
@@ -635,6 +716,9 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 			case GridPackage.MGRID_COLUMN__ID:
 				setId(ID_EDEFAULT);
 				return;
+			case GridPackage.MGRID_COLUMN__GRID:
+				setGrid((MGrid)null);
+				return;
 			case GridPackage.MGRID_COLUMN__TITLE_KEY:
 				setTitleKey(TITLE_KEY_EDEFAULT);
 				return;
@@ -676,6 +760,8 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 		switch (featureID) {
 			case GridPackage.MGRID_COLUMN__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case GridPackage.MGRID_COLUMN__GRID:
+				return getGrid() != null;
 			case GridPackage.MGRID_COLUMN__TITLE_KEY:
 				return TITLE_KEY_EDEFAULT == null ? titleKey != null : !TITLE_KEY_EDEFAULT.equals(titleKey);
 			case GridPackage.MGRID_COLUMN__WIDTH:
