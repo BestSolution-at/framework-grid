@@ -32,7 +32,7 @@ import org.eclipse.jdt.annotation.Nullable;
  *            the cell type
  * @since 1.0
  */
-public class GridCell<R, C> {
+public final class GridCell<R, C> {
 	/**
 	 * The row value
 	 */
