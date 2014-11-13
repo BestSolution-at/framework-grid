@@ -3,5 +3,8 @@
    <feature url="features/at.bestsolution.framework.grid.swt.feature_1.0.0.qualifier.jar" id="at.bestsolution.framework.grid.swt.feature" version="1.0.0.qualifier">
       <category name="besogrid"/>
    </feature>
+   <feature url="features/at.bestsolution.framework.grid.model.feature_1.0.0.qualifier.jar" id="at.bestsolution.framework.grid.model.feature" version="1.0.0.qualifier">
+      <category name="besogrid"/>
+   </feature>
    <category-def name="besogrid" label="Grid Framework"/>
 </site>

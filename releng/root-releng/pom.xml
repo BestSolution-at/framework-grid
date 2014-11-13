@@ -32,6 +32,7 @@
 
 		<!-- Features -->
 		<module>../../features/at.bestsolution.framework.grid.swt.feature</module>
+		<module>../../features/at.bestsolution.framework.grid.model.feature</module>
 
 		<!-- Repos -->
 		<module>../update-site</module>
