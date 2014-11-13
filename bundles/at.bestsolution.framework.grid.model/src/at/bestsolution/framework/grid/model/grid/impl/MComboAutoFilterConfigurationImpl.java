@@ -182,7 +182,7 @@ public class MComboAutoFilterConfigurationImpl extends MAutoFilterConfigurationI
 		cellTextFunction = newCellTextFunction;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GridPackage.MCOMBO_AUTO_FILTER_CONFIGURATION__CELL_TEXT_FUNCTION, oldCellTextFunction, newCellTextFunction);
-			if (msgs == null) return notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
 	}

@@ -958,7 +958,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		// Initialize classes, features, and operations; add parameters
 		initEClass(mResourceBundleEClass, MResourceBundle.class, "MResourceBundle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMResourceBundle_Locale(), ecorePackage.getEString(), "locale", null, 0, 1, MResourceBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMResourceBundle_Entries(), this.getMResourceBundleEntry(), null, "entries", null, 0, 1, MResourceBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMResourceBundle_Entries(), this.getMResourceBundleEntry(), null, "entries", null, 0, -1, MResourceBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mResourceBundleEntryEClass, MResourceBundleEntry.class, "MResourceBundleEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMResourceBundleEntry_Key(), ecorePackage.getEString(), "key", null, 0, 1, MResourceBundleEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
