@@ -53,6 +53,6 @@ public class ListGridContentProvider<@NonNull R> implements
 
 	@Override
 	public @NonNull R getElementAt(int index) throws IllegalArgumentException {
-		return data.get(0);
+		return data.get(index);
 	}
 }
