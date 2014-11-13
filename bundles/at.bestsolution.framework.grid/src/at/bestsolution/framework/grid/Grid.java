@@ -60,10 +60,13 @@ public interface Grid<R, CP extends GridContentProvider<R>> {
 	 *            the id of the column
 	 * @param cellValueFunction
 	 *            the cell value function
+	 * @param <C>
+	 *            the cell type
 	 * @return column instance
 	 * @see GridColumn#cellValueFunctionProperty()
 	 */
-	public <C> @NonNull GridColumn<@NonNull R, @Nullable C> createColumn(String id,
+	public <C> @NonNull GridColumn<@NonNull R, @Nullable C> createColumn(
+			String id,
 			@NonNull Function<@NonNull R, @Nullable C> cellValueFunction);
 
 	/**
@@ -134,6 +137,8 @@ public interface Grid<R, CP extends GridContentProvider<R>> {
 		public boolean isEmpty();
 
 		/**
+		 * @param <C>
+		 *            the cell type
 		 * @return retrieve as cell selection
 		 */
 		public <C> @NonNull Selection<R, GridCell<R, C>> asCellSelection();

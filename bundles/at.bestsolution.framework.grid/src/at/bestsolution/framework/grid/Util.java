@@ -63,6 +63,8 @@ public class Util {
 	}
 
 	/**
+	 * @param <R>
+	 *            the row type
 	 * @return an empty selection
 	 */
 	public static <R> @NonNull Selection<R, R> emptySelection() {
@@ -70,6 +72,12 @@ public class Util {
 	}
 
 	/**
+	 * @param <R>
+	 *            the row type
+	 * @param <C>
+	 *            the cell type
+	 * @param <D>
+	 *            the expected return type
 	 * @return cell data function who always return null
 	 */
 	public static <R, C, D> @NonNull CellDataFunction<R, C, @Nullable D> nullCellDataFunction() {
@@ -83,6 +91,10 @@ public class Util {
 	}
 
 	/**
+	 * @param <R>
+	 *            the row type
+	 * @param <C>
+	 *            the cell type
 	 * @return cell data function who returns the toString value of the cell
 	 *         value or <code>null</code>
 	 */
@@ -97,6 +109,12 @@ public class Util {
 	}
 
 	/**
+	 * @param <R>
+	 *            the row type
+	 * @param <C>
+	 *            the cell type
+	 * @param <O>
+	 *            the filter value type
 	 * @return matcher function who compares the string value
 	 */
 	public static <R, C, O> @NonNull CellValueMatcherFunction<R, @Nullable C, @NonNull O> defaultToStringMatcher() {
@@ -114,6 +132,8 @@ public class Util {
 	}
 
 	/**
+	 * @param <O>
+	 *            the list element type
 	 * @return supplier of empty list
 	 */
 	public static <O> @NonNull Supplier<@NonNull List<@NonNull O>> emptyListSupplier() {
@@ -128,6 +148,8 @@ public class Util {
 	}
 
 	/**
+	 * @param <O>
+	 *            the value type
 	 * @return to string representation of value
 	 */
 	public static <O> @NonNull Function<@NonNull O, @Nullable CharSequence> defaultToStringFunction() {
