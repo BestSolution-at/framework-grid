@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMF Grid Configuration
+Bundle-SymbolicName: at.bestsolution.framework.grid.emf
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: at.bestsolution.framework.grid,
+ at.bestsolution.framework.grid.func
+Require-Bundle: at.bestsolution.framework.grid.model;bundle-version="1.0.0",
+ org.eclipse.jdt.annotation;bundle-version="2.0.0",
+ org.eclipse.emf.common
+Export-Package: at.bestsolution.framework.grid.emf
