@@ -142,8 +142,20 @@ public class GridAdapterFactory extends AdapterFactoryImpl {
 				return createMCellTextFunctionAdapter();
 			}
 			@Override
-			public Adapter caseMLocalizedCellTextFunction(MLocalizedCellTextFunction object) {
-				return createMLocalizedCellTextFunctionAdapter();
+			public Adapter caseMFormattedCellTextFunction(MFormattedCellTextFunction object) {
+				return createMFormattedCellTextFunctionAdapter();
+			}
+			@Override
+			public Adapter caseMPattern(MPattern object) {
+				return createMPatternAdapter();
+			}
+			@Override
+			public Adapter caseMStringPattern(MStringPattern object) {
+				return createMStringPatternAdapter();
+			}
+			@Override
+			public Adapter caseMReferencePattern(MReferencePattern object) {
+				return createMReferencePatternAdapter();
 			}
 			@Override
 			public Adapter caseMAutoFilterConfiguration(MAutoFilterConfiguration object) {
@@ -358,16 +370,58 @@ public class GridAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link at.bestsolution.framework.grid.model.grid.MLocalizedCellTextFunction <em>MLocalized Cell Text Function</em>}'.
+	 * Creates a new adapter for an object of class '{@link at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction <em>MFormatted Cell Text Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see at.bestsolution.framework.grid.model.grid.MLocalizedCellTextFunction
+	 * @see at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction
 	 * @generated
 	 */
-	public Adapter createMLocalizedCellTextFunctionAdapter() {
+	public Adapter createMFormattedCellTextFunctionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link at.bestsolution.framework.grid.model.grid.MPattern <em>MPattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see at.bestsolution.framework.grid.model.grid.MPattern
+	 * @generated
+	 */
+	public Adapter createMPatternAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link at.bestsolution.framework.grid.model.grid.MStringPattern <em>MString Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see at.bestsolution.framework.grid.model.grid.MStringPattern
+	 * @generated
+	 */
+	public Adapter createMStringPatternAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link at.bestsolution.framework.grid.model.grid.MReferencePattern <em>MReference Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see at.bestsolution.framework.grid.model.grid.MReferencePattern
+	 * @generated
+	 */
+	public Adapter createMReferencePatternAdapter() {
 		return null;
 	}
 

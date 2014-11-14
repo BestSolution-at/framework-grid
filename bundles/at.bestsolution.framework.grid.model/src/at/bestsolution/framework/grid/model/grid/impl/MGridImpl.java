@@ -24,6 +24,7 @@ package at.bestsolution.framework.grid.model.grid.impl;
 import at.bestsolution.framework.grid.model.grid.GridPackage;
 import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MGridColumn;
+import at.bestsolution.framework.grid.model.grid.MGridConfiguration;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationSet;
 import at.bestsolution.framework.grid.model.grid.MResourceBundle;
 import java.util.Collection;
@@ -47,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridImpl#getColumns <em>Columns</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridImpl#getConfigurations <em>Configurations</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridImpl#getConfigurationSets <em>Configuration Sets</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridImpl#getDefaultConfiguration <em>Default Configuration</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridImpl#getResources <em>Resources</em>}</li>
  * </ul>
@@ -80,7 +82,17 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<MGridConfigurationSet> configurations;
+	protected EList<MGridConfiguration> configurations;
+
+	/**
+	 * The cached value of the '{@link #getConfigurationSets() <em>Configuration Sets</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConfigurationSets()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MGridConfigurationSet> configurationSets;
 
 	/**
 	 * The cached value of the '{@link #getDefaultConfiguration() <em>Default Configuration</em>}' reference.
@@ -138,11 +150,23 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<MGridConfigurationSet> getConfigurations() {
+	public EList<MGridConfiguration> getConfigurations() {
 		if (configurations == null) {
-			configurations = new EObjectContainmentWithInverseEList<MGridConfigurationSet>(MGridConfigurationSet.class, this, GridPackage.MGRID__CONFIGURATIONS, GridPackage.MGRID_CONFIGURATION_SET__GRID);
+			configurations = new EObjectContainmentEList<MGridConfiguration>(MGridConfiguration.class, this, GridPackage.MGRID__CONFIGURATIONS);
 		}
 		return configurations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<MGridConfigurationSet> getConfigurationSets() {
+		if (configurationSets == null) {
+			configurationSets = new EObjectContainmentWithInverseEList<MGridConfigurationSet>(MGridConfigurationSet.class, this, GridPackage.MGRID__CONFIGURATION_SETS, GridPackage.MGRID_CONFIGURATION_SET__GRID);
+		}
+		return configurationSets;
 	}
 
 	/**
@@ -206,8 +230,8 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 		switch (featureID) {
 			case GridPackage.MGRID__COLUMNS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getColumns()).basicAdd(otherEnd, msgs);
-			case GridPackage.MGRID__CONFIGURATIONS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getConfigurations()).basicAdd(otherEnd, msgs);
+			case GridPackage.MGRID__CONFIGURATION_SETS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getConfigurationSets()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -224,6 +248,8 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 				return ((InternalEList<?>)getColumns()).basicRemove(otherEnd, msgs);
 			case GridPackage.MGRID__CONFIGURATIONS:
 				return ((InternalEList<?>)getConfigurations()).basicRemove(otherEnd, msgs);
+			case GridPackage.MGRID__CONFIGURATION_SETS:
+				return ((InternalEList<?>)getConfigurationSets()).basicRemove(otherEnd, msgs);
 			case GridPackage.MGRID__RESOURCES:
 				return ((InternalEList<?>)getResources()).basicRemove(otherEnd, msgs);
 		}
@@ -242,6 +268,8 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 				return getColumns();
 			case GridPackage.MGRID__CONFIGURATIONS:
 				return getConfigurations();
+			case GridPackage.MGRID__CONFIGURATION_SETS:
+				return getConfigurationSets();
 			case GridPackage.MGRID__DEFAULT_CONFIGURATION:
 				if (resolve) return getDefaultConfiguration();
 				return basicGetDefaultConfiguration();
@@ -266,7 +294,11 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 				return;
 			case GridPackage.MGRID__CONFIGURATIONS:
 				getConfigurations().clear();
-				getConfigurations().addAll((Collection<? extends MGridConfigurationSet>)newValue);
+				getConfigurations().addAll((Collection<? extends MGridConfiguration>)newValue);
+				return;
+			case GridPackage.MGRID__CONFIGURATION_SETS:
+				getConfigurationSets().clear();
+				getConfigurationSets().addAll((Collection<? extends MGridConfigurationSet>)newValue);
 				return;
 			case GridPackage.MGRID__DEFAULT_CONFIGURATION:
 				setDefaultConfiguration((MGridConfigurationSet)newValue);
@@ -293,6 +325,9 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 			case GridPackage.MGRID__CONFIGURATIONS:
 				getConfigurations().clear();
 				return;
+			case GridPackage.MGRID__CONFIGURATION_SETS:
+				getConfigurationSets().clear();
+				return;
 			case GridPackage.MGRID__DEFAULT_CONFIGURATION:
 				setDefaultConfiguration((MGridConfigurationSet)null);
 				return;
@@ -315,6 +350,8 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 				return columns != null && !columns.isEmpty();
 			case GridPackage.MGRID__CONFIGURATIONS:
 				return configurations != null && !configurations.isEmpty();
+			case GridPackage.MGRID__CONFIGURATION_SETS:
+				return configurationSets != null && !configurationSets.isEmpty();
 			case GridPackage.MGRID__DEFAULT_CONFIGURATION:
 				return defaultConfiguration != null;
 			case GridPackage.MGRID__RESOURCES:

@@ -15,6 +15,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
         eType="#//MGridColumn" containment="true" eOpposite="#//MGridColumn/grid"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="configurations" upperBound="-1"
+        eType="#//MGridConfiguration" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="configurationSets" upperBound="-1"
         eType="#//MGridConfigurationSet" containment="true" eOpposite="#//MGridConfigurationSet/grid"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultConfiguration" eType="#//MGridConfigurationSet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resources" upperBound="-1"
@@ -26,7 +28,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="exportConfiguration" eType="#//MGridConfiguration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultSortColumn" eType="#//MGridColumn"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="grid" eType="#//MGrid"
-        eOpposite="#//MGrid/configurations"/>
+        eOpposite="#//MGrid/configurationSets"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MGridConfiguration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
@@ -62,8 +64,21 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="attributeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MCellTextFunction" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MLocalizedCellTextFunction" eSuperTypes="#//MCellTextFunction">
+  <eClassifiers xsi:type="ecore:EClass" name="MFormattedCellTextFunction" eSuperTypes="#//MCellTextFunction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatType" eType="#//MFormatType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pattern" eType="#//MPattern"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MFormatType">
+    <eLiterals name="NUMBER"/>
+    <eLiterals name="DATE" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MPattern" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MStringPattern" eSuperTypes="#//MPattern">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MReferencePattern" eSuperTypes="#//MPattern">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="patternKey" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MAutoFilterConfiguration" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="MComboAutoFilterConfiguration" eSuperTypes="#//MAutoFilterConfiguration">

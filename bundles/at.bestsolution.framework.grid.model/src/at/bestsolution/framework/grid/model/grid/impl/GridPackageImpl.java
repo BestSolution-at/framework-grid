@@ -32,27 +32,29 @@ import at.bestsolution.framework.grid.model.grid.MCellValueFunction;
 import at.bestsolution.framework.grid.model.grid.MComboAutoFilterConfiguration;
 import at.bestsolution.framework.grid.model.grid.MDefaultAutoFilterEntry;
 import at.bestsolution.framework.grid.model.grid.MDefaultAutoFilterEntryType;
+import at.bestsolution.framework.grid.model.grid.MFormatType;
+import at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction;
 import at.bestsolution.framework.grid.model.grid.MFreeTextAutoFilterConfiguration;
 import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MGridColumn;
 import at.bestsolution.framework.grid.model.grid.MGridConfiguration;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationColumn;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationSet;
-import at.bestsolution.framework.grid.model.grid.MLocalizedCellTextFunction;
 import at.bestsolution.framework.grid.model.grid.MPathCellValueFunction;
 import at.bestsolution.framework.grid.model.grid.MPathSegment;
+import at.bestsolution.framework.grid.model.grid.MPattern;
+import at.bestsolution.framework.grid.model.grid.MReferencePattern;
 import at.bestsolution.framework.grid.model.grid.MResourceBundle;
 import at.bestsolution.framework.grid.model.grid.MResourceBundleEntry;
 import at.bestsolution.framework.grid.model.grid.MSelectionMode;
 import at.bestsolution.framework.grid.model.grid.MSimplePathSegment;
+import at.bestsolution.framework.grid.model.grid.MStringPattern;
 import at.bestsolution.framework.grid.model.grid.MTextAutoFilterEntry;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -158,7 +160,28 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass mLocalizedCellTextFunctionEClass = null;
+	private EClass mFormattedCellTextFunctionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass mPatternEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass mStringPatternEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass mReferencePatternEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -201,6 +224,13 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * @generated
 	 */
 	private EClass mDefaultAutoFilterEntryEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum mFormatTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -377,7 +407,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMGrid_DefaultConfiguration() {
+	public EReference getMGrid_ConfigurationSets() {
 		return (EReference)mGridEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -386,8 +416,17 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMGrid_Resources() {
+	public EReference getMGrid_DefaultConfiguration() {
 		return (EReference)mGridEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMGrid_Resources() {
+		return (EReference)mGridEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -656,8 +695,8 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getMLocalizedCellTextFunction() {
-		return mLocalizedCellTextFunctionEClass;
+	public EClass getMFormattedCellTextFunction() {
+		return mFormattedCellTextFunctionEClass;
 	}
 
 	/**
@@ -665,8 +704,62 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMLocalizedCellTextFunction_Pattern() {
-		return (EAttribute)mLocalizedCellTextFunctionEClass.getEStructuralFeatures().get(0);
+	public EAttribute getMFormattedCellTextFunction_FormatType() {
+		return (EAttribute)mFormattedCellTextFunctionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMFormattedCellTextFunction_Pattern() {
+		return (EReference)mFormattedCellTextFunctionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMPattern() {
+		return mPatternEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMStringPattern() {
+		return mStringPatternEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMStringPattern_Pattern() {
+		return (EAttribute)mStringPatternEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMReferencePattern() {
+		return mReferencePatternEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMReferencePattern_PatternKey() {
+		return (EAttribute)mReferencePatternEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -782,6 +875,15 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getMFormatType() {
+		return mFormatTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getMSelectionMode() {
 		return mSelectionModeEEnum;
 	}
@@ -852,6 +954,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		mGridEClass = createEClass(MGRID);
 		createEReference(mGridEClass, MGRID__COLUMNS);
 		createEReference(mGridEClass, MGRID__CONFIGURATIONS);
+		createEReference(mGridEClass, MGRID__CONFIGURATION_SETS);
 		createEReference(mGridEClass, MGRID__DEFAULT_CONFIGURATION);
 		createEReference(mGridEClass, MGRID__RESOURCES);
 
@@ -893,8 +996,17 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 
 		mCellTextFunctionEClass = createEClass(MCELL_TEXT_FUNCTION);
 
-		mLocalizedCellTextFunctionEClass = createEClass(MLOCALIZED_CELL_TEXT_FUNCTION);
-		createEAttribute(mLocalizedCellTextFunctionEClass, MLOCALIZED_CELL_TEXT_FUNCTION__PATTERN);
+		mFormattedCellTextFunctionEClass = createEClass(MFORMATTED_CELL_TEXT_FUNCTION);
+		createEAttribute(mFormattedCellTextFunctionEClass, MFORMATTED_CELL_TEXT_FUNCTION__FORMAT_TYPE);
+		createEReference(mFormattedCellTextFunctionEClass, MFORMATTED_CELL_TEXT_FUNCTION__PATTERN);
+
+		mPatternEClass = createEClass(MPATTERN);
+
+		mStringPatternEClass = createEClass(MSTRING_PATTERN);
+		createEAttribute(mStringPatternEClass, MSTRING_PATTERN__PATTERN);
+
+		mReferencePatternEClass = createEClass(MREFERENCE_PATTERN);
+		createEAttribute(mReferencePatternEClass, MREFERENCE_PATTERN__PATTERN_KEY);
 
 		mAutoFilterConfigurationEClass = createEClass(MAUTO_FILTER_CONFIGURATION);
 
@@ -915,6 +1027,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		createEAttribute(mDefaultAutoFilterEntryEClass, MDEFAULT_AUTO_FILTER_ENTRY__TYPE);
 
 		// Create enums
+		mFormatTypeEEnum = createEEnum(MFORMAT_TYPE);
 		mSelectionModeEEnum = createEEnum(MSELECTION_MODE);
 		mAlignmentEEnum = createEEnum(MALIGNMENT);
 		mDefaultAutoFilterEntryTypeEEnum = createEEnum(MDEFAULT_AUTO_FILTER_ENTRY_TYPE);
@@ -951,7 +1064,9 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		// Add supertypes to classes
 		mPathCellValueFunctionEClass.getESuperTypes().add(this.getMCellValueFunction());
 		mSimplePathSegmentEClass.getESuperTypes().add(this.getMPathSegment());
-		mLocalizedCellTextFunctionEClass.getESuperTypes().add(this.getMCellTextFunction());
+		mFormattedCellTextFunctionEClass.getESuperTypes().add(this.getMCellTextFunction());
+		mStringPatternEClass.getESuperTypes().add(this.getMPattern());
+		mReferencePatternEClass.getESuperTypes().add(this.getMPattern());
 		mComboAutoFilterConfigurationEClass.getESuperTypes().add(this.getMAutoFilterConfiguration());
 		mTextAutoFilterEntryEClass.getESuperTypes().add(this.getMAutoFilterEntry());
 
@@ -966,7 +1081,8 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 
 		initEClass(mGridEClass, MGrid.class, "MGrid", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMGrid_Columns(), this.getMGridColumn(), this.getMGridColumn_Grid(), "columns", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMGrid_Configurations(), this.getMGridConfigurationSet(), this.getMGridConfigurationSet_Grid(), "configurations", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMGrid_Configurations(), this.getMGridConfiguration(), null, "configurations", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMGrid_ConfigurationSets(), this.getMGridConfigurationSet(), this.getMGridConfigurationSet_Grid(), "configurationSets", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGrid_DefaultConfiguration(), this.getMGridConfigurationSet(), null, "defaultConfiguration", null, 0, 1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGrid_Resources(), this.getMResourceBundle(), null, "resources", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -975,7 +1091,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		initEAttribute(getMGridConfigurationSet_ViewSelectionMode(), this.getMSelectionMode(), "viewSelectionMode", null, 0, 1, MGridConfigurationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGridConfigurationSet_ExportConfiguration(), this.getMGridConfiguration(), null, "exportConfiguration", null, 0, 1, MGridConfigurationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGridConfigurationSet_DefaultSortColumn(), this.getMGridColumn(), null, "defaultSortColumn", null, 0, 1, MGridConfigurationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMGridConfigurationSet_Grid(), this.getMGrid(), this.getMGrid_Configurations(), "grid", null, 0, 1, MGridConfigurationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMGridConfigurationSet_Grid(), this.getMGrid(), this.getMGrid_ConfigurationSets(), "grid", null, 0, 1, MGridConfigurationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mGridConfigurationEClass, MGridConfiguration.class, "MGridConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMGridConfiguration_Columns(), this.getMGridConfigurationColumn(), null, "columns", null, 0, -1, MGridConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1008,8 +1124,17 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 
 		initEClass(mCellTextFunctionEClass, MCellTextFunction.class, "MCellTextFunction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(mLocalizedCellTextFunctionEClass, MLocalizedCellTextFunction.class, "MLocalizedCellTextFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMLocalizedCellTextFunction_Pattern(), ecorePackage.getEString(), "pattern", null, 0, 1, MLocalizedCellTextFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(mFormattedCellTextFunctionEClass, MFormattedCellTextFunction.class, "MFormattedCellTextFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMFormattedCellTextFunction_FormatType(), this.getMFormatType(), "formatType", null, 0, 1, MFormattedCellTextFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMFormattedCellTextFunction_Pattern(), this.getMPattern(), null, "pattern", null, 0, 1, MFormattedCellTextFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(mPatternEClass, MPattern.class, "MPattern", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(mStringPatternEClass, MStringPattern.class, "MStringPattern", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMStringPattern_Pattern(), ecorePackage.getEString(), "pattern", null, 0, 1, MStringPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(mReferencePatternEClass, MReferencePattern.class, "MReferencePattern", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMReferencePattern_PatternKey(), ecorePackage.getEString(), "patternKey", null, 0, 1, MReferencePattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mAutoFilterConfigurationEClass, MAutoFilterConfiguration.class, "MAutoFilterConfiguration", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1030,6 +1155,10 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		initEAttribute(getMDefaultAutoFilterEntry_Type(), this.getMDefaultAutoFilterEntryType(), "type", null, 0, 1, MDefaultAutoFilterEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
+		initEEnum(mFormatTypeEEnum, MFormatType.class, "MFormatType");
+		addEEnumLiteral(mFormatTypeEEnum, MFormatType.NUMBER);
+		addEEnumLiteral(mFormatTypeEEnum, MFormatType.DATE);
+
 		initEEnum(mSelectionModeEEnum, MSelectionMode.class, "MSelectionMode");
 		addEEnumLiteral(mSelectionModeEEnum, MSelectionMode.SINGLE_ROW);
 		addEEnumLiteral(mSelectionModeEEnum, MSelectionMode.SINGLE_CELL);

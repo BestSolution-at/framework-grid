@@ -24,21 +24,21 @@ package at.bestsolution.framework.grid.model.grid;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>MLocalized Cell Text Function</b></em>'.
+ * A representation of the model object '<em><b>MString Pattern</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link at.bestsolution.framework.grid.model.grid.MLocalizedCellTextFunction#getPattern <em>Pattern</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.MStringPattern#getPattern <em>Pattern</em>}</li>
  * </ul>
  * </p>
  *
- * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMLocalizedCellTextFunction()
+ * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMStringPattern()
  * @model
  * @generated
  */
-public interface MLocalizedCellTextFunction extends MCellTextFunction {
+public interface MStringPattern extends MPattern {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -56,14 +56,14 @@ public interface MLocalizedCellTextFunction extends MCellTextFunction {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Pattern</em>' attribute.
 	 * @see #setPattern(String)
-	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMLocalizedCellTextFunction_Pattern()
+	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMStringPattern_Pattern()
 	 * @model
 	 * @generated
 	 */
 	String getPattern();
 
 	/**
-	 * Sets the value of the '{@link at.bestsolution.framework.grid.model.grid.MLocalizedCellTextFunction#getPattern <em>Pattern</em>}' attribute.
+	 * Sets the value of the '{@link at.bestsolution.framework.grid.model.grid.MStringPattern#getPattern <em>Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Pattern</em>' attribute.
@@ -72,4 +72,4 @@ public interface MLocalizedCellTextFunction extends MCellTextFunction {
 	 */
 	void setPattern(String value);
 
-} // MLocalizedCellTextFunction
+} // MStringPattern

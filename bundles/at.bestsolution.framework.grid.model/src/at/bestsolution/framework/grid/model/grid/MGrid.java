@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGrid#getColumns <em>Columns</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGrid#getConfigurations <em>Configurations</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.MGrid#getConfigurationSets <em>Configuration Sets</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGrid#getDefaultConfiguration <em>Default Configuration</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGrid#getResources <em>Resources</em>}</li>
  * </ul>
@@ -72,8 +73,7 @@ public interface MGrid extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Configurations</b></em>' containment reference list.
-	 * The list contents are of type {@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet}.
-	 * It is bidirectional and its opposite is '{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getGrid <em>Grid</em>}'.
+	 * The list contents are of type {@link at.bestsolution.framework.grid.model.grid.MGridConfiguration}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Configurations</em>' containment reference list isn't clear,
@@ -82,11 +82,28 @@ public interface MGrid extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Configurations</em>' containment reference list.
 	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGrid_Configurations()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<MGridConfiguration> getConfigurations();
+
+	/**
+	 * Returns the value of the '<em><b>Configuration Sets</b></em>' containment reference list.
+	 * The list contents are of type {@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet}.
+	 * It is bidirectional and its opposite is '{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getGrid <em>Grid</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Configuration Sets</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Configuration Sets</em>' containment reference list.
+	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGrid_ConfigurationSets()
 	 * @see at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getGrid
 	 * @model opposite="grid" containment="true"
 	 * @generated
 	 */
-	EList<MGridConfigurationSet> getConfigurations();
+	EList<MGridConfigurationSet> getConfigurationSets();
 
 	/**
 	 * Returns the value of the '<em><b>Default Configuration</b></em>' reference.

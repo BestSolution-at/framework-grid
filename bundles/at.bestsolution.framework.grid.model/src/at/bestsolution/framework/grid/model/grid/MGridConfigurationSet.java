@@ -160,7 +160,7 @@ public interface MGridConfigurationSet extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Grid</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link at.bestsolution.framework.grid.model.grid.MGrid#getConfigurations <em>Configurations</em>}'.
+	 * It is bidirectional and its opposite is '{@link at.bestsolution.framework.grid.model.grid.MGrid#getConfigurationSets <em>Configuration Sets</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Grid</em>' container reference isn't clear,
@@ -170,8 +170,8 @@ public interface MGridConfigurationSet extends EObject {
 	 * @return the value of the '<em>Grid</em>' container reference.
 	 * @see #setGrid(MGrid)
 	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGridConfigurationSet_Grid()
-	 * @see at.bestsolution.framework.grid.model.grid.MGrid#getConfigurations
-	 * @model opposite="configurations" transient="false"
+	 * @see at.bestsolution.framework.grid.model.grid.MGrid#getConfigurationSets
+	 * @model opposite="configurationSets" transient="false"
 	 * @generated
 	 */
 	MGrid getGrid();

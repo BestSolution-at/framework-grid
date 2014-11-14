@@ -166,10 +166,30 @@ public class GridSwitch<@Nullable T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GridPackage.MLOCALIZED_CELL_TEXT_FUNCTION: {
-				MLocalizedCellTextFunction mLocalizedCellTextFunction = (MLocalizedCellTextFunction)theEObject;
-				T result = caseMLocalizedCellTextFunction(mLocalizedCellTextFunction);
-				if (result == null) result = caseMCellTextFunction(mLocalizedCellTextFunction);
+			case GridPackage.MFORMATTED_CELL_TEXT_FUNCTION: {
+				MFormattedCellTextFunction mFormattedCellTextFunction = (MFormattedCellTextFunction)theEObject;
+				T result = caseMFormattedCellTextFunction(mFormattedCellTextFunction);
+				if (result == null) result = caseMCellTextFunction(mFormattedCellTextFunction);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GridPackage.MPATTERN: {
+				MPattern mPattern = (MPattern)theEObject;
+				T result = caseMPattern(mPattern);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GridPackage.MSTRING_PATTERN: {
+				MStringPattern mStringPattern = (MStringPattern)theEObject;
+				T result = caseMStringPattern(mStringPattern);
+				if (result == null) result = caseMPattern(mStringPattern);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GridPackage.MREFERENCE_PATTERN: {
+				MReferencePattern mReferencePattern = (MReferencePattern)theEObject;
+				T result = caseMReferencePattern(mReferencePattern);
+				if (result == null) result = caseMPattern(mReferencePattern);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -396,17 +416,62 @@ public class GridSwitch<@Nullable T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>MLocalized Cell Text Function</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>MFormatted Cell Text Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>MLocalized Cell Text Function</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>MFormatted Cell Text Function</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseMLocalizedCellTextFunction(MLocalizedCellTextFunction object) {
+	public T caseMFormattedCellTextFunction(MFormattedCellTextFunction object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>MPattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>MPattern</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMPattern(MPattern object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>MString Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>MString Pattern</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMStringPattern(MStringPattern object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>MReference Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>MReference Pattern</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMReferencePattern(MReferencePattern object) {
 		return null;
 	}
 

@@ -204,13 +204,22 @@ public interface GridPackage extends EPackage {
 	int MGRID__CONFIGURATIONS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Configuration Sets</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MGRID__CONFIGURATION_SETS = 2;
+
+	/**
 	 * The feature id for the '<em><b>Default Configuration</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID__DEFAULT_CONFIGURATION = 2;
+	int MGRID__DEFAULT_CONFIGURATION = 3;
 
 	/**
 	 * The feature id for the '<em><b>Resources</b></em>' containment reference list.
@@ -219,7 +228,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID__RESOURCES = 3;
+	int MGRID__RESOURCES = 4;
 
 	/**
 	 * The number of structural features of the '<em>MGrid</em>' class.
@@ -228,7 +237,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_FEATURE_COUNT = 4;
+	int MGRID_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>MGrid</em>' class.
@@ -672,14 +681,88 @@ public interface GridPackage extends EPackage {
 	int MCELL_TEXT_FUNCTION_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.impl.MLocalizedCellTextFunctionImpl <em>MLocalized Cell Text Function</em>}' class.
+	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.impl.MFormattedCellTextFunctionImpl <em>MFormatted Cell Text Function</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see at.bestsolution.framework.grid.model.grid.impl.MLocalizedCellTextFunctionImpl
-	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMLocalizedCellTextFunction()
+	 * @see at.bestsolution.framework.grid.model.grid.impl.MFormattedCellTextFunctionImpl
+	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMFormattedCellTextFunction()
 	 * @generated
 	 */
-	int MLOCALIZED_CELL_TEXT_FUNCTION = 12;
+	int MFORMATTED_CELL_TEXT_FUNCTION = 12;
+
+	/**
+	 * The feature id for the '<em><b>Format Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MFORMATTED_CELL_TEXT_FUNCTION__FORMAT_TYPE = MCELL_TEXT_FUNCTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Pattern</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MFORMATTED_CELL_TEXT_FUNCTION__PATTERN = MCELL_TEXT_FUNCTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>MFormatted Cell Text Function</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MFORMATTED_CELL_TEXT_FUNCTION_FEATURE_COUNT = MCELL_TEXT_FUNCTION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>MFormatted Cell Text Function</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MFORMATTED_CELL_TEXT_FUNCTION_OPERATION_COUNT = MCELL_TEXT_FUNCTION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.impl.MPatternImpl <em>MPattern</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.bestsolution.framework.grid.model.grid.impl.MPatternImpl
+	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMPattern()
+	 * @generated
+	 */
+	int MPATTERN = 13;
+
+	/**
+	 * The number of structural features of the '<em>MPattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MPATTERN_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>MPattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MPATTERN_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.impl.MStringPatternImpl <em>MString Pattern</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.bestsolution.framework.grid.model.grid.impl.MStringPatternImpl
+	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMStringPattern()
+	 * @generated
+	 */
+	int MSTRING_PATTERN = 14;
 
 	/**
 	 * The feature id for the '<em><b>Pattern</b></em>' attribute.
@@ -688,25 +771,62 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MLOCALIZED_CELL_TEXT_FUNCTION__PATTERN = MCELL_TEXT_FUNCTION_FEATURE_COUNT + 0;
+	int MSTRING_PATTERN__PATTERN = MPATTERN_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>MLocalized Cell Text Function</em>' class.
+	 * The number of structural features of the '<em>MString Pattern</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MLOCALIZED_CELL_TEXT_FUNCTION_FEATURE_COUNT = MCELL_TEXT_FUNCTION_FEATURE_COUNT + 1;
+	int MSTRING_PATTERN_FEATURE_COUNT = MPATTERN_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of operations of the '<em>MLocalized Cell Text Function</em>' class.
+	 * The number of operations of the '<em>MString Pattern</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MLOCALIZED_CELL_TEXT_FUNCTION_OPERATION_COUNT = MCELL_TEXT_FUNCTION_OPERATION_COUNT + 0;
+	int MSTRING_PATTERN_OPERATION_COUNT = MPATTERN_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.impl.MReferencePatternImpl <em>MReference Pattern</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.bestsolution.framework.grid.model.grid.impl.MReferencePatternImpl
+	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMReferencePattern()
+	 * @generated
+	 */
+	int MREFERENCE_PATTERN = 15;
+
+	/**
+	 * The feature id for the '<em><b>Pattern Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MREFERENCE_PATTERN__PATTERN_KEY = MPATTERN_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>MReference Pattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MREFERENCE_PATTERN_FEATURE_COUNT = MPATTERN_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>MReference Pattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MREFERENCE_PATTERN_OPERATION_COUNT = MPATTERN_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.impl.MAutoFilterConfigurationImpl <em>MAuto Filter Configuration</em>}' class.
@@ -716,7 +836,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMAutoFilterConfiguration()
 	 * @generated
 	 */
-	int MAUTO_FILTER_CONFIGURATION = 13;
+	int MAUTO_FILTER_CONFIGURATION = 16;
 
 	/**
 	 * The number of structural features of the '<em>MAuto Filter Configuration</em>' class.
@@ -744,7 +864,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMComboAutoFilterConfiguration()
 	 * @generated
 	 */
-	int MCOMBO_AUTO_FILTER_CONFIGURATION = 14;
+	int MCOMBO_AUTO_FILTER_CONFIGURATION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Predefined Values</b></em>' containment reference list.
@@ -799,7 +919,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMFreeTextAutoFilterConfiguration()
 	 * @generated
 	 */
-	int MFREE_TEXT_AUTO_FILTER_CONFIGURATION = 15;
+	int MFREE_TEXT_AUTO_FILTER_CONFIGURATION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Match Type</b></em>' attribute.
@@ -836,7 +956,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMAutoFilterEntry()
 	 * @generated
 	 */
-	int MAUTO_FILTER_ENTRY = 16;
+	int MAUTO_FILTER_ENTRY = 19;
 
 	/**
 	 * The feature id for the '<em><b>Resource Key</b></em>' attribute.
@@ -873,7 +993,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMTextAutoFilterEntry()
 	 * @generated
 	 */
-	int MTEXT_AUTO_FILTER_ENTRY = 17;
+	int MTEXT_AUTO_FILTER_ENTRY = 20;
 
 	/**
 	 * The feature id for the '<em><b>Resource Key</b></em>' attribute.
@@ -910,7 +1030,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMDefaultAutoFilterEntry()
 	 * @generated
 	 */
-	int MDEFAULT_AUTO_FILTER_ENTRY = 18;
+	int MDEFAULT_AUTO_FILTER_ENTRY = 21;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -940,6 +1060,16 @@ public interface GridPackage extends EPackage {
 	int MDEFAULT_AUTO_FILTER_ENTRY_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MFormatType <em>MFormat Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.bestsolution.framework.grid.model.grid.MFormatType
+	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMFormatType()
+	 * @generated
+	 */
+	int MFORMAT_TYPE = 22;
+
+	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MSelectionMode <em>MSelection Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -947,7 +1077,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMSelectionMode()
 	 * @generated
 	 */
-	int MSELECTION_MODE = 19;
+	int MSELECTION_MODE = 23;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MAlignment <em>MAlignment</em>}' enum.
@@ -957,7 +1087,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMAlignment()
 	 * @generated
 	 */
-	int MALIGNMENT = 20;
+	int MALIGNMENT = 24;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MDefaultAutoFilterEntryType <em>MDefault Auto Filter Entry Type</em>}' enum.
@@ -967,7 +1097,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMDefaultAutoFilterEntryType()
 	 * @generated
 	 */
-	int MDEFAULT_AUTO_FILTER_ENTRY_TYPE = 21;
+	int MDEFAULT_AUTO_FILTER_ENTRY_TYPE = 25;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MAutoFilterMatchType <em>MAuto Filter Match Type</em>}' enum.
@@ -977,7 +1107,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMAutoFilterMatchType()
 	 * @generated
 	 */
-	int MAUTO_FILTER_MATCH_TYPE = 22;
+	int MAUTO_FILTER_MATCH_TYPE = 26;
 
 
 	/**
@@ -1075,6 +1205,17 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMGrid_Configurations();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link at.bestsolution.framework.grid.model.grid.MGrid#getConfigurationSets <em>Configuration Sets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Configuration Sets</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MGrid#getConfigurationSets()
+	 * @see #getMGrid()
+	 * @generated
+	 */
+	EReference getMGrid_ConfigurationSets();
 
 	/**
 	 * Returns the meta object for the reference '{@link at.bestsolution.framework.grid.model.grid.MGrid#getDefaultConfiguration <em>Default Configuration</em>}'.
@@ -1409,25 +1550,88 @@ public interface GridPackage extends EPackage {
 	EClass getMCellTextFunction();
 
 	/**
-	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MLocalizedCellTextFunction <em>MLocalized Cell Text Function</em>}'.
+	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction <em>MFormatted Cell Text Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>MLocalized Cell Text Function</em>'.
-	 * @see at.bestsolution.framework.grid.model.grid.MLocalizedCellTextFunction
+	 * @return the meta object for class '<em>MFormatted Cell Text Function</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction
 	 * @generated
 	 */
-	EClass getMLocalizedCellTextFunction();
+	EClass getMFormattedCellTextFunction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MLocalizedCellTextFunction#getPattern <em>Pattern</em>}'.
+	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction#getFormatType <em>Format Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Format Type</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction#getFormatType()
+	 * @see #getMFormattedCellTextFunction()
+	 * @generated
+	 */
+	EAttribute getMFormattedCellTextFunction_FormatType();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction#getPattern <em>Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Pattern</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction#getPattern()
+	 * @see #getMFormattedCellTextFunction()
+	 * @generated
+	 */
+	EReference getMFormattedCellTextFunction_Pattern();
+
+	/**
+	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MPattern <em>MPattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>MPattern</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MPattern
+	 * @generated
+	 */
+	EClass getMPattern();
+
+	/**
+	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MStringPattern <em>MString Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>MString Pattern</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MStringPattern
+	 * @generated
+	 */
+	EClass getMStringPattern();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MStringPattern#getPattern <em>Pattern</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Pattern</em>'.
-	 * @see at.bestsolution.framework.grid.model.grid.MLocalizedCellTextFunction#getPattern()
-	 * @see #getMLocalizedCellTextFunction()
+	 * @see at.bestsolution.framework.grid.model.grid.MStringPattern#getPattern()
+	 * @see #getMStringPattern()
 	 * @generated
 	 */
-	EAttribute getMLocalizedCellTextFunction_Pattern();
+	EAttribute getMStringPattern_Pattern();
+
+	/**
+	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MReferencePattern <em>MReference Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>MReference Pattern</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MReferencePattern
+	 * @generated
+	 */
+	EClass getMReferencePattern();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MReferencePattern#getPatternKey <em>Pattern Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Pattern Key</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MReferencePattern#getPatternKey()
+	 * @see #getMReferencePattern()
+	 * @generated
+	 */
+	EAttribute getMReferencePattern_PatternKey();
 
 	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MAutoFilterConfiguration <em>MAuto Filter Configuration</em>}'.
@@ -1554,6 +1758,16 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getMDefaultAutoFilterEntry_Type();
+
+	/**
+	 * Returns the meta object for enum '{@link at.bestsolution.framework.grid.model.grid.MFormatType <em>MFormat Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>MFormat Type</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MFormatType
+	 * @generated
+	 */
+	EEnum getMFormatType();
 
 	/**
 	 * Returns the meta object for enum '{@link at.bestsolution.framework.grid.model.grid.MSelectionMode <em>MSelection Mode</em>}'.
@@ -1695,6 +1909,14 @@ public interface GridPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MGRID__CONFIGURATIONS = eINSTANCE.getMGrid_Configurations();
+
+		/**
+		 * The meta object literal for the '<em><b>Configuration Sets</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MGRID__CONFIGURATION_SETS = eINSTANCE.getMGrid_ConfigurationSets();
 
 		/**
 		 * The meta object literal for the '<em><b>Default Configuration</b></em>' reference feature.
@@ -1963,14 +2185,50 @@ public interface GridPackage extends EPackage {
 		EClass MCELL_TEXT_FUNCTION = eINSTANCE.getMCellTextFunction();
 
 		/**
-		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MLocalizedCellTextFunctionImpl <em>MLocalized Cell Text Function</em>}' class.
+		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MFormattedCellTextFunctionImpl <em>MFormatted Cell Text Function</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see at.bestsolution.framework.grid.model.grid.impl.MLocalizedCellTextFunctionImpl
-		 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMLocalizedCellTextFunction()
+		 * @see at.bestsolution.framework.grid.model.grid.impl.MFormattedCellTextFunctionImpl
+		 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMFormattedCellTextFunction()
 		 * @generated
 		 */
-		EClass MLOCALIZED_CELL_TEXT_FUNCTION = eINSTANCE.getMLocalizedCellTextFunction();
+		EClass MFORMATTED_CELL_TEXT_FUNCTION = eINSTANCE.getMFormattedCellTextFunction();
+
+		/**
+		 * The meta object literal for the '<em><b>Format Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MFORMATTED_CELL_TEXT_FUNCTION__FORMAT_TYPE = eINSTANCE.getMFormattedCellTextFunction_FormatType();
+
+		/**
+		 * The meta object literal for the '<em><b>Pattern</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MFORMATTED_CELL_TEXT_FUNCTION__PATTERN = eINSTANCE.getMFormattedCellTextFunction_Pattern();
+
+		/**
+		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MPatternImpl <em>MPattern</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.bestsolution.framework.grid.model.grid.impl.MPatternImpl
+		 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMPattern()
+		 * @generated
+		 */
+		EClass MPATTERN = eINSTANCE.getMPattern();
+
+		/**
+		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MStringPatternImpl <em>MString Pattern</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.bestsolution.framework.grid.model.grid.impl.MStringPatternImpl
+		 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMStringPattern()
+		 * @generated
+		 */
+		EClass MSTRING_PATTERN = eINSTANCE.getMStringPattern();
 
 		/**
 		 * The meta object literal for the '<em><b>Pattern</b></em>' attribute feature.
@@ -1978,7 +2236,25 @@ public interface GridPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute MLOCALIZED_CELL_TEXT_FUNCTION__PATTERN = eINSTANCE.getMLocalizedCellTextFunction_Pattern();
+		EAttribute MSTRING_PATTERN__PATTERN = eINSTANCE.getMStringPattern_Pattern();
+
+		/**
+		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MReferencePatternImpl <em>MReference Pattern</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.bestsolution.framework.grid.model.grid.impl.MReferencePatternImpl
+		 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMReferencePattern()
+		 * @generated
+		 */
+		EClass MREFERENCE_PATTERN = eINSTANCE.getMReferencePattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Pattern Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MREFERENCE_PATTERN__PATTERN_KEY = eINSTANCE.getMReferencePattern_PatternKey();
 
 		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MAutoFilterConfigurationImpl <em>MAuto Filter Configuration</em>}' class.
@@ -2087,6 +2363,16 @@ public interface GridPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MDEFAULT_AUTO_FILTER_ENTRY__TYPE = eINSTANCE.getMDefaultAutoFilterEntry_Type();
+
+		/**
+		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.MFormatType <em>MFormat Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.bestsolution.framework.grid.model.grid.MFormatType
+		 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMFormatType()
+		 * @generated
+		 */
+		EEnum MFORMAT_TYPE = eINSTANCE.getMFormatType();
 
 		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.MSelectionMode <em>MSelection Mode</em>}' enum.

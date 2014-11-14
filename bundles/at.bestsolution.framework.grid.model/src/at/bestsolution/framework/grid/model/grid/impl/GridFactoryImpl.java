@@ -92,7 +92,9 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 			case GridPackage.MGRID_COLUMN: return createMGridColumn();
 			case GridPackage.MPATH_CELL_VALUE_FUNCTION: return createMPathCellValueFunction();
 			case GridPackage.MSIMPLE_PATH_SEGMENT: return createMSimplePathSegment();
-			case GridPackage.MLOCALIZED_CELL_TEXT_FUNCTION: return createMLocalizedCellTextFunction();
+			case GridPackage.MFORMATTED_CELL_TEXT_FUNCTION: return createMFormattedCellTextFunction();
+			case GridPackage.MSTRING_PATTERN: return createMStringPattern();
+			case GridPackage.MREFERENCE_PATTERN: return createMReferencePattern();
 			case GridPackage.MCOMBO_AUTO_FILTER_CONFIGURATION: return createMComboAutoFilterConfiguration();
 			case GridPackage.MFREE_TEXT_AUTO_FILTER_CONFIGURATION: return createMFreeTextAutoFilterConfiguration();
 			case GridPackage.MTEXT_AUTO_FILTER_ENTRY: return createMTextAutoFilterEntry();
@@ -110,6 +112,8 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case GridPackage.MFORMAT_TYPE:
+				return createMFormatTypeFromString(eDataType, initialValue);
 			case GridPackage.MSELECTION_MODE:
 				return createMSelectionModeFromString(eDataType, initialValue);
 			case GridPackage.MALIGNMENT:
@@ -131,6 +135,8 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case GridPackage.MFORMAT_TYPE:
+				return convertMFormatTypeToString(eDataType, instanceValue);
 			case GridPackage.MSELECTION_MODE:
 				return convertMSelectionModeToString(eDataType, instanceValue);
 			case GridPackage.MALIGNMENT:
@@ -239,9 +245,29 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MLocalizedCellTextFunction createMLocalizedCellTextFunction() {
-		MLocalizedCellTextFunctionImpl mLocalizedCellTextFunction = new MLocalizedCellTextFunctionImpl();
-		return mLocalizedCellTextFunction;
+	public MFormattedCellTextFunction createMFormattedCellTextFunction() {
+		MFormattedCellTextFunctionImpl mFormattedCellTextFunction = new MFormattedCellTextFunctionImpl();
+		return mFormattedCellTextFunction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MStringPattern createMStringPattern() {
+		MStringPatternImpl mStringPattern = new MStringPatternImpl();
+		return mStringPattern;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MReferencePattern createMReferencePattern() {
+		MReferencePatternImpl mReferencePattern = new MReferencePatternImpl();
+		return mReferencePattern;
 	}
 
 	/**
@@ -282,6 +308,26 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 	public MDefaultAutoFilterEntry createMDefaultAutoFilterEntry() {
 		MDefaultAutoFilterEntryImpl mDefaultAutoFilterEntry = new MDefaultAutoFilterEntryImpl();
 		return mDefaultAutoFilterEntry;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MFormatType createMFormatTypeFromString(EDataType eDataType, String initialValue) {
+		MFormatType result = MFormatType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMFormatTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

@@ -300,7 +300,7 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newGrid != null)
-				msgs = ((InternalEObject)newGrid).eInverseAdd(this, GridPackage.MGRID__CONFIGURATIONS, MGrid.class, msgs);
+				msgs = ((InternalEObject)newGrid).eInverseAdd(this, GridPackage.MGRID__CONFIGURATION_SETS, MGrid.class, msgs);
 			msgs = basicSetGrid(newGrid, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -347,7 +347,7 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
-				return eInternalContainer().eInverseRemove(this, GridPackage.MGRID__CONFIGURATIONS, MGrid.class, msgs);
+				return eInternalContainer().eInverseRemove(this, GridPackage.MGRID__CONFIGURATION_SETS, MGrid.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}

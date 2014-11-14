@@ -129,13 +129,31 @@ public interface GridFactory extends EFactory {
 	MSimplePathSegment createMSimplePathSegment();
 
 	/**
-	 * Returns a new object of class '<em>MLocalized Cell Text Function</em>'.
+	 * Returns a new object of class '<em>MFormatted Cell Text Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>MLocalized Cell Text Function</em>'.
+	 * @return a new object of class '<em>MFormatted Cell Text Function</em>'.
 	 * @generated
 	 */
-	MLocalizedCellTextFunction createMLocalizedCellTextFunction();
+	MFormattedCellTextFunction createMFormattedCellTextFunction();
+
+	/**
+	 * Returns a new object of class '<em>MString Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>MString Pattern</em>'.
+	 * @generated
+	 */
+	MStringPattern createMStringPattern();
+
+	/**
+	 * Returns a new object of class '<em>MReference Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>MReference Pattern</em>'.
+	 * @generated
+	 */
+	MReferencePattern createMReferencePattern();
 
 	/**
 	 * Returns a new object of class '<em>MCombo Auto Filter Configuration</em>'.
