@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ASCII"?>
+<person:Root
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:person="http://www.bestsolution.at/framework/grid/personsample/1.0"
+    xsi:schemaLocation="http://www.bestsolution.at/framework/grid/personsample/1.0 ../model/Person.xcore#/EPackage">
+  <persons firstname="John "
+      lastname="Doe"
+      married="true"
+      birthdate="1980-01-01T00:00:00.000+0100">
+    <address
+        street="Eduard Bodem Gasse"
+        number="5"
+        zipcode="6020"
+        city="Innsbruck"
+        country="//@countries.0"/>
+  </persons>
+  <persons firstname="Jane"
+      lastname="Doe"
+      gender="FEMALE"
+      partner="//@persons.0"
+      married="true"
+      birthdate="1980-05-05T00:00:00.000+0200"/>
+  <countries
+      name="Austria"/>
+  <countries
+      name="Germany"/>
+  <countries
+      name="Italy"/>
+</person:Root>
