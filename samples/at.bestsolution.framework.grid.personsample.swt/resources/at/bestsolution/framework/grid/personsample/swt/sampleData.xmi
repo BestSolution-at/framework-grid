@@ -19,7 +19,6 @@
   <persons firstname="Jane"
       lastname="Doe"
       gender="FEMALE"
-      partner="//@persons.0"
       married="true"
       birthdate="1980-05-05T00:00:00.000+0200"/>
   <countries
