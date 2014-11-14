@@ -42,10 +42,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="grid" eType="#//MGrid"
         eOpposite="#//MGrid/columns"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="titleKey" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cellValueFunction" eType="#//MCellValueFunction"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cellTextFunction" eType="#//MCellTextFunction"
@@ -61,7 +60,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MPathSegment" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="MSimplePathSegment" eSuperTypes="#//MPathSegment">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attributeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MCellTextFunction" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="MFormattedCellTextFunction" eSuperTypes="#//MCellTextFunction">

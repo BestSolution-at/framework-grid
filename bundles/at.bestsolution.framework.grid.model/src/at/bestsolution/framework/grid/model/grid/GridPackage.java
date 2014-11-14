@@ -433,22 +433,13 @@ public interface GridPackage extends EPackage {
 	int MGRID_COLUMN__TITLE_KEY = 2;
 
 	/**
-	 * The feature id for the '<em><b>Width</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MGRID_COLUMN__WIDTH = 3;
-
-	/**
 	 * The feature id for the '<em><b>Min Width</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__MIN_WIDTH = 4;
+	int MGRID_COLUMN__MIN_WIDTH = 3;
 
 	/**
 	 * The feature id for the '<em><b>Max Width</b></em>' attribute.
@@ -457,7 +448,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__MAX_WIDTH = 5;
+	int MGRID_COLUMN__MAX_WIDTH = 4;
 
 	/**
 	 * The feature id for the '<em><b>Auto Width</b></em>' attribute.
@@ -466,7 +457,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__AUTO_WIDTH = 6;
+	int MGRID_COLUMN__AUTO_WIDTH = 5;
 
 	/**
 	 * The feature id for the '<em><b>Cell Value Function</b></em>' containment reference.
@@ -475,7 +466,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__CELL_VALUE_FUNCTION = 7;
+	int MGRID_COLUMN__CELL_VALUE_FUNCTION = 6;
 
 	/**
 	 * The feature id for the '<em><b>Cell Text Function</b></em>' containment reference.
@@ -484,7 +475,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__CELL_TEXT_FUNCTION = 8;
+	int MGRID_COLUMN__CELL_TEXT_FUNCTION = 7;
 
 	/**
 	 * The feature id for the '<em><b>Alignment</b></em>' attribute.
@@ -493,7 +484,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__ALIGNMENT = 9;
+	int MGRID_COLUMN__ALIGNMENT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Auto Filter Configuration</b></em>' containment reference.
@@ -502,7 +493,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN__AUTO_FILTER_CONFIGURATION = 10;
+	int MGRID_COLUMN__AUTO_FILTER_CONFIGURATION = 9;
 
 	/**
 	 * The number of structural features of the '<em>MGrid Column</em>' class.
@@ -511,7 +502,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN_FEATURE_COUNT = 11;
+	int MGRID_COLUMN_FEATURE_COUNT = 10;
 
 	/**
 	 * The number of operations of the '<em>MGrid Column</em>' class.
@@ -626,13 +617,13 @@ public interface GridPackage extends EPackage {
 	int MSIMPLE_PATH_SEGMENT = 10;
 
 	/**
-	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Feature Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MSIMPLE_PATH_SEGMENT__ATTRIBUTE_NAME = MPATH_SEGMENT_FEATURE_COUNT + 0;
+	int MSIMPLE_PATH_SEGMENT__FEATURE_NAME = MPATH_SEGMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>MSimple Path Segment</em>' class.
@@ -1390,17 +1381,6 @@ public interface GridPackage extends EPackage {
 	EAttribute getMGridColumn_TitleKey();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getWidth <em>Width</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Width</em>'.
-	 * @see at.bestsolution.framework.grid.model.grid.MGridColumn#getWidth()
-	 * @see #getMGridColumn()
-	 * @generated
-	 */
-	EAttribute getMGridColumn_Width();
-
-	/**
 	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getMinWidth <em>Min Width</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1423,11 +1403,11 @@ public interface GridPackage extends EPackage {
 	EAttribute getMGridColumn_MaxWidth();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getAutoWidth <em>Auto Width</em>}'.
+	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#isAutoWidth <em>Auto Width</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Auto Width</em>'.
-	 * @see at.bestsolution.framework.grid.model.grid.MGridColumn#getAutoWidth()
+	 * @see at.bestsolution.framework.grid.model.grid.MGridColumn#isAutoWidth()
 	 * @see #getMGridColumn()
 	 * @generated
 	 */
@@ -1529,15 +1509,15 @@ public interface GridPackage extends EPackage {
 	EClass getMSimplePathSegment();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MSimplePathSegment#getAttributeName <em>Attribute Name</em>}'.
+	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MSimplePathSegment#getFeatureName <em>Feature Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Attribute Name</em>'.
-	 * @see at.bestsolution.framework.grid.model.grid.MSimplePathSegment#getAttributeName()
+	 * @return the meta object for the attribute '<em>Feature Name</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MSimplePathSegment#getFeatureName()
 	 * @see #getMSimplePathSegment()
 	 * @generated
 	 */
-	EAttribute getMSimplePathSegment_AttributeName();
+	EAttribute getMSimplePathSegment_FeatureName();
 
 	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MCellTextFunction <em>MCell Text Function</em>}'.
@@ -2055,14 +2035,6 @@ public interface GridPackage extends EPackage {
 		EAttribute MGRID_COLUMN__TITLE_KEY = eINSTANCE.getMGridColumn_TitleKey();
 
 		/**
-		 * The meta object literal for the '<em><b>Width</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MGRID_COLUMN__WIDTH = eINSTANCE.getMGridColumn_Width();
-
-		/**
 		 * The meta object literal for the '<em><b>Min Width</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2167,12 +2139,12 @@ public interface GridPackage extends EPackage {
 		EClass MSIMPLE_PATH_SEGMENT = eINSTANCE.getMSimplePathSegment();
 
 		/**
-		 * The meta object literal for the '<em><b>Attribute Name</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Feature Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute MSIMPLE_PATH_SEGMENT__ATTRIBUTE_NAME = eINSTANCE.getMSimplePathSegment_AttributeName();
+		EAttribute MSIMPLE_PATH_SEGMENT__FEATURE_NAME = eINSTANCE.getMSimplePathSegment_FeatureName();
 
 		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MCellTextFunctionImpl <em>MCell Text Function</em>}' class.

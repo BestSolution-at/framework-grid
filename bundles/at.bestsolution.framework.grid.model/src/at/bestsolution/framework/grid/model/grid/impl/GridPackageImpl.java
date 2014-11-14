@@ -560,7 +560,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMGridColumn_Width() {
+	public EAttribute getMGridColumn_MinWidth() {
 		return (EAttribute)mGridColumnEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -569,7 +569,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMGridColumn_MinWidth() {
+	public EAttribute getMGridColumn_MaxWidth() {
 		return (EAttribute)mGridColumnEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -578,7 +578,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMGridColumn_MaxWidth() {
+	public EAttribute getMGridColumn_AutoWidth() {
 		return (EAttribute)mGridColumnEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -587,17 +587,8 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMGridColumn_AutoWidth() {
-		return (EAttribute)mGridColumnEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getMGridColumn_CellValueFunction() {
-		return (EReference)mGridColumnEClass.getEStructuralFeatures().get(7);
+		return (EReference)mGridColumnEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -606,7 +597,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * @generated
 	 */
 	public EReference getMGridColumn_CellTextFunction() {
-		return (EReference)mGridColumnEClass.getEStructuralFeatures().get(8);
+		return (EReference)mGridColumnEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -615,7 +606,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * @generated
 	 */
 	public EAttribute getMGridColumn_Alignment() {
-		return (EAttribute)mGridColumnEClass.getEStructuralFeatures().get(9);
+		return (EAttribute)mGridColumnEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -624,7 +615,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * @generated
 	 */
 	public EReference getMGridColumn_AutoFilterConfiguration() {
-		return (EReference)mGridColumnEClass.getEStructuralFeatures().get(10);
+		return (EReference)mGridColumnEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -677,7 +668,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMSimplePathSegment_AttributeName() {
+	public EAttribute getMSimplePathSegment_FeatureName() {
 		return (EAttribute)mSimplePathSegmentEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -975,7 +966,6 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		createEAttribute(mGridColumnEClass, MGRID_COLUMN__ID);
 		createEReference(mGridColumnEClass, MGRID_COLUMN__GRID);
 		createEAttribute(mGridColumnEClass, MGRID_COLUMN__TITLE_KEY);
-		createEAttribute(mGridColumnEClass, MGRID_COLUMN__WIDTH);
 		createEAttribute(mGridColumnEClass, MGRID_COLUMN__MIN_WIDTH);
 		createEAttribute(mGridColumnEClass, MGRID_COLUMN__MAX_WIDTH);
 		createEAttribute(mGridColumnEClass, MGRID_COLUMN__AUTO_WIDTH);
@@ -992,7 +982,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		mPathSegmentEClass = createEClass(MPATH_SEGMENT);
 
 		mSimplePathSegmentEClass = createEClass(MSIMPLE_PATH_SEGMENT);
-		createEAttribute(mSimplePathSegmentEClass, MSIMPLE_PATH_SEGMENT__ATTRIBUTE_NAME);
+		createEAttribute(mSimplePathSegmentEClass, MSIMPLE_PATH_SEGMENT__FEATURE_NAME);
 
 		mCellTextFunctionEClass = createEClass(MCELL_TEXT_FUNCTION);
 
@@ -1103,10 +1093,9 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		initEAttribute(getMGridColumn_Id(), ecorePackage.getEString(), "id", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGridColumn_Grid(), this.getMGrid(), this.getMGrid_Columns(), "grid", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMGridColumn_TitleKey(), ecorePackage.getEString(), "titleKey", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMGridColumn_Width(), ecorePackage.getEIntegerObject(), "width", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMGridColumn_MinWidth(), ecorePackage.getEIntegerObject(), "minWidth", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMGridColumn_MaxWidth(), ecorePackage.getEIntegerObject(), "maxWidth", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMGridColumn_AutoWidth(), ecorePackage.getEBooleanObject(), "autoWidth", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMGridColumn_AutoWidth(), ecorePackage.getEBoolean(), "autoWidth", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGridColumn_CellValueFunction(), this.getMCellValueFunction(), null, "cellValueFunction", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGridColumn_CellTextFunction(), this.getMCellTextFunction(), null, "cellTextFunction", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMGridColumn_Alignment(), this.getMAlignment(), "alignment", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1120,7 +1109,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		initEClass(mPathSegmentEClass, MPathSegment.class, "MPathSegment", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(mSimplePathSegmentEClass, MSimplePathSegment.class, "MSimplePathSegment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMSimplePathSegment_AttributeName(), ecorePackage.getEString(), "attributeName", null, 0, 1, MSimplePathSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMSimplePathSegment_FeatureName(), ecorePackage.getEString(), "featureName", null, 0, 1, MSimplePathSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mCellTextFunctionEClass, MCellTextFunction.class, "MCellTextFunction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

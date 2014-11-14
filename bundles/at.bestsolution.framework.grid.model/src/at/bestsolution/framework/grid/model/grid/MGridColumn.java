@@ -34,10 +34,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getId <em>Id</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getGrid <em>Grid</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getTitleKey <em>Title Key</em>}</li>
- *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getWidth <em>Width</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getMinWidth <em>Min Width</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getMaxWidth <em>Max Width</em>}</li>
- *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getAutoWidth <em>Auto Width</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#isAutoWidth <em>Auto Width</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getCellValueFunction <em>Cell Value Function</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getCellTextFunction <em>Cell Text Function</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getAlignment <em>Alignment</em>}</li>
@@ -138,32 +137,6 @@ public interface MGridColumn extends EObject {
 	void setTitleKey(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Width</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Width</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Width</em>' attribute.
-	 * @see #setWidth(Integer)
-	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGridColumn_Width()
-	 * @model
-	 * @generated
-	 */
-	Integer getWidth();
-
-	/**
-	 * Sets the value of the '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getWidth <em>Width</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Width</em>' attribute.
-	 * @see #getWidth()
-	 * @generated
-	 */
-	void setWidth(Integer value);
-
-	/**
 	 * Returns the value of the '<em><b>Min Width</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -224,22 +197,22 @@ public interface MGridColumn extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Auto Width</em>' attribute.
-	 * @see #setAutoWidth(Boolean)
+	 * @see #setAutoWidth(boolean)
 	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGridColumn_AutoWidth()
 	 * @model
 	 * @generated
 	 */
-	Boolean getAutoWidth();
+	boolean isAutoWidth();
 
 	/**
-	 * Sets the value of the '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getAutoWidth <em>Auto Width</em>}' attribute.
+	 * Sets the value of the '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#isAutoWidth <em>Auto Width</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Auto Width</em>' attribute.
-	 * @see #getAutoWidth()
+	 * @see #isAutoWidth()
 	 * @generated
 	 */
-	void setAutoWidth(Boolean value);
+	void setAutoWidth(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Cell Value Function</b></em>' containment reference.

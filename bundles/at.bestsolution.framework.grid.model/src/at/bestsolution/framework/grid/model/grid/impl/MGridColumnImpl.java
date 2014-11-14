@@ -49,10 +49,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getId <em>Id</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getGrid <em>Grid</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getTitleKey <em>Title Key</em>}</li>
- *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getWidth <em>Width</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getMinWidth <em>Min Width</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getMaxWidth <em>Max Width</em>}</li>
- *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getAutoWidth <em>Auto Width</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#isAutoWidth <em>Auto Width</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getCellValueFunction <em>Cell Value Function</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getCellTextFunction <em>Cell Text Function</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getAlignment <em>Alignment</em>}</li>
@@ -111,26 +110,6 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 	protected String titleKey = TITLE_KEY_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getWidth() <em>Width</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getWidth()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final Integer WIDTH_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getWidth() <em>Width</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getWidth()
-	 * @generated
-	 * @ordered
-	 */
-	protected Integer width = WIDTH_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getMinWidth() <em>Min Width</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -171,24 +150,24 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 	protected Integer maxWidth = MAX_WIDTH_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getAutoWidth() <em>Auto Width</em>}' attribute.
+	 * The default value of the '{@link #isAutoWidth() <em>Auto Width</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAutoWidth()
+	 * @see #isAutoWidth()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Boolean AUTO_WIDTH_EDEFAULT = null;
+	protected static final boolean AUTO_WIDTH_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getAutoWidth() <em>Auto Width</em>}' attribute.
+	 * The cached value of the '{@link #isAutoWidth() <em>Auto Width</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAutoWidth()
+	 * @see #isAutoWidth()
 	 * @generated
 	 * @ordered
 	 */
-	protected Boolean autoWidth = AUTO_WIDTH_EDEFAULT;
+	protected boolean autoWidth = AUTO_WIDTH_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getCellValueFunction() <em>Cell Value Function</em>}' containment reference.
@@ -347,27 +326,6 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Integer getWidth() {
-		return width;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setWidth(Integer newWidth) {
-		Integer oldWidth = width;
-		width = newWidth;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GridPackage.MGRID_COLUMN__WIDTH, oldWidth, width));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Integer getMinWidth() {
 		return minWidth;
 	}
@@ -410,7 +368,7 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Boolean getAutoWidth() {
+	public boolean isAutoWidth() {
 		return autoWidth;
 	}
 
@@ -419,8 +377,8 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAutoWidth(Boolean newAutoWidth) {
-		Boolean oldAutoWidth = autoWidth;
+	public void setAutoWidth(boolean newAutoWidth) {
+		boolean oldAutoWidth = autoWidth;
 		autoWidth = newAutoWidth;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GridPackage.MGRID_COLUMN__AUTO_WIDTH, oldAutoWidth, autoWidth));
@@ -640,14 +598,12 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 				return getGrid();
 			case GridPackage.MGRID_COLUMN__TITLE_KEY:
 				return getTitleKey();
-			case GridPackage.MGRID_COLUMN__WIDTH:
-				return getWidth();
 			case GridPackage.MGRID_COLUMN__MIN_WIDTH:
 				return getMinWidth();
 			case GridPackage.MGRID_COLUMN__MAX_WIDTH:
 				return getMaxWidth();
 			case GridPackage.MGRID_COLUMN__AUTO_WIDTH:
-				return getAutoWidth();
+				return isAutoWidth();
 			case GridPackage.MGRID_COLUMN__CELL_VALUE_FUNCTION:
 				return getCellValueFunction();
 			case GridPackage.MGRID_COLUMN__CELL_TEXT_FUNCTION:
@@ -676,9 +632,6 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 				return;
 			case GridPackage.MGRID_COLUMN__TITLE_KEY:
 				setTitleKey((String)newValue);
-				return;
-			case GridPackage.MGRID_COLUMN__WIDTH:
-				setWidth((Integer)newValue);
 				return;
 			case GridPackage.MGRID_COLUMN__MIN_WIDTH:
 				setMinWidth((Integer)newValue);
@@ -722,9 +675,6 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 			case GridPackage.MGRID_COLUMN__TITLE_KEY:
 				setTitleKey(TITLE_KEY_EDEFAULT);
 				return;
-			case GridPackage.MGRID_COLUMN__WIDTH:
-				setWidth(WIDTH_EDEFAULT);
-				return;
 			case GridPackage.MGRID_COLUMN__MIN_WIDTH:
 				setMinWidth(MIN_WIDTH_EDEFAULT);
 				return;
@@ -764,14 +714,12 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 				return getGrid() != null;
 			case GridPackage.MGRID_COLUMN__TITLE_KEY:
 				return TITLE_KEY_EDEFAULT == null ? titleKey != null : !TITLE_KEY_EDEFAULT.equals(titleKey);
-			case GridPackage.MGRID_COLUMN__WIDTH:
-				return WIDTH_EDEFAULT == null ? width != null : !WIDTH_EDEFAULT.equals(width);
 			case GridPackage.MGRID_COLUMN__MIN_WIDTH:
 				return MIN_WIDTH_EDEFAULT == null ? minWidth != null : !MIN_WIDTH_EDEFAULT.equals(minWidth);
 			case GridPackage.MGRID_COLUMN__MAX_WIDTH:
 				return MAX_WIDTH_EDEFAULT == null ? maxWidth != null : !MAX_WIDTH_EDEFAULT.equals(maxWidth);
 			case GridPackage.MGRID_COLUMN__AUTO_WIDTH:
-				return AUTO_WIDTH_EDEFAULT == null ? autoWidth != null : !AUTO_WIDTH_EDEFAULT.equals(autoWidth);
+				return autoWidth != AUTO_WIDTH_EDEFAULT;
 			case GridPackage.MGRID_COLUMN__CELL_VALUE_FUNCTION:
 				return cellValueFunction != null;
 			case GridPackage.MGRID_COLUMN__CELL_TEXT_FUNCTION:
@@ -798,8 +746,6 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 		result.append(id);
 		result.append(", titleKey: ");
 		result.append(titleKey);
-		result.append(", width: ");
-		result.append(width);
 		result.append(", minWidth: ");
 		result.append(minWidth);
 		result.append(", maxWidth: ");
