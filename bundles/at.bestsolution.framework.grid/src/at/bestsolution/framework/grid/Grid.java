@@ -22,6 +22,7 @@ package at.bestsolution.framework.grid;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Function;
 
 import org.eclipse.jdt.annotation.NonNull;
@@ -85,9 +86,18 @@ public interface Grid<R, CP extends GridContentProvider<R>> {
 	 * Default <code>null</code>
 	 * </p>
 	 *
-	 * @return the default sort
+	 * @return the default sort property
 	 */
 	public @NonNull Property<@Nullable Comparator<@NonNull R>> defaultSortProperty();
+
+	/**
+	 * The current locale used by the grid
+	 * <p>
+	 * Default {@link Locale#getDefault()}
+	 * </p>
+	 * @return the locale property
+	 */
+	public @NonNull Property<@NonNull Locale> localeProperty();
 
 	/**
 	 * The default content provider
