@@ -1,0 +1,36 @@
+@Ecore(nsURI="http://www.bestsolution.at/framework/grid/personsample/1.0")
+@GenModel(modelDirectory="/at.bestsolution.framework.grid.personsample.model/src", importerID="org.eclipse.emf.importer.ecore")
+package at.bestsolution.framework.grid.personsample.model.person
+
+class Root {
+	contains Person[] persons
+	contains Country[] countries
+}
+
+class Person {
+	String firstname
+	String lastname
+	Gender gender
+	refers Person partner
+	Boolean married
+	Date birthdate
+	Double weight
+	contains Address address
+}
+
+class Address {
+	String street
+	Integer number
+	String zipcode
+	String city
+	refers Country country
+}
+
+class Country {
+	String name
+}
+
+enum Gender {
+	MALE
+	FEMALE
+}
