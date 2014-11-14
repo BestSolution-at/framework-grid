@@ -27,10 +27,15 @@ import java.util.function.Supplier;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.nebula.widgets.grid.GridItem;
+import org.eclipse.swt.SWT;
 
 import at.bestsolution.framework.grid.ColumnComparator;
+import at.bestsolution.framework.grid.Grid;
 import at.bestsolution.framework.grid.GridColumn;
+import at.bestsolution.framework.grid.GridContentProvider;
 import at.bestsolution.framework.grid.Property;
+import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
@@ -44,7 +49,7 @@ import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
  * @param <C>
  *            cell value type
  */
-public class SWTGridColumn<R, C> implements GridColumn<R, C> {
+public class SWTGridColumn<@NonNull R, @Nullable C> implements GridColumn<R, C> {
 	private final @NonNull Property<@Nullable String> labelProperty = new SimpleProperty<>(
 			null);
 	private final @NonNull Property<@Nullable URI> iconProperty = new SimpleProperty<>(
@@ -74,8 +79,10 @@ public class SWTGridColumn<R, C> implements GridColumn<R, C> {
 			Util.defaultToStringFunction());
 	private final @NonNull Property<@Nullable ColumnComparator<@NonNull R, @Nullable C>> sorterProperty = new SimpleProperty<>(
 			null);
+	private final @NonNull Property<@NonNull Integer> indexProperty;
 
-	private SWTGridTable<R> grid;
+	private final @NonNull SWTGridTable<R> grid;
+	org.eclipse.nebula.widgets.grid.GridColumn nebulaColumn;
 
 	/**
 	 * Create a new column
@@ -83,9 +90,16 @@ public class SWTGridColumn<R, C> implements GridColumn<R, C> {
 	 * @param cellValueFunction
 	 *            the value function
 	 */
-	SWTGridColumn(SWTGridTable<R> grid,@NonNull Function<@NonNull R, @Nullable C> cellValueFunction) {
+	SWTGridColumn(@NonNull SWTGridTable<R> grid,
+			@NonNull Function<@NonNull R, @Nullable C> cellValueFunction) {
 		this.cellValueFunctionProperty = new SimpleProperty<>(cellValueFunction);
 		this.grid = grid;
+		this.indexProperty = new SimpleProperty<@NonNull Integer>(new Integer(
+				grid.getColumns().size()));
+
+		nebulaColumn = new org.eclipse.nebula.widgets.grid.GridColumn(
+				grid.getNebulaGrid(), SWT.NONE);
+		registerPropertyListeners();
 	}
 
 	@Override
@@ -156,5 +170,116 @@ public class SWTGridColumn<R, C> implements GridColumn<R, C> {
 	@Override
 	public @NonNull Property<@NonNull Alignment> alignmentProperty() {
 		return alignmentProperty;
+	}
+
+	@Override
+	public @NonNull Property<@NonNull Integer> indexProperty() {
+		return indexProperty;
+	}
+
+	@Override
+	public @NonNull Grid<R, GridContentProvider<R>> getGrid() {
+		return grid;
+	}
+
+	/**
+	 * 
+	 */
+	@SuppressWarnings("null")
+	private void registerPropertyListeners() {
+		alignmentProperty.addChangeListener(new ChangeListener<Alignment>() {
+			@Override
+			public void valueChanged(Property<Alignment> property,
+					Alignment oldValue, Alignment newValue) {
+				switch (newValue) {
+				case LEFT:
+					nebulaColumn.setAlignment(SWT.LEFT);
+					break;
+				case CENTER:
+					nebulaColumn.setAlignment(SWT.CENTER);
+					break;
+				case RIGHT:
+					nebulaColumn.setAlignment(SWT.RIGHT);
+					break;
+				default:
+					throw new UnsupportedOperationException(
+							"unknown alignment type: " + newValue); //$NON-NLS-1$
+				}
+			}
+		});
+		labelProperty.addChangeListener(new ChangeListener<String>() {
+			@Override
+			public void valueChanged(Property<String> property,
+					String oldValue, String newValue) {
+				nebulaColumn.setText(newValue);
+			}
+		});
+		autoWidthProperty.addChangeListener(new ChangeListener<Boolean>() {
+			@Override
+			public void valueChanged(Property<Boolean> property,
+					Boolean oldValue, Boolean newValue) {
+				// TODO
+			}
+		});
+		minWidthProperty.addChangeListener(new ChangeListener<Integer>() {
+			@Override
+			public void valueChanged(Property<Integer> property,
+					Integer oldValue, Integer newValue) {
+				if (newValue != null) {
+					if (newValue.intValue() < 0) {
+						throw new IllegalArgumentException(
+								"min width must be a non-negative number"); //$NON-NLS-1$
+					}
+					nebulaColumn.setMinimumWidth(newValue);
+					checkWidth();
+				}
+			}
+		});
+		maxWidthProperty.addChangeListener(new ChangeListener<Integer>() {
+			@Override
+			public void valueChanged(Property<Integer> property,
+					Integer oldValue, Integer newValue) {
+				// TODO set max width
+				checkWidth();
+			}
+		});
+	}
+
+	void checkWidth() {
+		@Nullable
+		Integer minWidth = minWidthProperty.get();
+		@Nullable
+		Integer maxWidth = maxWidthProperty.get();
+		if (minWidth != null && maxWidth != null && minWidth.equals(maxWidth)) {
+			nebulaColumn.setWidth(minWidth.intValue());
+		}
+	}
+
+	/**
+	 * @param item
+	 *            grid item
+	 * @param element
+	 *            row element
+	 */
+	// TODO find a better solution for this
+	public void fillGridItem(GridItem item, @NonNull R element) {
+		C value = cellValueFunctionProperty().get().apply(element);
+		if (value != null) {
+			if (value instanceof Boolean) {
+				item.setChecked(indexProperty().get().intValue(),
+						((Boolean) value).booleanValue());
+			} else {
+				CharSequence textValue = textFunctionProperty.get().apply(
+						element, value);
+				if (textValue != null) {
+					item.setText(indexProperty().get().intValue(),
+							textValue.toString());
+				} else {
+					item.setText(indexProperty().get().intValue(), ""); //$NON-NLS-1$
+				}
+			}
+		} else {
+			item.setText(indexProperty().get().intValue(), ""); //$NON-NLS-1$
+		}
 	}
 }

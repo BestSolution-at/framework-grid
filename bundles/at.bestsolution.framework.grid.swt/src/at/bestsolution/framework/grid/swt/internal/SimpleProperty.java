@@ -20,6 +20,7 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.swt.internal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import at.bestsolution.framework.grid.Property;
@@ -32,7 +33,7 @@ import at.bestsolution.framework.grid.Property;
  */
 public class SimpleProperty<T> implements Property<T> {
 	private T value;
-	private List<ChangeListener<T>> listenerList;
+	private List<ChangeListener<T>> listenerList = new ArrayList<Property.ChangeListener<T>>();
 	private boolean disposed = false;
 
 	private void checkDisposed() {

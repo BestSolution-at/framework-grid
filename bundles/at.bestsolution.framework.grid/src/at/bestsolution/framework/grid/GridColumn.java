@@ -40,7 +40,7 @@ import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
  *            the column type
  * @since 1.0
  */
-public interface GridColumn<R, C> {
+public interface GridColumn<@NonNull R, @Nullable C> {
 	/**
 	 * Type of the auto filters
 	 *
@@ -228,4 +228,19 @@ public interface GridColumn<R, C> {
 	@NonNull
 	Property<@Nullable ColumnComparator<@NonNull R, @Nullable C>> sorterProperty();
 
+	/**
+	 * Property for the column index
+	 *
+	 * @return column index
+	 */
+	@NonNull
+	Property<@NonNull Integer> indexProperty();
+	
+	/**
+	 * Grid which contains this column
+	 * 
+	 * @return containing grid
+	 */
+	@NonNull
+	Grid<R, GridContentProvider<R>> getGrid();
 }
