@@ -228,31 +228,4 @@ public interface GridColumn<R, C> {
 	@NonNull
 	Property<@Nullable ColumnComparator<@NonNull R, @Nullable C>> sorterProperty();
 
-	/**
-	 * A function who accepts 3 arguments
-	 *
-	 * @param <T>
-	 *            the first argument
-	 * @param <U>
-	 *            the 2nd argument
-	 * @param <V>
-	 *            the 3rd argument
-	 * @param <R>
-	 *            the return value
-	 */
-	@FunctionalInterface
-	public interface TriFunction<T, U, V, R> {
-		/**
-		 * Apply the function on the 3 values
-		 *
-		 * @param t
-		 *            the first argument
-		 * @param u
-		 *            the 2nd argument
-		 * @param v
-		 *            the 3rd argument
-		 * @return the return type
-		 */
-		R apply(T t, U u, V v);
-	}
 }
