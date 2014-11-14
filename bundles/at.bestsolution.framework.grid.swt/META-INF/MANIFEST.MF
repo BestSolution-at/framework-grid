@@ -5,5 +5,8 @@ Bundle-SymbolicName: at.bestsolution.framework.grid.swt
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: at.bestsolution.framework.grid,
- at.bestsolution.framework.grid.func
-Require-Bundle: org.eclipse.jdt.annotation;bundle-version="2.0.0";resolution:=optional
+ at.bestsolution.framework.grid.func,
+ org.eclipse.swt.widgets
+Require-Bundle: org.eclipse.jdt.annotation;bundle-version="2.0.0";resolution:=optional,
+ org.eclipse.nebula.widgets.grid;bundle-version="1.0.0"
+Export-Package: at.bestsolution.framework.grid.swt;x-internal:=true
