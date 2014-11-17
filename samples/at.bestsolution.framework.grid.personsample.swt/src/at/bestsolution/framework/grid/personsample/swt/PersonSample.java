@@ -21,6 +21,7 @@
 package at.bestsolution.framework.grid.personsample.swt;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
@@ -28,8 +29,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
@@ -46,6 +50,7 @@ import at.bestsolution.framework.grid.personsample.model.person.PersonPackage;
 import at.bestsolution.framework.grid.personsample.model.person.Root;
 import at.bestsolution.framework.grid.swt.SWTGridTable;
 
+@SuppressWarnings("restriction")
 public class PersonSample {
 	private GridTable<Person> table;
 	private MGridConfigurationSet config = getConfiguration();
@@ -63,7 +68,15 @@ public class PersonSample {
 		table.contentProviderProperty().set(
 				new ListGridContentProvider<Person>(getData().getPersons()));
 
-		addToggleSelectionMode(shell);
+		Composite settings = new Composite(shell, SWT.FILL);
+		settings.setLayout(new GridLayout(1, false));
+		GridData layoutData = new GridData();
+		layoutData.grabExcessHorizontalSpace = true;
+		settings.setLayoutData(layoutData);
+
+		addToggleSelectionMode(settings);
+		addToggleLocale(settings);
+
 		shell.setSize(1000, 400);
 		shell.open();
 		while (!shell.isDisposed()) {
@@ -74,12 +87,35 @@ public class PersonSample {
 
 	}
 
+	private void addToggleLocale(Composite parent) {
+		Group group1 = new Group(parent, SWT.SHADOW_IN);
+		group1.setText("Language");
+		group1.setLayout(new RowLayout(SWT.VERTICAL));
+		Button bEnglish = new Button(group1, SWT.RADIO);
+		bEnglish.setText("English");
+		bEnglish.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				table.localeProperty().set(Locale.ENGLISH);
+			}
+		});
+		Button bGerman = new Button(group1, SWT.RADIO);
+		bGerman.setSelection(true);
+		bGerman.setText("German");
+		bGerman.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				table.localeProperty().set(Locale.GERMAN);
+			}
+		});
+	}
+
 	public static void main(String[] args) throws Exception {
 		new PersonSample();
 	}
 
-	private void addToggleSelectionMode(Shell shell) {
-		Group group1 = new Group(shell, SWT.SHADOW_IN);
+	private void addToggleSelectionMode(Composite parent) {
+		Group group1 = new Group(parent, SWT.SHADOW_IN);
 		group1.setText("Selection mode");
 		group1.setLayout(new RowLayout(SWT.VERTICAL));
 		Button bSingleCell = new Button(group1, SWT.RADIO);

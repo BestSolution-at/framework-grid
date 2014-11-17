@@ -20,15 +20,20 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.emf;
 
+import java.util.Locale;
+
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.GridColumn;
+import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.GridColumn.Alignment;
+import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.model.grid.MCellTextFunction;
 import at.bestsolution.framework.grid.model.grid.MFormatType;
 import at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction;
+import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationColumn;
 import at.bestsolution.framework.grid.model.grid.MPattern;
 import at.bestsolution.framework.grid.model.grid.MReferencePattern;
@@ -64,6 +69,26 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		this.column = column;
 		this.config = config;
 		apply();
+		registerPropertyListeners();
+	}
+
+	/**
+	 * register property listeners on grid instance to immediate apply
+	 * configuration changes
+	 */
+	private void registerPropertyListeners() {
+		column.getGrid().localeProperty()
+				.addChangeListener(new ChangeListener<@NonNull Locale>() {
+					@Override
+					public void valueChanged(
+							Property<@NonNull Locale> property,
+							@NonNull Locale oldValue, @NonNull Locale newValue) {
+						if (!oldValue.equals(newValue)) {
+							applyHeaderTitle();
+							applyTextFunction();
+						}
+					}
+				});
 	}
 
 	/**
@@ -82,7 +107,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	/**
 	 * apply text function configuration to grid
 	 */
-	private void applyTextFunction() {
+	void applyTextFunction() {
 		MCellTextFunction cellTextFunction = config.getColumn()
 				.getCellTextFunction();
 		if (cellTextFunction != null) {
@@ -100,16 +125,17 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 													.getFormatType(), p));
 						}
 					} else if (pattern instanceof MReferencePattern) {
-						// MReferencePattern refPattern = (MReferencePattern)
-						// pattern;
-						// String patternKey = refPattern.getPatternKey();
-						// String p = null; // TODO translate this
-						// if (p != null) {
-						// column.textFunctionProperty().set(
-						// createCellDataFunction(
-						// formattedCellTextFunction
-						// .getFormatType(), p));
-						// }
+						MReferencePattern refPattern = (MReferencePattern) pattern;
+						@SuppressWarnings("null")
+						@NonNull
+						String patternKey = refPattern.getPatternKey();
+						String p = getTranslation(getLocale(), patternKey);
+						if (p != null) {
+							column.textFunctionProperty().set(
+									createCellDataFunction(
+											formattedCellTextFunction
+													.getFormatType(), p));
+						}
 						throw new UnsupportedOperationException(
 								"reference pattern is not implemented: " + pattern); //$NON-NLS-1$
 					} else {
@@ -183,8 +209,24 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	/**
 	 * apply header title
 	 */
-	private void applyHeaderTitle() {
-		// TODO get from resource
-		column.labelProperty().set(config.getColumn().getTitleKey());
+	void applyHeaderTitle() {
+		@SuppressWarnings("null")
+		@NonNull
+		String key = config.getColumn().getTitleKey();
+		column.labelProperty().set(getTranslation(getLocale(), key));
+	}
+
+	private @NonNull Locale getLocale() {
+		return column.getGrid().localeProperty().get();
+	}
+
+	@Nullable
+	private String getTranslation(@NonNull Locale locale, @NonNull String key) {
+		@SuppressWarnings("null")
+		@NonNull
+		MGrid grid = config.getColumn().getGrid();
+		String result = Util.getTranslation(grid, locale, key);
+		// TODO TranslationFunction fallback
+		return result;
 	}
 }
