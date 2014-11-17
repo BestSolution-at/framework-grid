@@ -52,7 +52,7 @@ public class ListGridContentProvider<@NonNull R> implements
 	}
 
 	@Override
-	public @NonNull R getElementAt(int index) throws IllegalArgumentException {
+	public @NonNull R getElementAt(int index) throws IndexOutOfBoundsException {
 		return data.get(index);
 	}
 }
