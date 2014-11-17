@@ -143,21 +143,21 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 * apply autoWidth to grid
 	 */
 	private void applyAutoWidth() {
-		column.autoWidth().set(config.getColumn().isAutoWidth());
+		column.autoWidthProperty().set(config.getColumn().isAutoWidth());
 	}
 
 	/**
 	 * apply minWidth to grid
 	 */
 	private void applyMinWidth() {
-		column.minWidth().set(config.getColumn().getMinWidth());
+		column.minWidthProperty().set(config.getColumn().getMinWidth());
 	}
 
 	/**
 	 * apply minWidth to grid
 	 */
 	private void applyMaxWidth() {
-		column.maxWidth().set(config.getColumn().getMaxWidth());
+		column.maxWidthProperty().set(config.getColumn().getMaxWidth());
 	}
 
 	/**

@@ -113,17 +113,17 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements GridColumn<R, C> 
 	}
 
 	@Override
-	public @NonNull Property<@Nullable Integer> maxWidth() {
+	public @NonNull Property<@Nullable Integer> maxWidthProperty() {
 		return maxWidthProperty;
 	}
 
 	@Override
-	public @NonNull Property<@Nullable Integer> minWidth() {
+	public @NonNull Property<@Nullable Integer> minWidthProperty() {
 		return minWidthProperty;
 	}
 
 	@Override
-	public @NonNull Property<@NonNull Boolean> autoWidth() {
+	public @NonNull Property<@NonNull Boolean> autoWidthProperty() {
 		return autoWidthProperty;
 	}
 

@@ -101,26 +101,26 @@ public interface GridColumn<@NonNull R, @Nullable C> {
 	 * The maximum width.
 	 *
 	 * <p>
-	 * For a fixed width set {@link #maxWidth()} and {@link #minWidth()} to the
+	 * For a fixed width set {@link #maxWidthProperty()} and {@link #minWidthProperty()} to the
 	 * same value
 	 * </p>
 	 *
 	 * @return the max width property
 	 */
 	@NonNull
-	Property<@Nullable Integer> maxWidth();
+	Property<@Nullable Integer> maxWidthProperty();
 
 	/**
 	 * The minimum width
 	 * <p>
-	 * For a fixed width set {@link #maxWidth()} and {@link #minWidth()} to the
+	 * For a fixed width set {@link #maxWidthProperty()} and {@link #minWidthProperty()} to the
 	 * same value
 	 * </p>
 	 *
 	 * @return the min width property
 	 */
 	@NonNull
-	Property<@Nullable Integer> minWidth();
+	Property<@Nullable Integer> minWidthProperty();
 
 	/**
 	 * Calculate the width from the content
@@ -131,7 +131,7 @@ public interface GridColumn<@NonNull R, @Nullable C> {
 	 * @return the auto width property
 	 */
 	@NonNull
-	Property<@NonNull Boolean> autoWidth();
+	Property<@NonNull Boolean> autoWidthProperty();
 
 	/**
 	 * The provider of the cell value
