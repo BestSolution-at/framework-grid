@@ -55,7 +55,7 @@ public class SimpleProperty<T> implements Property<T> {
 		checkDisposed();
 		T oldValue = this.value;
 		this.value = value;
-		for (ChangeListener<T> listener : listenerList) {
+		for (ChangeListener<T> listener : new ArrayList<>(listenerList)) {
 			listener.valueChanged(this, oldValue, value);
 		}
 	}

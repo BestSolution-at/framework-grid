@@ -21,27 +21,29 @@
 package at.bestsolution.framework.grid.swt;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.function.Function;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.nebula.widgets.grid.Grid;
 import org.eclipse.nebula.widgets.grid.GridItem;
-import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 
+import at.bestsolution.framework.grid.GridCell;
 import at.bestsolution.framework.grid.GridColumn;
 import at.bestsolution.framework.grid.GridContentProvider;
 import at.bestsolution.framework.grid.GridTable;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.Util;
+import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
 import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
 
 /**
@@ -54,19 +56,18 @@ public class SWTGridTable<R> implements GridTable<R> {
 	@SuppressWarnings("all")
 	private @NonNull Property<@NonNull SelectionMode> selectionModeProperty = new SimpleProperty<>(
 			SelectionMode.SINGLE_ROW);
-	private @NonNull Property<@Nullable Comparator<@NonNull R>> defaultSortProperty = new SimpleProperty<>(
-			null);
 	private @NonNull Property<@Nullable GridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(
 			null);
-	private @NonNull Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty = new SimpleProperty<>(
+	@NonNull
+	Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty = new SimpleProperty<>(
 			Util.emptySelection());
 	@SuppressWarnings("null")
 	private @NonNull Property<@NonNull Locale> localeProperty = new SimpleProperty<>(
 			Locale.getDefault());
 
 	protected @NonNull Grid nebulaGrid;
-	final Map<@NonNull R, @NonNull GridItem> data = new HashMap<>();
 	final List<@NonNull SWTGridColumn<R, ?>> columns = new ArrayList<>();
+	final @NonNull SWTGridContentHandler<R> contentHandler;
 
 	/**
 	 * SWT Grid
@@ -79,6 +80,8 @@ public class SWTGridTable<R> implements GridTable<R> {
 	public SWTGridTable(Composite parent, int style) {
 		nebulaGrid = new Grid(parent, style);
 		nebulaGrid.setHeaderVisible(true);
+		contentHandler = new SWTGridContentHandler<R>(this, nebulaGrid);
+		registerSelectionListener();
 		registerPropertyListeners();
 	}
 
@@ -100,7 +103,7 @@ public class SWTGridTable<R> implements GridTable<R> {
 
 	@Override
 	public @NonNull Property<@Nullable Comparator<@NonNull R>> defaultSortProperty() {
-		return defaultSortProperty;
+		return contentHandler.getDefaultSortProperty();
 	}
 
 	@Override
@@ -158,35 +161,75 @@ public class SWTGridTable<R> implements GridTable<R> {
 							Property<GridContentProvider<R>> property,
 							@Nullable GridContentProvider<R> oldValue,
 							@Nullable GridContentProvider<R> newValue) {
-						// TODO this is q&d code to make it working fast
-						data.clear();
-						nebulaGrid.clearItems();
-						if (newValue != null) {
-							// TODO restore selection
-							for (int i = 0; i < newValue.size(); i++) {
-								final GridItem item = new GridItem(nebulaGrid,
-										SWT.NONE);
-								@NonNull
-								R element = newValue.getElementAt(i);
-								data.put(element, item);
-								for (@NonNull
-										SWTGridColumn<R, ?> col : columns) {
-									col.fillGridItem(item, element);
-								}
-							}
-						} else {
-							nebulaGrid.setItemCount(0);
-						}
+						contentHandler.resetContent(newValue);
 					}
 				});
+	}
+
+	private void registerSelectionListener() {
+		nebulaGrid.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				@SuppressWarnings("null")
+				@NonNull
+				GridItem[] selection = nebulaGrid.getSelection();
+				if (selection == null || selection.length == 0) {
+					selectionProperty.set(Util.emptySelection());
+				} else if (selection.length == 1) {
+					R selectedRow = contentHandler.get(selection[0]);
+					GridColumn<R, R> b = null; // TODO
+					selectionProperty.set(new SimpleSelection<R, R>(
+							selectedRow, b, selectedRow));
+				} else {
+					// multiple row selection is not supported
+					e.doit = false;
+				}
+			}
+		});
 	}
 
 	/**
 	 * @return grid columns
 	 */
 	@NonNull
-	@SuppressWarnings("null")
-	public List<GridColumn<R, ?>> getColumns() {
+	@SuppressWarnings("all")
+	public List<@NonNull GridColumn<@NonNull R, @Nullable ?>> getColumns() {
 		return Collections.unmodifiableList(columns);
+	}
+
+	static class SimpleSelection<R, O> implements Selection<R, O> {
+		private final@Nullable  R r;
+		private final GridColumn<R, O> column;
+		private final O c;
+
+		SimpleSelection(@Nullable R r, GridColumn<R, O> column, O c) {
+			this.r = r;
+			this.column = column;
+			this.c = c;
+		}
+
+		@Override
+		public O getFirst() {
+			return c;
+		}
+
+		@SuppressWarnings("null")
+		@Override
+		public @NonNull List<@NonNull O> asList() {
+			return Arrays.asList(c);
+		}
+
+		@Override
+		public boolean isEmpty() {
+			return false;
+		}
+
+		@Override
+		public <C> at.bestsolution.framework.grid.Grid.@NonNull Selection<R, GridCell<R, C>> asCellSelection() {
+			@Nullable
+			GridCell<R, C> a = null;
+			GridColumn<R, GridCell<R, C>> col = null;
+			return new SimpleSelection<R, GridCell<R, C>>(r, col, a);
+		}
 	}
 }
