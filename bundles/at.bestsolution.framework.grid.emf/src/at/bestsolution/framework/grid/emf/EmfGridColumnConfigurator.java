@@ -20,14 +20,15 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.emf;
 
+import java.util.Comparator;
 import java.util.Locale;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.GridColumn;
-import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.GridColumn.Alignment;
+import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.model.grid.MCellTextFunction;
@@ -48,7 +49,8 @@ import at.bestsolution.framework.grid.model.grid.MStringPattern;
  *            cell type
  */
 public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
-	private final GridColumn<R, C> column;
+	private @NonNull final GridColumn<R, C> column;
+
 	private final MGridConfigurationColumn config;
 
 	/**
@@ -148,8 +150,13 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	}
 
 	/**
-	 * @param p
-	 * @return
+	 * create a cell data function depending on type and pattern
+	 * 
+	 * @param type
+	 *            format type
+	 * @param pattern
+	 *            format pattern
+	 * @return cell data function
 	 */
 	@NonNull
 	private CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> createCellDataFunction(
@@ -228,5 +235,9 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		String result = Util.getTranslation(grid, locale, key);
 		// TODO TranslationFunction fallback
 		return result;
+	}
+
+	public @NonNull Comparator<@NonNull R> createDefaultComparator() {
+		return new DefaultSortComparator<R, C>(column);
 	}
 }

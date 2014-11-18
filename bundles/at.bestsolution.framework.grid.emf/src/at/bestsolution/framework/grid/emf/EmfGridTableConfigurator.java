@@ -90,7 +90,16 @@ public class EmfGridTableConfigurator<R> {
 	private void apply() {
 		applySelectionMode();
 		addViewColumns();
+		applyDefaultSort();
 		// TODO add missing features
+	}
+
+	private void applyDefaultSort() {
+		if (config.getDefaultSortColumn() != null) {
+			table.defaultSortProperty().set(
+					columnConfigurators.get(config.getDefaultSortColumn())
+							.createDefaultComparator());
+		}
 	}
 
 	private void addViewColumns() {
@@ -104,9 +113,9 @@ public class EmfGridTableConfigurator<R> {
 							.getCellValueFunction());
 					columnConfigurators.put(
 							column,
-							new EmfGridColumnConfigurator<R, Object>(table.createColumn(
-									column.getId(), cellValueFunction),
-									columnConfig));
+							new EmfGridColumnConfigurator<R, Object>(table
+									.createColumn(column.getId(),
+											cellValueFunction), columnConfig));
 				}
 			}
 		}
