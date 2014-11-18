@@ -36,10 +36,14 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
+import at.bestsolution.framework.grid.Grid.Selection;
 import at.bestsolution.framework.grid.GridTable;
 import at.bestsolution.framework.grid.ListGridContentProvider;
+import at.bestsolution.framework.grid.Property;
+import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.emf.EmfGridTableConfigurator;
 import at.bestsolution.framework.grid.model.grid.GridPackage;
 import at.bestsolution.framework.grid.model.grid.MGrid;
@@ -75,6 +79,7 @@ public class PersonSample {
 		settings.setLayoutData(layoutData);
 
 		addToggleSelectionMode(settings);
+		addSelection(settings);
 		addToggleLocale(settings);
 
 		shell.setSize(1000, 400);
@@ -112,6 +117,40 @@ public class PersonSample {
 
 	public static void main(String[] args) throws Exception {
 		new PersonSample();
+	}
+
+	private void addSelection(Composite parent) {
+		Composite comp = new Composite(parent, SWT.NONE);
+		comp.setLayout(new GridLayout(2, false));
+		GridData cData = new GridData();
+		cData.horizontalAlignment = SWT.FILL;
+		cData.grabExcessHorizontalSpace = true;
+		comp.setLayoutData(cData);
+		Label lSelection = new Label(comp, SWT.NONE);
+		lSelection.setText("Selection:"); //$NON-NLS-1$
+		final Label lSelectedItems = new Label(comp, SWT.NONE);
+		GridData gd = new GridData();
+		gd.horizontalAlignment = SWT.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		// gd.widthHint=200;
+		lSelectedItems.setLayoutData(gd);
+		table.selectionProperty().addChangeListener(
+				new ChangeListener<Selection<Person, Person>>() {
+					@Override
+					public void valueChanged(
+							Property<Selection<Person, Person>> property,
+							Selection<Person, Person> oldValue,
+							Selection<Person, Person> newValue) {
+						StringBuffer sb = new StringBuffer();
+						for (Person p : newValue.asList()) {
+							if (sb.length() > 0) {
+								sb.append(", "); //$NON-NLS-1$
+							}
+							sb.append(p.getFirstname() + " " + p.getLastname()); //$NON-NLS-1$
+						}
+						lSelectedItems.setText(sb.toString());
+					}
+				});
 	}
 
 	private void addToggleSelectionMode(Composite parent) {
