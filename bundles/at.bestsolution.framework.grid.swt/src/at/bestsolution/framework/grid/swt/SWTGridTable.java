@@ -56,7 +56,7 @@ public class SWTGridTable<R> implements GridTable<R> {
 	@SuppressWarnings("all")
 	private @NonNull Property<@NonNull SelectionMode> selectionModeProperty = new SimpleProperty<>(
 			SelectionMode.SINGLE_ROW);
-	private @NonNull Property<@Nullable GridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(
+	@NonNull Property<@Nullable GridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(
 			null);
 	@NonNull
 	Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty = new SimpleProperty<>(
@@ -164,6 +164,13 @@ public class SWTGridTable<R> implements GridTable<R> {
 						contentHandler.resetContent(newValue);
 					}
 				});
+		localeProperty.addChangeListener(new ChangeListener<@NonNull Locale>() {
+			@Override
+			public void valueChanged(Property<@NonNull Locale> property,
+					Locale oldValue, Locale newValue) {
+				contentHandler.resetContent(contentProviderProperty.get());
+			}
+		});
 	}
 
 	private void registerSelectionListener() {
@@ -198,7 +205,7 @@ public class SWTGridTable<R> implements GridTable<R> {
 	}
 
 	static class SimpleSelection<R, O> implements Selection<R, O> {
-		private final@Nullable  R r;
+		private final @Nullable R r;
 		private final GridColumn<R, O> column;
 		private final O c;
 

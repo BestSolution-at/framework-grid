@@ -21,10 +21,13 @@
 package at.bestsolution.framework.grid.emf;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
+import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 
 /**
@@ -38,19 +41,38 @@ import at.bestsolution.framework.grid.func.CellDataFunction;
 public class DecimalCellDataFunction<R, C> implements
 		CellDataFunction<R, C, @Nullable CharSequence> {
 	private final @NonNull String pattern;
+	@NonNull
+	DecimalFormat format;
 
 	/**
 	 * @param pattern
 	 *            pattern;
+	 * @param localeProperty
+	 *            locale property
 	 */
-	public DecimalCellDataFunction(@NonNull String pattern) {
+	public DecimalCellDataFunction(@NonNull String pattern,
+			@NonNull Property<@NonNull Locale> localeProperty) {
 		this.pattern = pattern;
+		format = createFormat(localeProperty.get());
+	}
+
+	/**
+	 * create new DecimalFormat instance localized with given locale
+	 * 
+	 * @param locale
+	 *            format locale
+	 * @return created format
+	 */
+	@NonNull
+	DecimalFormat createFormat(@NonNull Locale locale) {
+		return new DecimalFormat(pattern,
+				DecimalFormatSymbols.getInstance(locale));
 	}
 
 	@Override
 	public CharSequence apply(R row, C number) {
 		if (number != null) {
-			return new DecimalFormat(pattern).format(number);
+			return format.format(number);
 		} else {
 			return null;
 		}

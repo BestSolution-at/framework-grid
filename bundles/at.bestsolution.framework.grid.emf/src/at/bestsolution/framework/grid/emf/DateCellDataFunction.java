@@ -20,11 +20,16 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.emf;
 
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
+import at.bestsolution.framework.grid.Property;
+import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 
 /**
@@ -38,19 +43,45 @@ import at.bestsolution.framework.grid.func.CellDataFunction;
 public class DateCellDataFunction<R, C> implements
 		CellDataFunction<R, C, @Nullable CharSequence> {
 	private final @NonNull String pattern;
+	@NonNull
+	DateFormat format;
 
 	/**
 	 * @param pattern
 	 *            pattern;
+	 * @param localeProperty
+	 *            locale property
 	 */
-	public DateCellDataFunction(@NonNull String pattern) {
+	public DateCellDataFunction(@NonNull String pattern,
+			@NonNull Property<@NonNull Locale> localeProperty) {
 		this.pattern = pattern;
+		format = createFormat(localeProperty.get());
+		localeProperty.addChangeListener(new ChangeListener<@NonNull Locale>() {
+			@Override
+			public void valueChanged(Property<@NonNull Locale> property,
+					@NonNull Locale oldValue, @NonNull Locale newValue) {
+				format = createFormat(newValue);
+			}
+		});
+	}
+
+	/**
+	 * create new DateFormat instance localized with given locale
+	 * 
+	 * @param locale
+	 *            format locale
+	 * @return created format
+	 */
+	@NonNull
+	DateFormat createFormat(@NonNull Locale locale) {
+		return new SimpleDateFormat(pattern,
+				DateFormatSymbols.getInstance(locale));
 	}
 
 	@Override
 	public CharSequence apply(R row, C date) {
 		if (date != null) {
-			return new SimpleDateFormat(pattern).format(date);
+			return format.format(date);
 		} else {
 			return null;
 		}

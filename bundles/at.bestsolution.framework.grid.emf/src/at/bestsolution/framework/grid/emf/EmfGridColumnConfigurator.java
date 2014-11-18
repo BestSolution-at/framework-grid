@@ -163,9 +163,11 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 			MFormatType type, @NonNull String pattern) {
 		switch (type) {
 		case DATE:
-			return new DateCellDataFunction<R, C>(pattern);
+			return new DateCellDataFunction<R, C>(pattern, column.getGrid()
+					.localeProperty());
 		case NUMBER:
-			return new DecimalCellDataFunction<R, C>(pattern);
+			return new DecimalCellDataFunction<R, C>(pattern, column.getGrid()
+					.localeProperty());
 		default:
 			throw new UnsupportedOperationException(
 					"unknown format type: " + type); //$NON-NLS-1$
