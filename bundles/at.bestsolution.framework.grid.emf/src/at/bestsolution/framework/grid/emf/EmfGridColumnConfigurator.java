@@ -167,8 +167,8 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		case NUMBER:
 			return new DecimalCellDataFunction<R, C>(pattern);
 		default:
-			throw new UnsupportedOperationException("unknown format type: "
-					+ type);
+			throw new UnsupportedOperationException(
+					"unknown format type: " + type); //$NON-NLS-1$
 		}
 	}
 
@@ -176,7 +176,8 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 * apply autoWidth to grid
 	 */
 	private void applyAutoWidth() {
-		column.autoWidthProperty().set(config.getColumn().isAutoWidth());
+		column.autoWidthProperty().set(
+				new Boolean(config.getColumn().isAutoWidth()));
 	}
 
 	/**
@@ -237,6 +238,9 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		return result;
 	}
 
+	/**
+	 * @return a default comparator instance for sorting this column
+	 */
 	public @NonNull Comparator<@NonNull R> createDefaultComparator() {
 		return new DefaultSortComparator<R, C>(column);
 	}

@@ -23,6 +23,7 @@ package at.bestsolution.framework.grid.emf;
 import java.text.SimpleDateFormat;
 
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.func.CellDataFunction;
 
@@ -35,7 +36,7 @@ import at.bestsolution.framework.grid.func.CellDataFunction;
  *            data type
  */
 public class DateCellDataFunction<R, C> implements
-		CellDataFunction<R, C, CharSequence> {
+		CellDataFunction<R, C, @Nullable CharSequence> {
 	private final @NonNull String pattern;
 
 	/**
