@@ -28,6 +28,7 @@
 		<!-- Bundles -->
 		<module>../../bundles/at.bestsolution.framework.grid</module>
 		<module>../../bundles/at.bestsolution.framework.grid.model</module>
+		<module>../../bundles/at.bestsolution.framework.grid.emf</module>
 		<module>../../bundles/at.bestsolution.framework.grid.swt</module>
 
 		<!-- Features -->
