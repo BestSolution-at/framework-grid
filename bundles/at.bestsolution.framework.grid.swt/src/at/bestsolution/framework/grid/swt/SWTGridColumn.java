@@ -230,7 +230,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements GridColumn<R, C> 
 						throw new IllegalArgumentException(
 								"min width must be a non-negative number"); //$NON-NLS-1$
 					}
-					nebulaColumn.setMinimumWidth(newValue);
+					nebulaColumn.setMinimumWidth(newValue.intValue());
 					checkWidth();
 				}
 			}
