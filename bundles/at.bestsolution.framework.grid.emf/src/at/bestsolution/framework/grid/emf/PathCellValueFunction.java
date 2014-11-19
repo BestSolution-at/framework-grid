@@ -53,6 +53,7 @@ public class PathCellValueFunction<@NonNull R> implements
 	public Object apply(R r) {
 		Object value = r;
 		for (@Nullable
+		// TODO we could cache the path to improve performance
 		MPathSegment segment : mFunction.getSegments()) {
 			if (segment == null || value == null) {
 				break;
