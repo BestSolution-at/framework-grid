@@ -76,11 +76,14 @@ public class EmfGridTableConfigurator<R> {
 	 *            the new configuration
 	 */
 	public void setConfiguration(@NonNull MGridConfigurationSet config) {
+		for (MGridColumn col : new ArrayList<>(columnConfigurators.keySet())) {
+			columnConfigurators.get(col).dispose();
+			columnConfigurators.remove(col);
+		}
 		for (XGridColumn<R, ?> col : new ArrayList<>(table.getColumns())) {
 			col.dispose();
 		}
 		this.config.eAdapters().remove(configAdapter);
-		columnConfigurators.clear();
 		this.config = config;
 		apply();
 		registerAdapters();

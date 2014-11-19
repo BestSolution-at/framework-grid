@@ -40,6 +40,7 @@ import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
+import at.bestsolution.framework.grid.func.DisposableCellDataFunction;
 import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
 
 /**
@@ -330,6 +331,10 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 		maxWidthProperty.dispose();
 		minWidthProperty.dispose();
 		sorterProperty.dispose();
+		if (textFunctionProperty.get() instanceof DisposableCellDataFunction) {
+			((DisposableCellDataFunction<?, ?, ?>) textFunctionProperty.get())
+					.dispose();
+		}
 		textFunctionProperty.dispose();
 	}
 

@@ -57,6 +57,8 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 
 	private final @NonNull TranslationFunction translationFunction;
 
+	private ChangeListener<@NonNull Locale> localeChangelistener;
+
 	/**
 	 * EMF Model column configurator
 	 * 
@@ -84,18 +86,17 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 * configuration changes
 	 */
 	private void registerPropertyListeners() {
+		localeChangelistener = new ChangeListener<@NonNull Locale>() {
+			@Override
+			public void valueChanged(Property<@NonNull Locale> property,
+					@NonNull Locale oldValue, @NonNull Locale newValue) {
+				if (!oldValue.equals(newValue)) {
+					applyHeaderTitle();
+				}
+			}
+		};
 		column.getGrid().localeProperty()
-				.addChangeListener(new ChangeListener<@NonNull Locale>() {
-					@Override
-					public void valueChanged(
-							Property<@NonNull Locale> property,
-							@NonNull Locale oldValue, @NonNull Locale newValue) {
-						if (!oldValue.equals(newValue)) {
-							applyHeaderTitle();
-							// applyTextFunction();
-						}
-					}
-				});
+				.addChangeListener(localeChangelistener);
 	}
 
 	/**
@@ -283,5 +284,13 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 */
 	public @NonNull Comparator<@NonNull R> createDefaultComparator() {
 		return new DefaultSortComparator<R, C>(column);
+	}
+
+	/**
+	 * dispose column configurator
+	 */
+	public void dispose() {
+		column.getGrid().localeProperty()
+				.removeChangeListener(localeChangelistener);
 	}
 }

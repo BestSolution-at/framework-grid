@@ -28,8 +28,9 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.Property;
+import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.XGridColumn;
-import at.bestsolution.framework.grid.func.CellDataFunction;
+import at.bestsolution.framework.grid.func.DisposableCellDataFunction;
 import at.bestsolution.framework.grid.func.TranslationFunction;
 
 /**
@@ -41,10 +42,12 @@ import at.bestsolution.framework.grid.func.TranslationFunction;
  *            data type
  */
 public class LocalizedDecimalCellDataFunction<R, C> implements
-		CellDataFunction<R, C, @Nullable CharSequence> {
+		DisposableCellDataFunction<R, C, @Nullable CharSequence> {
 	private final @NonNull String patternKey;
 	private final @NonNull XGridColumn<R, C> column;
 	private final @NonNull TranslationFunction translationFunction;
+	private final @NonNull Property<Locale> localeProperty;
+	private @NonNull ChangeListener<@NonNull Locale> localeListener;
 	@NonNull
 	DecimalFormat format;
 
@@ -64,9 +67,11 @@ public class LocalizedDecimalCellDataFunction<R, C> implements
 		this.column = column;
 		this.patternKey = patternKey;
 		this.translationFunction = translationFunction;
+		this.localeProperty = localeProperty;
 		format = createFormat(localeProperty.get(), patternKey,
 				translationFunction);
-		localeProperty.addChangeListener(this::localeValueChanged);
+		localeListener = this::localeValueChanged;
+		localeProperty.addChangeListener(localeListener);
 	}
 
 	void localeValueChanged(Property<@NonNull Locale> property,
@@ -104,5 +109,10 @@ public class LocalizedDecimalCellDataFunction<R, C> implements
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public void dispose() {
+		localeProperty.removeChangeListener(localeListener);
 	}
 }
