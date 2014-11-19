@@ -30,8 +30,8 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import at.bestsolution.framework.grid.Grid.SelectionMode;
-import at.bestsolution.framework.grid.GridTable;
+import at.bestsolution.framework.grid.XGrid.SelectionMode;
+import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.model.grid.GridPackage;
 import at.bestsolution.framework.grid.model.grid.MCellValueFunction;
 import at.bestsolution.framework.grid.model.grid.MGridColumn;
@@ -46,7 +46,7 @@ import at.bestsolution.framework.grid.model.grid.MPathCellValueFunction;
  *            grid data type
  */
 public class EmfGridTableConfigurator<R> {
-	private final @NonNull GridTable<R> table;
+	private final @NonNull XGridTable<R> table;
 	private final @NonNull MGridConfigurationSet config;
 
 	private Adapter configAdapter;
@@ -60,7 +60,7 @@ public class EmfGridTableConfigurator<R> {
 	 * @param config
 	 *            table configuration
 	 */
-	public EmfGridTableConfigurator(GridTable<R> table,
+	public EmfGridTableConfigurator(XGridTable<R> table,
 			MGridConfigurationSet config) {
 		if (table == null) {
 			throw new IllegalArgumentException("table must not be null"); //$NON-NLS-1$

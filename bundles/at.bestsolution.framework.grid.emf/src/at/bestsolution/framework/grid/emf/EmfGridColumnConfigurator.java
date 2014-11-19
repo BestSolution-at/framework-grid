@@ -26,8 +26,8 @@ import java.util.Locale;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import at.bestsolution.framework.grid.GridColumn;
-import at.bestsolution.framework.grid.GridColumn.Alignment;
+import at.bestsolution.framework.grid.XGridColumn;
+import at.bestsolution.framework.grid.XGridColumn.Alignment;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.func.CellDataFunction;
@@ -49,7 +49,7 @@ import at.bestsolution.framework.grid.model.grid.MStringPattern;
  *            cell type
  */
 public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
-	private @NonNull final GridColumn<R, C> column;
+	private @NonNull final XGridColumn<R, C> column;
 
 	private final MGridConfigurationColumn config;
 
@@ -62,7 +62,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 *            column configuration
 	 */
 	public EmfGridColumnConfigurator(
-			@NonNull GridColumn<@NonNull R, @Nullable C> column,
+			@NonNull XGridColumn<@NonNull R, @Nullable C> column,
 			@NonNull MGridConfigurationColumn config) {
 		if (config.getColumn() == null) {
 			throw new IllegalArgumentException(

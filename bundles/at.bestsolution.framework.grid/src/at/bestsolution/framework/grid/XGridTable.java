@@ -27,6 +27,6 @@ package at.bestsolution.framework.grid;
  *            the row type
  * @since 1.0
  */
-public interface GridTable<R> extends Grid<R, GridContentProvider<R>> {
+public interface XGridTable<R> extends XGrid<R, XGridContentProvider<R>> {
 	// nothing needed
 }

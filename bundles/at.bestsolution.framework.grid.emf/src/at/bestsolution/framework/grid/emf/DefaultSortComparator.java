@@ -25,7 +25,7 @@ import java.util.Comparator;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import at.bestsolution.framework.grid.GridColumn;
+import at.bestsolution.framework.grid.XGridColumn;
 
 /**
  * Default comparator implementation for column sorting which compares by cell
@@ -37,13 +37,13 @@ import at.bestsolution.framework.grid.GridColumn;
  *            cell type
  */
 public class DefaultSortComparator<@NonNull R, C> implements Comparator<R> {
-	private final @NonNull GridColumn<@NonNull R, C> column;
+	private final @NonNull XGridColumn<@NonNull R, C> column;
 
 	/**
 	 * @param column
 	 *            the grid column to sort
 	 */
-	public DefaultSortComparator(@NonNull GridColumn<@NonNull R, C> column) {
+	public DefaultSortComparator(@NonNull XGridColumn<@NonNull R, C> column) {
 		this.column = column;
 	}
 

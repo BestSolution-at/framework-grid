@@ -40,7 +40,7 @@ import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
  *            the column type
  * @since 1.0
  */
-public interface GridColumn<@NonNull R, @Nullable C> {
+public interface XGridColumn<@NonNull R, @Nullable C> {
 	/**
 	 * Type of the auto filters
 	 *
@@ -242,5 +242,5 @@ public interface GridColumn<@NonNull R, @Nullable C> {
 	 * @return containing grid
 	 */
 	@NonNull
-	Grid<R, GridContentProvider<R>> getGrid();
+	XGrid<R, XGridContentProvider<R>> getGrid();
 }

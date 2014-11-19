@@ -32,7 +32,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @since 1.0
  */
 public class ListGridContentProvider<@NonNull R> implements
-		GridContentProvider<R> {
+		XGridContentProvider<R> {
 	/**
 	 * 
 	 */

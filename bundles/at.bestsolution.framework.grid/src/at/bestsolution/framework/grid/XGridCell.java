@@ -32,7 +32,7 @@ import org.eclipse.jdt.annotation.Nullable;
  *            the cell type
  * @since 1.0
  */
-public final class GridCell<R, C> {
+public final class XGridCell<R, C> {
 	/**
 	 * The row value
 	 */
@@ -44,7 +44,7 @@ public final class GridCell<R, C> {
 	/**
 	 * The column
 	 */
-	public final @NonNull GridColumn<R, C> column;
+	public final @NonNull XGridColumn<R, C> column;
 
 	/**
 	 * Create a cell
@@ -56,8 +56,8 @@ public final class GridCell<R, C> {
 	 * @param column
 	 *            the column, must nod be <code>null</code>
 	 */
-	public GridCell(@NonNull R rowValue, @Nullable C cellValue,
-			@NonNull GridColumn<R, C> column) {
+	public XGridCell(@NonNull R rowValue, @Nullable C cellValue,
+			@NonNull XGridColumn<R, C> column) {
 		this.rowValue = rowValue;
 		this.cellValue = cellValue;
 		this.column = column;

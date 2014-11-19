@@ -28,7 +28,7 @@ import java.util.function.Supplier;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import at.bestsolution.framework.grid.Grid.Selection;
+import at.bestsolution.framework.grid.XGrid.Selection;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 
@@ -57,7 +57,7 @@ public class Util {
 		}
 
 		@Override
-		public <C> @NonNull Selection<R, GridCell<R, C>> asCellSelection() {
+		public <C> @NonNull Selection<R, XGridCell<R, C>> asCellSelection() {
 			return new EmptySelection<>();
 		}
 	}

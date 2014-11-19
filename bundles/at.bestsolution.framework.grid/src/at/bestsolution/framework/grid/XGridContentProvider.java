@@ -29,7 +29,7 @@ import org.eclipse.jdt.annotation.NonNull;
  *            the content type
  * @since 1.0
  */
-public interface GridContentProvider<R> {
+public interface XGridContentProvider<R> {
 	/**
 	 * @return the size
 	 */

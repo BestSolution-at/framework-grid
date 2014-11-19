@@ -33,9 +33,9 @@ import org.eclipse.nebula.widgets.grid.Grid;
 import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.SWT;
 
-import at.bestsolution.framework.grid.Grid.Selection;
-import at.bestsolution.framework.grid.GridColumn;
-import at.bestsolution.framework.grid.GridContentProvider;
+import at.bestsolution.framework.grid.XGrid.Selection;
+import at.bestsolution.framework.grid.XGridColumn;
+import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.swt.SWTGridColumn;
 import at.bestsolution.framework.grid.swt.SWTGridTable;
@@ -69,7 +69,7 @@ public class SWTGridContentHandler<R> {
 	 *            the new content provider
 	 */
 	public synchronized void resetContent(
-			@Nullable GridContentProvider<R> contentProvider) {
+			@Nullable XGridContentProvider<R> contentProvider) {
 		Selection<@Nullable R, @Nullable R> previousSelection = grid
 				.selectionProperty().get();
 		dataByR.clear();
@@ -97,7 +97,7 @@ public class SWTGridContentHandler<R> {
 			final GridItem item = new GridItem(nebulaGrid, SWT.NONE);
 			dataByR.put(element, item);
 			dataByCol.put(item, element);
-			for (GridColumn<@NonNull R, @Nullable ?> col : grid.getColumns()) {
+			for (XGridColumn<@NonNull R, @Nullable ?> col : grid.getColumns()) {
 				((SWTGridColumn<R, ?>) col).fillGridItem(item, element);
 			}
 		}

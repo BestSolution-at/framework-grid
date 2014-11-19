@@ -39,11 +39,11 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import at.bestsolution.framework.grid.Grid.Selection;
-import at.bestsolution.framework.grid.GridTable;
 import at.bestsolution.framework.grid.ListGridContentProvider;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
+import at.bestsolution.framework.grid.XGrid.Selection;
+import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.emf.EmfGridTableConfigurator;
 import at.bestsolution.framework.grid.model.grid.GridPackage;
 import at.bestsolution.framework.grid.model.grid.MGrid;
@@ -56,7 +56,7 @@ import at.bestsolution.framework.grid.swt.SWTGridTable;
 
 @SuppressWarnings("restriction")
 public class PersonSample {
-	private GridTable<Person> table;
+	private XGridTable<Person> table;
 	private MGridConfigurationSet config = getConfiguration();
 
 	public PersonSample() throws Exception {

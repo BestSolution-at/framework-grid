@@ -27,7 +27,7 @@ import at.bestsolution.framework.grid.func.TranslationFunction;
  *
  * @since 1.0
  */
-public interface GridFactory {
+public interface XGridFactory {
 	/**
 	 * Create a grid instance
 	 *
@@ -35,6 +35,6 @@ public interface GridFactory {
 	 *            function used to translate the ui
 	 * @return the grid
 	 */
-	public <R> Grid<R, GridContentProvider<R>> createGrid(
+	public <R> XGrid<R, XGridContentProvider<R>> createGrid(
 			TranslationFunction translation);
 }

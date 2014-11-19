@@ -31,9 +31,9 @@ import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.SWT;
 
 import at.bestsolution.framework.grid.ColumnComparator;
-import at.bestsolution.framework.grid.Grid;
-import at.bestsolution.framework.grid.GridColumn;
-import at.bestsolution.framework.grid.GridContentProvider;
+import at.bestsolution.framework.grid.XGrid;
+import at.bestsolution.framework.grid.XGridColumn;
+import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.Util;
@@ -49,7 +49,7 @@ import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
  * @param <C>
  *            cell value type
  */
-public class SWTGridColumn<@NonNull R, @Nullable C> implements GridColumn<R, C> {
+public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C> {
 	private final @NonNull Property<@Nullable String> labelProperty = new SimpleProperty<>(
 			null);
 	private final @NonNull Property<@Nullable URI> iconProperty = new SimpleProperty<>(
@@ -178,7 +178,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements GridColumn<R, C> 
 	}
 
 	@Override
-	public @NonNull Grid<R, GridContentProvider<R>> getGrid() {
+	public @NonNull XGrid<R, XGridContentProvider<R>> getGrid() {
 		return grid;
 	}
 

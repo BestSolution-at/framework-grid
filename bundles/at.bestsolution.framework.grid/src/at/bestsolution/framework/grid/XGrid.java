@@ -37,7 +37,7 @@ import org.eclipse.jdt.annotation.Nullable;
  *            the content provider type
  * @since 1.0
  */
-public interface Grid<R, CP extends GridContentProvider<R>> {
+public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	/**
 	 * Selection mode
 	 *
@@ -64,9 +64,9 @@ public interface Grid<R, CP extends GridContentProvider<R>> {
 	 * @param <C>
 	 *            the cell type
 	 * @return column instance
-	 * @see GridColumn#cellValueFunctionProperty()
+	 * @see XGridColumn#cellValueFunctionProperty()
 	 */
-	public <C> @NonNull GridColumn<@NonNull R, @Nullable C> createColumn(
+	public <C> @NonNull XGridColumn<@NonNull R, @Nullable C> createColumn(
 			String id,
 			@NonNull Function<@NonNull R, @Nullable C> cellValueFunction);
 
@@ -151,7 +151,6 @@ public interface Grid<R, CP extends GridContentProvider<R>> {
 		 *            the cell type
 		 * @return retrieve as cell selection
 		 */
-		public <C> @NonNull Selection<R, GridCell<R, C>> asCellSelection();
+		public <C> @NonNull Selection<R, XGridCell<R, C>> asCellSelection();
 	}
-
 }

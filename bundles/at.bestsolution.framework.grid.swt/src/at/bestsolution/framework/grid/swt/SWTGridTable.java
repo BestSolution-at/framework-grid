@@ -36,10 +36,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 
-import at.bestsolution.framework.grid.GridCell;
-import at.bestsolution.framework.grid.GridColumn;
-import at.bestsolution.framework.grid.GridContentProvider;
-import at.bestsolution.framework.grid.GridTable;
+import at.bestsolution.framework.grid.XGrid;
+import at.bestsolution.framework.grid.XGridCell;
+import at.bestsolution.framework.grid.XGridColumn;
+import at.bestsolution.framework.grid.XGridContentProvider;
+import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.Util;
@@ -52,11 +53,11 @@ import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
  * @param <R>
  *            the row type
  */
-public class SWTGridTable<R> implements GridTable<R> {
+public class SWTGridTable<R> implements XGridTable<R> {
 	@SuppressWarnings("all")
 	private @NonNull Property<@NonNull SelectionMode> selectionModeProperty = new SimpleProperty<>(
 			SelectionMode.SINGLE_ROW);
-	@NonNull Property<@Nullable GridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(
+	@NonNull Property<@Nullable XGridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(
 			null);
 	@NonNull
 	Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty = new SimpleProperty<>(
@@ -87,7 +88,7 @@ public class SWTGridTable<R> implements GridTable<R> {
 
 	@SuppressWarnings("null")
 	@Override
-	public <C> @NonNull GridColumn<@NonNull R, @Nullable C> createColumn(
+	public <C> @NonNull XGridColumn<@NonNull R, @Nullable C> createColumn(
 			String id,
 			@NonNull Function<@NonNull R, @Nullable C> cellValueFunction) {
 		SWTGridColumn<@NonNull R, @Nullable C> swtGridColumn = new SWTGridColumn<@NonNull R, @Nullable C>(
@@ -107,7 +108,7 @@ public class SWTGridTable<R> implements GridTable<R> {
 	}
 
 	@Override
-	public @NonNull Property<@Nullable GridContentProvider<R>> contentProviderProperty() {
+	public @NonNull Property<@Nullable XGridContentProvider<R>> contentProviderProperty() {
 		return contentProviderProperty;
 	}
 
@@ -134,7 +135,7 @@ public class SWTGridTable<R> implements GridTable<R> {
 	@SuppressWarnings("null")
 	private void registerPropertyListeners() {
 		selectionModeProperty
-				.addChangeListener(new ChangeListener<at.bestsolution.framework.grid.Grid.SelectionMode>() {
+				.addChangeListener(new ChangeListener<XGrid.SelectionMode>() {
 					@Override
 					public void valueChanged(Property<SelectionMode> property,
 							@Nullable SelectionMode oldValue,
@@ -155,12 +156,12 @@ public class SWTGridTable<R> implements GridTable<R> {
 				});
 
 		contentProviderProperty
-				.addChangeListener(new ChangeListener<GridContentProvider<R>>() {
+				.addChangeListener(new ChangeListener<XGridContentProvider<R>>() {
 					@Override
 					public void valueChanged(
-							Property<GridContentProvider<R>> property,
-							@Nullable GridContentProvider<R> oldValue,
-							@Nullable GridContentProvider<R> newValue) {
+							Property<XGridContentProvider<R>> property,
+							@Nullable XGridContentProvider<R> oldValue,
+							@Nullable XGridContentProvider<R> newValue) {
 						contentHandler.resetContent(newValue);
 					}
 				});
@@ -184,7 +185,7 @@ public class SWTGridTable<R> implements GridTable<R> {
 					selectionProperty.set(Util.emptySelection());
 				} else if (selection.length == 1) {
 					R selectedRow = contentHandler.get(selection[0]);
-					GridColumn<R, R> b = null; // TODO
+					XGridColumn<R, R> b = null; // TODO
 					selectionProperty.set(new SimpleSelection<R, R>(
 							selectedRow, b, selectedRow));
 				} else {
@@ -200,16 +201,16 @@ public class SWTGridTable<R> implements GridTable<R> {
 	 */
 	@NonNull
 	@SuppressWarnings("all")
-	public List<@NonNull GridColumn<@NonNull R, @Nullable ?>> getColumns() {
+	public List<@NonNull XGridColumn<@NonNull R, @Nullable ?>> getColumns() {
 		return Collections.unmodifiableList(columns);
 	}
 
 	static class SimpleSelection<R, O> implements Selection<R, O> {
 		private final @Nullable R r;
-		private final GridColumn<R, O> column;
+		private final XGridColumn<R, O> column;
 		private final O c;
 
-		SimpleSelection(@Nullable R r, GridColumn<R, O> column, O c) {
+		SimpleSelection(@Nullable R r, XGridColumn<R, O> column, O c) {
 			this.r = r;
 			this.column = column;
 			this.c = c;
@@ -232,11 +233,11 @@ public class SWTGridTable<R> implements GridTable<R> {
 		}
 
 		@Override
-		public <C> at.bestsolution.framework.grid.Grid.@NonNull Selection<R, GridCell<R, C>> asCellSelection() {
+		public <C> XGrid.@NonNull Selection<R, XGridCell<R, C>> asCellSelection() {
 			@Nullable
-			GridCell<R, C> a = null;
-			GridColumn<R, GridCell<R, C>> col = null;
-			return new SimpleSelection<R, GridCell<R, C>>(r, col, a);
+			XGridCell<R, C> a = null;
+			XGridColumn<R, XGridCell<R, C>> col = null;
+			return new SimpleSelection<R, XGridCell<R, C>>(r, col, a);
 		}
 	}
 }
