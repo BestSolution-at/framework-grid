@@ -61,6 +61,8 @@ public class PersonSample {
 	private MGridConfigurationSet config2 = getConfiguration("sampleConfig2.xmi");
 	private MGridConfigurationSet currentConfig = config1;
 	private EmfGridTableConfigurator<Person> configurator;
+	private Root data1 = getData("sampleData.xmi");
+	private Root data2 = getData("sampleDataMass.xmi");
 
 	public PersonSample() throws Exception {
 		Display display = new Display();
@@ -72,7 +74,7 @@ public class PersonSample {
 		configurator = new EmfGridTableConfigurator<Person>(table, currentConfig);
 
 		table.contentProviderProperty().set(
-				new ListGridContentProvider<Person>(getData().getPersons()));
+				new ListGridContentProvider<Person>(data1.getPersons()));
 
 		Composite settings = new Composite(shell, SWT.FILL);
 		settings.setLayout(new GridLayout(1, false));
@@ -84,6 +86,7 @@ public class PersonSample {
 		addSelection(settings);
 		addToggleLocale(settings);
 		addToggleConfiguration(settings);
+		addToggleContent(settings);
 
 		shell.setSize(1000, 400);
 		shell.open();
@@ -100,6 +103,35 @@ public class PersonSample {
 		configurator.setConfiguration(currentConfig);
 	}
 
+
+	private void addToggleContent(Composite parent) {
+		Group group1 = new Group(parent, SWT.SHADOW_IN);
+		group1.setText("Content");
+		group1.setLayout(new RowLayout(SWT.VERTICAL));
+		Button bSmallData = new Button(group1, SWT.RADIO);
+		bSmallData.setText("small");
+		bSmallData.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (bSmallData.getSelection()) {
+					table.contentProviderProperty().set(new ListGridContentProvider<Person>(data1.getPersons()));
+				}
+			}
+		});
+		bSmallData.setSelection(true);
+		Button bMassData = new Button(group1, SWT.RADIO);
+		bMassData.setText("~10k lines");
+		bMassData.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (bMassData.getSelection()) {
+					table.contentProviderProperty().set(new ListGridContentProvider<Person>(data2.getPersons()));
+				}
+			}
+		});
+	}
+	
+	
 	private void addToggleConfiguration(Composite parent) {
 		Group group1 = new Group(parent, SWT.SHADOW_IN);
 		group1.setText("Presentation model");
@@ -229,11 +261,11 @@ public class PersonSample {
 		return config.getDefaultConfiguration();
 	}
 
-	private Root getData() throws IOException {
+	private Root getData(String dataFile) throws IOException {
 		PersonPackage.eINSTANCE.eClass();
 		Resource resourceModel = new XMIResourceImpl();
 		resourceModel.load(
-				PersonSample.class.getResourceAsStream("sampleData.xmi"), null); //$NON-NLS-1$
+				PersonSample.class.getResourceAsStream(dataFile), null); //$NON-NLS-1$
 		return (Root) resourceModel.getContents().get(0);
 	}
 }
