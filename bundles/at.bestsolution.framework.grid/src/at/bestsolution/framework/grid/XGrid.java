@@ -43,7 +43,7 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 *
 	 * @since 1.0
 	 */
-	public enum SelectionMode {
+	enum SelectionMode {
 		/**
 		 * Single row selection
 		 */
@@ -66,8 +66,7 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 * @return column instance
 	 * @see XGridColumn#cellValueFunctionProperty()
 	 */
-	public <C> @NonNull XGridColumn<@NonNull R, @Nullable C> createColumn(
-			String id,
+	<C> @NonNull XGridColumn<@NonNull R, @Nullable C> createColumn(String id,
 			@NonNull Function<@NonNull R, @Nullable C> cellValueFunction);
 
 	/**
@@ -78,7 +77,8 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 *
 	 * @return the property
 	 */
-	public @NonNull Property<@NonNull SelectionMode> selectionModeProperty();
+	@NonNull
+	Property<@NonNull SelectionMode> selectionModeProperty();
 
 	/**
 	 * The default sort.
@@ -88,16 +88,19 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 *
 	 * @return the default sort property
 	 */
-	public @NonNull Property<@Nullable Comparator<@NonNull R>> defaultSortProperty();
+	@NonNull
+	Property<@Nullable Comparator<@NonNull R>> defaultSortProperty();
 
 	/**
 	 * The current locale used by the grid
 	 * <p>
 	 * Default {@link Locale#getDefault()}
 	 * </p>
+	 * 
 	 * @return the locale property
 	 */
-	public @NonNull Property<@NonNull Locale> localeProperty();
+	@NonNull
+	Property<@NonNull Locale> localeProperty();
 
 	/**
 	 * The default content provider
@@ -107,7 +110,8 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 *
 	 * @return the content provider
 	 */
-	public @NonNull Property<@Nullable CP> contentProviderProperty();
+	@NonNull
+	Property<@Nullable CP> contentProviderProperty();
 
 	/**
 	 * The selection property
@@ -117,7 +121,8 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 *
 	 * @return the default selection
 	 */
-	public @NonNull Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty();
+	@NonNull
+	Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty();
 
 	/**
 	 * Selection
@@ -130,27 +135,29 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 *
 	 * @since 1.0
 	 */
-	public interface Selection<R, O> {
+	interface Selection<R, O> {
 		/**
 		 * @return the first entry or <code>null</code> if empty
 		 */
-		public @Nullable O getFirst();
+		@Nullable
+		O getFirst();
 
 		/**
 		 * @return as a list
 		 */
-		public @NonNull List<@NonNull O> asList();
+		@NonNull
+		List<@NonNull O> asList();
 
 		/**
 		 * @return check if empty
 		 */
-		public boolean isEmpty();
+		boolean isEmpty();
 
 		/**
 		 * @param <C>
 		 *            the cell type
 		 * @return retrieve as cell selection
 		 */
-		public <C> @NonNull Selection<R, XGridCell<R, C>> asCellSelection();
+		<C> @NonNull Selection<R, XGridCell<R, C>> asCellSelection();
 	}
 }
