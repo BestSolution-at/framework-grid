@@ -282,8 +282,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 	 * @param element
 	 *            row element
 	 */
-	// TODO find a better solution for this
-	public void fillGridItem(GridItem item, @NonNull R element) {
+	private void fillGridItem(GridItem item, @NonNull R element) {
 		C value = cellValueFunctionProperty().get().apply(element);
 		if (value != null) {
 			if (value instanceof Boolean) {
@@ -311,5 +310,32 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 				fillGridItem(item, grid.contentHandler.get(item));
 			}
 		}
+	}
+
+	@Override
+	public void dispose() {
+		grid.columns.remove(this);
+		nebulaColumn.dispose();
+		alignmentProperty.dispose();
+		autoFilterDataSupplierProperty.dispose();
+		autoFilterMatcherProperty.dispose();
+		autoFilterTextFunctionProperty.dispose();
+		autoFilterTypeProperty.dispose();
+		autoWidthProperty.dispose();
+		cellValueFunctionProperty.dispose();
+		iconFunctionProperty.dispose();
+		iconProperty.dispose();
+		indexProperty.dispose();
+		labelProperty.dispose();
+		maxWidthProperty.dispose();
+		minWidthProperty.dispose();
+		sorterProperty.dispose();
+		textFunctionProperty.dispose();
+	}
+
+	@Override
+	public void requestUpdate(@NonNull R element) {
+		GridItem item = grid.contentHandler.get(element);
+		fillGridItem(item, element);
 	}
 }

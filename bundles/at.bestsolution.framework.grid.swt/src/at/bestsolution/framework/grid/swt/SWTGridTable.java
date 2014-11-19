@@ -57,7 +57,8 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	@SuppressWarnings("all")
 	private @NonNull Property<@NonNull SelectionMode> selectionModeProperty = new SimpleProperty<>(
 			SelectionMode.SINGLE_ROW);
-	@NonNull Property<@Nullable XGridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(
+	@NonNull
+	Property<@Nullable XGridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(
 			null);
 	@NonNull
 	Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty = new SimpleProperty<>(
@@ -194,6 +195,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	 */
 	@NonNull
 	@SuppressWarnings("all")
+	@Override
 	public List<@NonNull XGridColumn<@NonNull R, @Nullable ?>> getColumns() {
 		return Collections.unmodifiableList(columns);
 	}
@@ -232,5 +234,18 @@ public class SWTGridTable<R> implements XGridTable<R> {
 			XGridColumn<R, XGridCell<R, C>> col = null;
 			return new SimpleSelection<R, XGridCell<R, C>>(r, col, a);
 		}
+	}
+
+	@Override
+	public void dispose() {
+		for (@NonNull
+		XGridColumn<@NonNull R, @Nullable ?> col : getColumns()) {
+			col.dispose();
+		}
+		nebulaGrid.dispose();
+		selectionModeProperty.dispose();
+		contentProviderProperty.dispose();
+		selectionProperty.dispose();
+		localeProperty.dispose();
 	}
 }

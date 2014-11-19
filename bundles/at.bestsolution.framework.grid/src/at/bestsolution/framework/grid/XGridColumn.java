@@ -248,4 +248,17 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 * request to update column cells
 	 */
 	void requestUpdate();
+
+	/**
+	 * request to update the cell for a given element
+	 * 
+	 * @param element
+	 *            the element to update
+	 */
+	void requestUpdate(R element);
+
+	/**
+	 * dispose column
+	 */
+	void dispose();
 }

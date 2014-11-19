@@ -33,11 +33,10 @@ import org.eclipse.nebula.widgets.grid.Grid;
 import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.SWT;
 
+import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.XGrid.Selection;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
-import at.bestsolution.framework.grid.Property;
-import at.bestsolution.framework.grid.swt.SWTGridColumn;
 import at.bestsolution.framework.grid.swt.SWTGridTable;
 
 /**
@@ -98,7 +97,7 @@ public class SWTGridContentHandler<R> {
 			dataByR.put(element, item);
 			dataByCol.put(item, element);
 			for (XGridColumn<@NonNull R, @Nullable ?> col : grid.getColumns()) {
-				((SWTGridColumn<R, ?>) col).fillGridItem(item, element);
+				col.requestUpdate(element);
 			}
 		}
 	}

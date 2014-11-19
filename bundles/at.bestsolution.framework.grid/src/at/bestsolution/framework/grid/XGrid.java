@@ -160,4 +160,15 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 		 */
 		<C> @NonNull Selection<R, XGridCell<R, C>> asCellSelection();
 	}
+
+	/**
+	 * @return list of columns
+	 */
+	@NonNull
+	List<@NonNull XGridColumn<@NonNull R, @Nullable ?>> getColumns();
+
+	/**
+	 * dispose grid
+	 */
+	void dispose();
 }

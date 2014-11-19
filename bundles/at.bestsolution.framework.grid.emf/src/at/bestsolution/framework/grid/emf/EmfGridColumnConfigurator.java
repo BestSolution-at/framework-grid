@@ -92,7 +92,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 							@NonNull Locale oldValue, @NonNull Locale newValue) {
 						if (!oldValue.equals(newValue)) {
 							applyHeaderTitle();
-							applyTextFunction();
+							// applyTextFunction();
 						}
 					}
 				});
@@ -117,6 +117,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	void applyTextFunction() {
 		MCellTextFunction cellTextFunction = config.getColumn()
 				.getCellTextFunction();
+		boolean wasSet = false;
 		if (cellTextFunction != null) {
 			if (cellTextFunction instanceof MFormattedCellTextFunction) {
 				MFormattedCellTextFunction formattedCellTextFunction = (MFormattedCellTextFunction) cellTextFunction;
@@ -130,6 +131,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 									createCellDataFunction(column,
 											formattedCellTextFunction
 													.getFormatType(), p));
+							wasSet = true;
 						}
 					} else if (pattern instanceof MReferencePattern) {
 						MReferencePattern refPattern = (MReferencePattern) pattern;
@@ -141,12 +143,18 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 										formattedCellTextFunction
 												.getFormatType(), patternKey,
 										translationFunction));
+						wasSet = true;
 					} else {
 						throw new UnsupportedOperationException(
 								"unknown pattern type: " + pattern); //$NON-NLS-1$}
 					}
 				}
 			}
+		}
+		if (!wasSet) {
+			column.textFunctionProperty().set(
+					at.bestsolution.framework.grid.Util
+							.defaultToStringCellDataFunction());
 		}
 	}
 

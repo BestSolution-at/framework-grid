@@ -20,6 +20,7 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.emf;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -31,6 +32,7 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.XGrid.SelectionMode;
+import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.model.grid.GridPackage;
 import at.bestsolution.framework.grid.model.grid.MCellValueFunction;
@@ -47,7 +49,7 @@ import at.bestsolution.framework.grid.model.grid.MPathCellValueFunction;
  */
 public class EmfGridTableConfigurator<R> {
 	private final @NonNull XGridTable<R> table;
-	private final @NonNull MGridConfigurationSet config;
+	private @NonNull MGridConfigurationSet config;
 
 	private Adapter configAdapter;
 	private final @NonNull Map<MGridColumn, EmfGridColumnConfigurator<R, ?>> columnConfigurators = new HashMap<>();
@@ -58,17 +60,27 @@ public class EmfGridTableConfigurator<R> {
 	 * @param table
 	 *            the table to configure
 	 * @param config
-	 *            table configuration
+	 *            initial table configuration
 	 */
-	public EmfGridTableConfigurator(XGridTable<R> table,
-			MGridConfigurationSet config) {
-		if (table == null) {
-			throw new IllegalArgumentException("table must not be null"); //$NON-NLS-1$
-		}
-		if (config == null) {
-			throw new IllegalArgumentException("config must not be null"); //$NON-NLS-1$
-		}
+	public EmfGridTableConfigurator(@NonNull XGridTable<R> table,
+			@NonNull MGridConfigurationSet config) {
 		this.table = table;
+		this.config = config;
+		setConfiguration(config);
+	}
+
+	/**
+	 * reconfigure grid with a new configuration
+	 * 
+	 * @param config
+	 *            the new configuration
+	 */
+	public void setConfiguration(@NonNull MGridConfigurationSet config) {
+		for (XGridColumn<R, ?> col : new ArrayList<>(table.getColumns())) {
+			col.dispose();
+		}
+		this.config.eAdapters().remove(configAdapter);
+		columnConfigurators.clear();
 		this.config = config;
 		apply();
 		registerAdapters();
@@ -108,14 +120,13 @@ public class EmfGridTableConfigurator<R> {
 					.getViewConfiguration().getColumns()) {
 				MGridColumn column = columnConfig.getColumn();
 				if (column != null) {
-					@NonNull
 					Function<@NonNull R, @Nullable Object> cellValueFunction = createCellValueFunction(column
 							.getCellValueFunction());
-					columnConfigurators.put(
-							column,
-							new EmfGridColumnConfigurator<R, Object>(table
-									.createColumn(column.getId(),
-											cellValueFunction), columnConfig));
+					XGridColumn<@NonNull R, @Nullable Object> gridColumn = table
+							.createColumn(column.getId(), cellValueFunction);
+					EmfGridColumnConfigurator<R, Object> configurator = new EmfGridColumnConfigurator<R, Object>(
+							gridColumn, columnConfig);
+					columnConfigurators.put(column, configurator);
 				}
 			}
 		}

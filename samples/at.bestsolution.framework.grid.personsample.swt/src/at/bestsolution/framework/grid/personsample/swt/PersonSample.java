@@ -57,7 +57,10 @@ import at.bestsolution.framework.grid.swt.SWTGridTable;
 @SuppressWarnings("restriction")
 public class PersonSample {
 	private XGridTable<Person> table;
-	private MGridConfigurationSet config = getConfiguration();
+	private MGridConfigurationSet config1 = getConfiguration("sampleConfig.xmi");
+	private MGridConfigurationSet config2 = getConfiguration("sampleConfig2.xmi");
+	private MGridConfigurationSet currentConfig = config1;
+	private EmfGridTableConfigurator<Person> configurator;
 
 	public PersonSample() throws Exception {
 		Display display = new Display();
@@ -66,8 +69,7 @@ public class PersonSample {
 
 		table = new SWTGridTable<>(shell, SWT.BORDER | SWT.V_SCROLL
 				| SWT.H_SCROLL);
-
-		new EmfGridTableConfigurator<Person>(table, config);
+		configurator = new EmfGridTableConfigurator<Person>(table, currentConfig);
 
 		table.contentProviderProperty().set(
 				new ListGridContentProvider<Person>(getData().getPersons()));
@@ -81,6 +83,7 @@ public class PersonSample {
 		addToggleSelectionMode(settings);
 		addSelection(settings);
 		addToggleLocale(settings);
+		addToggleConfiguration(settings);
 
 		shell.setSize(1000, 400);
 		shell.open();
@@ -92,6 +95,38 @@ public class PersonSample {
 
 	}
 
+	private void setCurrentConfig(MGridConfigurationSet newConfig) {
+		currentConfig = newConfig;
+		configurator.setConfiguration(currentConfig);
+	}
+
+	private void addToggleConfiguration(Composite parent) {
+		Group group1 = new Group(parent, SWT.SHADOW_IN);
+		group1.setText("Presentation model");
+		group1.setLayout(new RowLayout(SWT.VERTICAL));
+		Button bAll = new Button(group1, SWT.RADIO);
+		bAll.setText("all columns");
+		bAll.setSelection(true);
+		bAll.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (bAll.getSelection()) {
+					setCurrentConfig(config1);
+				}
+			}
+		});
+		Button bNoAddress = new Button(group1, SWT.RADIO);
+		bNoAddress.setText("no address");
+		bNoAddress.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (bNoAddress.getSelection()) {
+					setCurrentConfig(config2);
+				}
+			}
+		});
+	}
+
 	private void addToggleLocale(Composite parent) {
 		Group group1 = new Group(parent, SWT.SHADOW_IN);
 		group1.setText("Language");
@@ -101,7 +136,9 @@ public class PersonSample {
 		bEnglish.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				table.localeProperty().set(Locale.ENGLISH);
+				if (bEnglish.getSelection()) {
+					table.localeProperty().set(Locale.ENGLISH);
+				}
 			}
 		});
 		Button bGerman = new Button(group1, SWT.RADIO);
@@ -110,7 +147,9 @@ public class PersonSample {
 		bGerman.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				table.localeProperty().set(Locale.GERMAN);
+				if (bGerman.getSelection()) {
+					table.localeProperty().set(Locale.GERMAN);
+				}
 			}
 		});
 	}
@@ -162,7 +201,9 @@ public class PersonSample {
 		bSingleCell.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				config.setViewSelectionMode(MSelectionMode.SINGLE_CELL);
+				if (bSingleCell.getSelection()) {
+					config1.setViewSelectionMode(MSelectionMode.SINGLE_CELL);
+				}
 			}
 		});
 		Button bSingleRow = new Button(group1, SWT.RADIO);
@@ -171,17 +212,19 @@ public class PersonSample {
 		bSingleRow.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				config.setViewSelectionMode(MSelectionMode.SINGLE_ROW);
+				if (bSingleRow.getSelection()) {
+					config1.setViewSelectionMode(MSelectionMode.SINGLE_ROW);
+				}
 			}
 		});
 	}
 
-	private MGridConfigurationSet getConfiguration() throws IOException {
+	private MGridConfigurationSet getConfiguration(String configFile)
+			throws IOException {
 		GridPackage.eINSTANCE.eClass();
 		Resource resourceModel = new XMIResourceImpl();
-		resourceModel
-				.load(PersonSample.class
-						.getResourceAsStream("sampleConfig.xmi"), null); //$NON-NLS-1$
+		resourceModel.load(PersonSample.class.getResourceAsStream(configFile),
+				null); //$NON-NLS-1$
 		MGrid config = (MGrid) resourceModel.getContents().get(0);
 		return config.getDefaultConfiguration();
 	}
