@@ -101,8 +101,8 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 * The maximum width.
 	 *
 	 * <p>
-	 * For a fixed width set {@link #maxWidthProperty()} and {@link #minWidthProperty()} to the
-	 * same value
+	 * For a fixed width set {@link #maxWidthProperty()} and
+	 * {@link #minWidthProperty()} to the same value
 	 * </p>
 	 *
 	 * @return the max width property
@@ -113,8 +113,8 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	/**
 	 * The minimum width
 	 * <p>
-	 * For a fixed width set {@link #maxWidthProperty()} and {@link #minWidthProperty()} to the
-	 * same value
+	 * For a fixed width set {@link #maxWidthProperty()} and
+	 * {@link #minWidthProperty()} to the same value
 	 * </p>
 	 *
 	 * @return the min width property
@@ -235,7 +235,7 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 */
 	@NonNull
 	Property<@NonNull Integer> indexProperty();
-	
+
 	/**
 	 * Grid which contains this column
 	 * 
@@ -243,4 +243,9 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 */
 	@NonNull
 	XGrid<R, XGridContentProvider<R>> getGrid();
+
+	/**
+	 * request to update column cells
+	 */
+	void requestUpdate();
 }

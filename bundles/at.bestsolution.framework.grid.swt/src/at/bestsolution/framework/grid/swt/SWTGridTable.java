@@ -165,13 +165,6 @@ public class SWTGridTable<R> implements XGridTable<R> {
 						contentHandler.resetContent(newValue);
 					}
 				});
-		localeProperty.addChangeListener(new ChangeListener<@NonNull Locale>() {
-			@Override
-			public void valueChanged(Property<@NonNull Locale> property,
-					Locale oldValue, Locale newValue) {
-				contentHandler.resetContent(contentProviderProperty.get());
-			}
-		});
 	}
 
 	private void registerSelectionListener() {

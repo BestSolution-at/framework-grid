@@ -82,6 +82,25 @@
           pattern="dd. MM. yyyy"/>
     </cellTextFunction>
   </columns>
+  <columns id="localizedBirthdate"
+      titleKey="header.birthdate"
+      minWidth="100"
+      maxWidth="100"
+      alignment="CENTER">
+    <cellValueFunction
+        xsi:type="grid:MPathCellValueFunction">
+      <segments
+          xsi:type="grid:MSimplePathSegment"
+          featureName="birthdate"/>
+    </cellValueFunction>
+    <cellTextFunction
+        xsi:type="grid:MFormattedCellTextFunction"
+        formatType="DATE">
+      <pattern
+          xsi:type="grid:MReferencePattern"
+          patternKey="datepattern"/>
+    </cellTextFunction>
+  </columns>
   <configurations>
     <columns
         column="//@columns.0"/>
@@ -93,6 +112,8 @@
         column="//@columns.3"/>
     <columns
         column="//@columns.4"/>
+    <columns
+        column="//@columns.5"/>
   </configurations>
   <configurationSets
       viewConfiguration="//@configurations.0"
@@ -114,6 +135,9 @@
     <entries
         key="header.birthdate"
         value="Geburtsdatum"/>
+    <entries
+        key="datepattern"
+        value="dd. MM. yyyy"/>
   </resources>
   <resources
       locale="en">
@@ -132,5 +156,8 @@
     <entries
         key="header.birthdate"
         value="Birthdate"/>
+    <entries
+        key="datepattern"
+        value="MMM dd, yyyy"/>
   </resources>
 </grid:MGrid>

@@ -30,6 +30,7 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
+import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 
 /**
@@ -47,12 +48,14 @@ public class DateCellDataFunction<R, C> implements
 	DateFormat format;
 
 	/**
+	 * @param column
+	 *            grid column
 	 * @param pattern
 	 *            pattern;
 	 * @param localeProperty
 	 *            locale property
 	 */
-	public DateCellDataFunction(@NonNull String pattern,
+	public DateCellDataFunction(@NonNull XGridColumn<R, C> column, @NonNull String pattern,
 			@NonNull Property<@NonNull Locale> localeProperty) {
 		this.pattern = pattern;
 		format = createFormat(localeProperty.get());
@@ -61,6 +64,7 @@ public class DateCellDataFunction<R, C> implements
 			public void valueChanged(Property<@NonNull Locale> property,
 					@NonNull Locale oldValue, @NonNull Locale newValue) {
 				format = createFormat(newValue);
+				column.requestUpdate();
 			}
 		});
 	}

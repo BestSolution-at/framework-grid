@@ -28,9 +28,10 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.Property;
-import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.Property.ChangeListener;
+import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.func.CellDataFunction;
+import at.bestsolution.framework.grid.func.TranslationFunction;
 
 /**
  * Number formatter function.
@@ -40,44 +41,54 @@ import at.bestsolution.framework.grid.func.CellDataFunction;
  * @param <C>
  *            data type
  */
-public class DecimalCellDataFunction<R, C> implements
+public class LocalizedDecimalCellDataFunction<R, C> implements
 		CellDataFunction<R, C, @Nullable CharSequence> {
-	private final @NonNull String pattern;
 	@NonNull
 	DecimalFormat format;
 
 	/**
 	 * @param column
 	 *            grid column
-	 * @param pattern
-	 *            pattern;
+	 * @param patternKey
+	 *            pattern key
+	 * @param translationFunction
 	 * @param localeProperty
 	 *            locale property
 	 */
-	public DecimalCellDataFunction(@NonNull XGridColumn<R, C> column,
-			@NonNull String pattern,
+	public LocalizedDecimalCellDataFunction(@NonNull XGridColumn<R, C> column,
+			@NonNull String patternKey,
+			@NonNull TranslationFunction translationFunction,
 			@NonNull Property<@NonNull Locale> localeProperty) {
-		this.pattern = pattern;
-		format = createFormat(localeProperty.get());
+		format = createFormat(localeProperty.get(), patternKey,
+				translationFunction);
 		localeProperty.addChangeListener(new ChangeListener<@NonNull Locale>() {
 			@Override
 			public void valueChanged(Property<@NonNull Locale> property,
 					@NonNull Locale oldValue, @NonNull Locale newValue) {
-				format = createFormat(newValue);
+				format = createFormat(newValue, patternKey, translationFunction);
 				column.requestUpdate();
 			}
 		});
 	}
 
 	/**
-	 * create new DecimalFormat instance localized with given locale
+	 * create new {@link DecimalFormat} instance localized with given locale
 	 * 
 	 * @param locale
 	 *            format locale
+	 * @param pattern
+	 *            format pattern
 	 * @return created format
 	 */
 	@NonNull
-	DecimalFormat createFormat(@NonNull Locale locale) {
+	static DecimalFormat createFormat(@NonNull Locale locale,
+			@NonNull String patternKey,
+			@NonNull TranslationFunction translationFunction) {
+		String pattern = translationFunction.translate(locale, patternKey);
+		if (pattern == null) {
+			throw new IllegalArgumentException(
+					"Could not resolve pattern for Locale=" + locale + ", key=" + patternKey); //$NON-NLS-1$ //$NON-NLS-2$
+		}
 		return new DecimalFormat(pattern,
 				DecimalFormatSymbols.getInstance(locale));
 	}

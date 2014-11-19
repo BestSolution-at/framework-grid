@@ -27,6 +27,7 @@ import java.util.function.Supplier;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.nebula.widgets.grid.GridColumn;
 import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.SWT;
 
@@ -49,7 +50,8 @@ import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
  * @param <C>
  *            cell value type
  */
-public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C> {
+public class SWTGridColumn<@NonNull R, @Nullable C> implements
+		XGridColumn<R, C> {
 	private final @NonNull Property<@Nullable String> labelProperty = new SimpleProperty<>(
 			null);
 	private final @NonNull Property<@Nullable URI> iconProperty = new SimpleProperty<>(
@@ -82,7 +84,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	private final @NonNull Property<@NonNull Integer> indexProperty;
 
 	private final @NonNull SWTGridTable<R> grid;
-	org.eclipse.nebula.widgets.grid.GridColumn nebulaColumn;
+	GridColumn nebulaColumn;
 
 	/**
 	 * Create a new column
@@ -97,8 +99,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		this.indexProperty = new SimpleProperty<@NonNull Integer>(new Integer(
 				grid.getColumns().size()));
 
-		nebulaColumn = new org.eclipse.nebula.widgets.grid.GridColumn(
-				grid.getNebulaGrid(), SWT.NONE);
+		nebulaColumn = new GridColumn(grid.getNebulaGrid(), SWT.NONE);
 		registerPropertyListeners();
 	}
 
@@ -243,6 +244,26 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 				checkWidth();
 			}
 		});
+		textFunctionProperty
+				.addChangeListener(new ChangeListener<CellDataFunction<R, C, CharSequence>>() {
+					@Override
+					public void valueChanged(
+							Property<CellDataFunction<@NonNull R, @Nullable C, CharSequence>> property,
+							CellDataFunction<@NonNull R, @Nullable C, CharSequence> oldValue,
+							CellDataFunction<@NonNull R, @Nullable C, CharSequence> newValue) {
+						requestUpdate();
+					}
+				});
+		cellValueFunctionProperty
+				.addChangeListener(new ChangeListener<Function<R, C>>() {
+					@Override
+					public void valueChanged(
+							Property<Function<@NonNull R, @Nullable C>> property,
+							Function<@NonNull R, @Nullable C> oldValue,
+							Function<@NonNull R, @Nullable C> newValue) {
+						requestUpdate();
+					}
+				});
 	}
 
 	void checkWidth() {
@@ -280,6 +301,15 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 			}
 		} else {
 			item.setText(indexProperty().get().intValue(), ""); //$NON-NLS-1$
+		}
+	}
+
+	@Override
+	public void requestUpdate() {
+		for (GridItem item : nebulaColumn.getParent().getItems()) {
+			if (item != null) {
+				fillGridItem(item, grid.contentHandler.get(item));
+			}
 		}
 	}
 }

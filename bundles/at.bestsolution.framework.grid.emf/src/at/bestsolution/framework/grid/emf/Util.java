@@ -25,6 +25,7 @@ import java.util.Locale;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
+import at.bestsolution.framework.grid.func.TranslationFunction;
 import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MResourceBundle;
 import at.bestsolution.framework.grid.model.grid.MResourceBundleEntry;
@@ -34,26 +35,30 @@ import at.bestsolution.framework.grid.model.grid.MResourceBundleEntry;
  */
 public class Util {
 	/**
+	 * create a {@link TranslationFunction} which tries to find translations in
+	 * the given grid configuration
+	 * 
 	 * @param grid
 	 *            grid configuration
-	 * @param locale
-	 *            the locale
-	 * @param key
-	 *            the property key
-	 * @return localized translation or <code>null</code> if not found
+	 * @return TranslationFunction
 	 */
-	@Nullable
-	public static String getTranslation(@NonNull MGrid grid,
-			@NonNull Locale locale, @NonNull String key) {
-		for (MResourceBundle b : grid.getResources()) {
-			if (b.getLocale().equals(locale.getLanguage())) {
-				for (MResourceBundleEntry entry : b.getEntries()) {
-					if (key.equals(entry.getKey())) {
-						return entry.getValue();
+	@NonNull
+	public static TranslationFunction createTranslationFunction(@NonNull MGrid grid) {
+		return new TranslationFunction() {
+			@Override
+			public @Nullable String translate(@NonNull Locale locale,
+					@NonNull String key) {
+				for (MResourceBundle b : grid.getResources()) {
+					if (b.getLocale().equals(locale.getLanguage())) {
+						for (MResourceBundleEntry entry : b.getEntries()) {
+							if (key.equals(entry.getKey())) {
+								return entry.getValue();
+							}
+						}
 					}
 				}
+				return null;
 			}
-		}
-		return null;
+		};
 	}
 }

@@ -26,11 +26,13 @@ import java.util.Locale;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import at.bestsolution.framework.grid.XGridColumn;
-import at.bestsolution.framework.grid.XGridColumn.Alignment;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
+import at.bestsolution.framework.grid.XGridColumn;
+import at.bestsolution.framework.grid.XGridColumn.Alignment;
 import at.bestsolution.framework.grid.func.CellDataFunction;
+import at.bestsolution.framework.grid.func.CompositeTranslationFunction;
+import at.bestsolution.framework.grid.func.TranslationFunction;
 import at.bestsolution.framework.grid.model.grid.MCellTextFunction;
 import at.bestsolution.framework.grid.model.grid.MFormatType;
 import at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction;
@@ -53,6 +55,8 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 
 	private final MGridConfigurationColumn config;
 
+	private final @NonNull TranslationFunction translationFunction;
+
 	/**
 	 * EMF Model column configurator
 	 * 
@@ -70,6 +74,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		}
 		this.column = column;
 		this.config = config;
+		translationFunction = createTranslationFunction();
 		apply();
 		registerPropertyListeners();
 	}
@@ -122,7 +127,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 						String p = stringPattern.getPattern();
 						if (p != null) {
 							column.textFunctionProperty().set(
-									createCellDataFunction(
+									createCellDataFunction(column,
 											formattedCellTextFunction
 													.getFormatType(), p));
 						}
@@ -131,15 +136,11 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 						@SuppressWarnings("null")
 						@NonNull
 						String patternKey = refPattern.getPatternKey();
-						String p = getTranslation(getLocale(), patternKey);
-						if (p != null) {
-							column.textFunctionProperty().set(
-									createCellDataFunction(
-											formattedCellTextFunction
-													.getFormatType(), p));
-						}
-						throw new UnsupportedOperationException(
-								"reference pattern is not implemented: " + pattern); //$NON-NLS-1$
+						column.textFunctionProperty().set(
+								createLocalizedCellDataFunction(column,
+										formattedCellTextFunction
+												.getFormatType(), patternKey,
+										translationFunction));
 					} else {
 						throw new UnsupportedOperationException(
 								"unknown pattern type: " + pattern); //$NON-NLS-1$}
@@ -160,14 +161,42 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 */
 	@NonNull
 	private CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> createCellDataFunction(
-			MFormatType type, @NonNull String pattern) {
+			@NonNull XGridColumn<R, C> column, MFormatType type,
+			@NonNull String pattern) {
 		switch (type) {
 		case DATE:
-			return new DateCellDataFunction<R, C>(pattern, column.getGrid()
-					.localeProperty());
+			return new DateCellDataFunction<R, C>(column, pattern, column
+					.getGrid().localeProperty());
 		case NUMBER:
-			return new DecimalCellDataFunction<R, C>(pattern, column.getGrid()
-					.localeProperty());
+			return new DecimalCellDataFunction<R, C>(column, pattern, column
+					.getGrid().localeProperty());
+		default:
+			throw new UnsupportedOperationException(
+					"unknown format type: " + type); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * create a cell data function depending on type and pattern, where the
+	 * pattern is locale dependent
+	 * 
+	 * @param type
+	 *            format type
+	 * @param pattern
+	 *            format pattern
+	 * @return cell data function
+	 */
+	@NonNull
+	private CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> createLocalizedCellDataFunction(
+			@NonNull XGridColumn<R, C> column, MFormatType type,
+			@NonNull String pattern, @NonNull TranslationFunction tFunction) {
+		switch (type) {
+		case DATE:
+			return new LocalizedDateCellDataFunction<R, C>(column, pattern,
+					tFunction, column.getGrid().localeProperty());
+		case NUMBER:
+			return new LocalizedDecimalCellDataFunction<R, C>(column, pattern,
+					tFunction, column.getGrid().localeProperty());
 		default:
 			throw new UnsupportedOperationException(
 					"unknown format type: " + type); //$NON-NLS-1$
@@ -223,21 +252,22 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		@SuppressWarnings("null")
 		@NonNull
 		String key = config.getColumn().getTitleKey();
-		column.labelProperty().set(getTranslation(getLocale(), key));
+		column.labelProperty().set(
+				translationFunction.translate(getLocale(), key));
 	}
 
 	private @NonNull Locale getLocale() {
 		return column.getGrid().localeProperty().get();
 	}
 
-	@Nullable
-	private String getTranslation(@NonNull Locale locale, @NonNull String key) {
+	@NonNull
+	private TranslationFunction createTranslationFunction() {
+		// TODO add TranslationFunction fallback
 		@SuppressWarnings("null")
 		@NonNull
 		MGrid grid = config.getColumn().getGrid();
-		String result = Util.getTranslation(grid, locale, key);
-		// TODO TranslationFunction fallback
-		return result;
+		return new CompositeTranslationFunction(
+				Util.createTranslationFunction(grid));
 	}
 
 	/**

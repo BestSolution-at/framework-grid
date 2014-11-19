@@ -23,21 +23,31 @@ package at.bestsolution.framework.grid.func;
 import java.util.Locale;
 
 import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
 
 /**
- * Translate the key
+ * A {@link TranslationFunction} which considers multiple TranslationFunctions.
+ * {@link TranslationFunction#translate(Locale, String)} works through each
+ * Function and returns the first found translated value
  */
-@FunctionalInterface
-public interface TranslationFunction {
+public class CompositeTranslationFunction implements TranslationFunction {
+	private final @NonNull TranslationFunction[] functions;
+
 	/**
-	 * Translate the given key in to the locale
-	 *
-	 * @param locale
-	 *            the locale
-	 * @param key
-	 *            the key
-	 * @return the translated string
+	 * @param functions
+	 *            translation functions
 	 */
-	public @Nullable String translate(@NonNull Locale locale, @NonNull String key);
+	public CompositeTranslationFunction(@NonNull TranslationFunction... functions) {
+		this.functions = functions;
+	}
+
+	@Override
+	public String translate(@NonNull Locale locale, @NonNull String key) {
+		for (TranslationFunction function : functions) {
+			String translated = function.translate(locale, key);
+			if (translated != null) {
+				return translated;
+			}
+		}
+		return null;
+	}
 }
