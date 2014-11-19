@@ -29,7 +29,6 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.XGridColumn;
-import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 
 /**
@@ -43,6 +42,7 @@ import at.bestsolution.framework.grid.func.CellDataFunction;
 public class DecimalCellDataFunction<R, C> implements
 		CellDataFunction<R, C, @Nullable CharSequence> {
 	private final @NonNull String pattern;
+	private final @NonNull XGridColumn<R, C> column;
 	@NonNull
 	DecimalFormat format;
 
@@ -58,15 +58,15 @@ public class DecimalCellDataFunction<R, C> implements
 			@NonNull String pattern,
 			@NonNull Property<@NonNull Locale> localeProperty) {
 		this.pattern = pattern;
+		this.column = column;
 		format = createFormat(localeProperty.get());
-		localeProperty.addChangeListener(new ChangeListener<@NonNull Locale>() {
-			@Override
-			public void valueChanged(Property<@NonNull Locale> property,
-					@NonNull Locale oldValue, @NonNull Locale newValue) {
-				format = createFormat(newValue);
-				column.requestUpdate();
-			}
-		});
+		localeProperty.addChangeListener(this::localeValueChanged);
+	}
+
+	void localeValueChanged(Property<@NonNull Locale> property,
+			@NonNull Locale oldValue, @NonNull Locale newValue) {
+		format = createFormat(newValue);
+		column.requestUpdate();
 	}
 
 	/**
