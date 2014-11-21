@@ -202,12 +202,10 @@ public class SWTGridTable<R> implements XGridTable<R> {
 
 	static class SimpleSelection<R, O> implements Selection<R, O> {
 		private final @Nullable R r;
-		private final XGridColumn<R, O> column;
 		private final O c;
 
 		SimpleSelection(@Nullable R r, XGridColumn<R, O> column, O c) {
 			this.r = r;
-			this.column = column;
 			this.c = c;
 		}
 

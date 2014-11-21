@@ -21,6 +21,7 @@
 package at.bestsolution.framework.grid;
 
 import java.net.URI;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -79,6 +80,26 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 		 * right alignment
 		 */
 		RIGHT
+	}
+
+	/**
+	 * Column sorting
+	 *
+	 * @since 1.0
+	 */
+	public enum Sorting {
+		/**
+		 * Not sorted
+		 */
+		NONE,
+		/**
+		 * Up
+		 */
+		UP,
+		/**
+		 * Down
+		 */
+		DOWN
 	}
 
 	/**
@@ -177,6 +198,17 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	Property<@NonNull AutoFilterType> autoFilterTypeProperty();
 
 	/**
+	 * The sorting type
+	 * <p>
+	 * Default sorting {@link Sorting#NONE}
+	 * </p>
+	 *
+	 * @return the property
+	 */
+	@NonNull
+	Property<@NonNull Sorting> sortingProperty();
+
+	/**
 	 * The alignment
 	 * <p>
 	 * Default alignment {@link Alignment#LEFT}
@@ -226,7 +258,7 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 * @return the provider
 	 */
 	@NonNull
-	Property<@Nullable ColumnComparator<@NonNull R, @Nullable C>> sorterProperty();
+	Property<@NonNull Comparator<@NonNull R>> sorterProperty();
 
 	/**
 	 * Property for the column index

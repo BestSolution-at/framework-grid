@@ -26,6 +26,7 @@ import java.util.Locale;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
+import at.bestsolution.framework.grid.DefaultSortComparator;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.XGridColumn;

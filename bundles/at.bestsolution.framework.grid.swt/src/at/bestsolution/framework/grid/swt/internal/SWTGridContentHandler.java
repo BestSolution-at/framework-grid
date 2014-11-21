@@ -37,6 +37,7 @@ import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.XGrid.Selection;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
+import at.bestsolution.framework.grid.swt.SWTGridColumn;
 import at.bestsolution.framework.grid.swt.SWTGridTable;
 
 /**
@@ -50,6 +51,9 @@ public class SWTGridContentHandler<R> {
 	private final @NonNull SWTGridTable<R> grid;
 	private final @NonNull Property<@Nullable Comparator<@NonNull R>> defaultSortProperty = new SimpleProperty<>(
 			null);
+	private final @NonNull Property<@Nullable SWTGridColumn<R, ?>> sortColumnProperty = new SimpleProperty<>(
+			null);
+	private @Nullable XGridContentProvider<R> contentProvider;
 
 	/**
 	 * @param grid
@@ -60,15 +64,28 @@ public class SWTGridContentHandler<R> {
 			@NonNull Grid nebulaGrid) {
 		this.grid = grid;
 		this.nebulaGrid = nebulaGrid;
+
+		registerPropertyListeners();
 	}
 
 	/**
 	 * 
-	 * @param contentProvider
+	 */
+	private void registerPropertyListeners() {
+		defaultSortProperty
+				.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider));
+		sortColumnProperty
+				.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider));
+	}
+
+	/**
+	 * 
+	 * @param newContentProvider
 	 *            the new content provider
 	 */
 	public synchronized void resetContent(
-			@Nullable XGridContentProvider<R> contentProvider) {
+			@Nullable XGridContentProvider<R> newContentProvider) {
+		contentProvider = newContentProvider;
 		Selection<@Nullable R, @Nullable R> previousSelection = grid
 				.selectionProperty().get();
 		dataByR.clear();
@@ -76,13 +93,26 @@ public class SWTGridContentHandler<R> {
 		nebulaGrid.clearItems();
 		List<@NonNull R> items = new ArrayList<>();
 
-		if (contentProvider != null) {
-			for (int i = 0; i < contentProvider.size(); i++) {
-				items.add(contentProvider.getElementAt(i));
+		if (newContentProvider != null) {
+			for (int i = 0; i < newContentProvider.size(); i++) {
+				items.add(newContentProvider.getElementAt(i));
 			}
 		}
+		@Nullable
+		SWTGridColumn<R, ?> column = sortColumnProperty.get();
+		if (column != null) {
+			switch (column.sortingProperty().get()) {
+			case UP:
+				Collections.sort(items, column.sorterProperty().get());
+				break;
+			case DOWN:
+				Collections.sort(items, column.sorterProperty().get()
+						.reversed());
+				break;
+			default:
+			}
 
-		if (defaultSortProperty.get() != null) {
+		} else if (defaultSortProperty.get() != null) {
 			Collections.sort(items, defaultSortProperty.get());
 		}
 		insertItems(items);
@@ -125,5 +155,12 @@ public class SWTGridContentHandler<R> {
 	 */
 	public @NonNull Property<@Nullable Comparator<@NonNull R>> getDefaultSortProperty() {
 		return defaultSortProperty;
+	}
+
+	/**
+	 * @return the sortProperty
+	 */
+	public Property<@Nullable SWTGridColumn<R, ?>> sortColumnProperty() {
+		return sortColumnProperty;
 	}
 }

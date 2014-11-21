@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package at.bestsolution.framework.grid.emf;
+package at.bestsolution.framework.grid;
 
 import java.util.Comparator;
 
@@ -54,22 +54,29 @@ public class DefaultSortComparator<@NonNull R, C> implements Comparator<R> {
 		C cellValue1 = column.cellValueFunctionProperty().get().apply(o1);
 		@Nullable
 		C cellValue2 = column.cellValueFunctionProperty().get().apply(o2);
-		CharSequence value1 = column.textFunctionProperty().get()
-				.apply(o1, cellValue1);
-		CharSequence value2 = column.textFunctionProperty().get()
-				.apply(o2, cellValue2);
+		Comparable<Object> value1 = null;
+		Object value2 = null;
+		if (cellValue1 instanceof Comparable) {
+			value1 = (Comparable<Object>) cellValue1;
+			value2 = cellValue2;
+		} else {
+			CharSequence textValue1 = column.textFunctionProperty().get()
+					.apply(o1, cellValue1);
+			CharSequence textValue2 = column.textFunctionProperty().get()
+					.apply(o2, cellValue2);
+			if (textValue1 instanceof Comparable) {
+				value1 = (Comparable<Object>) textValue1;
+				value2 = textValue2;
+			}
+		}
 		if (value1 == null && value2 == null) {
 			return 0;
 		} else if (value1 == null) {
-			return -1;
-		} else if (value2 == null) {
 			return 1;
+		} else if (value2 == null) {
+			return -1;
 		} else {
-			if (value1 instanceof Comparable) {
-				return ((Comparable<CharSequence>) value1).compareTo(value2);
-			} else {
-				return 0;
-			}
+			return value1.compareTo(value2);
 		}
 	}
 }

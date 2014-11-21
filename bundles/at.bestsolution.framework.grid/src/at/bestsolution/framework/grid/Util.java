@@ -154,7 +154,6 @@ public class Util {
 	 */
 	public static <O> @NonNull Function<@NonNull O, @Nullable CharSequence> defaultToStringFunction() {
 		return new Function<@NonNull O, @Nullable CharSequence>() {
-
 			@Override
 			public CharSequence apply(@NonNull O t) {
 				return t.toString();

@@ -21,6 +21,7 @@
 package at.bestsolution.framework.grid.swt;
 
 import java.net.URI;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -30,14 +31,16 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.nebula.widgets.grid.GridColumn;
 import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
-import at.bestsolution.framework.grid.ColumnComparator;
-import at.bestsolution.framework.grid.XGrid;
-import at.bestsolution.framework.grid.XGridColumn;
-import at.bestsolution.framework.grid.XGridContentProvider;
+import at.bestsolution.framework.grid.DefaultSortComparator;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.Util;
+import at.bestsolution.framework.grid.XGrid;
+import at.bestsolution.framework.grid.XGridColumn;
+import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 import at.bestsolution.framework.grid.func.DisposableCellDataFunction;
@@ -53,8 +56,6 @@ import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
  */
 public class SWTGridColumn<@NonNull R, @Nullable C> implements
 		XGridColumn<R, C> {
-	private final @NonNull Property<@Nullable String> labelProperty = new SimpleProperty<>(
-			null);
 	private final @NonNull Property<@Nullable URI> iconProperty = new SimpleProperty<>(
 			null);
 	private final @NonNull Property<@Nullable Integer> maxWidthProperty = new SimpleProperty<>(
@@ -80,9 +81,13 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 			Util.emptyListSupplier());
 	private final @NonNull Property<Function<@NonNull Object, @Nullable CharSequence>> autoFilterTextFunctionProperty = new SimpleProperty<>(
 			Util.defaultToStringFunction());
-	private final @NonNull Property<@Nullable ColumnComparator<@NonNull R, @Nullable C>> sorterProperty = new SimpleProperty<>(
-			null);
+	private final @NonNull Property<@NonNull Comparator<@NonNull R>> sorterProperty = new SimpleProperty<>(
+			new DefaultSortComparator<R, C>(this));
 	private final @NonNull Property<@NonNull Integer> indexProperty;
+	private final @NonNull Property<@Nullable String> labelProperty = new SimpleProperty<>(
+			null);
+	final @NonNull Property<@NonNull Sorting> sortingProperty = new SimpleProperty<>(
+			Sorting.NONE);
 
 	private final @NonNull SWTGridTable<R> grid;
 	GridColumn nebulaColumn;
@@ -101,7 +106,24 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 				grid.getColumns().size()));
 
 		nebulaColumn = new GridColumn(grid.getNebulaGrid(), SWT.NONE);
+
+		registerListeners();
 		registerPropertyListeners();
+	}
+
+	private void registerListeners() {
+		nebulaColumn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				switch (sortingProperty.get()) {
+				case UP:
+					sortingProperty.set(Sorting.DOWN);
+					break;
+				default:
+					sortingProperty.set(Sorting.UP);
+				}
+			}
+		});
 	}
 
 	@Override
@@ -165,7 +187,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 	}
 
 	@Override
-	public @NonNull Property<@Nullable ColumnComparator<@NonNull R, @Nullable C>> sorterProperty() {
+	public @NonNull Property<@NonNull Comparator<@NonNull R>> sorterProperty() {
 		return sorterProperty;
 	}
 
@@ -184,11 +206,11 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 		return grid;
 	}
 
-	/**
-	 * 
-	 */
 	@SuppressWarnings("null")
 	private void registerPropertyListeners() {
+		labelProperty
+				.addChangeListener((property, oldValue, newValue) -> nebulaColumn
+						.setText(newValue));
 		alignmentProperty.addChangeListener(new ChangeListener<Alignment>() {
 			@Override
 			public void valueChanged(Property<Alignment> property,
@@ -207,13 +229,6 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 					throw new UnsupportedOperationException(
 							"unknown alignment type: " + newValue); //$NON-NLS-1$
 				}
-			}
-		});
-		labelProperty.addChangeListener(new ChangeListener<String>() {
-			@Override
-			public void valueChanged(Property<String> property,
-					String oldValue, String newValue) {
-				nebulaColumn.setText(newValue);
 			}
 		});
 		autoWidthProperty.addChangeListener(new ChangeListener<Boolean>() {
@@ -246,25 +261,41 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 			}
 		});
 		textFunctionProperty
-				.addChangeListener(new ChangeListener<CellDataFunction<R, C, CharSequence>>() {
-					@Override
-					public void valueChanged(
-							Property<CellDataFunction<@NonNull R, @Nullable C, CharSequence>> property,
-							CellDataFunction<@NonNull R, @Nullable C, CharSequence> oldValue,
-							CellDataFunction<@NonNull R, @Nullable C, CharSequence> newValue) {
-						requestUpdate();
-					}
-				});
-		cellValueFunctionProperty
-				.addChangeListener(new ChangeListener<Function<R, C>>() {
-					@Override
-					public void valueChanged(
-							Property<Function<@NonNull R, @Nullable C>> property,
-							Function<@NonNull R, @Nullable C> oldValue,
-							Function<@NonNull R, @Nullable C> newValue) {
-						requestUpdate();
-					}
-				});
+				.addChangeListener((property, oldValue, newValue) -> requestUpdate());
+		cellValueFunctionProperty.addChangeListener((property, oldValue,
+				newValue) -> requestUpdate());
+		sortingProperty().addChangeListener(
+				(property, oldValue, newValue) -> applySorting(property,
+						oldValue, newValue));
+	}
+
+	private void applySorting(
+			Property<at.bestsolution.framework.grid.XGridColumn.Sorting> property,
+			at.bestsolution.framework.grid.XGridColumn.Sorting oldValue,
+			at.bestsolution.framework.grid.XGridColumn.Sorting newValue) {
+		Comparator<R> comparator = null;
+		switch (newValue) {
+		case UP:
+			nebulaColumn.setSort(SWT.UP);
+			comparator = sorterProperty.get();
+			break;
+		case DOWN:
+			nebulaColumn.setSort(SWT.DOWN);
+			comparator = sorterProperty.get().reversed();
+			break;
+		default:
+			nebulaColumn.setSort(SWT.NONE);
+		}
+		if (comparator != null) {
+			@Nullable
+			SWTGridColumn<@NonNull R, ?> currentSortColumn = grid.contentHandler
+					.sortColumnProperty().get();
+			// reset sorting state on previous sorted other column
+			if (currentSortColumn != null && currentSortColumn != this) {
+				currentSortColumn.sortingProperty.set(Sorting.NONE);
+			}
+			grid.contentHandler.sortColumnProperty().set(this);
+		}
 	}
 
 	void checkWidth() {
@@ -316,6 +347,9 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 	@Override
 	public void dispose() {
 		grid.columns.remove(this);
+		if (nebulaColumn.getHeaderControl() != null) {
+			nebulaColumn.getHeaderControl().dispose();
+		}
 		nebulaColumn.dispose();
 		alignmentProperty.dispose();
 		autoFilterDataSupplierProperty.dispose();
@@ -327,10 +361,11 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 		iconFunctionProperty.dispose();
 		iconProperty.dispose();
 		indexProperty.dispose();
-		labelProperty.dispose();
 		maxWidthProperty.dispose();
 		minWidthProperty.dispose();
 		sorterProperty.dispose();
+		labelProperty.dispose();
+		sortingProperty.dispose();
 		if (textFunctionProperty.get() instanceof DisposableCellDataFunction) {
 			((DisposableCellDataFunction<?, ?, ?>) textFunctionProperty.get())
 					.dispose();
@@ -342,5 +377,10 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 	public void requestUpdate(@NonNull R element) {
 		GridItem item = grid.contentHandler.get(element);
 		fillGridItem(item, element);
+	}
+
+	@Override
+	public @NonNull Property<XGridColumn.@NonNull Sorting> sortingProperty() {
+		return sortingProperty;
 	}
 }
