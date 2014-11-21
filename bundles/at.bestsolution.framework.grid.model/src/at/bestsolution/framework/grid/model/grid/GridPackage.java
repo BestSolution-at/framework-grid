@@ -919,7 +919,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MFREE_TEXT_AUTO_FILTER_CONFIGURATION__MATCH_TYPE = 0;
+	int MFREE_TEXT_AUTO_FILTER_CONFIGURATION__MATCH_TYPE = MAUTO_FILTER_CONFIGURATION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>MFree Text Auto Filter Configuration</em>' class.
@@ -928,7 +928,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MFREE_TEXT_AUTO_FILTER_CONFIGURATION_FEATURE_COUNT = 1;
+	int MFREE_TEXT_AUTO_FILTER_CONFIGURATION_FEATURE_COUNT = MAUTO_FILTER_CONFIGURATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>MFree Text Auto Filter Configuration</em>' class.
@@ -937,7 +937,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MFREE_TEXT_AUTO_FILTER_CONFIGURATION_OPERATION_COUNT = 0;
+	int MFREE_TEXT_AUTO_FILTER_CONFIGURATION_OPERATION_COUNT = MAUTO_FILTER_CONFIGURATION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.impl.MAutoFilterEntryImpl <em>MAuto Filter Entry</em>}' class.

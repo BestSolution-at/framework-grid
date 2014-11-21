@@ -24,13 +24,9 @@ package at.bestsolution.framework.grid.model.grid.impl;
 import at.bestsolution.framework.grid.model.grid.GridPackage;
 import at.bestsolution.framework.grid.model.grid.MAutoFilterMatchType;
 import at.bestsolution.framework.grid.model.grid.MFreeTextAutoFilterConfiguration;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,7 +41,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class MFreeTextAutoFilterConfigurationImpl extends MinimalEObjectImpl.Container implements MFreeTextAutoFilterConfiguration {
+public class MFreeTextAutoFilterConfigurationImpl extends MAutoFilterConfigurationImpl implements MFreeTextAutoFilterConfiguration {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -87,7 +87,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="cellTextFunction" eType="#//MCellTextFunction"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MFreeTextAutoFilterConfiguration">
+  <eClassifiers xsi:type="ecore:EClass" name="MFreeTextAutoFilterConfiguration" eSuperTypes="#//MAutoFilterConfiguration">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchType" eType="#//MAutoFilterMatchType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MAutoFilterEntry" abstract="true">

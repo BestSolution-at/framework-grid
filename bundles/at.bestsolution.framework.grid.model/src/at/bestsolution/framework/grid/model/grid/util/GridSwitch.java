@@ -209,6 +209,7 @@ public class GridSwitch<@Nullable T> extends Switch<T> {
 			case GridPackage.MFREE_TEXT_AUTO_FILTER_CONFIGURATION: {
 				MFreeTextAutoFilterConfiguration mFreeTextAutoFilterConfiguration = (MFreeTextAutoFilterConfiguration)theEObject;
 				T result = caseMFreeTextAutoFilterConfiguration(mFreeTextAutoFilterConfiguration);
+				if (result == null) result = caseMAutoFilterConfiguration(mFreeTextAutoFilterConfiguration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
