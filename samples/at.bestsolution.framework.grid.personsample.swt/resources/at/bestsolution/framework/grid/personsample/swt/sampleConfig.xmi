@@ -16,6 +16,8 @@
           xsi:type="grid:MSimplePathSegment"
           featureName="firstname"/>
     </cellValueFunction>
+    <autoFilterConfiguration
+        xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
   </columns>
   <columns id="lastname"
       titleKey="header.lastname"
@@ -81,6 +83,19 @@
           xsi:type="grid:MStringPattern"
           pattern="dd. MM. yyyy"/>
     </cellTextFunction>
+    <autoFilterConfiguration
+        xsi:type="grid:MComboAutoFilterConfiguration">
+      <predefinedValues
+          xsi:type="grid:MTextAutoFilterEntry"
+          resourceKey=""/>
+      <cellTextFunction
+          xsi:type="grid:MFormattedCellTextFunction"
+          formatType="DATE">
+        <pattern
+            xsi:type="grid:MStringPattern"
+            pattern="ddMMyyyy"/>
+      </cellTextFunction>
+    </autoFilterConfiguration>
   </columns>
   <columns id="localizedBirthdate"
       titleKey="header.birthdate"

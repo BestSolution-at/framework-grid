@@ -31,12 +31,16 @@ import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridColumn.Alignment;
+import at.bestsolution.framework.grid.XGridColumn.AutoFilterType;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CompositeTranslationFunction;
 import at.bestsolution.framework.grid.func.TranslationFunction;
+import at.bestsolution.framework.grid.model.grid.MAutoFilterConfiguration;
 import at.bestsolution.framework.grid.model.grid.MCellTextFunction;
+import at.bestsolution.framework.grid.model.grid.MComboAutoFilterConfiguration;
 import at.bestsolution.framework.grid.model.grid.MFormatType;
 import at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction;
+import at.bestsolution.framework.grid.model.grid.MFreeTextAutoFilterConfiguration;
 import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationColumn;
 import at.bestsolution.framework.grid.model.grid.MPattern;
@@ -110,7 +114,28 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		applyMaxWidth();
 		applyAutoWidth();
 		applyTextFunction();
+		applyAutoFilter();
 		// TODO add missing features
+	}
+
+	private void applyAutoFilter() {
+		if (config.getColumn().getAutoFilterConfiguration() != null) {
+			MAutoFilterConfiguration filterConf = config.getColumn()
+					.getAutoFilterConfiguration();
+			if (filterConf instanceof MComboAutoFilterConfiguration) {
+				column.autoFilterTypeProperty().set(AutoFilterType.DROPDOWN);
+				column.autoFilterDataSupplierProperty();
+				column.autoFilterMatcherFunctionProperty();
+				column.autoFilterTextFunctionProperty();
+			} else if (filterConf instanceof MFreeTextAutoFilterConfiguration) {
+				column.autoFilterTypeProperty().set(AutoFilterType.TEXT);
+				column.autoFilterDataSupplierProperty();
+				column.autoFilterMatcherFunctionProperty();
+				column.autoFilterTextFunctionProperty();
+			}
+		} else {
+			column.autoFilterTypeProperty().set(AutoFilterType.NONE);
+		}
 	}
 
 	/**

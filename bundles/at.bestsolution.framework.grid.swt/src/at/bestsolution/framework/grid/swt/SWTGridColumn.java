@@ -31,8 +31,10 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.nebula.widgets.grid.GridColumn;
 import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Text;
 
 import at.bestsolution.framework.grid.DefaultSortComparator;
 import at.bestsolution.framework.grid.Property;
@@ -267,6 +269,27 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 		sortingProperty().addChangeListener(
 				(property, oldValue, newValue) -> applySorting(property,
 						oldValue, newValue));
+		autoFilterTypeProperty
+		.addChangeListener(new ChangeListener<XGridColumn.AutoFilterType>() {
+			@Override
+			public void valueChanged(Property<AutoFilterType> property,
+					AutoFilterType oldValue, AutoFilterType newValue) {
+				switch (newValue) {
+				case DROPDOWN:
+					nebulaColumn.setHeaderControl(new CCombo(
+							nebulaColumn.getParent(), SWT.READ_ONLY
+									| SWT.BORDER));
+					break;
+				case TEXT:
+					nebulaColumn.setHeaderControl(new Text(nebulaColumn
+							.getParent(), SWT.BORDER));
+					break;
+				default:
+					nebulaColumn.setHeaderControl(null);
+					break;
+				}
+			}
+		});
 	}
 
 	private void applySorting(
