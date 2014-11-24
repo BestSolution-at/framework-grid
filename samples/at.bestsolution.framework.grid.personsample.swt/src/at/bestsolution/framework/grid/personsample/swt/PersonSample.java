@@ -69,12 +69,10 @@ public class PersonSample {
 		Shell shell = new Shell(display);
 		shell.setLayout(new FillLayout());
 
-		table = new SWTGridTable<>(shell, SWT.BORDER | SWT.V_SCROLL
-				| SWT.H_SCROLL);
+		table = new SWTGridTable<>(shell, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		configurator = new EmfGridTableConfigurator<Person>(table, currentConfig);
 
-		table.contentProviderProperty().set(
-				new ListGridContentProvider<Person>(data1.getPersons()));
+		table.contentProviderProperty().set(new ListGridContentProvider<Person>(data1.getPersons()));
 
 		Composite settings = new Composite(shell, SWT.FILL);
 		settings.setLayout(new GridLayout(1, false));
@@ -103,7 +101,6 @@ public class PersonSample {
 		configurator.setConfiguration(currentConfig);
 	}
 
-
 	private void addToggleContent(Composite parent) {
 		Group group1 = new Group(parent, SWT.SHADOW_IN);
 		group1.setText("Content");
@@ -130,8 +127,7 @@ public class PersonSample {
 			}
 		});
 	}
-	
-	
+
 	private void addToggleConfiguration(Composite parent) {
 		Group group1 = new Group(parent, SWT.SHADOW_IN);
 		group1.setText("Presentation model");
@@ -205,23 +201,20 @@ public class PersonSample {
 		gd.grabExcessHorizontalSpace = true;
 		// gd.widthHint=200;
 		lSelectedItems.setLayoutData(gd);
-		table.selectionProperty().addChangeListener(
-				new ChangeListener<Selection<Person, Person>>() {
-					@Override
-					public void valueChanged(
-							Property<Selection<Person, Person>> property,
-							Selection<Person, Person> oldValue,
-							Selection<Person, Person> newValue) {
-						StringBuffer sb = new StringBuffer();
-						for (Person p : newValue.asList()) {
-							if (sb.length() > 0) {
-								sb.append(", "); //$NON-NLS-1$
-							}
-							sb.append(p.getFirstname() + " " + p.getLastname()); //$NON-NLS-1$
-						}
-						lSelectedItems.setText(sb.toString());
+		table.selectionProperty().addChangeListener(new ChangeListener<Selection<Person, Person>>() {
+			@Override
+			public void valueChanged(Property<Selection<Person, Person>> property, Selection<Person, Person> oldValue,
+					Selection<Person, Person> newValue) {
+				StringBuffer sb = new StringBuffer();
+				for (Person p : newValue.asList()) {
+					if (sb.length() > 0) {
+						sb.append(", "); //$NON-NLS-1$
 					}
-				});
+					sb.append(p.getFirstname() + " " + p.getLastname()); //$NON-NLS-1$
+				}
+				lSelectedItems.setText(sb.toString());
+			}
+		});
 	}
 
 	private void addToggleSelectionMode(Composite parent) {
@@ -251,12 +244,10 @@ public class PersonSample {
 		});
 	}
 
-	private MGridConfigurationSet getConfiguration(String configFile)
-			throws IOException {
+	private MGridConfigurationSet getConfiguration(String configFile) throws IOException {
 		GridPackage.eINSTANCE.eClass();
 		Resource resourceModel = new XMIResourceImpl();
-		resourceModel.load(PersonSample.class.getResourceAsStream(configFile),
-				null); //$NON-NLS-1$
+		resourceModel.load(PersonSample.class.getResourceAsStream(configFile), null); //$NON-NLS-1$
 		MGrid config = (MGrid) resourceModel.getContents().get(0);
 		return config.getDefaultConfiguration();
 	}
@@ -264,8 +255,7 @@ public class PersonSample {
 	private Root getData(String dataFile) throws IOException {
 		PersonPackage.eINSTANCE.eClass();
 		Resource resourceModel = new XMIResourceImpl();
-		resourceModel.load(
-				PersonSample.class.getResourceAsStream(dataFile), null); //$NON-NLS-1$
+		resourceModel.load(PersonSample.class.getResourceAsStream(dataFile), null); //$NON-NLS-1$
 		return (Root) resourceModel.getContents().get(0);
 	}
 }

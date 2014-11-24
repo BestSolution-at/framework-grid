@@ -55,17 +55,13 @@ import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
  */
 public class SWTGridTable<R> implements XGridTable<R> {
 	@SuppressWarnings("all")
-	private @NonNull Property<@NonNull SelectionMode> selectionModeProperty = new SimpleProperty<>(
-			SelectionMode.SINGLE_ROW);
+	private @NonNull Property<@NonNull SelectionMode> selectionModeProperty = new SimpleProperty<>(SelectionMode.SINGLE_ROW);
 	@NonNull
-	Property<@Nullable XGridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(
-			null);
+	Property<@Nullable XGridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(null);
 	@NonNull
-	Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty = new SimpleProperty<>(
-			Util.emptySelection());
+	Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty = new SimpleProperty<>(Util.emptySelection());
 	@SuppressWarnings("null")
-	private @NonNull Property<@NonNull Locale> localeProperty = new SimpleProperty<>(
-			Locale.getDefault());
+	private @NonNull Property<@NonNull Locale> localeProperty = new SimpleProperty<>(Locale.getDefault());
 
 	protected @NonNull Grid nebulaGrid;
 	final List<@NonNull SWTGridColumn<R, ?>> columns = new ArrayList<>();
@@ -89,11 +85,9 @@ public class SWTGridTable<R> implements XGridTable<R> {
 
 	@SuppressWarnings("null")
 	@Override
-	public <C> @NonNull XGridColumn<@NonNull R, @Nullable C> createColumn(
-			String id,
+	public <C> @NonNull XGridColumn<@NonNull R, @Nullable C> createColumn(String id,
 			@NonNull Function<@NonNull R, @Nullable C> cellValueFunction) {
-		SWTGridColumn<@NonNull R, @Nullable C> swtGridColumn = new SWTGridColumn<@NonNull R, @Nullable C>(
-				this, cellValueFunction);
+		SWTGridColumn<@NonNull R, @Nullable C> swtGridColumn = new SWTGridColumn<@NonNull R, @Nullable C>(this, cellValueFunction);
 		columns.add(swtGridColumn);
 		return swtGridColumn;
 	}
@@ -135,37 +129,31 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	 */
 	@SuppressWarnings("null")
 	private void registerPropertyListeners() {
-		selectionModeProperty
-				.addChangeListener(new ChangeListener<XGrid.SelectionMode>() {
-					@Override
-					public void valueChanged(Property<SelectionMode> property,
-							@Nullable SelectionMode oldValue,
-							@Nullable SelectionMode newValue) {
-						if (newValue == null) {
-							nebulaGrid.setCellSelectionEnabled(false);
-						} else {
-							switch (newValue) {
-							case SINGLE_CELL:
-								nebulaGrid.setCellSelectionEnabled(true);
-								break;
-							case SINGLE_ROW:
-							default:
-								nebulaGrid.setCellSelectionEnabled(false);
-							}
-						}
+		selectionModeProperty.addChangeListener(new ChangeListener<XGrid.SelectionMode>() {
+			@Override
+			public void valueChanged(Property<SelectionMode> property, @Nullable SelectionMode oldValue, @Nullable SelectionMode newValue) {
+				if (newValue == null) {
+					nebulaGrid.setCellSelectionEnabled(false);
+				} else {
+					switch (newValue) {
+					case SINGLE_CELL:
+						nebulaGrid.setCellSelectionEnabled(true);
+						break;
+					case SINGLE_ROW:
+					default:
+						nebulaGrid.setCellSelectionEnabled(false);
 					}
-				});
+				}
+			}
+		});
 
-		contentProviderProperty
-				.addChangeListener(new ChangeListener<XGridContentProvider<R>>() {
-					@Override
-					public void valueChanged(
-							Property<XGridContentProvider<R>> property,
-							@Nullable XGridContentProvider<R> oldValue,
-							@Nullable XGridContentProvider<R> newValue) {
-						contentHandler.resetContent(newValue);
-					}
-				});
+		contentProviderProperty.addChangeListener(new ChangeListener<XGridContentProvider<R>>() {
+			@Override
+			public void valueChanged(Property<XGridContentProvider<R>> property, @Nullable XGridContentProvider<R> oldValue,
+					@Nullable XGridContentProvider<R> newValue) {
+				contentHandler.resetContent(newValue);
+			}
+		});
 	}
 
 	private void registerSelectionListener() {
@@ -180,8 +168,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 				} else if (selection.length == 1) {
 					R selectedRow = contentHandler.get(selection[0]);
 					XGridColumn<R, R> b = null; // TODO
-					selectionProperty.set(new SimpleSelection<R, R>(
-							selectedRow, b, selectedRow));
+					selectionProperty.set(new SimpleSelection<R, R>(selectedRow, b, selectedRow));
 				} else {
 					// multiple row selection is not supported
 					e.doit = false;

@@ -41,8 +41,7 @@ import at.bestsolution.framework.grid.func.DisposableCellDataFunction;
  * @param <C>
  *            data type
  */
-public class DateCellDataFunction<R, C> implements
-		DisposableCellDataFunction<R, C, @Nullable CharSequence> {
+public class DateCellDataFunction<R, C> implements DisposableCellDataFunction<R, C, @Nullable CharSequence> {
 	private final @NonNull String pattern;
 	private final @NonNull XGridColumn<R, C> column;
 	private final @NonNull Property<Locale> localeProperty;
@@ -58,8 +57,7 @@ public class DateCellDataFunction<R, C> implements
 	 * @param localeProperty
 	 *            locale property
 	 */
-	public DateCellDataFunction(@NonNull XGridColumn<R, C> column,
-			@NonNull String pattern,
+	public DateCellDataFunction(@NonNull XGridColumn<R, C> column, @NonNull String pattern,
 			@NonNull Property<@NonNull Locale> localeProperty) {
 		this.pattern = pattern;
 		this.column = column;
@@ -69,8 +67,7 @@ public class DateCellDataFunction<R, C> implements
 		localeProperty.addChangeListener(localeListener);
 	}
 
-	void localeValueChanged(Property<@NonNull Locale> property,
-			@NonNull Locale oldValue, @NonNull Locale newValue) {
+	void localeValueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
 		format = createFormat(newValue);
 		column.requestUpdate();
 	}
@@ -84,8 +81,7 @@ public class DateCellDataFunction<R, C> implements
 	 */
 	@NonNull
 	DateFormat createFormat(@NonNull Locale locale) {
-		return new SimpleDateFormat(pattern,
-				DateFormatSymbols.getInstance(locale));
+		return new SimpleDateFormat(pattern, DateFormatSymbols.getInstance(locale));
 	}
 
 	@Override

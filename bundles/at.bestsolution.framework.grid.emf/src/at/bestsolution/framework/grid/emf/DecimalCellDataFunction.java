@@ -40,8 +40,7 @@ import at.bestsolution.framework.grid.func.DisposableCellDataFunction;
  * @param <C>
  *            data type
  */
-public class DecimalCellDataFunction<R, C> implements
-		DisposableCellDataFunction<R, C, @Nullable CharSequence> {
+public class DecimalCellDataFunction<R, C> implements DisposableCellDataFunction<R, C, @Nullable CharSequence> {
 	private final @NonNull String pattern;
 	private final @NonNull XGridColumn<R, C> column;
 	private final @NonNull Property<Locale> localeProperty;
@@ -57,8 +56,7 @@ public class DecimalCellDataFunction<R, C> implements
 	 * @param localeProperty
 	 *            locale property
 	 */
-	public DecimalCellDataFunction(@NonNull XGridColumn<R, C> column,
-			@NonNull String pattern,
+	public DecimalCellDataFunction(@NonNull XGridColumn<R, C> column, @NonNull String pattern,
 			@NonNull Property<@NonNull Locale> localeProperty) {
 		this.pattern = pattern;
 		this.column = column;
@@ -68,8 +66,7 @@ public class DecimalCellDataFunction<R, C> implements
 		localeProperty.addChangeListener(localeListener);
 	}
 
-	void localeValueChanged(Property<@NonNull Locale> property,
-			@NonNull Locale oldValue, @NonNull Locale newValue) {
+	void localeValueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
 		format = createFormat(newValue);
 		column.requestUpdate();
 	}
@@ -83,8 +80,7 @@ public class DecimalCellDataFunction<R, C> implements
 	 */
 	@NonNull
 	DecimalFormat createFormat(@NonNull Locale locale) {
-		return new DecimalFormat(pattern,
-				DecimalFormatSymbols.getInstance(locale));
+		return new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(locale));
 	}
 
 	@Override

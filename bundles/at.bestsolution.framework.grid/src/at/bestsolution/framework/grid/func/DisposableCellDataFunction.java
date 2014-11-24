@@ -32,8 +32,7 @@ package at.bestsolution.framework.grid.func;
  *            the return type
  * @since 1.0
  */
-public interface DisposableCellDataFunction<R, C, D> extends
-		CellDataFunction<R, C, D> {
+public interface DisposableCellDataFunction<R, C, D> extends CellDataFunction<R, C, D> {
 	/**
 	 * dispose the function
 	 */

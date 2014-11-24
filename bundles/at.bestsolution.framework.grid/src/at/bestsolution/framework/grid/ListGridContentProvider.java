@@ -31,8 +31,7 @@ import org.eclipse.jdt.annotation.NonNull;
  *            the content type
  * @since 1.0
  */
-public class ListGridContentProvider<@NonNull R> implements
-		XGridContentProvider<R> {
+public class ListGridContentProvider<@NonNull R> implements XGridContentProvider<R> {
 	/**
 	 * 
 	 */

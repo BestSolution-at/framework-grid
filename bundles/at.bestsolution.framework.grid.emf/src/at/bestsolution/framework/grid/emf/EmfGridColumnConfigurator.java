@@ -74,12 +74,9 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 * @param config
 	 *            column configuration
 	 */
-	public EmfGridColumnConfigurator(
-			@NonNull XGridColumn<@NonNull R, @Nullable C> column,
-			@NonNull MGridConfigurationColumn config) {
+	public EmfGridColumnConfigurator(@NonNull XGridColumn<@NonNull R, @Nullable C> column, @NonNull MGridConfigurationColumn config) {
 		if (config.getColumn() == null) {
-			throw new IllegalArgumentException(
-					"invalid column configuration: no column"); //$NON-NLS-1$
+			throw new IllegalArgumentException("invalid column configuration: no column"); //$NON-NLS-1$
 		}
 		this.column = column;
 		this.config = config;
@@ -95,15 +92,13 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	private void registerPropertyListeners() {
 		localeChangelistener = new ChangeListener<@NonNull Locale>() {
 			@Override
-			public void valueChanged(Property<@NonNull Locale> property,
-					@NonNull Locale oldValue, @NonNull Locale newValue) {
+			public void valueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
 				if (!oldValue.equals(newValue)) {
 					applyHeaderTitle();
 				}
 			}
 		};
-		column.getGrid().localeProperty()
-				.addChangeListener(localeChangelistener);
+		column.getGrid().localeProperty().addChangeListener(localeChangelistener);
 	}
 
 	/**
@@ -122,28 +117,24 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	}
 
 	private void applySortingBehavior() {
-		MSortingBehavior sortingBehavior = config.getColumn()
-				.getSortingBehavior();
+		MSortingBehavior sortingBehavior = config.getColumn().getSortingBehavior();
 		if (sortingBehavior != null) {
 			switch (sortingBehavior) {
 			case UP_DOWN_DEFAULT:
-				column.sortingBehaviorProperty().set(
-						SortingBehavior.UP_DOWN_DEFAULT);
+				column.sortingBehaviorProperty().set(SortingBehavior.UP_DOWN_DEFAULT);
 				break;
 			case UP_DOWN:
 				column.sortingBehaviorProperty().set(SortingBehavior.UP_DOWN);
 				break;
 			default:
-				throw new UnsupportedOperationException(
-						"unknown sorting behavior type: " + sortingBehavior); //$NON-NLS-1$}
+				throw new UnsupportedOperationException("unknown sorting behavior type: " + sortingBehavior); //$NON-NLS-1$}
 			}
 		}
 	}
 
 	private void applyAutoFilter() {
 		if (config.getColumn().getAutoFilterConfiguration() != null) {
-			MAutoFilterConfiguration filterConf = config.getColumn()
-					.getAutoFilterConfiguration();
+			MAutoFilterConfiguration filterConf = config.getColumn().getAutoFilterConfiguration();
 			if (filterConf instanceof MComboAutoFilterConfiguration) {
 				column.autoFilterTypeProperty().set(AutoFilterType.DROPDOWN);
 				column.autoFilterDataSupplierProperty();
@@ -164,8 +155,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 * apply text function configuration to grid
 	 */
 	void applyTextFunction() {
-		MCellTextFunction cellTextFunction = config.getColumn()
-				.getCellTextFunction();
+		MCellTextFunction cellTextFunction = config.getColumn().getCellTextFunction();
 		boolean wasSet = false;
 		if (cellTextFunction != null) {
 			if (cellTextFunction instanceof MFormattedCellTextFunction) {
@@ -176,10 +166,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 						MStringPattern stringPattern = (MStringPattern) pattern;
 						String p = stringPattern.getPattern();
 						if (p != null) {
-							column.textFunctionProperty().set(
-									createCellDataFunction(column,
-											formattedCellTextFunction
-													.getFormatType(), p));
+							column.textFunctionProperty().set(createCellDataFunction(column, formattedCellTextFunction.getFormatType(), p));
 							wasSet = true;
 						}
 					} else if (pattern instanceof MReferencePattern) {
@@ -188,22 +175,17 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 						@NonNull
 						String patternKey = refPattern.getPatternKey();
 						column.textFunctionProperty().set(
-								createLocalizedCellDataFunction(column,
-										formattedCellTextFunction
-												.getFormatType(), patternKey,
+								createLocalizedCellDataFunction(column, formattedCellTextFunction.getFormatType(), patternKey,
 										translationFunction));
 						wasSet = true;
 					} else {
-						throw new UnsupportedOperationException(
-								"unknown pattern type: " + pattern); //$NON-NLS-1$}
+						throw new UnsupportedOperationException("unknown pattern type: " + pattern); //$NON-NLS-1$}
 					}
 				}
 			}
 		}
 		if (!wasSet) {
-			column.textFunctionProperty().set(
-					at.bestsolution.framework.grid.Util
-							.defaultToStringCellDataFunction());
+			column.textFunctionProperty().set(at.bestsolution.framework.grid.Util.defaultToStringCellDataFunction());
 		}
 	}
 
@@ -217,19 +199,15 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 * @return cell data function
 	 */
 	@NonNull
-	private CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> createCellDataFunction(
-			@NonNull XGridColumn<R, C> column, MFormatType type,
-			@NonNull String pattern) {
+	private CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> createCellDataFunction(@NonNull XGridColumn<R, C> column,
+			MFormatType type, @NonNull String pattern) {
 		switch (type) {
 		case DATE:
-			return new DateCellDataFunction<R, C>(column, pattern, column
-					.getGrid().localeProperty());
+			return new DateCellDataFunction<R, C>(column, pattern, column.getGrid().localeProperty());
 		case NUMBER:
-			return new DecimalCellDataFunction<R, C>(column, pattern, column
-					.getGrid().localeProperty());
+			return new DecimalCellDataFunction<R, C>(column, pattern, column.getGrid().localeProperty());
 		default:
-			throw new UnsupportedOperationException(
-					"unknown format type: " + type); //$NON-NLS-1$
+			throw new UnsupportedOperationException("unknown format type: " + type); //$NON-NLS-1$
 		}
 	}
 
@@ -245,18 +223,14 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 */
 	@NonNull
 	private CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> createLocalizedCellDataFunction(
-			@NonNull XGridColumn<R, C> column, MFormatType type,
-			@NonNull String pattern, @NonNull TranslationFunction tFunction) {
+			@NonNull XGridColumn<R, C> column, MFormatType type, @NonNull String pattern, @NonNull TranslationFunction tFunction) {
 		switch (type) {
 		case DATE:
-			return new LocalizedDateCellDataFunction<R, C>(column, pattern,
-					tFunction, column.getGrid().localeProperty());
+			return new LocalizedDateCellDataFunction<R, C>(column, pattern, tFunction, column.getGrid().localeProperty());
 		case NUMBER:
-			return new LocalizedDecimalCellDataFunction<R, C>(column, pattern,
-					tFunction, column.getGrid().localeProperty());
+			return new LocalizedDecimalCellDataFunction<R, C>(column, pattern, tFunction, column.getGrid().localeProperty());
 		default:
-			throw new UnsupportedOperationException(
-					"unknown format type: " + type); //$NON-NLS-1$
+			throw new UnsupportedOperationException("unknown format type: " + type); //$NON-NLS-1$
 		}
 	}
 
@@ -264,8 +238,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 * apply autoWidth to grid
 	 */
 	private void applyAutoWidth() {
-		column.autoWidthProperty().set(
-				new Boolean(config.getColumn().isAutoWidth()));
+		column.autoWidthProperty().set(new Boolean(config.getColumn().isAutoWidth()));
 	}
 
 	/**
@@ -297,8 +270,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 			column.alignmentProperty().set(Alignment.RIGHT);
 			break;
 		default:
-			throw new UnsupportedOperationException(
-					"unknown alignment type: " + config.getColumn().getAlignment()); //$NON-NLS-1$
+			throw new UnsupportedOperationException("unknown alignment type: " + config.getColumn().getAlignment()); //$NON-NLS-1$
 		}
 	}
 
@@ -309,8 +281,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		@SuppressWarnings("null")
 		@NonNull
 		String key = config.getColumn().getTitleKey();
-		column.labelProperty().set(
-				translationFunction.translate(getLocale(), key));
+		column.labelProperty().set(translationFunction.translate(getLocale(), key));
 	}
 
 	private @NonNull Locale getLocale() {
@@ -323,8 +294,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		@SuppressWarnings("null")
 		@NonNull
 		MGrid grid = config.getColumn().getGrid();
-		return new CompositeTranslationFunction(
-				Util.createTranslationFunction(grid));
+		return new CompositeTranslationFunction(Util.createTranslationFunction(grid));
 	}
 
 	/**
@@ -338,7 +308,6 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 * dispose column configurator
 	 */
 	public void dispose() {
-		column.getGrid().localeProperty()
-				.removeChangeListener(localeChangelistener);
+		column.getGrid().localeProperty().removeChangeListener(localeChangelistener);
 	}
 }

@@ -76,15 +76,13 @@ public class SimpleProperty<T> implements Property<T> {
 	}
 
 	@Override
-	public void addChangeListener(
-			at.bestsolution.framework.grid.Property.ChangeListener<T> listener) {
+	public void addChangeListener(at.bestsolution.framework.grid.Property.ChangeListener<T> listener) {
 		checkDisposed();
 		listenerList.add(listener);
 	}
 
 	@Override
-	public void removeChangeListener(
-			at.bestsolution.framework.grid.Property.ChangeListener<T> listener) {
+	public void removeChangeListener(at.bestsolution.framework.grid.Property.ChangeListener<T> listener) {
 		checkDisposed();
 		listenerList.remove(listener);
 	}

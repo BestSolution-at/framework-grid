@@ -121,8 +121,7 @@ public class Util {
 		return new CellValueMatcherFunction<R, @Nullable C, @NonNull O>() {
 
 			@Override
-			public boolean apply(R row, @Nullable C cellValue,
-					@NonNull O filterData) {
+			public boolean apply(R row, @Nullable C cellValue, @NonNull O filterData) {
 				if (cellValue == null) {
 					return false;
 				}

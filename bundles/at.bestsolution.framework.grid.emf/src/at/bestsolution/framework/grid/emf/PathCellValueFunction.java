@@ -32,13 +32,12 @@ import at.bestsolution.framework.grid.model.grid.MPathSegment;
 import at.bestsolution.framework.grid.model.grid.MSimplePathSegment;
 
 /**
- * A cell value function which provides a cell value b 
+ * A cell value function which provides a cell value b
  *
  * @param <R>
  *            data type
  */
-public class PathCellValueFunction<@NonNull R> implements
-		Function<R, @Nullable Object> {
+public class PathCellValueFunction<@NonNull R> implements Function<R, @Nullable Object> {
 	private final @NonNull MPathCellValueFunction mFunction;
 
 	/**
@@ -74,17 +73,13 @@ public class PathCellValueFunction<@NonNull R> implements
 	 *            path segment
 	 * @return obtained value
 	 */
-	private static Object getSegmentValue(@NonNull EObject r,
-			@NonNull MPathSegment segment) {
+	private static Object getSegmentValue(@NonNull EObject r, @NonNull MPathSegment segment) {
 		if (segment instanceof MSimplePathSegment) {
-			String featureName = ((MSimplePathSegment) segment)
-					.getFeatureName();
-			EStructuralFeature f = r.eClass()
-					.getEStructuralFeature(featureName);
+			String featureName = ((MSimplePathSegment) segment).getFeatureName();
+			EStructuralFeature f = r.eClass().getEStructuralFeature(featureName);
 			return r.eGet(f);
 		} else {
-			throw new UnsupportedOperationException(
-					"unknown path segment type: " + segment); //$NON-NLS-1$
+			throw new UnsupportedOperationException("unknown path segment type: " + segment); //$NON-NLS-1$
 		}
 	}
 
@@ -95,9 +90,7 @@ public class PathCellValueFunction<@NonNull R> implements
 	 *            path segment
 	 * @return obtained value got by reflection
 	 */
-	private static Object getSegmentValue(@NonNull Object r,
-			@NonNull MPathSegment segment) {
-		throw new UnsupportedOperationException(
-				"get value by reflection is not implemented"); //$NON-NLS-1$
+	private static Object getSegmentValue(@NonNull Object r, @NonNull MPathSegment segment) {
+		throw new UnsupportedOperationException("get value by reflection is not implemented"); //$NON-NLS-1$
 	}
 }

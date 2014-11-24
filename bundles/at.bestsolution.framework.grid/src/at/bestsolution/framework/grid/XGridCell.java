@@ -56,8 +56,7 @@ public final class XGridCell<R, C> {
 	 * @param column
 	 *            the column, must nod be <code>null</code>
 	 */
-	public XGridCell(@NonNull R rowValue, @Nullable C cellValue,
-			@NonNull XGridColumn<R, C> column) {
+	public XGridCell(@NonNull R rowValue, @Nullable C cellValue, @NonNull XGridColumn<R, C> column) {
 		this.rowValue = rowValue;
 		this.cellValue = cellValue;
 		this.column = column;

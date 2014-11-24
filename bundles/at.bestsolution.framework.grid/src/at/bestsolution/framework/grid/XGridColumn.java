@@ -102,7 +102,6 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 		DOWN
 	}
 
-
 	/**
 	 * Column sorting behavior
 	 *
@@ -118,7 +117,7 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 		 */
 		UP_DOWN_DEFAULT
 	}
-	
+
 	/**
 	 * The label property
 	 *
@@ -235,7 +234,7 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 */
 	@NonNull
 	Property<@NonNull SortingBehavior> sortingBehaviorProperty();
-	
+
 	/**
 	 * The alignment
 	 * <p>
@@ -283,7 +282,9 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	/**
 	 * Property for the sort of this column
 	 * <p>
-	 * Default comparator uses {@link #cellValueFunctionProperty()} if cell value is <code>instanceof</code> {@link Comparable} and {@link #textFunctionProperty()} otherwise
+	 * Default comparator uses {@link #cellValueFunctionProperty()} if cell
+	 * value is <code>instanceof</code> {@link Comparable} and
+	 * {@link #textFunctionProperty()} otherwise
 	 * </p>
 	 *
 	 * @return the provider

@@ -62,8 +62,7 @@ public class EmfGridTableConfigurator<R> {
 	 * @param config
 	 *            initial table configuration
 	 */
-	public EmfGridTableConfigurator(@NonNull XGridTable<R> table,
-			@NonNull MGridConfigurationSet config) {
+	public EmfGridTableConfigurator(@NonNull XGridTable<R> table, @NonNull MGridConfigurationSet config) {
 		this.table = table;
 		this.config = config;
 		setConfiguration(config);
@@ -111,40 +110,31 @@ public class EmfGridTableConfigurator<R> {
 
 	private void applyDefaultSort() {
 		if (config.getDefaultSortColumn() != null) {
-			table.defaultSortProperty().set(
-					columnConfigurators.get(config.getDefaultSortColumn())
-							.createDefaultComparator());
+			table.defaultSortProperty().set(columnConfigurators.get(config.getDefaultSortColumn()).createDefaultComparator());
 		}
 	}
 
 	private void addViewColumns() {
 		if (config.getViewConfiguration() != null) {
-			for (MGridConfigurationColumn columnConfig : config
-					.getViewConfiguration().getColumns()) {
+			for (MGridConfigurationColumn columnConfig : config.getViewConfiguration().getColumns()) {
 				MGridColumn column = columnConfig.getColumn();
 				if (column != null) {
-					Function<@NonNull R, @Nullable Object> cellValueFunction = createCellValueFunction(column
-							.getCellValueFunction());
-					XGridColumn<@NonNull R, @Nullable Object> gridColumn = table
-							.createColumn(column.getId(), cellValueFunction);
-					EmfGridColumnConfigurator<R, Object> configurator = new EmfGridColumnConfigurator<R, Object>(
-							gridColumn, columnConfig);
+					Function<@NonNull R, @Nullable Object> cellValueFunction = createCellValueFunction(column.getCellValueFunction());
+					XGridColumn<@NonNull R, @Nullable Object> gridColumn = table.createColumn(column.getId(), cellValueFunction);
+					EmfGridColumnConfigurator<R, Object> configurator = new EmfGridColumnConfigurator<R, Object>(gridColumn, columnConfig);
 					columnConfigurators.put(column, configurator);
 				}
 			}
 		}
 	}
 
-	private @NonNull Function<@NonNull R, @Nullable Object> createCellValueFunction(
-			@Nullable MCellValueFunction mFunction) {
+	private @NonNull Function<@NonNull R, @Nullable Object> createCellValueFunction(@Nullable MCellValueFunction mFunction) {
 		if (mFunction == null) {
 			return new NullCellValueFunction<R>();
 		} else if (mFunction instanceof MPathCellValueFunction) {
-			return new PathCellValueFunction<R>(
-					(MPathCellValueFunction) mFunction);
+			return new PathCellValueFunction<R>((MPathCellValueFunction) mFunction);
 		} else {
-			throw new UnsupportedOperationException(
-					"Unknown cell value function type: " + mFunction); //$NON-NLS-1$
+			throw new UnsupportedOperationException("Unknown cell value function type: " + mFunction); //$NON-NLS-1$
 		}
 	}
 

@@ -31,8 +31,7 @@ import org.eclipse.jdt.annotation.Nullable;
  * @param <R>
  *            data type
  */
-public class NullCellValueFunction<@NonNull R> implements
-		Function<R, @Nullable Object> {
+public class NullCellValueFunction<@NonNull R> implements Function<R, @Nullable Object> {
 	@Override
 	public Object apply(R r) {
 		return null;

@@ -46,8 +46,7 @@ public class Util {
 	public static TranslationFunction createTranslationFunction(@NonNull MGrid grid) {
 		return new TranslationFunction() {
 			@Override
-			public @Nullable String translate(@NonNull Locale locale,
-					@NonNull String key) {
+			public @Nullable String translate(@NonNull Locale locale, @NonNull String key) {
 				for (MResourceBundle b : grid.getResources()) {
 					if (b.getLocale().equals(locale.getLanguage())) {
 						for (MResourceBundleEntry entry : b.getEntries()) {

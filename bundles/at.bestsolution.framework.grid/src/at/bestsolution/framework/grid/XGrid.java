@@ -66,8 +66,7 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 * @return column instance
 	 * @see XGridColumn#cellValueFunctionProperty()
 	 */
-	<C> @NonNull XGridColumn<@NonNull R, @Nullable C> createColumn(String id,
-			@NonNull Function<@NonNull R, @Nullable C> cellValueFunction);
+	<C> @NonNull XGridColumn<@NonNull R, @Nullable C> createColumn(String id, @NonNull Function<@NonNull R, @Nullable C> cellValueFunction);
 
 	/**
 	 * The selection mode.

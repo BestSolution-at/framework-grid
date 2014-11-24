@@ -49,10 +49,8 @@ public class SWTGridContentHandler<R> {
 	private final Map<@NonNull GridItem, @NonNull R> dataByCol = new IdentityHashMap<>();
 	private final @NonNull Grid nebulaGrid;
 	private final @NonNull SWTGridTable<R> grid;
-	private final @NonNull Property<@Nullable Comparator<@NonNull R>> defaultSortProperty = new SimpleProperty<>(
-			null);
-	private final @NonNull Property<@Nullable SWTGridColumn<R, ?>> sortColumnProperty = new SimpleProperty<>(
-			null);
+	private final @NonNull Property<@Nullable Comparator<@NonNull R>> defaultSortProperty = new SimpleProperty<>(null);
+	private final @NonNull Property<@Nullable SWTGridColumn<R, ?>> sortColumnProperty = new SimpleProperty<>(null);
 	private @Nullable XGridContentProvider<R> contentProvider;
 
 	/**
@@ -60,8 +58,7 @@ public class SWTGridContentHandler<R> {
 	 *            grid
 	 * @param nebulaGrid
 	 */
-	public SWTGridContentHandler(@NonNull SWTGridTable<R> grid,
-			@NonNull Grid nebulaGrid) {
+	public SWTGridContentHandler(@NonNull SWTGridTable<R> grid, @NonNull Grid nebulaGrid) {
 		this.grid = grid;
 		this.nebulaGrid = nebulaGrid;
 
@@ -72,10 +69,8 @@ public class SWTGridContentHandler<R> {
 	 * 
 	 */
 	private void registerPropertyListeners() {
-		defaultSortProperty
-				.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider));
-		sortColumnProperty
-				.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider));
+		defaultSortProperty.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider));
+		sortColumnProperty.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider));
 	}
 
 	/**
@@ -83,11 +78,9 @@ public class SWTGridContentHandler<R> {
 	 * @param newContentProvider
 	 *            the new content provider
 	 */
-	public synchronized void resetContent(
-			@Nullable XGridContentProvider<R> newContentProvider) {
+	public synchronized void resetContent(@Nullable XGridContentProvider<R> newContentProvider) {
 		contentProvider = newContentProvider;
-		Selection<@Nullable R, @Nullable R> previousSelection = grid
-				.selectionProperty().get();
+		Selection<@Nullable R, @Nullable R> previousSelection = grid.selectionProperty().get();
 		dataByR.clear();
 		dataByCol.clear();
 		nebulaGrid.disposeAllItems();
@@ -107,8 +100,7 @@ public class SWTGridContentHandler<R> {
 				break;
 			case DOWN:
 				@Nullable
-				Comparator<@NonNull R> originComparator = column
-						.sorterProperty().get();
+				Comparator<@NonNull R> originComparator = column.sorterProperty().get();
 				if (originComparator != null) {
 					Collections.sort(items, originComparator.reversed());
 				}
@@ -132,8 +124,7 @@ public class SWTGridContentHandler<R> {
 				final GridItem item = new GridItem(nebulaGrid, SWT.NONE);
 				dataByR.put(element, item);
 				dataByCol.put(item, element);
-				for (XGridColumn<@NonNull R, @Nullable ?> col : grid
-						.getColumns()) {
+				for (XGridColumn<@NonNull R, @Nullable ?> col : grid.getColumns()) {
 					col.requestUpdate(element);
 				}
 			}

@@ -42,8 +42,7 @@ import at.bestsolution.framework.grid.func.TranslationFunction;
  * @param <C>
  *            data type
  */
-public class LocalizedDateCellDataFunction<R, C> implements
-		DisposableCellDataFunction<R, C, @Nullable CharSequence> {
+public class LocalizedDateCellDataFunction<R, C> implements DisposableCellDataFunction<R, C, @Nullable CharSequence> {
 	private final @NonNull String patternKey;
 	private final @NonNull XGridColumn<R, C> column;
 	private final @NonNull TranslationFunction translationFunction;
@@ -61,22 +60,18 @@ public class LocalizedDateCellDataFunction<R, C> implements
 	 * @param localeProperty
 	 *            locale property
 	 */
-	public LocalizedDateCellDataFunction(@NonNull XGridColumn<R, C> column,
-			@NonNull String patternKey,
-			@NonNull TranslationFunction translationFunction,
-			@NonNull Property<@NonNull Locale> localeProperty) {
+	public LocalizedDateCellDataFunction(@NonNull XGridColumn<R, C> column, @NonNull String patternKey,
+			@NonNull TranslationFunction translationFunction, @NonNull Property<@NonNull Locale> localeProperty) {
 		this.column = column;
 		this.patternKey = patternKey;
 		this.translationFunction = translationFunction;
 		this.localeProperty = localeProperty;
-		format = createFormat(localeProperty.get(), patternKey,
-				translationFunction);
+		format = createFormat(localeProperty.get(), patternKey, translationFunction);
 		localeListener = this::localeValueChanged;
 		localeProperty.addChangeListener(localeListener);
 	}
 
-	void localeValueChanged(Property<@NonNull Locale> property,
-			@NonNull Locale oldValue, @NonNull Locale newValue) {
+	void localeValueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
 		format = createFormat(property.get(), patternKey, translationFunction);
 		column.requestUpdate();
 	}
@@ -91,16 +86,12 @@ public class LocalizedDateCellDataFunction<R, C> implements
 	 * @return created format
 	 */
 	@NonNull
-	static DateFormat createFormat(@NonNull Locale locale,
-			@NonNull String patternKey,
-			@NonNull TranslationFunction translationFunction) {
+	static DateFormat createFormat(@NonNull Locale locale, @NonNull String patternKey, @NonNull TranslationFunction translationFunction) {
 		String pattern = translationFunction.translate(locale, patternKey);
 		if (pattern == null) {
-			throw new IllegalArgumentException(
-					"Could not resolve pattern for Locale=" + locale + ", key=" + patternKey); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException("Could not resolve pattern for Locale=" + locale + ", key=" + patternKey); //$NON-NLS-1$ //$NON-NLS-2$
 		}
-		return new SimpleDateFormat(pattern,
-				DateFormatSymbols.getInstance(locale));
+		return new SimpleDateFormat(pattern, DateFormatSymbols.getInstance(locale));
 	}
 
 	@Override

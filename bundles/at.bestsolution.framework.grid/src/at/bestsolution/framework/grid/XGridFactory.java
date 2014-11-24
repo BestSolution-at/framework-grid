@@ -35,6 +35,5 @@ public interface XGridFactory {
 	 *            function used to translate the ui
 	 * @return the grid
 	 */
-	public <R> XGrid<R, XGridContentProvider<R>> createGrid(
-			TranslationFunction translation);
+	public <R> XGrid<R, XGridContentProvider<R>> createGrid(TranslationFunction translation);
 }
