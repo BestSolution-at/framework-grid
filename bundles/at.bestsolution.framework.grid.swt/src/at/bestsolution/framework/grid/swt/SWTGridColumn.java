@@ -83,7 +83,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 			Util.emptyListSupplier());
 	private final @NonNull Property<Function<@NonNull Object, @Nullable CharSequence>> autoFilterTextFunctionProperty = new SimpleProperty<>(
 			Util.defaultToStringFunction());
-	private final @NonNull Property<@NonNull Comparator<@NonNull R>> sorterProperty = new SimpleProperty<>(
+	private final @NonNull Property<@Nullable Comparator<@NonNull R>> sorterProperty = new SimpleProperty<>(
 			new DefaultSortComparator<R, C>(this));
 	private final @NonNull Property<@NonNull Integer> indexProperty;
 	private final @NonNull Property<@Nullable String> labelProperty = new SimpleProperty<>(
@@ -189,7 +189,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 	}
 
 	@Override
-	public @NonNull Property<@NonNull Comparator<@NonNull R>> sorterProperty() {
+	public @NonNull Property<@Nullable Comparator<@NonNull R>> sorterProperty() {
 		return sorterProperty;
 	}
 
@@ -304,7 +304,10 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 			break;
 		case DOWN:
 			nebulaColumn.setSort(SWT.DOWN);
-			comparator = sorterProperty.get().reversed();
+			Comparator<@NonNull R> originComparator = sorterProperty.get();
+			if (originComparator != null) {
+				comparator = originComparator.reversed();
+			}
 			break;
 		default:
 			nebulaColumn.setSort(SWT.NONE);

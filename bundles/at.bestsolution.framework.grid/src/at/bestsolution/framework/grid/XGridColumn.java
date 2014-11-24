@@ -258,7 +258,7 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 * @return the provider
 	 */
 	@NonNull
-	Property<@NonNull Comparator<@NonNull R>> sorterProperty();
+	Property<@Nullable Comparator<@NonNull R>> sorterProperty();
 
 	/**
 	 * Property for the column index
