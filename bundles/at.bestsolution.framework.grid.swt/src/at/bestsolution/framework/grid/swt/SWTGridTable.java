@@ -126,7 +126,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	/**
 	 * @return the nebulaGrid widget
 	 */
-	protected Grid getNebulaGrid() {
+	public Grid getNebulaGrid() {
 		return nebulaGrid;
 	}
 

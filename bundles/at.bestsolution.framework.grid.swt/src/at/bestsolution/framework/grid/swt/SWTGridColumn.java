@@ -269,27 +269,27 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 		sortingProperty().addChangeListener(
 				(property, oldValue, newValue) -> applySorting(property,
 						oldValue, newValue));
-		autoFilterTypeProperty
-		.addChangeListener(new ChangeListener<XGridColumn.AutoFilterType>() {
-			@Override
-			public void valueChanged(Property<AutoFilterType> property,
-					AutoFilterType oldValue, AutoFilterType newValue) {
-				switch (newValue) {
-				case DROPDOWN:
-					nebulaColumn.setHeaderControl(new CCombo(
-							nebulaColumn.getParent(), SWT.READ_ONLY
-									| SWT.BORDER));
-					break;
-				case TEXT:
-					nebulaColumn.setHeaderControl(new Text(nebulaColumn
-							.getParent(), SWT.BORDER));
-					break;
-				default:
-					nebulaColumn.setHeaderControl(null);
-					break;
-				}
-			}
-		});
+//		autoFilterTypeProperty
+//		.addChangeListener(new ChangeListener<XGridColumn.AutoFilterType>() {
+//			@Override
+//			public void valueChanged(Property<AutoFilterType> property,
+//					AutoFilterType oldValue, AutoFilterType newValue) {
+//				switch (newValue) {
+//				case DROPDOWN:
+//					nebulaColumn.setHeaderControl(new CCombo(
+//							nebulaColumn.getParent(), SWT.READ_ONLY
+//									| SWT.BORDER));
+//					break;
+//				case TEXT:
+//					nebulaColumn.setHeaderControl(new Text(nebulaColumn
+//							.getParent(), SWT.BORDER));
+//					break;
+//				default:
+//					nebulaColumn.setHeaderControl(null);
+//					break;
+//				}
+//			}
+//		});
 	}
 
 	private void applySorting(

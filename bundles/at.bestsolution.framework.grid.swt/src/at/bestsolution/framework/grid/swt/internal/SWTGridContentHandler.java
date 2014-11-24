@@ -90,7 +90,7 @@ public class SWTGridContentHandler<R> {
 				.selectionProperty().get();
 		dataByR.clear();
 		dataByCol.clear();
-		nebulaGrid.clearItems();
+		nebulaGrid.disposeAllItems();
 		List<@NonNull R> items = new ArrayList<>();
 
 		if (newContentProvider != null) {
@@ -121,14 +121,20 @@ public class SWTGridContentHandler<R> {
 	}
 
 	private void insertItems(List<@NonNull R> items) {
-		for (@NonNull
-		R element : items) {
-			final GridItem item = new GridItem(nebulaGrid, SWT.NONE);
-			dataByR.put(element, item);
-			dataByCol.put(item, element);
-			for (XGridColumn<@NonNull R, @Nullable ?> col : grid.getColumns()) {
-				col.requestUpdate(element);
+		grid.getNebulaGrid().setRedraw(false);
+		try {
+			for (@NonNull
+			R element : items) {
+				final GridItem item = new GridItem(nebulaGrid, SWT.NONE);
+				dataByR.put(element, item);
+				dataByCol.put(item, element);
+				for (XGridColumn<@NonNull R, @Nullable ?> col : grid
+						.getColumns()) {
+					col.requestUpdate(element);
+				}
 			}
+		} finally {
+			grid.getNebulaGrid().setRedraw(true);
 		}
 	}
 
