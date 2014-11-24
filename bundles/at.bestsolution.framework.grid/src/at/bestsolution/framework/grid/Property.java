@@ -34,19 +34,19 @@ public interface Property<T> {
 	 * @param value
 	 *            the value
 	 */
-	public void set(T value);
+	void set(T value);
 
 	/**
 	 * Get the current value
 	 *
 	 * @return the value
 	 */
-	public T get();
+	T get();
 
 	/**
 	 * Dispose the value
 	 */
-	public void dispose();
+	void dispose();
 
 	/**
 	 * Attach a listener
@@ -54,7 +54,7 @@ public interface Property<T> {
 	 * @param listener
 	 *            the listener
 	 */
-	public void addChangeListener(ChangeListener<T> listener);
+	void addChangeListener(ChangeListener<T> listener);
 
 	/**
 	 * Remove the listener
@@ -62,7 +62,7 @@ public interface Property<T> {
 	 * @param listener
 	 *            the listener
 	 */
-	public void removeChangeListener(ChangeListener<T> listener);
+	void removeChangeListener(ChangeListener<T> listener);
 
 	/**
 	 * Listener to observe changes
@@ -71,7 +71,7 @@ public interface Property<T> {
 	 *            the type
 	 */
 	@FunctionalInterface
-	public interface ChangeListener<T> {
+	interface ChangeListener<T> {
 		/**
 		 * Handle the changed value
 		 *
@@ -82,6 +82,6 @@ public interface Property<T> {
 		 * @param newValue
 		 *            the new value
 		 */
-		public void valueChanged(Property<T> property, T oldValue, T newValue);
+		void valueChanged(Property<T> property, T oldValue, T newValue);
 	}
 }
