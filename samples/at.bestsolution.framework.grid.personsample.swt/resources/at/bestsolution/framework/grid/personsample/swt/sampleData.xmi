@@ -5,7 +5,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:person="http://www.bestsolution.at/framework/grid/personsample/1.0"
     xsi:schemaLocation="http://www.bestsolution.at/framework/grid/personsample/1.0 ../model/Person.xcore#/EPackage">
-  <persons firstname="John "
+  <persons firstname="John"
       lastname="Doe"
       married="true"
       birthdate="1980-01-01T00:00:00.000+0100">
@@ -20,7 +20,29 @@
       lastname="Doe"
       gender="FEMALE"
       married="true"
-      birthdate="1980-05-05T00:00:00.000+0200"/>
+      birthdate="1984-05-05T00:00:00.000+0200"/>
+  <persons firstname="Jens"
+      lastname="Meier"
+      married="true"
+      birthdate="1978-01-01T00:00:00.000+0100">
+    <address
+        street="Allee der Kosmonauten"
+        number="17"
+        zipcode="12345"
+        city="Berlin"
+        country="//@countries.1"/>
+  </persons>
+  <persons firstname="Guiseppe"
+      lastname="Totti"
+      married="true"
+      birthdate="1982-01-01T00:00:00.000+0100">
+    <address
+        street="Via Milano"
+        number="17"
+        zipcode="39100"
+        city="Bolzano"
+        country="//@countries.2"/>
+  </persons>
   <countries
       name="Austria"/>
   <countries
