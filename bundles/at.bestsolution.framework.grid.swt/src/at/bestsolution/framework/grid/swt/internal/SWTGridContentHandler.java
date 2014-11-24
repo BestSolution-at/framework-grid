@@ -106,8 +106,12 @@ public class SWTGridContentHandler<R> {
 				Collections.sort(items, column.sorterProperty().get());
 				break;
 			case DOWN:
-				Collections.sort(items, column.sorterProperty().get()
-						.reversed());
+				@Nullable
+				Comparator<@NonNull R> originComparator = column
+						.sorterProperty().get();
+				if (originComparator != null) {
+					Collections.sort(items, originComparator.reversed());
+				}
 				break;
 			default:
 			}
