@@ -45,7 +45,7 @@ import at.bestsolution.framework.grid.swt.SWTGridTable;
  *            content type
  */
 public class SWTGridContentHandler<R> {
-	private final Map<@NonNull R, @NonNull GridItem> dataByR = new IdentityHashMap<>();
+	private final Map<@NonNull R, @Nullable GridItem> dataByR = new IdentityHashMap<>();
 	private final Map<@NonNull GridItem, @NonNull R> dataByCol = new IdentityHashMap<>();
 	private final @NonNull Grid nebulaGrid;
 	private final @NonNull SWTGridTable<R> grid;
@@ -112,6 +112,8 @@ public class SWTGridContentHandler<R> {
 			Collections.sort(items, defaultSortProperty.get());
 		}
 		insertItems(items);
+		// TODO this may lack in performance
+		filter();
 		// restore selection
 		grid.selectionProperty().set(previousSelection);
 	}
@@ -147,7 +149,7 @@ public class SWTGridContentHandler<R> {
 	 *            row value
 	 * @return corresponding GridItem
 	 */
-	public GridItem get(@NonNull R r) {
+	public @Nullable GridItem get(@NonNull R r) {
 		return dataByR.get(r);
 	}
 
@@ -163,5 +165,36 @@ public class SWTGridContentHandler<R> {
 	 */
 	public Property<@Nullable SWTGridColumn<R, ?>> sortColumnProperty() {
 		return sortColumnProperty;
+	}
+
+	/**
+	 * update item visibility by checking current filter settings
+	 */
+	public void filter() {
+		final List<@NonNull R> elementsToAdd = new ArrayList<>();
+		for (R element : dataByR.keySet()) {
+			GridItem item = dataByR.get(element);
+			boolean visible = true;
+			for (@NonNull
+			XGridColumn<@NonNull R, @Nullable ?> xcol : grid.getColumns()) {
+				SWTGridColumn<R, ?> col = (SWTGridColumn<R, ?>) xcol;
+				visible = col.matchesColumnFilter(element);
+				if (!visible) {
+					break;
+				}
+			}
+			if (visible) {
+				if (item == null) {
+					elementsToAdd.add(element);
+				}
+			} else {
+				if (item != null) {
+					item.dispose();
+					dataByR.put(element, null);
+					dataByCol.remove(item);
+				}
+			}
+		}
+		insertItems(elementsToAdd);
 	}
 }

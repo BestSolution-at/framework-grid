@@ -110,8 +110,11 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		applyMinWidth();
 		applyMaxWidth();
 		applyAutoWidth();
+
 		applyTextFunction();
+
 		applyAutoFilter();
+
 		applySortingBehavior();
 		// TODO add missing features
 	}
@@ -136,14 +139,26 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		if (config.getColumn().getAutoFilterConfiguration() != null) {
 			MAutoFilterConfiguration filterConf = config.getColumn().getAutoFilterConfiguration();
 			if (filterConf instanceof MComboAutoFilterConfiguration) {
-				column.autoFilterTypeProperty().set(AutoFilterType.DROPDOWN);
+				// MComboAutoFilterConfiguration comboConf =
+				// (MComboAutoFilterConfiguration) filterConf;
+				// column.autoFilterTypeProperty().set(AutoFilterType.DROPDOWN);
+				// TODO
 				column.autoFilterDataSupplierProperty();
 				column.autoFilterMatcherFunctionProperty();
 				column.autoFilterTextFunctionProperty();
 			} else if (filterConf instanceof MFreeTextAutoFilterConfiguration) {
+				MFreeTextAutoFilterConfiguration textConf = (MFreeTextAutoFilterConfiguration) filterConf;
 				column.autoFilterTypeProperty().set(AutoFilterType.TEXT);
-				column.autoFilterDataSupplierProperty();
-				column.autoFilterMatcherFunctionProperty();
+				if (textConf.getMatchType() != null) {
+					switch (textConf.getMatchType()) {
+					case SUBSTRING:
+						column.autoFilterMatcherFunctionProperty().set(
+								at.bestsolution.framework.grid.Util.defaultSubstringMatcher(column.textFunctionProperty()));
+						break;
+					default:
+						throw new UnsupportedOperationException("unknown autofilter matcher type: " + textConf.getMatchType()); //$NON-NLS-1$}
+					}
+				}
 				column.autoFilterTextFunctionProperty();
 			}
 		} else {
@@ -155,7 +170,10 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 * apply text function configuration to grid
 	 */
 	void applyTextFunction() {
+		Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textFunctionProperty = column
+				.textFunctionProperty();
 		MCellTextFunction cellTextFunction = config.getColumn().getCellTextFunction();
+
 		boolean wasSet = false;
 		if (cellTextFunction != null) {
 			if (cellTextFunction instanceof MFormattedCellTextFunction) {
@@ -166,7 +184,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 						MStringPattern stringPattern = (MStringPattern) pattern;
 						String p = stringPattern.getPattern();
 						if (p != null) {
-							column.textFunctionProperty().set(createCellDataFunction(column, formattedCellTextFunction.getFormatType(), p));
+							textFunctionProperty.set(createCellDataFunction(column, formattedCellTextFunction.getFormatType(), p));
 							wasSet = true;
 						}
 					} else if (pattern instanceof MReferencePattern) {
@@ -174,9 +192,8 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 						@SuppressWarnings("null")
 						@NonNull
 						String patternKey = refPattern.getPatternKey();
-						column.textFunctionProperty().set(
-								createLocalizedCellDataFunction(column, formattedCellTextFunction.getFormatType(), patternKey,
-										translationFunction));
+						textFunctionProperty.set(createLocalizedCellDataFunction(column, formattedCellTextFunction.getFormatType(),
+								patternKey, translationFunction));
 						wasSet = true;
 					} else {
 						throw new UnsupportedOperationException("unknown pattern type: " + pattern); //$NON-NLS-1$}
@@ -185,7 +202,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 			}
 		}
 		if (!wasSet) {
-			column.textFunctionProperty().set(at.bestsolution.framework.grid.Util.defaultToStringCellDataFunction());
+			textFunctionProperty.set(at.bestsolution.framework.grid.Util.defaultToStringCellDataFunction());
 		}
 	}
 

@@ -29,6 +29,8 @@
           xsi:type="grid:MSimplePathSegment"
           featureName="lastname"/>
     </cellValueFunction>
+    <autoFilterConfiguration
+        xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
   </columns>
   <columns id="street"
       titleKey="header.street"
@@ -43,6 +45,8 @@
           xsi:type="grid:MSimplePathSegment"
           featureName="street"/>
     </cellValueFunction>
+    <autoFilterConfiguration
+        xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
   </columns>
   <columns id="number"
       titleKey="header.number"
@@ -64,6 +68,8 @@
           xsi:type="grid:MStringPattern"
           pattern="000.00"/>
     </cellTextFunction>
+    <autoFilterConfiguration
+        xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
   </columns>
   <columns id="birthdate"
       titleKey="header.birthdate"

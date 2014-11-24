@@ -65,7 +65,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 
 	protected @NonNull Grid nebulaGrid;
 	final List<@NonNull SWTGridColumn<R, ?>> columns = new ArrayList<>();
-	final @NonNull SWTGridContentHandler<R> contentHandler;
+	private final @NonNull SWTGridContentHandler<R> contentHandler;
 
 	/**
 	 * SWT Grid
@@ -151,7 +151,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 			@Override
 			public void valueChanged(Property<XGridContentProvider<R>> property, @Nullable XGridContentProvider<R> oldValue,
 					@Nullable XGridContentProvider<R> newValue) {
-				contentHandler.resetContent(newValue);
+				getContentHandler().resetContent(newValue);
 			}
 		});
 	}
@@ -166,7 +166,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 				if (selection == null || selection.length == 0) {
 					selectionProperty.set(Util.emptySelection());
 				} else if (selection.length == 1) {
-					R selectedRow = contentHandler.get(selection[0]);
+					R selectedRow = getContentHandler().get(selection[0]);
 					XGridColumn<R, R> b = null; // TODO
 					selectionProperty.set(new SimpleSelection<R, R>(selectedRow, b, selectedRow));
 				} else {
@@ -232,5 +232,12 @@ public class SWTGridTable<R> implements XGridTable<R> {
 		contentProviderProperty.dispose();
 		selectionProperty.dispose();
 		localeProperty.dispose();
+	}
+
+	/**
+	 * @return the content handler
+	 */
+	public @NonNull SWTGridContentHandler<R> getContentHandler() {
+		return contentHandler;
 	}
 }

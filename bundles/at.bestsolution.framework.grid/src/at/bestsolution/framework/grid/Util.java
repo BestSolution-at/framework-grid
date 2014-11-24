@@ -115,17 +115,45 @@ public class Util {
 	 *            the cell type
 	 * @param <O>
 	 *            the filter value type
-	 * @return matcher function who compares the string value
+	 * @return matcher function which compares the string value
 	 */
-	public static <R, C, O> @NonNull CellValueMatcherFunction<R, @Nullable C, @NonNull O> defaultToStringMatcher() {
-		return new CellValueMatcherFunction<R, @Nullable C, @NonNull O>() {
-
+	public static <R, C, O> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultToStringMatcher() {
+		return new CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O>() {
 			@Override
-			public boolean apply(R row, @Nullable C cellValue, @NonNull O filterData) {
+			public boolean apply(@NonNull R row, @Nullable C cellValue, @NonNull O filterData) {
 				if (cellValue == null) {
 					return false;
 				}
 				return filterData.toString().equals(cellValue.toString());
+			}
+		};
+	}
+
+	/**
+	 * @param <R>
+	 *            the row type
+	 * @param <C>
+	 *            the cell type
+	 * @param <O>
+	 *            the filter value type
+	 * @param textFunctionProperty
+	 *            the columns textValueFunction property
+	 * @return matcher function which checks whether the filter value is a
+	 *         substring of the cell value
+	 */
+	public static <R, C, O, D> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultSubstringMatcher(
+			@NonNull Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textFunctionProperty) {
+		return new CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O>() {
+			@Override
+			public boolean apply(@NonNull R row, @Nullable C cellValue, @NonNull O filterData) {
+				if (cellValue == null) {
+					return filterData.toString().isEmpty();
+				}
+				CharSequence cellStringValue = textFunctionProperty.get().apply(row, cellValue);
+				if (cellStringValue == null) {
+					return filterData.toString().isEmpty();
+				}
+				return cellStringValue.toString().toLowerCase().contains(filterData.toString().toLowerCase());
 			}
 		};
 	}
