@@ -496,13 +496,22 @@ public interface GridPackage extends EPackage {
 	int MGRID_COLUMN__AUTO_FILTER_CONFIGURATION = 9;
 
 	/**
+	 * The feature id for the '<em><b>Sorting Behavior</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MGRID_COLUMN__SORTING_BEHAVIOR = 10;
+
+	/**
 	 * The number of structural features of the '<em>MGrid Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN_FEATURE_COUNT = 10;
+	int MGRID_COLUMN_FEATURE_COUNT = 11;
 
 	/**
 	 * The number of operations of the '<em>MGrid Column</em>' class.
@@ -1102,6 +1111,16 @@ public interface GridPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MSortingBehavior <em>MSorting Behavior</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.bestsolution.framework.grid.model.grid.MSortingBehavior
+	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMSortingBehavior()
+	 * @generated
+	 */
+	int MSORTING_BEHAVIOR = 27;
+
+	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MResourceBundle <em>MResource Bundle</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1458,6 +1477,17 @@ public interface GridPackage extends EPackage {
 	EReference getMGridColumn_AutoFilterConfiguration();
 
 	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getSortingBehavior <em>Sorting Behavior</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Sorting Behavior</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MGridColumn#getSortingBehavior()
+	 * @see #getMGridColumn()
+	 * @generated
+	 */
+	EAttribute getMGridColumn_SortingBehavior();
+
+	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MCellValueFunction <em>MCell Value Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1790,6 +1820,16 @@ public interface GridPackage extends EPackage {
 	EEnum getMAutoFilterMatchType();
 
 	/**
+	 * Returns the meta object for enum '{@link at.bestsolution.framework.grid.model.grid.MSortingBehavior <em>MSorting Behavior</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>MSorting Behavior</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MSortingBehavior
+	 * @generated
+	 */
+	EEnum getMSortingBehavior();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2091,6 +2131,14 @@ public interface GridPackage extends EPackage {
 		EReference MGRID_COLUMN__AUTO_FILTER_CONFIGURATION = eINSTANCE.getMGridColumn_AutoFilterConfiguration();
 
 		/**
+		 * The meta object literal for the '<em><b>Sorting Behavior</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MGRID_COLUMN__SORTING_BEHAVIOR = eINSTANCE.getMGridColumn_SortingBehavior();
+
+		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MCellValueFunctionImpl <em>MCell Value Function</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2385,6 +2433,16 @@ public interface GridPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum MAUTO_FILTER_MATCH_TYPE = eINSTANCE.getMAutoFilterMatchType();
+
+		/**
+		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.MSortingBehavior <em>MSorting Behavior</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.bestsolution.framework.grid.model.grid.MSortingBehavior
+		 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMSortingBehavior()
+		 * @generated
+		 */
+		EEnum MSORTING_BEHAVIOR = eINSTANCE.getMSortingBehavior();
 
 	}
 

@@ -31,10 +31,8 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.nebula.widgets.grid.GridColumn;
 import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Text;
 
 import at.bestsolution.framework.grid.DefaultSortComparator;
 import at.bestsolution.framework.grid.Property;
@@ -90,6 +88,8 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 			null);
 	final @NonNull Property<@NonNull Sorting> sortingProperty = new SimpleProperty<>(
 			Sorting.NONE);
+	final @NonNull Property<@NonNull SortingBehavior> sortingBehaviorProperty = new SimpleProperty<>(
+			SortingBehavior.UP_DOWN);
 
 	private final @NonNull SWTGridTable<R> grid;
 	GridColumn nebulaColumn;
@@ -120,6 +120,16 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 				switch (sortingProperty.get()) {
 				case UP:
 					sortingProperty.set(Sorting.DOWN);
+					break;
+				case DOWN:
+					switch (sortingBehaviorProperty.get()) {
+					case UP_DOWN_DEFAULT:
+						sortingProperty.set(Sorting.NONE);
+						break;
+					case UP_DOWN:
+					default:
+						sortingProperty.set(Sorting.UP);
+					}
 					break;
 				default:
 					sortingProperty.set(Sorting.UP);
@@ -269,59 +279,51 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 		sortingProperty().addChangeListener(
 				(property, oldValue, newValue) -> applySorting(property,
 						oldValue, newValue));
-//		autoFilterTypeProperty
-//		.addChangeListener(new ChangeListener<XGridColumn.AutoFilterType>() {
-//			@Override
-//			public void valueChanged(Property<AutoFilterType> property,
-//					AutoFilterType oldValue, AutoFilterType newValue) {
-//				switch (newValue) {
-//				case DROPDOWN:
-//					nebulaColumn.setHeaderControl(new CCombo(
-//							nebulaColumn.getParent(), SWT.READ_ONLY
-//									| SWT.BORDER));
-//					break;
-//				case TEXT:
-//					nebulaColumn.setHeaderControl(new Text(nebulaColumn
-//							.getParent(), SWT.BORDER));
-//					break;
-//				default:
-//					nebulaColumn.setHeaderControl(null);
-//					break;
-//				}
-//			}
-//		});
+		// autoFilterTypeProperty
+		// .addChangeListener(new ChangeListener<XGridColumn.AutoFilterType>() {
+		// @Override
+		// public void valueChanged(Property<AutoFilterType> property,
+		// AutoFilterType oldValue, AutoFilterType newValue) {
+		// switch (newValue) {
+		// case DROPDOWN:
+		// nebulaColumn.setHeaderControl(new CCombo(
+		// nebulaColumn.getParent(), SWT.READ_ONLY
+		// | SWT.BORDER));
+		// break;
+		// case TEXT:
+		// nebulaColumn.setHeaderControl(new Text(nebulaColumn
+		// .getParent(), SWT.BORDER));
+		// break;
+		// default:
+		// nebulaColumn.setHeaderControl(null);
+		// break;
+		// }
+		// }
+		// });
 	}
 
 	private void applySorting(
 			Property<at.bestsolution.framework.grid.XGridColumn.Sorting> property,
 			at.bestsolution.framework.grid.XGridColumn.Sorting oldValue,
 			at.bestsolution.framework.grid.XGridColumn.Sorting newValue) {
-		Comparator<R> comparator = null;
 		switch (newValue) {
 		case UP:
 			nebulaColumn.setSort(SWT.UP);
-			comparator = sorterProperty.get();
 			break;
 		case DOWN:
 			nebulaColumn.setSort(SWT.DOWN);
-			Comparator<@NonNull R> originComparator = sorterProperty.get();
-			if (originComparator != null) {
-				comparator = originComparator.reversed();
-			}
 			break;
 		default:
 			nebulaColumn.setSort(SWT.NONE);
 		}
-		if (comparator != null) {
-			@Nullable
-			SWTGridColumn<@NonNull R, ?> currentSortColumn = grid.contentHandler
-					.sortColumnProperty().get();
-			// reset sorting state on previous sorted other column
-			if (currentSortColumn != null && currentSortColumn != this) {
-				currentSortColumn.sortingProperty.set(Sorting.NONE);
-			}
-			grid.contentHandler.sortColumnProperty().set(this);
+		@Nullable
+		SWTGridColumn<@NonNull R, ?> currentSortColumn = grid.contentHandler
+				.sortColumnProperty().get();
+		// reset sorting state on previous sorted other column
+		if (currentSortColumn != null && currentSortColumn != this) {
+			currentSortColumn.sortingProperty.set(Sorting.NONE);
 		}
+		grid.contentHandler.sortColumnProperty().set(this);
 	}
 
 	void checkWidth() {
@@ -408,5 +410,10 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements
 	@Override
 	public @NonNull Property<XGridColumn.@NonNull Sorting> sortingProperty() {
 		return sortingProperty;
+	}
+
+	@Override
+	public @NonNull Property<XGridColumn.@NonNull SortingBehavior> sortingBehaviorProperty() {
+		return sortingBehaviorProperty;
 	}
 }

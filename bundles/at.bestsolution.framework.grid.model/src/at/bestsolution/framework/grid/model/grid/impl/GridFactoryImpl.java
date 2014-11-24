@@ -122,6 +122,8 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 				return createMDefaultAutoFilterEntryTypeFromString(eDataType, initialValue);
 			case GridPackage.MAUTO_FILTER_MATCH_TYPE:
 				return createMAutoFilterMatchTypeFromString(eDataType, initialValue);
+			case GridPackage.MSORTING_BEHAVIOR:
+				return createMSortingBehaviorFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -145,6 +147,8 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 				return convertMDefaultAutoFilterEntryTypeToString(eDataType, instanceValue);
 			case GridPackage.MAUTO_FILTER_MATCH_TYPE:
 				return convertMAutoFilterMatchTypeToString(eDataType, instanceValue);
+			case GridPackage.MSORTING_BEHAVIOR:
+				return convertMSortingBehaviorToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -407,6 +411,26 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 	 * @generated
 	 */
 	public String convertMAutoFilterMatchTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MSortingBehavior createMSortingBehaviorFromString(EDataType eDataType, String initialValue) {
+		MSortingBehavior result = MSortingBehavior.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMSortingBehaviorToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

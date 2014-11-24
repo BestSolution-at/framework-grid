@@ -69,7 +69,8 @@
       titleKey="header.birthdate"
       minWidth="100"
       maxWidth="100"
-      alignment="CENTER">
+      alignment="CENTER"
+      sortingBehavior="UP_DOWN_DEFAULT">
     <cellValueFunction
         xsi:type="grid:MPathCellValueFunction">
       <segments
@@ -101,7 +102,8 @@
       titleKey="header.birthdate"
       minWidth="100"
       maxWidth="100"
-      alignment="CENTER">
+      alignment="CENTER"
+      sortingBehavior="UP_DOWN_DEFAULT">
     <cellValueFunction
         xsi:type="grid:MPathCellValueFunction">
       <segments

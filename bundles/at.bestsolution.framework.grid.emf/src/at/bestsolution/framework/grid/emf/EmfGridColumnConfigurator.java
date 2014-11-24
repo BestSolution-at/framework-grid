@@ -32,6 +32,7 @@ import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridColumn.Alignment;
 import at.bestsolution.framework.grid.XGridColumn.AutoFilterType;
+import at.bestsolution.framework.grid.XGridColumn.SortingBehavior;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CompositeTranslationFunction;
 import at.bestsolution.framework.grid.func.TranslationFunction;
@@ -45,6 +46,7 @@ import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationColumn;
 import at.bestsolution.framework.grid.model.grid.MPattern;
 import at.bestsolution.framework.grid.model.grid.MReferencePattern;
+import at.bestsolution.framework.grid.model.grid.MSortingBehavior;
 import at.bestsolution.framework.grid.model.grid.MStringPattern;
 
 /**
@@ -115,7 +117,27 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		applyAutoWidth();
 		applyTextFunction();
 		applyAutoFilter();
+		applySortingBehavior();
 		// TODO add missing features
+	}
+
+	private void applySortingBehavior() {
+		MSortingBehavior sortingBehavior = config.getColumn()
+				.getSortingBehavior();
+		if (sortingBehavior != null) {
+			switch (sortingBehavior) {
+			case UP_DOWN_DEFAULT:
+				column.sortingBehaviorProperty().set(
+						SortingBehavior.UP_DOWN_DEFAULT);
+				break;
+			case UP_DOWN:
+				column.sortingBehaviorProperty().set(SortingBehavior.UP_DOWN);
+				break;
+			default:
+				throw new UnsupportedOperationException(
+						"unknown sorting behavior type: " + sortingBehavior); //$NON-NLS-1$}
+			}
+		}
 	}
 
 	private void applyAutoFilter() {

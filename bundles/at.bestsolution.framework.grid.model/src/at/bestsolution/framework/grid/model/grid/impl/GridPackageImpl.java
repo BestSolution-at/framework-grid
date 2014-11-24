@@ -48,6 +48,7 @@ import at.bestsolution.framework.grid.model.grid.MResourceBundle;
 import at.bestsolution.framework.grid.model.grid.MResourceBundleEntry;
 import at.bestsolution.framework.grid.model.grid.MSelectionMode;
 import at.bestsolution.framework.grid.model.grid.MSimplePathSegment;
+import at.bestsolution.framework.grid.model.grid.MSortingBehavior;
 import at.bestsolution.framework.grid.model.grid.MStringPattern;
 import at.bestsolution.framework.grid.model.grid.MTextAutoFilterEntry;
 import org.eclipse.emf.ecore.EAttribute;
@@ -259,6 +260,13 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * @generated
 	 */
 	private EEnum mAutoFilterMatchTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum mSortingBehaviorEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -623,6 +631,15 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getMGridColumn_SortingBehavior() {
+		return (EAttribute)mGridColumnEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMCellValueFunction() {
 		return mCellValueFunctionEClass;
 	}
@@ -911,6 +928,15 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getMSortingBehavior() {
+		return mSortingBehaviorEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GridFactory getGridFactory() {
 		return (GridFactory)getEFactoryInstance();
 	}
@@ -973,6 +999,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		createEReference(mGridColumnEClass, MGRID_COLUMN__CELL_TEXT_FUNCTION);
 		createEAttribute(mGridColumnEClass, MGRID_COLUMN__ALIGNMENT);
 		createEReference(mGridColumnEClass, MGRID_COLUMN__AUTO_FILTER_CONFIGURATION);
+		createEAttribute(mGridColumnEClass, MGRID_COLUMN__SORTING_BEHAVIOR);
 
 		mCellValueFunctionEClass = createEClass(MCELL_VALUE_FUNCTION);
 
@@ -1022,6 +1049,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		mAlignmentEEnum = createEEnum(MALIGNMENT);
 		mDefaultAutoFilterEntryTypeEEnum = createEEnum(MDEFAULT_AUTO_FILTER_ENTRY_TYPE);
 		mAutoFilterMatchTypeEEnum = createEEnum(MAUTO_FILTER_MATCH_TYPE);
+		mSortingBehaviorEEnum = createEEnum(MSORTING_BEHAVIOR);
 	}
 
 	/**
@@ -1101,6 +1129,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		initEReference(getMGridColumn_CellTextFunction(), this.getMCellTextFunction(), null, "cellTextFunction", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMGridColumn_Alignment(), this.getMAlignment(), "alignment", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGridColumn_AutoFilterConfiguration(), this.getMAutoFilterConfiguration(), null, "autoFilterConfiguration", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMGridColumn_SortingBehavior(), this.getMSortingBehavior(), "sortingBehavior", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mCellValueFunctionEClass, MCellValueFunction.class, "MCellValueFunction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1165,6 +1194,10 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 
 		initEEnum(mAutoFilterMatchTypeEEnum, MAutoFilterMatchType.class, "MAutoFilterMatchType");
 		addEEnumLiteral(mAutoFilterMatchTypeEEnum, MAutoFilterMatchType.SUBSTRING);
+
+		initEEnum(mSortingBehaviorEEnum, MSortingBehavior.class, "MSortingBehavior");
+		addEEnumLiteral(mSortingBehaviorEEnum, MSortingBehavior.UP_DOWN);
+		addEEnumLiteral(mSortingBehaviorEEnum, MSortingBehavior.UP_DOWN_DEFAULT);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -52,6 +52,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignment" eType="#//MAlignment"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="autoFilterConfiguration"
         eType="#//MAutoFilterConfiguration" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sortingBehavior" eType="#//MSortingBehavior"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MCellValueFunction" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="MPathCellValueFunction" eSuperTypes="#//MCellValueFunction">
@@ -113,5 +114,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MAutoFilterMatchType">
     <eLiterals name="SUBSTRING"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MSortingBehavior">
+    <eLiterals name="UP_DOWN" literal=""/>
+    <eLiterals name="UP_DOWN_DEFAULT" value="1"/>
   </eClassifiers>
 </ecore:EPackage>

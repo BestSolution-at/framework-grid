@@ -28,13 +28,11 @@ import at.bestsolution.framework.grid.model.grid.MCellTextFunction;
 import at.bestsolution.framework.grid.model.grid.MCellValueFunction;
 import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MGridColumn;
-
+import at.bestsolution.framework.grid.model.grid.MSortingBehavior;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -56,6 +54,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getCellTextFunction <em>Cell Text Function</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getAlignment <em>Alignment</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getAutoFilterConfiguration <em>Auto Filter Configuration</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridColumnImpl#getSortingBehavior <em>Sorting Behavior</em>}</li>
  * </ul>
  * </p>
  *
@@ -218,6 +217,26 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 	 * @ordered
 	 */
 	protected MAutoFilterConfiguration autoFilterConfiguration;
+
+	/**
+	 * The default value of the '{@link #getSortingBehavior() <em>Sorting Behavior</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSortingBehavior()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final MSortingBehavior SORTING_BEHAVIOR_EDEFAULT = MSortingBehavior.UP_DOWN;
+
+	/**
+	 * The cached value of the '{@link #getSortingBehavior() <em>Sorting Behavior</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSortingBehavior()
+	 * @generated
+	 * @ordered
+	 */
+	protected MSortingBehavior sortingBehavior = SORTING_BEHAVIOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -539,6 +558,27 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public MSortingBehavior getSortingBehavior() {
+		return sortingBehavior;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSortingBehavior(MSortingBehavior newSortingBehavior) {
+		MSortingBehavior oldSortingBehavior = sortingBehavior;
+		sortingBehavior = newSortingBehavior == null ? SORTING_BEHAVIOR_EDEFAULT : newSortingBehavior;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GridPackage.MGRID_COLUMN__SORTING_BEHAVIOR, oldSortingBehavior, sortingBehavior));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -612,6 +652,8 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 				return getAlignment();
 			case GridPackage.MGRID_COLUMN__AUTO_FILTER_CONFIGURATION:
 				return getAutoFilterConfiguration();
+			case GridPackage.MGRID_COLUMN__SORTING_BEHAVIOR:
+				return getSortingBehavior();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -653,6 +695,9 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 				return;
 			case GridPackage.MGRID_COLUMN__AUTO_FILTER_CONFIGURATION:
 				setAutoFilterConfiguration((MAutoFilterConfiguration)newValue);
+				return;
+			case GridPackage.MGRID_COLUMN__SORTING_BEHAVIOR:
+				setSortingBehavior((MSortingBehavior)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -696,6 +741,9 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 			case GridPackage.MGRID_COLUMN__AUTO_FILTER_CONFIGURATION:
 				setAutoFilterConfiguration((MAutoFilterConfiguration)null);
 				return;
+			case GridPackage.MGRID_COLUMN__SORTING_BEHAVIOR:
+				setSortingBehavior(SORTING_BEHAVIOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -728,6 +776,8 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 				return alignment != ALIGNMENT_EDEFAULT;
 			case GridPackage.MGRID_COLUMN__AUTO_FILTER_CONFIGURATION:
 				return autoFilterConfiguration != null;
+			case GridPackage.MGRID_COLUMN__SORTING_BEHAVIOR:
+				return sortingBehavior != SORTING_BEHAVIOR_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -754,6 +804,8 @@ public class MGridColumnImpl extends MinimalEObjectImpl.Container implements MGr
 		result.append(autoWidth);
 		result.append(", alignment: ");
 		result.append(alignment);
+		result.append(", sortingBehavior: ");
+		result.append(sortingBehavior);
 		result.append(')');
 		return result.toString();
 	}

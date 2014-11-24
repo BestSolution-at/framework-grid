@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getCellTextFunction <em>Cell Text Function</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getAlignment <em>Alignment</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getAutoFilterConfiguration <em>Auto Filter Configuration</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getSortingBehavior <em>Sorting Behavior</em>}</li>
  * </ul>
  * </p>
  *
@@ -320,5 +321,34 @@ public interface MGridColumn extends EObject {
 	 * @generated
 	 */
 	void setAutoFilterConfiguration(MAutoFilterConfiguration value);
+
+	/**
+	 * Returns the value of the '<em><b>Sorting Behavior</b></em>' attribute.
+	 * The literals are from the enumeration {@link at.bestsolution.framework.grid.model.grid.MSortingBehavior}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Sorting Behavior</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Sorting Behavior</em>' attribute.
+	 * @see at.bestsolution.framework.grid.model.grid.MSortingBehavior
+	 * @see #setSortingBehavior(MSortingBehavior)
+	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGridColumn_SortingBehavior()
+	 * @model
+	 * @generated
+	 */
+	MSortingBehavior getSortingBehavior();
+
+	/**
+	 * Sets the value of the '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getSortingBehavior <em>Sorting Behavior</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Sorting Behavior</em>' attribute.
+	 * @see at.bestsolution.framework.grid.model.grid.MSortingBehavior
+	 * @see #getSortingBehavior()
+	 * @generated
+	 */
+	void setSortingBehavior(MSortingBehavior value);
 
 } // MGridColumn
