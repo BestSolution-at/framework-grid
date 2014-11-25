@@ -29,6 +29,7 @@ import org.eclipse.jdt.annotation.Nullable;
 import at.bestsolution.framework.grid.DefaultSortComparator;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
+import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridColumn.Alignment;
 import at.bestsolution.framework.grid.XGridColumn.AutoFilterType;
@@ -153,7 +154,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 					switch (textConf.getMatchType()) {
 					case SUBSTRING:
 						column.autoFilterMatcherFunctionProperty().set(
-								at.bestsolution.framework.grid.Util.defaultSubstringMatcher(column.textFunctionProperty()));
+								Util.defaultSubstringMatcher(column.textFunctionProperty()));
 						break;
 					default:
 						throw new UnsupportedOperationException("unknown autofilter matcher type: " + textConf.getMatchType()); //$NON-NLS-1$}
@@ -202,7 +203,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 			}
 		}
 		if (!wasSet) {
-			textFunctionProperty.set(at.bestsolution.framework.grid.Util.defaultToStringCellDataFunction());
+			textFunctionProperty.set(Util.defaultToStringCellDataFunction());
 		}
 	}
 
@@ -311,7 +312,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		@SuppressWarnings("null")
 		@NonNull
 		MGrid grid = config.getColumn().getGrid();
-		return new CompositeTranslationFunction(Util.createTranslationFunction(grid));
+		return new CompositeTranslationFunction(EmfUtil.createTranslationFunction(grid));
 	}
 
 	/**

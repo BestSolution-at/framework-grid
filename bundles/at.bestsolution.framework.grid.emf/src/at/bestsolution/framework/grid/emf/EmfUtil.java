@@ -33,7 +33,7 @@ import at.bestsolution.framework.grid.model.grid.MResourceBundleEntry;
 /**
  * EMF configuration Utilities
  */
-public class Util {
+public class EmfUtil {
 	/**
 	 * create a {@link TranslationFunction} which tries to find translations in
 	 * the given grid configuration
