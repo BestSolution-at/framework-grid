@@ -21,7 +21,6 @@
  */
 package at.bestsolution.framework.grid.model.grid;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,7 +38,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface MDefaultAutoFilterEntry extends EObject {
+public interface MDefaultAutoFilterEntry extends MAutoFilterEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

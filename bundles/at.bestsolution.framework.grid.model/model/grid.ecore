@@ -95,7 +95,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resourceKey" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MTextAutoFilterEntry" eSuperTypes="#//MAutoFilterEntry"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MDefaultAutoFilterEntry">
+  <eClassifiers xsi:type="ecore:EClass" name="MDefaultAutoFilterEntry" eSuperTypes="#//MAutoFilterEntry">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//MDefaultAutoFilterEntryType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MSelectionMode">

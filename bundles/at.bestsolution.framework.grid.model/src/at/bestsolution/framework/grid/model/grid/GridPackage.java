@@ -1033,13 +1033,22 @@ public interface GridPackage extends EPackage {
 	int MDEFAULT_AUTO_FILTER_ENTRY = 21;
 
 	/**
+	 * The feature id for the '<em><b>Resource Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MDEFAULT_AUTO_FILTER_ENTRY__RESOURCE_KEY = MAUTO_FILTER_ENTRY__RESOURCE_KEY;
+
+	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MDEFAULT_AUTO_FILTER_ENTRY__TYPE = 0;
+	int MDEFAULT_AUTO_FILTER_ENTRY__TYPE = MAUTO_FILTER_ENTRY_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>MDefault Auto Filter Entry</em>' class.
@@ -1048,7 +1057,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MDEFAULT_AUTO_FILTER_ENTRY_FEATURE_COUNT = 1;
+	int MDEFAULT_AUTO_FILTER_ENTRY_FEATURE_COUNT = MAUTO_FILTER_ENTRY_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>MDefault Auto Filter Entry</em>' class.
@@ -1057,7 +1066,7 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MDEFAULT_AUTO_FILTER_ENTRY_OPERATION_COUNT = 0;
+	int MDEFAULT_AUTO_FILTER_ENTRY_OPERATION_COUNT = MAUTO_FILTER_ENTRY_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MFormatType <em>MFormat Type</em>}' enum.

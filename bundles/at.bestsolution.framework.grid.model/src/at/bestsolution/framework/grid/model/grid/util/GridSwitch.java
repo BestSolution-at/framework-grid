@@ -229,6 +229,7 @@ public class GridSwitch<@Nullable T> extends Switch<T> {
 			case GridPackage.MDEFAULT_AUTO_FILTER_ENTRY: {
 				MDefaultAutoFilterEntry mDefaultAutoFilterEntry = (MDefaultAutoFilterEntry)theEObject;
 				T result = caseMDefaultAutoFilterEntry(mDefaultAutoFilterEntry);
+				if (result == null) result = caseMAutoFilterEntry(mDefaultAutoFilterEntry);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

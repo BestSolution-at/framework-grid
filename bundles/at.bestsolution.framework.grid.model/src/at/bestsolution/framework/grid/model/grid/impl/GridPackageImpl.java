@@ -1088,6 +1088,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		mComboAutoFilterConfigurationEClass.getESuperTypes().add(this.getMAutoFilterConfiguration());
 		mFreeTextAutoFilterConfigurationEClass.getESuperTypes().add(this.getMAutoFilterConfiguration());
 		mTextAutoFilterEntryEClass.getESuperTypes().add(this.getMAutoFilterEntry());
+		mDefaultAutoFilterEntryEClass.getESuperTypes().add(this.getMAutoFilterEntry());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(mResourceBundleEClass, MResourceBundle.class, "MResourceBundle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
