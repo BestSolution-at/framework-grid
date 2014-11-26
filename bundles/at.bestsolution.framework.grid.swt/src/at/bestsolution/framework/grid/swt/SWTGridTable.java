@@ -128,7 +128,6 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	 */
 	private void registerPropertyListeners() {
 		selectionModeProperty.addChangeListener((property, oldValue, newValue) -> applySelectionMode(newValue));
-		contentProviderProperty.addChangeListener((property, oldValue, newValue) -> getContentHandler().resetContent(newValue));
 	}
 
 	private void applySelectionMode(SelectionMode newSelectionMode) {

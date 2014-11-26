@@ -37,6 +37,7 @@ import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.XGrid.Selection;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
+import at.bestsolution.framework.grid.XGridContentProvider.ContentChangeType;
 import at.bestsolution.framework.grid.swt.SWTGridColumn;
 import at.bestsolution.framework.grid.swt.SWTGridTable;
 
@@ -69,8 +70,9 @@ public class SWTGridContentHandler<R> {
 	 * 
 	 */
 	private void registerPropertyListeners() {
-		defaultSortProperty.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider));
-		sortColumnProperty.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider));
+		defaultSortProperty.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider, contentProvider));
+		sortColumnProperty.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider, contentProvider));
+		grid.contentProviderProperty().addChangeListener((property, oldValue, newValue) -> resetContent(oldValue, newValue));
 	}
 
 	/**
@@ -78,8 +80,14 @@ public class SWTGridContentHandler<R> {
 	 * @param newContentProvider
 	 *            the new content provider
 	 */
-	public synchronized void resetContent(@Nullable XGridContentProvider<R> newContentProvider) {
+	private synchronized void resetContent(@Nullable XGridContentProvider<R> oldContentProvider,
+			@Nullable XGridContentProvider<R> newContentProvider) {
+		// cleanup
+		if (oldContentProvider != null) {
+			oldContentProvider.addChangeListener(this::handleContentChange);
+		}
 		contentProvider = newContentProvider;
+
 		Selection<@Nullable R, @Nullable R> previousSelection = grid.selectionProperty().get();
 		dataByR.clear();
 		dataByCol.clear();
@@ -87,6 +95,7 @@ public class SWTGridContentHandler<R> {
 		List<@NonNull R> items = new ArrayList<>();
 
 		if (newContentProvider != null) {
+			newContentProvider.addChangeListener(this::handleContentChange);
 			for (int i = 0; i < newContentProvider.size(); i++) {
 				items.add(newContentProvider.getElementAt(i));
 			}
@@ -118,7 +127,20 @@ public class SWTGridContentHandler<R> {
 		grid.selectionProperty().set(previousSelection);
 	}
 
-	private void insertItems(List<@NonNull R> items) {
+	private void handleContentChange(@NonNull ContentChangeType type, @NonNull List<@NonNull R> values) {
+		switch (type) {
+		case ADD:
+			insertItems(values);
+			break;
+		case REMOVE:
+			removeItems(values);
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void insertItems(@NonNull List<@NonNull R> items) {
 		grid.getNebulaGrid().setRedraw(false);
 		try {
 			for (@NonNull
@@ -128,6 +150,23 @@ public class SWTGridContentHandler<R> {
 				dataByCol.put(item, element);
 				for (XGridColumn<@NonNull R, @Nullable ?> col : grid.getColumns()) {
 					col.requestUpdate(element);
+				}
+			}
+		} finally {
+			grid.getNebulaGrid().setRedraw(true);
+		}
+	}
+
+	private void removeItems(@NonNull List<@NonNull R> items) {
+		grid.getNebulaGrid().setRedraw(false);
+		try {
+			for (@NonNull
+			R element : items) {
+				GridItem item = dataByR.get(element);
+				if (item != null) {
+					item.dispose();
+					dataByR.put(element, null);
+					dataByCol.remove(item);
 				}
 			}
 		} finally {

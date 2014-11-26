@@ -95,6 +95,6 @@ public interface XGridContentProvider<R> {
 		 * @param values
 		 *            changed values
 		 */
-		void contentChanged(@NonNull ContentChangeType type, @NonNull List<T> values);
+		void contentChanged(@NonNull ContentChangeType type, @NonNull List<@NonNull T> values);
 	}
 }

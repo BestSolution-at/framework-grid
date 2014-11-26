@@ -88,13 +88,6 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	private final @NonNull SWTGridTable<R> grid;
 	private final @NonNull Property<@NonNull String> autoFilterFreeTextProperty = new SimpleProperty<>(""); //$NON-NLS-1$
 
-	/**
-	 * @return the autoFilterFreeTextProperty
-	 */
-	public Property<String> autoFilterFreeTextProperty() {
-		return autoFilterFreeTextProperty;
-	}
-
 	GridColumn nebulaColumn;
 	@Nullable
 	SWTColumnFilter<R, C> columnFilter = null;
@@ -139,6 +132,13 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 				}
 			}
 		});
+	}
+
+	/**
+	 * @return the autoFilterFreeTextProperty
+	 */
+	public Property<String> autoFilterFreeTextProperty() {
+		return autoFilterFreeTextProperty;
 	}
 
 	@Override
@@ -217,8 +217,32 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	}
 
 	@Override
+	public @NonNull Property<XGridColumn.@NonNull Sorting> sortingProperty() {
+		return sortingProperty;
+	}
+
+	@Override
+	public @NonNull Property<XGridColumn.@NonNull SortingBehavior> sortingBehaviorProperty() {
+		return sortingBehaviorProperty;
+	}
+
+	@Override
 	public @NonNull XGrid<R, XGridContentProvider<R>> getGrid() {
 		return grid;
+	}
+
+	/**
+	 * @return nebula grid column
+	 */
+	public GridColumn getNebulaColumn() {
+		return nebulaColumn;
+	}
+
+	/**
+	 * @return the content handler
+	 */
+	public @NonNull SWTGridContentHandler<@NonNull R> getContentHandler() {
+		return grid.getContentHandler();
 	}
 
 	private void registerPropertyListeners() {
@@ -279,7 +303,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		grid.getContentHandler().sortColumnProperty().set(this);
 	}
 
-	void checkWidth() {
+	private void checkWidth() {
 		@Nullable
 		Integer minWidth = minWidthProperty.get();
 		@Nullable
@@ -323,6 +347,15 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	}
 
 	@Override
+	public void requestUpdate(@NonNull R element) {
+		@Nullable
+		GridItem item = grid.getContentHandler().get(element);
+		if (item != null) {
+			fillGridItem(item, element);
+		}
+	}
+
+	@Override
 	public void dispose() {
 		grid.columns.remove(this);
 		if (nebulaColumn.getHeaderControl() != null) {
@@ -351,25 +384,6 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		autoFilterFreeTextProperty.dispose();
 	}
 
-	@Override
-	public void requestUpdate(@NonNull R element) {
-		@Nullable
-		GridItem item = grid.getContentHandler().get(element);
-		if (item != null) {
-			fillGridItem(item, element);
-		}
-	}
-
-	@Override
-	public @NonNull Property<XGridColumn.@NonNull Sorting> sortingProperty() {
-		return sortingProperty;
-	}
-
-	@Override
-	public @NonNull Property<XGridColumn.@NonNull SortingBehavior> sortingBehaviorProperty() {
-		return sortingBehaviorProperty;
-	}
-
 	/**
 	 * @param element
 	 *            the element
@@ -382,20 +396,6 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 			return filter.matches(element);
 		}
 		return true;
-	}
-
-	/**
-	 * @return nebula grid column
-	 */
-	public GridColumn getNebulaColumn() {
-		return nebulaColumn;
-	}
-
-	/**
-	 * @return the content handler
-	 */
-	public @NonNull SWTGridContentHandler<@NonNull R> getContentHandler() {
-		return grid.getContentHandler();
 	}
 
 	private void applyMinWidth(Integer minWidth) {
