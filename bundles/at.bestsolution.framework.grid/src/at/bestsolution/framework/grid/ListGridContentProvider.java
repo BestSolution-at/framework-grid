@@ -54,4 +54,14 @@ public class ListGridContentProvider<@NonNull R> implements XGridContentProvider
 	public @NonNull R getElementAt(int index) throws IndexOutOfBoundsException {
 		return data.get(index);
 	}
+
+	@Override
+	public void addChangeListener(ContentChangeListener<@NonNull R> listener) {
+		// nothing here
+	}
+
+	@Override
+	public void removeChangeListener(ContentChangeListener<@NonNull R> listener) {
+		// nothing here
+	}
 }

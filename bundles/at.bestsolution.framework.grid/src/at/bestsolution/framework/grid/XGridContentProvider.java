@@ -20,6 +20,8 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid;
 
+import java.util.List;
+
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -33,7 +35,7 @@ public interface XGridContentProvider<R> {
 	/**
 	 * @return the size
 	 */
-	public int size();
+	int size();
 
 	/**
 	 * Retrieve the element at the given index
@@ -44,5 +46,55 @@ public interface XGridContentProvider<R> {
 	 * @throws IndexOutOfBoundsException
 	 *             if index is negative or index &gt;= {@link #size()}
 	 */
-	public @NonNull R getElementAt(int index) throws IndexOutOfBoundsException;
+	@NonNull
+	R getElementAt(int index) throws IndexOutOfBoundsException;
+
+	/**
+	 * content change types
+	 */
+	enum ContentChangeType {
+		/**
+		 * add elements
+		 */
+		ADD,
+		/**
+		 * remove elements
+		 */
+		REMOVE
+	}
+
+	/**
+	 * Attach a listener
+	 *
+	 * @param listener
+	 *            the listener
+	 */
+	void addChangeListener(ContentChangeListener<R> listener);
+
+	/**
+	 * Remove the listener
+	 *
+	 * @param listener
+	 *            the listener
+	 */
+	void removeChangeListener(ContentChangeListener<R> listener);
+
+	/**
+	 * Listener to observe content changes
+	 *
+	 * @param <T>
+	 *            the type
+	 */
+	@FunctionalInterface
+	interface ContentChangeListener<@NonNull T> {
+		/**
+		 * Handle the changed value
+		 * 
+		 * @param type
+		 *            content change type
+		 * @param values
+		 *            changed values
+		 */
+		void contentChanged(@NonNull ContentChangeType type, @NonNull List<T> values);
+	}
 }
