@@ -36,7 +36,6 @@ import org.eclipse.swt.events.SelectionEvent;
 
 import at.bestsolution.framework.grid.DefaultSortComparator;
 import at.bestsolution.framework.grid.Property;
-import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.XGrid;
 import at.bestsolution.framework.grid.XGridColumn;
@@ -75,7 +74,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	private final @NonNull Property<@NonNull Alignment> alignmentProperty = new SimpleProperty<>(Alignment.LEFT);
 	private final @NonNull Property<@NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull Object>> autoFilterMatcherFunctionProperty = new SimpleProperty<>(
 			Util.defaultToStringMatcher());
-	final @NonNull Property<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R,@Nullable C,@NonNull Object> >>> autoFilterDataSupplierProperty = new SimpleProperty<>(
+	private final @NonNull Property<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>>> autoFilterDataSupplierProperty = new SimpleProperty<>(
 			Util.emptyListSupplier());
 	private final @NonNull Property<@Nullable CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> autoFilterTextFunctionProperty = new SimpleProperty<>(
 			null);
@@ -83,11 +82,11 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 			new DefaultSortComparator<R, C>(this));
 	private final @NonNull Property<@NonNull Integer> indexProperty;
 	private final @NonNull Property<@Nullable String> labelProperty = new SimpleProperty<>(null);
-	final @NonNull Property<@NonNull Sorting> sortingProperty = new SimpleProperty<>(Sorting.NONE);
-	final @NonNull Property<@NonNull SortingBehavior> sortingBehaviorProperty = new SimpleProperty<>(SortingBehavior.UP_DOWN);
+	private final @NonNull Property<@NonNull Sorting> sortingProperty = new SimpleProperty<>(Sorting.NONE);
+	private final @NonNull Property<@NonNull SortingBehavior> sortingBehaviorProperty = new SimpleProperty<>(SortingBehavior.UP_DOWN);
 
-	final @NonNull SWTGridTable<R> grid;
-	final @NonNull Property<@NonNull String> autoFilterFreeTextProperty = new SimpleProperty<>(""); //$NON-NLS-1$
+	private final @NonNull SWTGridTable<R> grid;
+	private final @NonNull Property<@NonNull String> autoFilterFreeTextProperty = new SimpleProperty<>(""); //$NON-NLS-1$
 
 	/**
 	 * @return the autoFilterFreeTextProperty
@@ -97,7 +96,8 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	}
 
 	GridColumn nebulaColumn;
-	@Nullable SWTColumnFilter<R, C> columnFilter = null;
+	@Nullable
+	SWTColumnFilter<R, C> columnFilter = null;
 
 	/**
 	 * Create a new column
@@ -120,22 +120,22 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		nebulaColumn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				switch (sortingProperty.get()) {
+				switch (sortingProperty().get()) {
 				case UP:
-					sortingProperty.set(Sorting.DOWN);
+					sortingProperty().set(Sorting.DOWN);
 					break;
 				case DOWN:
-					switch (sortingBehaviorProperty.get()) {
+					switch (sortingBehaviorProperty().get()) {
 					case UP_DOWN_DEFAULT:
-						sortingProperty.set(Sorting.NONE);
+						sortingProperty().set(Sorting.NONE);
 						break;
 					case UP_DOWN:
 					default:
-						sortingProperty.set(Sorting.UP);
+						sortingProperty().set(Sorting.UP);
 					}
 					break;
 				default:
-					sortingProperty.set(Sorting.UP);
+					sortingProperty().set(Sorting.UP);
 				}
 			}
 		});
@@ -192,7 +192,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	}
 
 	@Override
-	public @NonNull Property<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R,@Nullable C,@NonNull Object> >>> autoFilterDataSupplierProperty() {
+	public @NonNull Property<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>>> autoFilterDataSupplierProperty() {
 		return autoFilterDataSupplierProperty;
 	}
 
@@ -221,74 +221,41 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		return grid;
 	}
 
-	@SuppressWarnings("null")
 	private void registerPropertyListeners() {
 		labelProperty.addChangeListener((property, oldValue, newValue) -> nebulaColumn.setText(newValue));
-		alignmentProperty.addChangeListener(new ChangeListener<Alignment>() {
-			@Override
-			public void valueChanged(Property<Alignment> property, Alignment oldValue, Alignment newValue) {
-				switch (newValue) {
-				case LEFT:
-					nebulaColumn.setAlignment(SWT.LEFT);
-					break;
-				case CENTER:
-					nebulaColumn.setAlignment(SWT.CENTER);
-					break;
-				case RIGHT:
-					nebulaColumn.setAlignment(SWT.RIGHT);
-					break;
-				default:
-					throw new UnsupportedOperationException("unknown alignment type: " + newValue); //$NON-NLS-1$
-				}
-			}
-		});
-		autoWidthProperty.addChangeListener(new ChangeListener<Boolean>() {
-			@Override
-			public void valueChanged(Property<Boolean> property, Boolean oldValue, Boolean newValue) {
-				// TODO
-			}
-		});
-		minWidthProperty.addChangeListener(new ChangeListener<Integer>() {
-			@Override
-			public void valueChanged(Property<Integer> property, Integer oldValue, Integer newValue) {
-				if (newValue != null) {
-					if (newValue.intValue() < 0) {
-						throw new IllegalArgumentException("min width must be a non-negative number"); //$NON-NLS-1$
-					}
-					nebulaColumn.setMinimumWidth(newValue.intValue());
-					checkWidth();
-				}
-			}
-		});
-		maxWidthProperty.addChangeListener(new ChangeListener<Integer>() {
-			@Override
-			public void valueChanged(Property<Integer> property, Integer oldValue, Integer newValue) {
-				// TODO set max width
-				checkWidth();
-			}
-		});
+		alignmentProperty.addChangeListener((property, oldValue, newValue) -> applyAlignment(newValue));
+		autoWidthProperty.addChangeListener((property, oldValue, newValue) -> applyAutoWidth(newValue));
+		minWidthProperty.addChangeListener((property, oldValue, newValue) -> applyMinWidth(newValue));
+		maxWidthProperty.addChangeListener((property, oldValue, newValue) -> applyMaxWidth(newValue));
 		textFunctionProperty.addChangeListener((property, oldValue, newValue) -> requestUpdate());
 		cellValueFunctionProperty.addChangeListener((property, oldValue, newValue) -> requestUpdate());
-		sortingProperty().addChangeListener((property, oldValue, newValue) -> applySorting(property, oldValue, newValue));
-
-		autoFilterTypeProperty.addChangeListener(new ChangeListener<XGridColumn.AutoFilterType>() {
-			@Override
-			public void valueChanged(Property<AutoFilterType> property, AutoFilterType oldValue, AutoFilterType newValue) {
-				if (oldValue != newValue) {
-					switch (newValue) {
-					case DROPDOWN:
-						columnFilter = new SWTComboColumnFilter<R, C>(SWTGridColumn.this);
-						break;
-					case TEXT:
-						columnFilter = new SWTTextColumnFilter<R, C>(SWTGridColumn.this);
-						break;
-					default:
-						nebulaColumn.setHeaderControl(null);
-					}
-				}
-			}
-		});
+		sortingProperty.addChangeListener((property, oldValue, newValue) -> applySorting(property, oldValue, newValue));
+		autoFilterTypeProperty.addChangeListener((property, oldValue, newValue) -> applyFilterType(oldValue, newValue));
 		autoFilterFreeTextProperty.addChangeListener((property, oldValue, newValue) -> grid.getContentHandler().filter());
+	}
+
+	private void applyAutoWidth(Boolean autoWidth) {
+		// TODO
+	}
+
+	private void applyMaxWidth(Integer maxWidth) {
+		// TODO
+		checkWidth();
+	}
+
+	private void applyFilterType(AutoFilterType oldFilterType, AutoFilterType newFilterType) {
+		if (oldFilterType != newFilterType) {
+			switch (newFilterType) {
+			case DROPDOWN:
+				columnFilter = new SWTComboColumnFilter<R, C>(SWTGridColumn.this);
+				break;
+			case TEXT:
+				columnFilter = new SWTTextColumnFilter<R, C>(SWTGridColumn.this);
+				break;
+			default:
+				nebulaColumn.setHeaderControl(null);
+			}
+		}
 	}
 
 	private void applySorting(Property<XGridColumn.Sorting> property, at.bestsolution.framework.grid.XGridColumn.Sorting oldValue,
@@ -429,5 +396,31 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	 */
 	public @NonNull SWTGridContentHandler<@NonNull R> getContentHandler() {
 		return grid.getContentHandler();
+	}
+
+	private void applyMinWidth(Integer minWidth) {
+		if (minWidth != null) {
+			if (minWidth.intValue() < 0) {
+				throw new IllegalArgumentException("min width must be a non-negative number"); //$NON-NLS-1$
+			}
+			nebulaColumn.setMinimumWidth(minWidth.intValue());
+			checkWidth();
+		}
+	}
+
+	private void applyAlignment(Alignment alignment) {
+		switch (alignment) {
+		case LEFT:
+			nebulaColumn.setAlignment(SWT.LEFT);
+			break;
+		case CENTER:
+			nebulaColumn.setAlignment(SWT.CENTER);
+			break;
+		case RIGHT:
+			nebulaColumn.setAlignment(SWT.RIGHT);
+			break;
+		default:
+			throw new UnsupportedOperationException("unknown alignment type: " + alignment); //$NON-NLS-1$
+		}
 	}
 }

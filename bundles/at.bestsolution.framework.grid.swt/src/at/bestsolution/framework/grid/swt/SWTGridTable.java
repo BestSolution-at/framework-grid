@@ -42,7 +42,6 @@ import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.Property;
-import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
 import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
@@ -127,33 +126,24 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	/**
 	 * register property listeners
 	 */
-	@SuppressWarnings("null")
 	private void registerPropertyListeners() {
-		selectionModeProperty.addChangeListener(new ChangeListener<XGrid.SelectionMode>() {
-			@Override
-			public void valueChanged(Property<SelectionMode> property, @Nullable SelectionMode oldValue, @Nullable SelectionMode newValue) {
-				if (newValue == null) {
-					nebulaGrid.setCellSelectionEnabled(false);
-				} else {
-					switch (newValue) {
-					case SINGLE_CELL:
-						nebulaGrid.setCellSelectionEnabled(true);
-						break;
-					case SINGLE_ROW:
-					default:
-						nebulaGrid.setCellSelectionEnabled(false);
-					}
-				}
-			}
-		});
+		selectionModeProperty.addChangeListener((property, oldValue, newValue) -> applySelectionMode(newValue));
+		contentProviderProperty.addChangeListener((property, oldValue, newValue) -> getContentHandler().resetContent(newValue));
+	}
 
-		contentProviderProperty.addChangeListener(new ChangeListener<XGridContentProvider<R>>() {
-			@Override
-			public void valueChanged(Property<XGridContentProvider<R>> property, @Nullable XGridContentProvider<R> oldValue,
-					@Nullable XGridContentProvider<R> newValue) {
-				getContentHandler().resetContent(newValue);
+	private void applySelectionMode(SelectionMode newSelectionMode) {
+		if (newSelectionMode == null) {
+			nebulaGrid.setCellSelectionEnabled(false);
+		} else {
+			switch (newSelectionMode) {
+			case SINGLE_CELL:
+				nebulaGrid.setCellSelectionEnabled(true);
+				break;
+			case SINGLE_ROW:
+			default:
+				nebulaGrid.setCellSelectionEnabled(false);
 			}
-		});
+		}
 	}
 
 	private void registerSelectionListener() {
