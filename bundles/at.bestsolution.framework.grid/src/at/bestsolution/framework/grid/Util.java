@@ -81,13 +81,7 @@ public class Util {
 	 * @return cell data function who always return null
 	 */
 	public static <R, C, D> @NonNull CellDataFunction<R, C, @Nullable D> nullCellDataFunction() {
-		return new CellDataFunction<R, C, @Nullable D>() {
-
-			@Override
-			public @Nullable D apply(R row, C cellValue) {
-				return null;
-			}
-		};
+		return (row, cellValue) -> null;
 	}
 
 	/**
@@ -99,13 +93,7 @@ public class Util {
 	 *         value or <code>null</code>
 	 */
 	public static <R, C> @NonNull CellDataFunction<R, C, @Nullable CharSequence> defaultToStringCellDataFunction() {
-		return new CellDataFunction<R, C, @Nullable CharSequence>() {
-
-			@Override
-			public @Nullable CharSequence apply(R row, C cellValue) {
-				return cellValue == null ? null : cellValue.toString();
-			}
-		};
+		return (row, cellValue) -> cellValue == null ? null : cellValue.toString();
 	}
 
 	/**
@@ -118,14 +106,11 @@ public class Util {
 	 * @return matcher function which compares the string value
 	 */
 	public static <R, C, O> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultToStringMatcher() {
-		return new CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O>() {
-			@Override
-			public boolean apply(@NonNull R row, @Nullable C cellValue, @NonNull O filterData) {
-				if (cellValue == null) {
-					return false;
-				}
-				return filterData.toString().equals(cellValue.toString());
+		return (row, cellValue, filterData) -> {
+			if (cellValue == null) {
+				return false;
 			}
+			return filterData.toString().equals(cellValue.toString());
 		};
 	}
 
@@ -143,18 +128,15 @@ public class Util {
 	 */
 	public static <R, C, O> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultSubstringMatcher(
 			@NonNull Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textFunctionProperty) {
-		return new CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O>() {
-			@Override
-			public boolean apply(@NonNull R row, @Nullable C cellValue, @NonNull O filterData) {
-				if (cellValue == null) {
-					return filterData.toString().isEmpty();
-				}
-				CharSequence cellStringValue = textFunctionProperty.get().apply(row, cellValue);
-				if (cellStringValue == null) {
-					return filterData.toString().isEmpty();
-				}
-				return cellStringValue.toString().toLowerCase().contains(filterData.toString().toLowerCase());
+		return (row, cellValue, filterData) -> {
+			if (cellValue == null) {
+				return filterData.toString().isEmpty();
 			}
+			CharSequence cellStringValue = textFunctionProperty.get().apply(row, cellValue);
+			if (cellStringValue == null) {
+				return filterData.toString().isEmpty();
+			}
+			return cellStringValue.toString().toLowerCase().contains(filterData.toString().toLowerCase());
 		};
 	}
 
@@ -168,12 +150,7 @@ public class Util {
 	 * @return matcher function which always matches. Use this for "All".
 	 */
 	public static <R, C, O> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultTrueMatcher() {
-		return new CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O>() {
-			@Override
-			public boolean apply(@NonNull R row, @Nullable C cellValue, @NonNull O filterData) {
-				return true;
-			}
-		};
+		return (row, cellValue, filterData) -> true;
 	}
 
 	/**
@@ -190,15 +167,12 @@ public class Util {
 	 */
 	public static <R, C, O> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultEmptyMatcher(
 			@NonNull Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textFunctionProperty) {
-		return new CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O>() {
-			@Override
-			public boolean apply(@NonNull R row, @Nullable C cellValue, @NonNull O filterData) {
-				CharSequence cellStringValue = textFunctionProperty.get().apply(row, cellValue);
-				if (cellStringValue == null || cellStringValue.toString().isEmpty()) {
-					return true;
-				}
-				return false;
+		return (row, cellValue, filterData) -> {
+			CharSequence cellStringValue = textFunctionProperty.get().apply(row, cellValue);
+			if (cellStringValue == null || cellStringValue.toString().isEmpty()) {
+				return true;
 			}
+			return false;
 		};
 	}
 
@@ -231,15 +205,9 @@ public class Util {
 	 *            the list element type
 	 * @return supplier of empty list
 	 */
+	@SuppressWarnings("null")
 	public static <O> @NonNull Supplier<@NonNull List<@NonNull O>> emptyListSupplier() {
-		return new Supplier<@NonNull List<@NonNull O>>() {
-
-			@SuppressWarnings("null")
-			@Override
-			public @NonNull List<@NonNull O> get() {
-				return Collections.<@NonNull O> emptyList();
-			}
-		};
+		return () -> Collections.<@NonNull O> emptyList();
 	}
 
 	/**
@@ -248,11 +216,6 @@ public class Util {
 	 * @return to string representation of value
 	 */
 	public static <O> @NonNull Function<@NonNull O, @Nullable CharSequence> defaultToStringFunction() {
-		return new Function<@NonNull O, @Nullable CharSequence>() {
-			@Override
-			public CharSequence apply(@NonNull O t) {
-				return t.toString();
-			}
-		};
+		return t -> t.toString();
 	}
 }
