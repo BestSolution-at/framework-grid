@@ -43,6 +43,9 @@
         city="Bolzano"
         country="//@countries.2"/>
   </persons>
+  <persons firstname="Maria"
+      lastname="Grande">
+  </persons>
   <countries
       name="Austria"/>
   <countries

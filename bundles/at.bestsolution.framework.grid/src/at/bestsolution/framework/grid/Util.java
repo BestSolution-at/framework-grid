@@ -141,7 +141,7 @@ public class Util {
 	 * @return matcher function which checks whether the filter value is a
 	 *         substring of the cell value
 	 */
-	public static <R, C, O, D> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultSubstringMatcher(
+	public static <R, C, O> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultSubstringMatcher(
 			@NonNull Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textFunctionProperty) {
 		return new CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O>() {
 			@Override
@@ -154,6 +154,74 @@ public class Util {
 					return filterData.toString().isEmpty();
 				}
 				return cellStringValue.toString().toLowerCase().contains(filterData.toString().toLowerCase());
+			}
+		};
+	}
+
+	/**
+	 * @param <R>
+	 *            the row type
+	 * @param <C>
+	 *            the cell type
+	 * @param <O>
+	 *            the filter value type
+	 * @return matcher function which always matches. Use this for "All".
+	 */
+	public static <R, C, O> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultTrueMatcher() {
+		return new CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O>() {
+			@Override
+			public boolean apply(@NonNull R row, @Nullable C cellValue, @NonNull O filterData) {
+				return true;
+			}
+		};
+	}
+
+	/**
+	 * @param <R>
+	 *            the row type
+	 * @param <C>
+	 *            the cell type
+	 * @param <O>
+	 *            the filter value type
+	 * @param textFunctionProperty
+	 *            the columns textValueFunction property
+	 * @return matcher function which matches for null or empty
+	 *         {@link String#toString()} values
+	 */
+	public static <R, C, O> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultEmptyMatcher(
+			@NonNull Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textFunctionProperty) {
+		return new CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O>() {
+			@Override
+			public boolean apply(@NonNull R row, @Nullable C cellValue, @NonNull O filterData) {
+				CharSequence cellStringValue = textFunctionProperty.get().apply(row, cellValue);
+				if (cellStringValue == null || cellStringValue.toString().isEmpty()) {
+					return true;
+				}
+				return false;
+			}
+		};
+	}
+
+	/**
+	 * @param <R>
+	 *            the row type
+	 * @param <C>
+	 *            the cell type
+	 * @param <O>
+	 *            the filter value type
+	 * @param textFunctionProperty
+	 *            the columns textValueFunction property
+	 * @return matcher function which matches for not null and not empty
+	 *         {@link String#toString()} values
+	 */
+	public static <R, C, O> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultNotEmptyMatcher(
+			@NonNull Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textFunctionProperty) {
+		return new CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O>() {
+			private CellValueMatcherFunction<R, @Nullable C, O> inverseMatcher = defaultEmptyMatcher(textFunctionProperty);
+
+			@Override
+			public boolean apply(@NonNull R row, @Nullable C cellValue, @NonNull O filterData) {
+				return !inverseMatcher.apply(row, cellValue, filterData);
 			}
 		};
 	}

@@ -197,4 +197,11 @@ public class SWTGridContentHandler<R> {
 		}
 		insertItems(elementsToAdd);
 	}
+
+	/**
+	 * @return list of visible elements
+	 */
+	public @NonNull List<@NonNull R> getVisibleElements() {
+		return new ArrayList<>(dataByCol.values());
+	}
 }

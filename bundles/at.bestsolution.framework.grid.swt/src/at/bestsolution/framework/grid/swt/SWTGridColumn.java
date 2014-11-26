@@ -23,8 +23,6 @@ package at.bestsolution.framework.grid.swt;
 import java.net.URI;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -33,13 +31,8 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.nebula.widgets.grid.GridColumn;
 import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Text;
 
 import at.bestsolution.framework.grid.DefaultSortComparator;
 import at.bestsolution.framework.grid.Property;
@@ -48,9 +41,14 @@ import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.XGrid;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
+import at.bestsolution.framework.grid.func.AutoFilterEntry;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 import at.bestsolution.framework.grid.func.DisposableCellDataFunction;
+import at.bestsolution.framework.grid.swt.internal.SWTColumnFilter;
+import at.bestsolution.framework.grid.swt.internal.SWTComboColumnFilter;
+import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
+import at.bestsolution.framework.grid.swt.internal.SWTTextColumnFilter;
 import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
 
 /**
@@ -75,12 +73,12 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	@SuppressWarnings(value = "all")
 	private final @NonNull Property<@NonNull AutoFilterType> autoFilterTypeProperty = new SimpleProperty<>(AutoFilterType.NONE);
 	private final @NonNull Property<@NonNull Alignment> alignmentProperty = new SimpleProperty<>(Alignment.LEFT);
-	private final @NonNull Property<@NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull Object>> autoFilterMatcherProperty = new SimpleProperty<>(
+	private final @NonNull Property<@NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull Object>> autoFilterMatcherFunctionProperty = new SimpleProperty<>(
 			Util.defaultToStringMatcher());
-	private final @NonNull Property<@NonNull Supplier<@NonNull List<@NonNull Object>>> autoFilterDataSupplierProperty = new SimpleProperty<>(
+	final @NonNull Property<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R,@Nullable C,@NonNull Object> >>> autoFilterDataSupplierProperty = new SimpleProperty<>(
 			Util.emptyListSupplier());
-	private final @NonNull Property<Function<@NonNull Object, @Nullable CharSequence>> autoFilterTextFunctionProperty = new SimpleProperty<>(
-			Util.defaultToStringFunction());
+	private final @NonNull Property<@Nullable CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> autoFilterTextFunctionProperty = new SimpleProperty<>(
+			null);
 	private final @NonNull Property<@Nullable Comparator<@NonNull R>> sorterProperty = new SimpleProperty<>(
 			new DefaultSortComparator<R, C>(this));
 	private final @NonNull Property<@NonNull Integer> indexProperty;
@@ -88,9 +86,18 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	final @NonNull Property<@NonNull Sorting> sortingProperty = new SimpleProperty<>(Sorting.NONE);
 	final @NonNull Property<@NonNull SortingBehavior> sortingBehaviorProperty = new SimpleProperty<>(SortingBehavior.UP_DOWN);
 
-	private final @NonNull SWTGridTable<R> grid;
+	final @NonNull SWTGridTable<R> grid;
 	final @NonNull Property<@NonNull String> autoFilterFreeTextProperty = new SimpleProperty<>(""); //$NON-NLS-1$
+
+	/**
+	 * @return the autoFilterFreeTextProperty
+	 */
+	public Property<String> autoFilterFreeTextProperty() {
+		return autoFilterFreeTextProperty;
+	}
+
 	GridColumn nebulaColumn;
+	@Nullable SWTColumnFilter<R, C> columnFilter = null;
 
 	/**
 	 * Create a new column
@@ -181,16 +188,16 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 
 	@Override
 	public @NonNull Property<@NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull Object>> autoFilterMatcherFunctionProperty() {
-		return autoFilterMatcherProperty;
+		return autoFilterMatcherFunctionProperty;
 	}
 
 	@Override
-	public @NonNull Property<@NonNull Supplier<@NonNull List<@NonNull Object>>> autoFilterDataSupplierProperty() {
+	public @NonNull Property<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R,@Nullable C,@NonNull Object> >>> autoFilterDataSupplierProperty() {
 		return autoFilterDataSupplierProperty;
 	}
 
 	@Override
-	public @NonNull Property<Function<@NonNull Object, @Nullable CharSequence>> autoFilterTextFunctionProperty() {
+	public @NonNull Property<@Nullable CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> autoFilterTextFunctionProperty() {
 		return autoFilterTextFunctionProperty;
 	}
 
@@ -267,50 +274,25 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		autoFilterTypeProperty.addChangeListener(new ChangeListener<XGridColumn.AutoFilterType>() {
 			@Override
 			public void valueChanged(Property<AutoFilterType> property, AutoFilterType oldValue, AutoFilterType newValue) {
-				switch (newValue) {
-				case DROPDOWN:
-					nebulaColumn.setHeaderControl(new CCombo(nebulaColumn.getParent(), SWT.READ_ONLY | SWT.BORDER));
-					break;
-				case TEXT:
-					Text text = new Text(nebulaColumn.getParent(), SWT.BORDER);
-					nebulaColumn.setHeaderControl(text);
-					text.addModifyListener(new ModifyListener() {
-						private Timer timer = null;
-
-						@Override
-						public void modifyText(ModifyEvent e) {
-							if (timer != null) {
-								timer.cancel();
-							}
-							timer = new Timer();
-							timer.schedule(new TimerTask() {
-								@Override
-								public void run() {
-									Display.getDefault().syncExec(new Runnable() {
-										public void run() {
-											autoFilterFreeTextProperty.set(text.getText());
-										}
-									});
-								}
-							}, 300);
-						}
-					});
-					break;
-				default:
-					nebulaColumn.setHeaderControl(null);
+				if (oldValue != newValue) {
+					switch (newValue) {
+					case DROPDOWN:
+						columnFilter = new SWTComboColumnFilter<R, C>(SWTGridColumn.this);
+						break;
+					case TEXT:
+						columnFilter = new SWTTextColumnFilter<R, C>(SWTGridColumn.this);
+						break;
+					default:
+						nebulaColumn.setHeaderControl(null);
+					}
 				}
 			}
 		});
-		autoFilterFreeTextProperty.addChangeListener(new ChangeListener<String>() {
-			@Override
-			public void valueChanged(Property<String> property, String oldValue, String newValue) {
-				grid.getContentHandler().filter();
-			}
-		});
+		autoFilterFreeTextProperty.addChangeListener((property, oldValue, newValue) -> grid.getContentHandler().filter());
 	}
 
-	private void applySorting(Property<at.bestsolution.framework.grid.XGridColumn.Sorting> property,
-			at.bestsolution.framework.grid.XGridColumn.Sorting oldValue, at.bestsolution.framework.grid.XGridColumn.Sorting newValue) {
+	private void applySorting(Property<XGridColumn.Sorting> property, at.bestsolution.framework.grid.XGridColumn.Sorting oldValue,
+			at.bestsolution.framework.grid.XGridColumn.Sorting newValue) {
 		switch (newValue) {
 		case UP:
 			nebulaColumn.setSort(SWT.UP);
@@ -382,7 +364,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		nebulaColumn.dispose();
 		alignmentProperty.dispose();
 		autoFilterDataSupplierProperty.dispose();
-		autoFilterMatcherProperty.dispose();
+		autoFilterMatcherFunctionProperty.dispose();
 		autoFilterTextFunctionProperty.dispose();
 		autoFilterTypeProperty.dispose();
 		autoWidthProperty.dispose();
@@ -428,13 +410,24 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	 *         <code>false</code> otherwise
 	 */
 	public boolean matchesColumnFilter(R element) {
-		AutoFilterType autoFilterType = autoFilterTypeProperty.get();
-		switch (autoFilterType) {
-		case TEXT:
-			CellValueMatcherFunction<R, C, Object> matcher = autoFilterMatcherProperty.get();
-			return matcher.apply(element, cellValueFunctionProperty.get().apply(element), autoFilterFreeTextProperty.get());
-		default:
-			return true;
+		SWTColumnFilter<@NonNull R, @Nullable C> filter = columnFilter;
+		if (filter != null) {
+			return filter.matches(element);
 		}
+		return true;
+	}
+
+	/**
+	 * @return nebula grid column
+	 */
+	public GridColumn getNebulaColumn() {
+		return nebulaColumn;
+	}
+
+	/**
+	 * @return the content handler
+	 */
+	public @NonNull SWTGridContentHandler<@NonNull R> getContentHandler() {
+		return grid.getContentHandler();
 	}
 }

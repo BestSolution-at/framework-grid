@@ -93,8 +93,16 @@
     <autoFilterConfiguration
         xsi:type="grid:MComboAutoFilterConfiguration">
       <predefinedValues
-          xsi:type="grid:MTextAutoFilterEntry"
-          resourceKey=""/>
+          xsi:type="grid:MDefaultAutoFilterEntry"
+          resourceKey="filter.all"/>
+      <predefinedValues
+          xsi:type="grid:MDefaultAutoFilterEntry"
+          resourceKey="filter.empty"
+          type="EMPTY"/>
+      <predefinedValues
+          xsi:type="grid:MDefaultAutoFilterEntry"
+          resourceKey="filter.notempty"
+          type="NOT_EMPTY"/>
       <cellTextFunction
           xsi:type="grid:MFormattedCellTextFunction"
           formatType="DATE">
@@ -161,6 +169,18 @@
     <entries
         key="datepattern"
         value="dd. MM. yyyy"/>
+    <entries
+        key="filter.all"
+        value="Alle"/>
+    <entries
+        key="filter.empty"
+        value="Leere"/>
+    <entries
+        key="filter.notempty"
+        value="Nicht leere"/>
+    <entries
+        key="filter.custom"
+        value="Benutzerdefiniert"/>
   </resources>
   <resources
       locale="en">
@@ -182,5 +202,17 @@
     <entries
         key="datepattern"
         value="MMM dd, yyyy"/>
+    <entries
+        key="filter.all"
+        value="All"/>
+    <entries
+        key="filter.empty"
+        value="Empty"/>
+    <entries
+        key="filter.notempty"
+        value="Not empty"/>
+    <entries
+        key="filter.custom"
+        value="Custom"/>
   </resources>
 </grid:MGrid>

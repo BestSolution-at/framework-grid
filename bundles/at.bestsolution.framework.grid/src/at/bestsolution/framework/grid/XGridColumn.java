@@ -29,6 +29,7 @@ import java.util.function.Supplier;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
+import at.bestsolution.framework.grid.func.AutoFilterEntry;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 
@@ -266,18 +267,22 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 * @return the provider property
 	 */
 	@NonNull
-	Property<@NonNull Supplier<@NonNull List<@NonNull Object>>> autoFilterDataSupplierProperty();
+	Property<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>>> autoFilterDataSupplierProperty();
 
 	/**
-	 * Converts the predefined auto filter types as text
+	 * Converts cell values for presentation in the autofilter.
 	 * <p>
-	 * Default converter use {@link Object#toString()}
+	 * Property value is initially <code>null</code>
+	 * </p>
+	 * <p>
+	 * If property value is <code>null</code> the
+	 * {@link #textFunctionProperty()} is used.
 	 * </p>
 	 *
 	 * @return the provider property
 	 */
 	@NonNull
-	Property<Function<@NonNull Object, @Nullable CharSequence>> autoFilterTextFunctionProperty();
+	Property<@Nullable CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> autoFilterTextFunctionProperty();
 
 	/**
 	 * Property for the sort of this column

@@ -20,15 +20,25 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.emf;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.function.Supplier;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
+import at.bestsolution.framework.grid.Util;
+import at.bestsolution.framework.grid.XGridColumn;
+import at.bestsolution.framework.grid.func.AutoFilterEntry;
+import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 import at.bestsolution.framework.grid.func.TranslationFunction;
+import at.bestsolution.framework.grid.model.grid.MAutoFilterEntry;
+import at.bestsolution.framework.grid.model.grid.MDefaultAutoFilterEntry;
 import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MResourceBundle;
 import at.bestsolution.framework.grid.model.grid.MResourceBundleEntry;
+import at.bestsolution.framework.grid.model.grid.MTextAutoFilterEntry;
 
 /**
  * EMF configuration Utilities
@@ -57,6 +67,75 @@ public class EmfUtil {
 					}
 				}
 				return null;
+			}
+		};
+	}
+
+	/**
+	 * @param mEntries
+	 *            entries defined from presentation model
+	 * @param column
+	 *            the corresponding column
+	 * @param translationFunction
+	 *            translation function
+	 * @return a supplier for default entries
+	 */
+	public static <@NonNull R, @Nullable C> @NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>> createFilterDataSupplier(
+			@NonNull List<@NonNull MAutoFilterEntry> mEntries, @NonNull XGridColumn<@NonNull R, @Nullable C> column,
+			@NonNull TranslationFunction translationFunction) {
+		return new Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>>() {
+			@Override
+			public @NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>> get() {
+				List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>> entries = new ArrayList<>();
+				for (MAutoFilterEntry entry : mEntries) {
+					@SuppressWarnings("null")
+					@NonNull
+					String resourceKey = entry.getResourceKey();
+					final String name = translationFunction.translate(column.getGrid().localeProperty().get(), resourceKey);
+					if (name == null) {
+						throw new IllegalArgumentException("no translation found for resource key: " + resourceKey); //$NON-NLS-1$
+					}
+
+					@NonNull
+					final CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull Object> matcher;
+					if (entry instanceof MTextAutoFilterEntry) {
+						matcher = Util.<R, C, Object> defaultToStringMatcher();
+					} else if (entry instanceof MDefaultAutoFilterEntry) {
+						MDefaultAutoFilterEntry defEntry = (MDefaultAutoFilterEntry) entry;
+						if (defEntry.getType() != null) {
+							switch (defEntry.getType()) {
+							case ALL:
+								matcher = Util.defaultTrueMatcher();
+								break;
+							case EMPTY:
+								matcher = Util.defaultEmptyMatcher(column.textFunctionProperty());
+								break;
+							case NOT_EMPTY:
+								matcher = Util.defaultNotEmptyMatcher(column.textFunctionProperty());
+								break;
+							default:
+								throw new UnsupportedOperationException("unknown autofilter default entry type: " + defEntry.getType()); //$NON-NLS-1$
+							}
+						} else {
+							throw new UnsupportedOperationException("autofilter default entry type is not set: " + defEntry); //$NON-NLS-1$
+						}
+					} else {
+						throw new UnsupportedOperationException("unknown autofilter entry type: " + entry); //$NON-NLS-1$
+					}
+
+					entries.add(new AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>() {
+						@Override
+						public @NonNull String getName() {
+							return name;
+						}
+
+						@Override
+						public @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull Object> getMatcher() {
+							return matcher;
+						}
+					});
+				}
+				return entries;
 			}
 		};
 	}
