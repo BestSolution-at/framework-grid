@@ -42,6 +42,7 @@ import at.bestsolution.framework.grid.XGrid;
 import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
+import at.bestsolution.framework.grid.XGridMetaData;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
 import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
@@ -177,11 +178,13 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	}
 
 	static class SimpleSelection<R, O> implements Selection<R, O> {
-		private final @Nullable R r;
+		private final @NonNull R r;
+		private final @NonNull XGridColumn<R, O> column;
 		private final O c;
 
-		SimpleSelection(@Nullable R r, XGridColumn<R, O> column, O c) {
+		SimpleSelection(@NonNull R r,@NonNull XGridColumn<R, O> column, O c) {
 			this.r = r;
+			this.column = column;
 			this.c = c;
 		}
 
@@ -207,6 +210,11 @@ public class SWTGridTable<R> implements XGridTable<R> {
 			XGridCell<R, C> a = null;
 			XGridColumn<R, XGridCell<R, C>> col = null;
 			return new SimpleSelection<R, XGridCell<R, C>>(r, col, a);
+		}
+
+		@Override
+		public @NonNull List<@NonNull XGridMetaData> getMetaData() {
+			return column.metaDataFunctionProperty().get().getMetaData(r, c);
 		}
 	}
 
