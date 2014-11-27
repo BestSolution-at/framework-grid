@@ -48,8 +48,7 @@ public class LocalizedDateCellDataFunction<R, C> implements DisposableCellDataFu
 	private final @NonNull TranslationFunction translationFunction;
 	private final @NonNull Property<Locale> localeProperty;
 	private @NonNull ChangeListener<@NonNull Locale> localeListener;
-	@NonNull
-	DateFormat format;
+	private @NonNull DateFormat format;
 
 	/**
 	 * @param column
@@ -71,7 +70,7 @@ public class LocalizedDateCellDataFunction<R, C> implements DisposableCellDataFu
 		localeProperty.addChangeListener(localeListener);
 	}
 
-	void localeValueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
+	private void localeValueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
 		format = createFormat(property.get(), patternKey, translationFunction);
 		column.requestUpdate();
 	}

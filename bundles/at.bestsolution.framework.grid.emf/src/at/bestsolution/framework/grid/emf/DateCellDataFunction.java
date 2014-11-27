@@ -46,8 +46,7 @@ public class DateCellDataFunction<R, C> implements DisposableCellDataFunction<R,
 	private final @NonNull XGridColumn<R, C> column;
 	private final @NonNull Property<Locale> localeProperty;
 	private @NonNull ChangeListener<@NonNull Locale> localeListener;
-	@NonNull
-	DateFormat format;
+	private @NonNull DateFormat format;
 
 	/**
 	 * @param column
@@ -67,7 +66,7 @@ public class DateCellDataFunction<R, C> implements DisposableCellDataFunction<R,
 		localeProperty.addChangeListener(localeListener);
 	}
 
-	void localeValueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
+	private void localeValueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
 		format = createFormat(newValue);
 		column.requestUpdate();
 	}

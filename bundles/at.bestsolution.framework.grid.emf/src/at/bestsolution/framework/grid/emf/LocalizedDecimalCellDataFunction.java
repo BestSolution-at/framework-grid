@@ -47,8 +47,7 @@ public class LocalizedDecimalCellDataFunction<R, C> implements DisposableCellDat
 	private final @NonNull TranslationFunction translationFunction;
 	private final @NonNull Property<Locale> localeProperty;
 	private @NonNull ChangeListener<@NonNull Locale> localeListener;
-	@NonNull
-	DecimalFormat format;
+	private @NonNull DecimalFormat format;
 
 	/**
 	 * @param column
@@ -70,7 +69,7 @@ public class LocalizedDecimalCellDataFunction<R, C> implements DisposableCellDat
 		localeProperty.addChangeListener(localeListener);
 	}
 
-	void localeValueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
+	private void localeValueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
 		format = createFormat(property.get(), patternKey, translationFunction);
 		column.requestUpdate();
 	}

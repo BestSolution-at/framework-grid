@@ -45,8 +45,7 @@ public class DecimalCellDataFunction<R, C> implements DisposableCellDataFunction
 	private final @NonNull XGridColumn<R, C> column;
 	private final @NonNull Property<Locale> localeProperty;
 	private @NonNull ChangeListener<@NonNull Locale> localeListener;
-	@NonNull
-	DecimalFormat format;
+	private @NonNull DecimalFormat format;
 
 	/**
 	 * @param column
@@ -66,7 +65,7 @@ public class DecimalCellDataFunction<R, C> implements DisposableCellDataFunction
 		localeProperty.addChangeListener(localeListener);
 	}
 
-	void localeValueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
+	private void localeValueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
 		format = createFormat(newValue);
 		column.requestUpdate();
 	}
