@@ -25,17 +25,11 @@ import at.bestsolution.framework.grid.personsample.model.person.Address;
 import at.bestsolution.framework.grid.personsample.model.person.Gender;
 import at.bestsolution.framework.grid.personsample.model.person.Person;
 import at.bestsolution.framework.grid.personsample.model.person.PersonPackage;
-
-import java.math.BigDecimal;
-
 import java.util.Date;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -49,24 +43,17 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.impl.PersonImpl#getFirstname <em>Firstname</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.impl.PersonImpl#getLastname <em>Lastname</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.impl.PersonImpl#getGender <em>Gender</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.impl.PersonImpl#getPartner <em>Partner</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.impl.PersonImpl#getMarried <em>Married</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.impl.PersonImpl#getBirthdate <em>Birthdate</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.impl.PersonImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.impl.PersonImpl#getAddress <em>Address</em>}</li>
- *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.impl.PersonImpl#getIncome <em>Income</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String copyright = "  Copyright (c) 2014 BestSolution.at EDV Systemhaus GmbH/Austria,\n  http://www.BestSolution.at\n \n  This file is part of framework-grid which was developed with funding\n  from DI Christoph Hermann - InformationsTechnologie Beratung Hermann\n  /Austria.\n \n  Licensed under the Apache License, Version 2.0 (the \"License\");\n  you may not use this file except in compliance with the License.\n  You may obtain a copy of the License at\n \n      http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing, software\n  distributed under the License is distributed on an \"AS IS\" BASIS,\n  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n  See the License for the specific language governing permissions and\n  limitations under the License.\n";
-
 	/**
 	 * The default value of the '{@link #getFirstname() <em>Firstname</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -126,6 +113,16 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 	 * @ordered
 	 */
 	protected Gender gender = GENDER_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getPartner() <em>Partner</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPartner()
+	 * @generated
+	 * @ordered
+	 */
+	protected Person partner;
 
 	/**
 	 * The default value of the '{@link #getMarried() <em>Married</em>}' attribute.
@@ -196,26 +193,6 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 	 * @ordered
 	 */
 	protected Address address;
-
-	/**
-	 * The default value of the '{@link #getIncome() <em>Income</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getIncome()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final BigDecimal INCOME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getIncome() <em>Income</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getIncome()
-	 * @generated
-	 * @ordered
-	 */
-	protected BigDecimal income = INCOME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -297,6 +274,44 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 		gender = newGender == null ? GENDER_EDEFAULT : newGender;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, PersonPackage.PERSON__GENDER, oldGender, gender));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Person getPartner() {
+		if (partner != null && partner.eIsProxy()) {
+			InternalEObject oldPartner = (InternalEObject)partner;
+			partner = (Person)eResolveProxy(oldPartner);
+			if (partner != oldPartner) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PersonPackage.PERSON__PARTNER, oldPartner, partner));
+			}
+		}
+		return partner;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Person basicGetPartner() {
+		return partner;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPartner(Person newPartner) {
+		Person oldPartner = partner;
+		partner = newPartner;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PersonPackage.PERSON__PARTNER, oldPartner, partner));
 	}
 
 	/**
@@ -410,27 +425,6 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BigDecimal getIncome() {
-		return income;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setIncome(BigDecimal newIncome) {
-		BigDecimal oldIncome = income;
-		income = newIncome;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PersonPackage.PERSON__INCOME, oldIncome, income));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -454,6 +448,9 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 				return getLastname();
 			case PersonPackage.PERSON__GENDER:
 				return getGender();
+			case PersonPackage.PERSON__PARTNER:
+				if (resolve) return getPartner();
+				return basicGetPartner();
 			case PersonPackage.PERSON__MARRIED:
 				return getMarried();
 			case PersonPackage.PERSON__BIRTHDATE:
@@ -462,8 +459,6 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 				return getWeight();
 			case PersonPackage.PERSON__ADDRESS:
 				return getAddress();
-			case PersonPackage.PERSON__INCOME:
-				return getIncome();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -485,6 +480,9 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 			case PersonPackage.PERSON__GENDER:
 				setGender((Gender)newValue);
 				return;
+			case PersonPackage.PERSON__PARTNER:
+				setPartner((Person)newValue);
+				return;
 			case PersonPackage.PERSON__MARRIED:
 				setMarried((Boolean)newValue);
 				return;
@@ -496,9 +494,6 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 				return;
 			case PersonPackage.PERSON__ADDRESS:
 				setAddress((Address)newValue);
-				return;
-			case PersonPackage.PERSON__INCOME:
-				setIncome((BigDecimal)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -521,6 +516,9 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 			case PersonPackage.PERSON__GENDER:
 				setGender(GENDER_EDEFAULT);
 				return;
+			case PersonPackage.PERSON__PARTNER:
+				setPartner((Person)null);
+				return;
 			case PersonPackage.PERSON__MARRIED:
 				setMarried(MARRIED_EDEFAULT);
 				return;
@@ -532,9 +530,6 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 				return;
 			case PersonPackage.PERSON__ADDRESS:
 				setAddress((Address)null);
-				return;
-			case PersonPackage.PERSON__INCOME:
-				setIncome(INCOME_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -554,6 +549,8 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 				return LASTNAME_EDEFAULT == null ? lastname != null : !LASTNAME_EDEFAULT.equals(lastname);
 			case PersonPackage.PERSON__GENDER:
 				return gender != GENDER_EDEFAULT;
+			case PersonPackage.PERSON__PARTNER:
+				return partner != null;
 			case PersonPackage.PERSON__MARRIED:
 				return MARRIED_EDEFAULT == null ? married != null : !MARRIED_EDEFAULT.equals(married);
 			case PersonPackage.PERSON__BIRTHDATE:
@@ -562,8 +559,6 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 				return WEIGHT_EDEFAULT == null ? weight != null : !WEIGHT_EDEFAULT.equals(weight);
 			case PersonPackage.PERSON__ADDRESS:
 				return address != null;
-			case PersonPackage.PERSON__INCOME:
-				return INCOME_EDEFAULT == null ? income != null : !INCOME_EDEFAULT.equals(income);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -590,8 +585,6 @@ public class PersonImpl extends MinimalEObjectImpl.Container implements Person {
 		result.append(birthdate);
 		result.append(", weight: ");
 		result.append(weight);
-		result.append(", income: ");
-		result.append(income);
 		result.append(')');
 		return result.toString();
 	}

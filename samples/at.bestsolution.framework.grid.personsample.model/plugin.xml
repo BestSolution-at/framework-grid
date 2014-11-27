@@ -11,7 +11,7 @@
       <package
             uri="http://www.bestsolution.at/framework/grid/personsample/1.0"
             class="at.bestsolution.framework.grid.personsample.model.person.PersonPackage"
-            genModel="model/Person.genmodel"/>
+            genModel="model/Person.xcore"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">

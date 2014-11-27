@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="at.bestsolution.framework.grid.component.e4.collector">
+   <implementation class="at.bestsolution.framework.grid.component.e4.OSGiServiceCollector"/>
+   <reference bind="addXGridTableConfigurationProvider" cardinality="0..n" interface="at.bestsolution.framework.grid.component.XGridTableConfigurationProvider" name="XGridTableConfigurationProvider" policy="dynamic" unbind="removeXGridTableConfigurationProvider"/>
+   <reference bind="addXGridTableConfigurator" cardinality="0..n" interface="at.bestsolution.framework.grid.component.XGridTableConfigurator" name="XGridTableConfigurator" policy="dynamic" unbind="removeXGridTableConfigurator"/>
+   <reference bind="addXGridContentProviderProvider" cardinality="0..n" interface="at.bestsolution.framework.grid.component.XGridContentProviderProvider" name="XGridContentProviderProvider" policy="dynamic" unbind="removeXGridContentProviderProvider"/>
+   <service>
+      <provide interface="at.bestsolution.framework.grid.component.XGridTableConfiguratorLookup"/>
+      <provide interface="at.bestsolution.framework.grid.component.XGridContentProviderProviderLookup"/>
+      <provide interface="at.bestsolution.framework.grid.component.XGridTableConfigurationProviderLookup"/>
+   </service>
+</scr:component>
