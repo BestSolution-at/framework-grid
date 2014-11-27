@@ -88,6 +88,7 @@ public class PersonSample {
 		addToggleConfiguration(settings);
 		addToggleContent(settings);
 		addAddRemoveButtons(settings);
+		addExportButtons(settings);
 
 		shell.setSize(1000, 400);
 		shell.open();
@@ -110,7 +111,6 @@ public class PersonSample {
 				}
 			}
 		});
-		bAdd.setSelection(true);
 		Button bRemove = new Button(settings, SWT.NONE);
 		bRemove.setText("remove last entry");
 		bRemove.addSelectionListener(new SelectionAdapter() {
@@ -118,6 +118,30 @@ public class PersonSample {
 			public void widgetSelected(SelectionEvent e) {
 				if (!data.getPersons().isEmpty()) {
 					data.getPersons().remove(data.getPersons().size() - 1);
+				}
+			}
+		});
+	}
+
+	private void addExportButtons(Composite settings) {
+		Button bExport = new Button(settings, SWT.NONE);
+		bExport.setText("Export data to System.err");
+		bExport.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Object[][] data = table.getData();
+				for (int i = 0; i < data.length; i++) {
+					for (int j = 0; j < data[i].length; j++) {
+						StringBuffer sb = new StringBuffer();
+						sb.append(i + "/" + j + ": ");
+						if (data[i][j] != null) {
+							sb.append(data[i][j].getClass().getSimpleName());
+							sb.append(" / " + data[i][j]);
+						} else {
+							sb.append("null");
+						}
+						System.err.println(sb.toString());
+					}
 				}
 			}
 		});
