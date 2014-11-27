@@ -95,7 +95,7 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 * <p>
 	 * Default {@link Locale#getDefault()}
 	 * </p>
-	 * 
+	 *
 	 * @return the locale property
 	 */
 	@NonNull
@@ -134,7 +134,7 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 *
 	 * @since 1.0
 	 */
-	interface Selection<R, O> {
+	interface Selection<R, O> extends XGridMetaDataProvider {
 		/**
 		 * @return the first entry or <code>null</code> if empty
 		 */
@@ -176,7 +176,7 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 * <p>
 	 * if the content is empty an empty array will be exported
 	 * </p>
-	 * 
+	 *
 	 * @return data
 	 */
 	@NonNull

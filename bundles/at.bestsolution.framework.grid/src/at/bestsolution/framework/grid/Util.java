@@ -60,6 +60,12 @@ public class Util {
 		public <C> @NonNull Selection<R, XGridCell<R, C>> asCellSelection() {
 			return new EmptySelection<>();
 		}
+
+		@SuppressWarnings("null")
+		@Override
+		public @NonNull List<@NonNull XGridMetaData> getMetaData() {
+			return Collections.emptyList();
+		}
 	}
 
 	/**
