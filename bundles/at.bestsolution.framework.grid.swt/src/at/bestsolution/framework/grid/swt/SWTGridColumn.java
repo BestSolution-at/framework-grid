@@ -21,6 +21,7 @@
 package at.bestsolution.framework.grid.swt;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
@@ -41,11 +42,13 @@ import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.XGrid;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
+import at.bestsolution.framework.grid.XGridMetaData;
 import at.bestsolution.framework.grid.func.AutoFilterEntry;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 import at.bestsolution.framework.grid.func.DisposableCellDataFunction;
 import at.bestsolution.framework.grid.func.ExportValueFunction;
+import at.bestsolution.framework.grid.func.MetaDataFunction;
 import at.bestsolution.framework.grid.swt.internal.SWTColumnFilter;
 import at.bestsolution.framework.grid.swt.internal.SWTComboColumnFilter;
 import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
@@ -91,6 +94,14 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	private final @NonNull Property<@NonNull String> autoFilterFreeTextProperty = new SimpleProperty<>(""); //$NON-NLS-1$
 	private final @NonNull Property<@NonNull ExportValueFunction<@NonNull R, @Nullable C>> exportValueFunctionProperty = new SimpleProperty<>(
 			new DefaultExportValueFunction<R, C>(this));
+	private static final MetaDataFunction<?, ?> DEFAULT_META = new MetaDataFunction<Object, Object>() {
+
+		@Override
+		public @NonNull List<@NonNull XGridMetaData> getMetaData(Object rowValue, Object cellValue) {
+			return Collections.emptyList();
+		}
+	};
+	private final @NonNull Property<@NonNull MetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty = new SimpleProperty<>((MetaDataFunction<R,C>)DEFAULT_META);
 
 	GridColumn nebulaColumn;
 	@Nullable
@@ -447,5 +458,10 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	@Override
 	public Object getExportValue(@NonNull R element) {
 		return exportValueFunctionProperty().get().apply(element, cellValueFunctionProperty().get().apply(element));
+	}
+
+	@NonNull
+	public Property<@NonNull MetaDataFunction<@NonNull R,@Nullable C>> metaDataFunctionProperty() {
+		return metaDataFunctionProperty;
 	}
 }
