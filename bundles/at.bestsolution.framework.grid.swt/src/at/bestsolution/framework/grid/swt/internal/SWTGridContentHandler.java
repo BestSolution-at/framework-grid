@@ -69,7 +69,7 @@ public class SWTGridContentHandler<R> {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void registerPropertyListeners() {
 		defaultSortProperty.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider, contentProvider));
@@ -78,7 +78,7 @@ public class SWTGridContentHandler<R> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param newContentProvider
 	 *            the new content provider
 	 */
@@ -90,7 +90,7 @@ public class SWTGridContentHandler<R> {
 		}
 		contentProvider = newContentProvider;
 
-		Selection<@Nullable R, @Nullable R> previousSelection = grid.selectionProperty().get();
+		Selection<@NonNull R, @NonNull R> previousSelection = grid.selectionProperty().get();
 		dataByR.clear();
 		dataByCol.clear();
 		nebulaGrid.disposeAllItems();
