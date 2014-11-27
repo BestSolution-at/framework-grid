@@ -32,6 +32,7 @@ import org.eclipse.jdt.annotation.Nullable;
 import at.bestsolution.framework.grid.func.AutoFilterEntry;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
+import at.bestsolution.framework.grid.func.ExportValueFunction;
 
 /**
  * Column of a grid
@@ -306,6 +307,17 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	Property<@NonNull Integer> indexProperty();
 
 	/**
+	 * Converts cell values for data export.
+	 * <p>
+	 * Property value is initially {@link DefaultExportValueFunction}
+	 * </p>
+	 *
+	 * @return the property
+	 */
+	@NonNull
+	Property<@NonNull ExportValueFunction<@NonNull R, @Nullable C>> exportValueFunctionProperty();
+
+	/**
 	 * Grid which contains this column
 	 * 
 	 * @return containing grid
@@ -330,4 +342,14 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 * dispose column
 	 */
 	void dispose();
+
+	/**
+	 * get export value for the given element using
+	 * {@link #exportValueFunctionProperty()}
+	 * 
+	 * @param element
+	 *            the element
+	 * @return the export value
+	 */
+	Object getExportValue(R element);
 }

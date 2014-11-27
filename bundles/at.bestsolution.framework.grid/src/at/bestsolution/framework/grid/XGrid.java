@@ -170,4 +170,15 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 * dispose grid
 	 */
 	void dispose();
+
+	/**
+	 * export shown data
+	 * <p>
+	 * if the content is empty an empty array will be exported
+	 * </p>
+	 * 
+	 * @return data
+	 */
+	@NonNull
+	Object[][] getData();
 }

@@ -34,6 +34,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+import at.bestsolution.framework.grid.DefaultExportValueFunction;
 import at.bestsolution.framework.grid.DefaultSortComparator;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Util;
@@ -44,6 +45,7 @@ import at.bestsolution.framework.grid.func.AutoFilterEntry;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 import at.bestsolution.framework.grid.func.DisposableCellDataFunction;
+import at.bestsolution.framework.grid.func.ExportValueFunction;
 import at.bestsolution.framework.grid.swt.internal.SWTColumnFilter;
 import at.bestsolution.framework.grid.swt.internal.SWTComboColumnFilter;
 import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
@@ -87,6 +89,8 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 
 	private final @NonNull SWTGridTable<R> grid;
 	private final @NonNull Property<@NonNull String> autoFilterFreeTextProperty = new SimpleProperty<>(""); //$NON-NLS-1$
+	private final @NonNull Property<@NonNull ExportValueFunction<@NonNull R, @Nullable C>> exportValueFunctionProperty = new SimpleProperty<>(
+			new DefaultExportValueFunction<R, C>(this));
 
 	GridColumn nebulaColumn;
 	@Nullable
@@ -224,6 +228,11 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	@Override
 	public @NonNull Property<XGridColumn.@NonNull SortingBehavior> sortingBehaviorProperty() {
 		return sortingBehaviorProperty;
+	}
+
+	@Override
+	public @NonNull Property<@NonNull ExportValueFunction<@NonNull R, @Nullable C>> exportValueFunctionProperty() {
+		return exportValueFunctionProperty;
 	}
 
 	@Override
@@ -422,5 +431,10 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		default:
 			throw new UnsupportedOperationException("unknown alignment type: " + alignment); //$NON-NLS-1$
 		}
+	}
+
+	@Override
+	public Object getExportValue(@NonNull R element) {
+		return exportValueFunctionProperty().get().apply(element, cellValueFunctionProperty().get().apply(element));
 	}
 }

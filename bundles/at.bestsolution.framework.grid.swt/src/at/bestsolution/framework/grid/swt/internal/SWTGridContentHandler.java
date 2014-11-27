@@ -243,4 +243,26 @@ public class SWTGridContentHandler<R> {
 	public @NonNull List<@NonNull R> getVisibleElements() {
 		return new ArrayList<>(dataByCol.values());
 	}
+
+	/**
+	 * @param allRows
+	 *            export all elements if <code>true</code>, otherwise exclude
+	 *            filtered items
+	 * @return export data
+	 */
+	@SuppressWarnings("null")
+	public @NonNull Object[][] getData(boolean allRows) {
+		// TODO implementation for allRows = false
+		Object[][] data = new Object[dataByR.size()][grid.getColumns().size()];
+		int rowIndex = 0;
+		for (R element : dataByR.keySet()) {
+			int colIndex = 0;
+			for (XGridColumn<R, ?> column : grid.getColumns()) {
+				data[rowIndex][colIndex] = column.getExportValue(element);
+				colIndex++;
+			}
+			rowIndex++;
+		}
+		return data;
+	}
 }

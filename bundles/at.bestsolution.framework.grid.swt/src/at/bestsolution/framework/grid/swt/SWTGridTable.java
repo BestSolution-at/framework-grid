@@ -229,4 +229,9 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	public @NonNull SWTGridContentHandler<R> getContentHandler() {
 		return contentHandler;
 	}
+
+	@Override
+	public @NonNull Object[][] getData() {
+		return contentHandler.getData(true);
+	}
 }
