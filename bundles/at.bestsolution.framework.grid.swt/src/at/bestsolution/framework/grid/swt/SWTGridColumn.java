@@ -367,13 +367,20 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	@Override
 	public void dispose() {
 		grid.columns.remove(this);
-		if (nebulaColumn.getHeaderControl() != null) {
-			nebulaColumn.getHeaderControl().dispose();
+		@Nullable
+		SWTColumnFilter<@NonNull R, @Nullable C> colFilter = columnFilter;
+		if (colFilter != null) {
+			colFilter.dispose();
 		}
 		nebulaColumn.dispose();
 		alignmentProperty.dispose();
 		autoFilterDataSupplierProperty.dispose();
 		autoFilterMatcherFunctionProperty.dispose();
+		@Nullable
+		CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> autoFilterTextFunction = autoFilterTextFunctionProperty.get();
+		if (autoFilterTextFunction instanceof DisposableCellDataFunction) {
+			((DisposableCellDataFunction<?, ?, ?>) autoFilterTextFunction).dispose();
+		}
 		autoFilterTextFunctionProperty.dispose();
 		autoFilterTypeProperty.dispose();
 		autoWidthProperty.dispose();
@@ -391,6 +398,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		}
 		textFunctionProperty.dispose();
 		autoFilterFreeTextProperty.dispose();
+		exportValueFunctionProperty.dispose();
 	}
 
 	/**

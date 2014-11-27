@@ -38,4 +38,9 @@ public interface SWTColumnFilter<R, C> {
 	 *         <code>false</code> otherwise
 	 */
 	boolean matches(@NonNull R element);
+
+	/**
+	 * dispose column filter
+	 */
+	void dispose();
 }

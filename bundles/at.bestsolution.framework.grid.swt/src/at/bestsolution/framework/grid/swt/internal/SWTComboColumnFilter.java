@@ -21,9 +21,12 @@
 package at.bestsolution.framework.grid.swt.internal;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.Supplier;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
@@ -31,8 +34,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 
+import at.bestsolution.framework.grid.Property;
+import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.XGridColumn.AutoFilterType;
+import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.func.AutoFilterEntry;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
@@ -45,9 +52,13 @@ import at.bestsolution.framework.grid.swt.SWTGridColumn;
  *            cell type
  */
 public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
-	private final @NonNull Map<@NonNull Integer, @NonNull AutoFilterEntry<@NonNull R,@Nullable C,@NonNull Object> > autoFilterComboContent = new HashMap<>();
+	private final @NonNull Map<@NonNull Integer, @NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>> autoFilterComboContent = new HashMap<>();
 	private final @NonNull CCombo combo;
 	private final @NonNull SWTGridColumn<R, C> column;
+	private final @NonNull ChangeListener<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>>> autoFilterDataSupplierListener = this::handleAutoFilterDataSupplierChange;
+	private final @NonNull ChangeListener<@NonNull Locale> localeListener = this::handleLocaleChange;
+	private final @NonNull ChangeListener<@Nullable XGridContentProvider<@NonNull R>> contentProviderListener = this::handleContentProviderChange;
+	private final @NonNull SelectionListener selectionListener;
 
 	/**
 	 * @param column
@@ -56,19 +67,20 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 	public SWTComboColumnFilter(@NonNull SWTGridColumn<R, C> column) {
 		this.column = column;
 		combo = new CCombo(column.getNebulaColumn().getParent(), SWT.READ_ONLY | SWT.BORDER);
-		combo.addSelectionListener(new SelectionAdapter() {
+		selectionListener = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				column.getContentHandler().filter();
 			}
-		});
+		};
+		combo.addSelectionListener(selectionListener);
 		column.getNebulaColumn().setHeaderControl(combo);
 		updateFilterComboContent();
-		column.autoFilterDataSupplierProperty().addChangeListener((property, oldValue, newValue) -> updateFilterComboContent());
+		column.autoFilterDataSupplierProperty().addChangeListener(autoFilterDataSupplierListener);
 		// translated values need refresh
-		column.getGrid().localeProperty().addChangeListener((property, oldValue, newValue) -> updateFilterComboContent());
+		column.getGrid().localeProperty().addChangeListener(localeListener);
 		// new input needs filter update
-		column.getGrid().contentProviderProperty().addChangeListener((property, oldValue, newValue) -> updateFilterComboContent());
+		column.getGrid().contentProviderProperty().addChangeListener(contentProviderListener);
 	}
 
 	@Override
@@ -77,10 +89,26 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 		if (selectionIndex < 0) {
 			return true; // nothing selected
 		} else {
-			AutoFilterEntry<@NonNull R,@Nullable C,@NonNull Object>  filterEntry = autoFilterComboContent.get(new Integer(selectionIndex));
+			AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object> filterEntry = autoFilterComboContent.get(new Integer(selectionIndex));
 			CellValueMatcherFunction<R, @Nullable C, Object> matcher = filterEntry.getMatcher();
 			return matcher.apply(element, column.cellValueFunctionProperty().get().apply(element), filterEntry.getName());
 		}
+	}
+
+	private void handleAutoFilterDataSupplierChange(
+			Property<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>>> property,
+			@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>> oldValue,
+			@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>> newValue) {
+		updateFilterComboContent();
+	}
+
+	private void handleLocaleChange(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
+		updateFilterComboContent();
+	}
+
+	private void handleContentProviderChange(Property<XGridContentProvider<R>> property, XGridContentProvider<R> oldValue,
+			XGridContentProvider<R> newValue) {
+		updateFilterComboContent();
 	}
 
 	private void updateFilterComboContent() {
@@ -89,7 +117,7 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 			autoFilterComboContent.clear();
 			// add default entries
 			int index = 0;
-			for (AutoFilterEntry<@NonNull R,@Nullable C,@NonNull Object>  entry : column.autoFilterDataSupplierProperty().get().get()) {
+			for (AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object> entry : column.autoFilterDataSupplierProperty().get().get()) {
 				combo.add(entry.getName());
 				autoFilterComboContent.put(new Integer(index), entry);
 				index++;
@@ -122,7 +150,7 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 		}
 	}
 
-	private class ComboAutoFilterEntry<@NonNull O> implements AutoFilterEntry<@NonNull R,@Nullable C,@NonNull O>  {
+	private class ComboAutoFilterEntry<@NonNull O> implements AutoFilterEntry<@NonNull R, @Nullable C, @NonNull O> {
 		private final @NonNull CharSequence text;
 		private final @NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> textFunction;
 
@@ -142,5 +170,14 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 		public @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, O> getMatcher() {
 			return (row, cellValue, filterData) -> text.equals(textFunction.apply(row, cellValue));
 		}
+	}
+
+	@Override
+	public void dispose() {
+		column.autoFilterDataSupplierProperty().removeChangeListener(autoFilterDataSupplierListener);
+		column.getGrid().localeProperty().removeChangeListener(localeListener);
+		column.getGrid().contentProviderProperty().removeChangeListener(contentProviderListener);
+		combo.removeSelectionListener(selectionListener);
+		combo.dispose();
 	}
 }

@@ -43,6 +43,7 @@ import at.bestsolution.framework.grid.swt.SWTGridColumn;
 public class SWTTextColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 	final @NonNull Text text;
 	final @NonNull SWTGridColumn<R, C> column;
+	final @NonNull FreeTextModifyListener modifyListener = new FreeTextModifyListener();
 
 	/**
 	 * @param column
@@ -52,7 +53,7 @@ public class SWTTextColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 		this.column = column;
 		text = new Text(column.getNebulaColumn().getParent(), SWT.BORDER);
 		column.getNebulaColumn().setHeaderControl(text);
-		text.addModifyListener(new FreeTextModifyListener());
+		text.addModifyListener(modifyListener);
 	}
 
 	@Override
@@ -84,5 +85,11 @@ public class SWTTextColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 				}
 			}, 300);
 		}
+	}
+
+	@Override
+	public void dispose() {
+		text.removeModifyListener(modifyListener);
+		text.dispose();
 	}
 }

@@ -46,7 +46,7 @@ public class LocalizedDecimalCellDataFunction<R, C> implements DisposableCellDat
 	private final @NonNull XGridColumn<R, C> column;
 	private final @NonNull TranslationFunction translationFunction;
 	private final @NonNull Property<Locale> localeProperty;
-	private @NonNull ChangeListener<@NonNull Locale> localeListener;
+	private final @NonNull ChangeListener<@NonNull Locale> localeListener = this::localeValueChanged;
 	private @NonNull DecimalFormat format;
 
 	/**
@@ -65,7 +65,6 @@ public class LocalizedDecimalCellDataFunction<R, C> implements DisposableCellDat
 		this.translationFunction = translationFunction;
 		this.localeProperty = localeProperty;
 		format = createFormat(localeProperty.get(), patternKey, translationFunction);
-		localeListener = this::localeValueChanged;
 		localeProperty.addChangeListener(localeListener);
 	}
 
