@@ -37,6 +37,7 @@ import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.XGrid.Selection;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
+import at.bestsolution.framework.grid.XGridContentProvider.ContentChangeListener;
 import at.bestsolution.framework.grid.XGridContentProvider.ContentChangeType;
 import at.bestsolution.framework.grid.swt.SWTGridColumn;
 import at.bestsolution.framework.grid.swt.SWTGridTable;
@@ -53,6 +54,7 @@ public class SWTGridContentHandler<R> {
 	private final @NonNull Property<@Nullable Comparator<@NonNull R>> defaultSortProperty = new SimpleProperty<>(null);
 	private final @NonNull Property<@Nullable SWTGridColumn<R, ?>> sortColumnProperty = new SimpleProperty<>(null);
 	private @Nullable XGridContentProvider<R> contentProvider;
+	private final @NonNull ContentChangeListener<R> listener = this::handleContentChange;
 
 	/**
 	 * @param grid
@@ -84,7 +86,7 @@ public class SWTGridContentHandler<R> {
 			@Nullable XGridContentProvider<R> newContentProvider) {
 		// cleanup
 		if (oldContentProvider != null) {
-			oldContentProvider.addChangeListener(this::handleContentChange);
+			oldContentProvider.removeChangeListener(listener);
 		}
 		contentProvider = newContentProvider;
 
@@ -95,7 +97,7 @@ public class SWTGridContentHandler<R> {
 		List<@NonNull R> items = new ArrayList<>();
 
 		if (newContentProvider != null) {
-			newContentProvider.addChangeListener(this::handleContentChange);
+			newContentProvider.addChangeListener(listener);
 			for (int i = 0; i < newContentProvider.size(); i++) {
 				items.add(newContentProvider.getElementAt(i));
 			}
