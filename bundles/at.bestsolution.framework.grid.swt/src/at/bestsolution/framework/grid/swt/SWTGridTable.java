@@ -59,7 +59,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	@NonNull
 	Property<@Nullable XGridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(null);
 	@NonNull
-	Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty = new SimpleProperty<>(Util.emptySelection());
+	Property<@NonNull Selection<@NonNull R, @NonNull R>> selectionProperty = new SimpleProperty<>(Util.emptySelection());
 	@SuppressWarnings("null")
 	private @NonNull Property<@NonNull Locale> localeProperty = new SimpleProperty<>(Locale.getDefault());
 
@@ -69,7 +69,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 
 	/**
 	 * SWT Grid
-	 * 
+	 *
 	 * @param parent
 	 *            parent composite
 	 * @param style
@@ -108,7 +108,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	}
 
 	@Override
-	public @NonNull Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty() {
+	public @NonNull Property<@NonNull Selection<@NonNull R, @NonNull R>> selectionProperty() {
 		return selectionProperty;
 	}
 
