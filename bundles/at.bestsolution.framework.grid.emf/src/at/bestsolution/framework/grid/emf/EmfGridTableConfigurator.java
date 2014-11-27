@@ -79,6 +79,8 @@ public class EmfGridTableConfigurator<R> {
 			columnConfigurators.get(col).dispose();
 			columnConfigurators.remove(col);
 		}
+		// remove possibly set default sort column
+		table.defaultSortProperty().set(null);
 		for (XGridColumn<R, ?> col : new ArrayList<>(table.getColumns())) {
 			col.dispose();
 		}

@@ -367,6 +367,9 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	@Override
 	public void dispose() {
 		grid.columns.remove(this);
+		if (getContentHandler().sortColumnProperty().get() == this) {
+			getContentHandler().sortColumnProperty().set(null);
+		}
 		@Nullable
 		SWTColumnFilter<@NonNull R, @Nullable C> colFilter = columnFilter;
 		if (colFilter != null) {
