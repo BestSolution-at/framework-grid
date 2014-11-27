@@ -36,13 +36,13 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 
+import at.bestsolution.framework.grid.Property;
+import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.XGrid;
 import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.XGridTable;
-import at.bestsolution.framework.grid.Property;
-import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
 import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
 
@@ -98,7 +98,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 
 	@Override
 	public @NonNull Property<@Nullable Comparator<@NonNull R>> defaultSortProperty() {
-		return contentHandler.getDefaultSortProperty();
+		return contentHandler.defaultSortProperty();
 	}
 
 	@Override

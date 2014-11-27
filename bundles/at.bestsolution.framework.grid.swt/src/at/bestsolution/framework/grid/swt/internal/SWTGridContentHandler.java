@@ -197,7 +197,7 @@ public class SWTGridContentHandler<R> {
 	/**
 	 * @return the defaultSortProperty
 	 */
-	public @NonNull Property<@Nullable Comparator<@NonNull R>> getDefaultSortProperty() {
+	public @NonNull Property<@Nullable Comparator<@NonNull R>> defaultSortProperty() {
 		return defaultSortProperty;
 	}
 
