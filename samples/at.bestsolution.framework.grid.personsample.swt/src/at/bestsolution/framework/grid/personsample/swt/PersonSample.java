@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -39,11 +40,11 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import at.bestsolution.framework.grid.ListGridContentProvider;
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.XGrid.Selection;
 import at.bestsolution.framework.grid.XGridTable;
+import at.bestsolution.framework.grid.emf.EListGridContentProvider;
 import at.bestsolution.framework.grid.emf.EmfGridTableConfigurator;
 import at.bestsolution.framework.grid.model.grid.GridPackage;
 import at.bestsolution.framework.grid.model.grid.MGrid;
@@ -61,8 +62,9 @@ public class PersonSample {
 	private MGridConfigurationSet config2 = getConfiguration("sampleConfig2.xmi");
 	private MGridConfigurationSet currentConfig = config1;
 	private EmfGridTableConfigurator<Person> configurator;
-	private Root data1 = getData("sampleData.xmi");
-	private Root data2 = getData("sampleDataMass.xmi");
+	private final Root dataSample = getData("sampleData.xmi");
+	private final Root dataSampleMass = getData("sampleDataMass.xmi");
+	private Root data = dataSample;
 
 	public PersonSample() throws Exception {
 		Display display = new Display();
@@ -72,7 +74,7 @@ public class PersonSample {
 		table = new SWTGridTable<>(shell, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		configurator = new EmfGridTableConfigurator<Person>(table, currentConfig);
 
-		table.contentProviderProperty().set(new ListGridContentProvider<Person>(data1.getPersons()));
+		table.contentProviderProperty().set(new EListGridContentProvider<Person>(data, PersonPackage.Literals.ROOT__PERSONS));
 
 		Composite settings = new Composite(shell, SWT.FILL);
 		settings.setLayout(new GridLayout(1, false));
@@ -85,6 +87,7 @@ public class PersonSample {
 		addToggleLocale(settings);
 		addToggleConfiguration(settings);
 		addToggleContent(settings);
+		addAddRemoveButtons(settings);
 
 		shell.setSize(1000, 400);
 		shell.open();
@@ -94,6 +97,30 @@ public class PersonSample {
 		}
 		display.dispose();
 
+	}
+
+	private void addAddRemoveButtons(Composite settings) {
+		Button bAdd = new Button(settings, SWT.NONE);
+		bAdd.setText("duplicate first entry");
+		bAdd.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (!data.getPersons().isEmpty()) {
+					data.getPersons().add(EcoreUtil.copy(data.getPersons().get(0)));
+				}
+			}
+		});
+		bAdd.setSelection(true);
+		Button bRemove = new Button(settings, SWT.NONE);
+		bRemove.setText("remove last entry");
+		bRemove.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (!data.getPersons().isEmpty()) {
+					data.getPersons().remove(data.getPersons().size() - 1);
+				}
+			}
+		});
 	}
 
 	private void setCurrentConfig(MGridConfigurationSet newConfig) {
@@ -111,7 +138,8 @@ public class PersonSample {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (bSmallData.getSelection()) {
-					table.contentProviderProperty().set(new ListGridContentProvider<Person>(data1.getPersons()));
+					data = dataSample;
+					table.contentProviderProperty().set(new EListGridContentProvider<Person>(data, PersonPackage.Literals.ROOT__PERSONS));
 				}
 			}
 		});
@@ -122,7 +150,8 @@ public class PersonSample {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (bMassData.getSelection()) {
-					table.contentProviderProperty().set(new ListGridContentProvider<Person>(data2.getPersons()));
+					data = dataSampleMass;
+					table.contentProviderProperty().set(new EListGridContentProvider<Person>(data, PersonPackage.Literals.ROOT__PERSONS));
 				}
 			}
 		});
