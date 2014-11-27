@@ -33,6 +33,7 @@ import at.bestsolution.framework.grid.func.AutoFilterEntry;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 import at.bestsolution.framework.grid.func.ExportValueFunction;
+import at.bestsolution.framework.grid.func.MetaDataFunction;
 
 /**
  * Column of a grid
@@ -318,8 +319,18 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	Property<@NonNull ExportValueFunction<@NonNull R, @Nullable C>> exportValueFunctionProperty();
 
 	/**
+	 * Function consulted to retrieve
+	 * <p>
+	 * Property value is initialized with a default function who returns no meta data
+	 * </p>
+	 * @return the property
+	 */
+	@NonNull
+	Property<@NonNull MetaDataFunction<@NonNull R,@NonNull C>> metaDataFunctionProperty();
+
+	/**
 	 * Grid which contains this column
-	 * 
+	 *
 	 * @return containing grid
 	 */
 	@NonNull
@@ -332,7 +343,7 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 
 	/**
 	 * request to update the cell for a given element
-	 * 
+	 *
 	 * @param element
 	 *            the element to update
 	 */
@@ -346,7 +357,7 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	/**
 	 * get export value for the given element using
 	 * {@link #exportValueFunctionProperty()}
-	 * 
+	 *
 	 * @param element
 	 *            the element
 	 * @return the export value
