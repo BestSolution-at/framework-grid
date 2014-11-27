@@ -175,7 +175,7 @@ public class Util {
 			@NonNull Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textFunctionProperty) {
 		return (row, cellValue, filterData) -> {
 			CharSequence cellStringValue = textFunctionProperty.get().apply(row, cellValue);
-			if (cellStringValue == null || cellStringValue.toString().isEmpty()) {
+			if (cellStringValue == null || cellStringValue.length() == 0) {
 				return true;
 			}
 			return false;

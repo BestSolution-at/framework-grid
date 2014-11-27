@@ -213,8 +213,8 @@ public class SWTGridContentHandler<R> {
 	 */
 	public void filter() {
 		final List<@NonNull R> elementsToAdd = new ArrayList<>();
+		final List<@NonNull R> elementsToRemove = new ArrayList<>();
 		for (R element : dataByR.keySet()) {
-			GridItem item = dataByR.get(element);
 			boolean visible = true;
 			for (@NonNull
 			XGridColumn<@NonNull R, @Nullable ?> xcol : grid.getColumns()) {
@@ -224,19 +224,19 @@ public class SWTGridContentHandler<R> {
 					break;
 				}
 			}
+			GridItem item = dataByR.get(element);
 			if (visible) {
 				if (item == null) {
 					elementsToAdd.add(element);
 				}
 			} else {
 				if (item != null) {
-					item.dispose();
-					dataByR.put(element, null);
-					dataByCol.remove(item);
+					elementsToRemove.add(element);
 				}
 			}
 		}
 		insertItems(elementsToAdd);
+		removeItems(elementsToRemove);
 	}
 
 	/**
