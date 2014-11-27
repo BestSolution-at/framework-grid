@@ -41,7 +41,7 @@ public class XGridContentProviderCF extends ContextFunction {
 		if( contentProvider.isPresent() ) {
 			String descriptor = part.getPersistedState().get("xgrid.content"); //$NON-NLS-1$
 			if( descriptor != null ) {
-				contentProvider.get().getContentProvider(descriptor);
+				return contentProvider.get().getContentProvider(descriptor);
 			}
 			return null;
 		}
