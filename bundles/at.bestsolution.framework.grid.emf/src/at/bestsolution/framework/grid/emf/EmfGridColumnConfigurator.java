@@ -67,7 +67,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 
 	private final @NonNull TranslationFunction translationFunction;
 
-	private ChangeListener<@NonNull Locale> localeChangelistener;
+	private final ChangeListener<@NonNull Locale> localeChangelistener = this::handleLocaleChanged;
 
 	/**
 	 * EMF Model column configurator
@@ -93,15 +93,13 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 * configuration changes
 	 */
 	private void registerPropertyListeners() {
-		localeChangelistener = new ChangeListener<@NonNull Locale>() {
-			@Override
-			public void valueChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
-				if (!oldValue.equals(newValue)) {
-					applyHeaderTitle();
-				}
-			}
-		};
 		column.getGrid().localeProperty().addChangeListener(localeChangelistener);
+	}
+
+	private void handleLocaleChanged(Property<@NonNull Locale> property, @NonNull Locale oldValue, @NonNull Locale newValue) {
+		if (!oldValue.equals(newValue)) {
+			applyHeaderTitle();
+		}
 	}
 
 	/**
@@ -180,7 +178,8 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	void applyTextFunction() {
 		Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textFunctionProperty = column
 				.textFunctionProperty();
-		CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> textFunction = createTextFunction(config.getColumn().getCellTextFunction());
+		CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> textFunction = createTextFunction(config.getColumn()
+				.getCellTextFunction());
 		if (textFunction != null) {
 			textFunctionProperty.set(textFunction);
 		} else {
