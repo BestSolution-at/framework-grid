@@ -121,7 +121,7 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 * @return the default selection
 	 */
 	@NonNull
-	Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty();
+	Property<@NonNull Selection<@NonNull R, @NonNull R>> selectionProperty();
 
 	/**
 	 * Selection
