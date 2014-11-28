@@ -21,10 +21,7 @@
  */
 package at.bestsolution.framework.grid.personsample.model.person;
 
-import java.math.BigDecimal;
-
 import java.util.Date;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -38,11 +35,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.Person#getFirstname <em>Firstname</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.Person#getLastname <em>Lastname</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.Person#getGender <em>Gender</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.Person#getPartner <em>Partner</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.Person#getMarried <em>Married</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.Person#getBirthdate <em>Birthdate</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.Person#getWeight <em>Weight</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.Person#getAddress <em>Address</em>}</li>
- *   <li>{@link at.bestsolution.framework.grid.personsample.model.person.Person#getIncome <em>Income</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,13 +48,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Person extends EObject {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = "  Copyright (c) 2014 BestSolution.at EDV Systemhaus GmbH/Austria,\n  http://www.BestSolution.at\n \n  This file is part of framework-grid which was developed with funding\n  from DI Christoph Hermann - InformationsTechnologie Beratung Hermann\n  /Austria.\n \n  Licensed under the Apache License, Version 2.0 (the \"License\");\n  you may not use this file except in compliance with the License.\n  You may obtain a copy of the License at\n \n      http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing, software\n  distributed under the License is distributed on an \"AS IS\" BASIS,\n  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n  See the License for the specific language governing permissions and\n  limitations under the License.\n";
-
 	/**
 	 * Returns the value of the '<em><b>Firstname</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -138,6 +128,32 @@ public interface Person extends EObject {
 	 * @generated
 	 */
 	void setGender(Gender value);
+
+	/**
+	 * Returns the value of the '<em><b>Partner</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Partner</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Partner</em>' reference.
+	 * @see #setPartner(Person)
+	 * @see at.bestsolution.framework.grid.personsample.model.person.PersonPackage#getPerson_Partner()
+	 * @model
+	 * @generated
+	 */
+	Person getPartner();
+
+	/**
+	 * Sets the value of the '{@link at.bestsolution.framework.grid.personsample.model.person.Person#getPartner <em>Partner</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Partner</em>' reference.
+	 * @see #getPartner()
+	 * @generated
+	 */
+	void setPartner(Person value);
 
 	/**
 	 * Returns the value of the '<em><b>Married</b></em>' attribute.
@@ -242,31 +258,5 @@ public interface Person extends EObject {
 	 * @generated
 	 */
 	void setAddress(Address value);
-
-	/**
-	 * Returns the value of the '<em><b>Income</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Income</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Income</em>' attribute.
-	 * @see #setIncome(BigDecimal)
-	 * @see at.bestsolution.framework.grid.personsample.model.person.PersonPackage#getPerson_Income()
-	 * @model
-	 * @generated
-	 */
-	BigDecimal getIncome();
-
-	/**
-	 * Sets the value of the '{@link at.bestsolution.framework.grid.personsample.model.person.Person#getIncome <em>Income</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Income</em>' attribute.
-	 * @see #getIncome()
-	 * @generated
-	 */
-	void setIncome(BigDecimal value);
 
 } // Person

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Component
+Bundle-SymbolicName: at.bestsolution.framework.grid.component
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: javax.annotation;version="1.2.0",
+ javax.inject;version="1.0.0"
+Require-Bundle: at.bestsolution.framework.grid;bundle-version="1.0.0",
+ org.eclipse.jdt.annotation;bundle-version="2.0.0";resolution:=optional,
+ org.eclipse.e4.core.di;bundle-version="1.4.0"
+Export-Package: at.bestsolution.framework.grid.component

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmi:id="_0nzMoHZGEeSRHqVuw0scdA" elementId="org.eclipse.e4.ide.application" bindingContexts="_0nzMqXZGEeSRHqVuw0scdA">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_0nzMoXZGEeSRHqVuw0scdA" label="at.bestsolution.framework.grid.e4.sample" width="500" height="400">
+    <children xsi:type="basic:PartSashContainer" xmi:id="_9CNNIHZGEeSRHqVuw0scdA" elementId="at.bestsolution.framework.grid.e4.sample.partsashcontainer.0" horizontal="true">
+      <children xsi:type="basic:PartStack" xmi:id="__JlwYHZGEeSRHqVuw0scdA" elementId="at.bestsolution.framework.grid.e4.sample.partstack.0">
+        <children xsi:type="basic:Part" xmi:id="__kYO8HZGEeSRHqVuw0scdA" elementId="at.bestsolution.framework.grid.e4.sample.part.0" contributionURI="bundleclass://at.bestsolution.framework.grid.component/at.bestsolution.framework.grid.component.XGridTableComponent">
+          <persistedState key="xgrid.configuration" value="emf-resource:platform:/plugin/at.bestsolution.framework.grid.e4.sample/config/sampleConfig.xmi"/>
+          <persistedState key="xgrid.content" value="sample:platform:/plugin/at.bestsolution.framework.grid.e4.sample/sampledata/sampleData.xmi"/>
+        </children>
+      </children>
+    </children>
+  </children>
+  <rootContext xmi:id="_0nzMqXZGEeSRHqVuw0scdA" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
+    <children xmi:id="_0nzMqnZGEeSRHqVuw0scdA" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
+    <children xmi:id="_0nzMq3ZGEeSRHqVuw0scdA" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
+  </rootContext>
+  <addons xmi:id="_0nzMonZGEeSRHqVuw0scdA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_0nzMo3ZGEeSRHqVuw0scdA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_0nzMpHZGEeSRHqVuw0scdA" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_0nzMpXZGEeSRHqVuw0scdA" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_0nzMpnZGEeSRHqVuw0scdA" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+  <addons xmi:id="_0nzMp3ZGEeSRHqVuw0scdA" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_0nzMqHZGEeSRHqVuw0scdA" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+</application:Application>

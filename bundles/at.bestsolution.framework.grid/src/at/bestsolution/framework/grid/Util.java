@@ -28,7 +28,6 @@ import java.util.function.Supplier;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import at.bestsolution.framework.grid.XGrid.Selection;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 
@@ -38,27 +37,22 @@ import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
  * @since 1.0
  */
 public class Util {
-	static class EmptySelection<R, O> implements Selection<R, O> {
+	static class EmptySelection<R> implements XSelection<R> {
 
 		@Override
-		public @Nullable O getFirst() {
+		public @Nullable R getFirst() {
 			return null;
 		}
 
 		@SuppressWarnings("null")
 		@Override
-		public @NonNull List<@NonNull O> asList() {
+		public @NonNull List<@NonNull R> asList() {
 			return Collections.emptyList();
 		}
 
 		@Override
 		public boolean isEmpty() {
 			return true;
-		}
-
-		@Override
-		public <C> @NonNull Selection<R, XGridCell<R, C>> asCellSelection() {
-			return new EmptySelection<>();
 		}
 
 		@SuppressWarnings("null")
@@ -73,7 +67,7 @@ public class Util {
 	 *            the row type
 	 * @return an empty selection
 	 */
-	public static <R> @NonNull Selection<R, R> emptySelection() {
+	public static <R> @NonNull XSelection<R> emptySelection() {
 		return new EmptySelection<>();
 	}
 

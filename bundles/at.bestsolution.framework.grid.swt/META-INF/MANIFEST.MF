@@ -10,4 +10,4 @@ Import-Package: at.bestsolution.framework.grid,
 Require-Bundle: org.eclipse.jdt.annotation;bundle-version="2.0.0";resolution:=optional,
  org.eclipse.nebula.widgets.grid;bundle-version="1.0.0",
  org.eclipse.swt
-Export-Package: at.bestsolution.framework.grid.swt;x-internal:=true
+Export-Package: at.bestsolution.framework.grid.swt;x-friends:="at.bestsolution.framework.grid.swt.e4"

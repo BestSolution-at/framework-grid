@@ -20,7 +20,6 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.jdt.annotation.NonNull;
@@ -35,48 +34,24 @@ import org.eclipse.jdt.annotation.Nullable;
  *            the cell type
  * @since 1.0
  */
-public final class XGridCell<R, C> implements XGridMetaDataProvider {
+public interface XGridCell<R, C> extends XGridMetaDataProvider {
 	/**
-	 * The row value
+	 * @return the row value
 	 */
-	public final @NonNull R rowValue;
+	public @NonNull R getRowValue();
+
 	/**
-	 * The cell value might be <code>null</code>
+	 * @return the cell value, might be <code>null</code>
 	 */
-	public final @Nullable C cellValue;
+	public @Nullable C getCellValue();
+
 	/**
-	 * The column
+	 * @return the column
 	 */
-	public final @NonNull XGridColumn<R, C> column;
+	public @NonNull XGridColumn<R, C> getColumn();
 
 	/**
 	 * List of meta informations
 	 */
-	private @NonNull List<@NonNull XGridMetaData> metaData;
-
-	/**
-	 * Create a cell
-	 *
-	 * @param rowValue
-	 *            the row value, must not be <code>null</code>
-	 * @param cellValue
-	 *            the cell value, might be <code>null</code>
-	 * @param column
-	 *            the column, must nod be <code>null</code>
-	 * @param metaData
-	 *            the meta data
-	 */
-	public XGridCell(@NonNull R rowValue, @Nullable C cellValue, @NonNull XGridColumn<R, C> column,
-			@NonNull List<@NonNull XGridMetaData> metaData) {
-		this.rowValue = rowValue;
-		this.cellValue = cellValue;
-		this.column = column;
-		this.metaData = metaData;
-	}
-
-	@SuppressWarnings("null")
-	@Override
-	public @NonNull List<@NonNull XGridMetaData> getMetaData() {
-		return Collections.unmodifiableList(metaData);
-	}
+	public @NonNull List<@NonNull XGridMetaData> getMetaData();
 }

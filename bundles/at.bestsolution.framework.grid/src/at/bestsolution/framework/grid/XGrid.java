@@ -121,44 +121,7 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 * @return the default selection
 	 */
 	@NonNull
-	Property<@NonNull Selection<@Nullable R, @Nullable R>> selectionProperty();
-
-	/**
-	 * Selection
-	 *
-	 * @param <R>
-	 *            the row value type
-	 *
-	 * @param <O>
-	 *            the selection value type
-	 *
-	 * @since 1.0
-	 */
-	interface Selection<R, O> extends XGridMetaDataProvider {
-		/**
-		 * @return the first entry or <code>null</code> if empty
-		 */
-		@Nullable
-		O getFirst();
-
-		/**
-		 * @return as a list
-		 */
-		@NonNull
-		List<@NonNull O> asList();
-
-		/**
-		 * @return check if empty
-		 */
-		boolean isEmpty();
-
-		/**
-		 * @param <C>
-		 *            the cell type
-		 * @return retrieve as cell selection
-		 */
-		<C> @NonNull Selection<R, XGridCell<R, C>> asCellSelection();
-	}
+	Property<@NonNull XSelection<@NonNull R>> selectionProperty();
 
 	/**
 	 * @return list of columns

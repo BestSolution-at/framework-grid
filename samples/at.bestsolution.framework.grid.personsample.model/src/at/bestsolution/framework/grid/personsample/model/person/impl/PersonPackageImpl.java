@@ -50,13 +50,6 @@ public class PersonPackageImpl extends EPackageImpl implements PersonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final String copyright = "  Copyright (c) 2014 BestSolution.at EDV Systemhaus GmbH/Austria,\n  http://www.BestSolution.at\n \n  This file is part of framework-grid which was developed with funding\n  from DI Christoph Hermann - InformationsTechnologie Beratung Hermann\n  /Austria.\n \n  Licensed under the Apache License, Version 2.0 (the \"License\");\n  you may not use this file except in compliance with the License.\n  You may obtain a copy of the License at\n \n      http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing, software\n  distributed under the License is distributed on an \"AS IS\" BASIS,\n  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n  See the License for the specific language governing permissions and\n  limitations under the License.\n";
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass rootEClass = null;
 
 	/**
@@ -219,8 +212,8 @@ public class PersonPackageImpl extends EPackageImpl implements PersonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPerson_Married() {
-		return (EAttribute)personEClass.getEStructuralFeatures().get(3);
+	public EReference getPerson_Partner() {
+		return (EReference)personEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -228,7 +221,7 @@ public class PersonPackageImpl extends EPackageImpl implements PersonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPerson_Birthdate() {
+	public EAttribute getPerson_Married() {
 		return (EAttribute)personEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -237,7 +230,7 @@ public class PersonPackageImpl extends EPackageImpl implements PersonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPerson_Weight() {
+	public EAttribute getPerson_Birthdate() {
 		return (EAttribute)personEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -246,8 +239,8 @@ public class PersonPackageImpl extends EPackageImpl implements PersonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPerson_Address() {
-		return (EReference)personEClass.getEStructuralFeatures().get(6);
+	public EAttribute getPerson_Weight() {
+		return (EAttribute)personEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -255,8 +248,8 @@ public class PersonPackageImpl extends EPackageImpl implements PersonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPerson_Income() {
-		return (EAttribute)personEClass.getEStructuralFeatures().get(7);
+	public EReference getPerson_Address() {
+		return (EReference)personEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -376,11 +369,11 @@ public class PersonPackageImpl extends EPackageImpl implements PersonPackage {
 		createEAttribute(personEClass, PERSON__FIRSTNAME);
 		createEAttribute(personEClass, PERSON__LASTNAME);
 		createEAttribute(personEClass, PERSON__GENDER);
+		createEReference(personEClass, PERSON__PARTNER);
 		createEAttribute(personEClass, PERSON__MARRIED);
 		createEAttribute(personEClass, PERSON__BIRTHDATE);
 		createEAttribute(personEClass, PERSON__WEIGHT);
 		createEReference(personEClass, PERSON__ADDRESS);
-		createEAttribute(personEClass, PERSON__INCOME);
 
 		addressEClass = createEClass(ADDRESS);
 		createEAttribute(addressEClass, ADDRESS__STREET);
@@ -437,11 +430,11 @@ public class PersonPackageImpl extends EPackageImpl implements PersonPackage {
 		initEAttribute(getPerson_Firstname(), theEcorePackage.getEString(), "firstname", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPerson_Lastname(), theEcorePackage.getEString(), "lastname", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPerson_Gender(), this.getGender(), "gender", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPerson_Partner(), this.getPerson(), null, "partner", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPerson_Married(), theEcorePackage.getEBooleanObject(), "married", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPerson_Birthdate(), theEcorePackage.getEDate(), "birthdate", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPerson_Weight(), theEcorePackage.getEDoubleObject(), "weight", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPerson_Address(), this.getAddress(), null, "address", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPerson_Income(), theEcorePackage.getEBigDecimal(), "income", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(addressEClass, Address.class, "Address", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAddress_Street(), theEcorePackage.getEString(), "street", null, 0, 1, Address.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

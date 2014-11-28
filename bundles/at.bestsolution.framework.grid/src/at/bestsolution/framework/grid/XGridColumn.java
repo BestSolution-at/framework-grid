@@ -326,7 +326,7 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 * @return the property
 	 */
 	@NonNull
-	Property<@NonNull MetaDataFunction<@NonNull R,@NonNull C>> metaDataFunctionProperty();
+	Property<@NonNull MetaDataFunction<@NonNull R,@Nullable C>> metaDataFunctionProperty();
 
 	/**
 	 * Grid which contains this column

@@ -18,22 +18,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package at.bestsolution.framework.grid;
+package at.bestsolution.framework.grid.component;
 
-import at.bestsolution.framework.grid.func.TranslationFunction;
+import java.util.Optional;
+
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
- * Factory to create a grid
- *
- * @since 1.0
+ * Look up a provider based on the descriptor
  */
-public interface XGridFactory {
+public interface XGridContentProviderProviderLookup {
 	/**
-	 * Create a grid instance
+	 * Lookup a provider
 	 *
-	 * @param translation
-	 *            function used to translate the ui
-	 * @return the grid
+	 * @param descriptor
+	 *            the decriptor a provider is searched for
+	 * @return the provider wrapped in a optional
 	 */
-	public <R> XGrid<R, XGridContentProvider<R>> createGrid(TranslationFunction translation);
+	public @NonNull Optional<XGridContentProviderProvider> getContentProvider(String descriptor);
 }

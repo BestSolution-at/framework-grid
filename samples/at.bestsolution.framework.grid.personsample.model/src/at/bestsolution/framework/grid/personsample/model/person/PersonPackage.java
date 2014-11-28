@@ -46,13 +46,6 @@ import org.eclipse.emf.ecore.EReference;
  */
 public interface PersonPackage extends EPackage {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String copyright = "  Copyright (c) 2014 BestSolution.at EDV Systemhaus GmbH/Austria,\n  http://www.BestSolution.at\n \n  This file is part of framework-grid which was developed with funding\n  from DI Christoph Hermann - InformationsTechnologie Beratung Hermann\n  /Austria.\n \n  Licensed under the Apache License, Version 2.0 (the \"License\");\n  you may not use this file except in compliance with the License.\n  You may obtain a copy of the License at\n \n      http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing, software\n  distributed under the License is distributed on an \"AS IS\" BASIS,\n  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n  See the License for the specific language governing permissions and\n  limitations under the License.\n";
-
-	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -168,13 +161,22 @@ public interface PersonPackage extends EPackage {
 	int PERSON__GENDER = 2;
 
 	/**
+	 * The feature id for the '<em><b>Partner</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERSON__PARTNER = 3;
+
+	/**
 	 * The feature id for the '<em><b>Married</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PERSON__MARRIED = 3;
+	int PERSON__MARRIED = 4;
 
 	/**
 	 * The feature id for the '<em><b>Birthdate</b></em>' attribute.
@@ -183,7 +185,7 @@ public interface PersonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PERSON__BIRTHDATE = 4;
+	int PERSON__BIRTHDATE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Weight</b></em>' attribute.
@@ -192,7 +194,7 @@ public interface PersonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PERSON__WEIGHT = 5;
+	int PERSON__WEIGHT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Address</b></em>' containment reference.
@@ -201,16 +203,7 @@ public interface PersonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PERSON__ADDRESS = 6;
-
-	/**
-	 * The feature id for the '<em><b>Income</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PERSON__INCOME = 7;
+	int PERSON__ADDRESS = 7;
 
 	/**
 	 * The number of structural features of the '<em>Person</em>' class.
@@ -427,6 +420,17 @@ public interface PersonPackage extends EPackage {
 	EAttribute getPerson_Gender();
 
 	/**
+	 * Returns the meta object for the reference '{@link at.bestsolution.framework.grid.personsample.model.person.Person#getPartner <em>Partner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Partner</em>'.
+	 * @see at.bestsolution.framework.grid.personsample.model.person.Person#getPartner()
+	 * @see #getPerson()
+	 * @generated
+	 */
+	EReference getPerson_Partner();
+
+	/**
 	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.personsample.model.person.Person#getMarried <em>Married</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -469,17 +473,6 @@ public interface PersonPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPerson_Address();
-
-	/**
-	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.personsample.model.person.Person#getIncome <em>Income</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Income</em>'.
-	 * @see at.bestsolution.framework.grid.personsample.model.person.Person#getIncome()
-	 * @see #getPerson()
-	 * @generated
-	 */
-	EAttribute getPerson_Income();
 
 	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.personsample.model.person.Address <em>Address</em>}'.
@@ -661,6 +654,14 @@ public interface PersonPackage extends EPackage {
 		EAttribute PERSON__GENDER = eINSTANCE.getPerson_Gender();
 
 		/**
+		 * The meta object literal for the '<em><b>Partner</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PERSON__PARTNER = eINSTANCE.getPerson_Partner();
+
+		/**
 		 * The meta object literal for the '<em><b>Married</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -691,14 +692,6 @@ public interface PersonPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PERSON__ADDRESS = eINSTANCE.getPerson_Address();
-
-		/**
-		 * The meta object literal for the '<em><b>Income</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PERSON__INCOME = eINSTANCE.getPerson_Income();
 
 		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.personsample.model.person.impl.AddressImpl <em>Address</em>}' class.

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="at.bestsolution.framework.grid.component.emf.configurator">
+   <implementation class="at.bestsolution.framework.grid.component.emf.internal.EmfXGridTableConfigurator"/>
+   <service>
+      <provide interface="at.bestsolution.framework.grid.component.XGridTableConfigurator"/>
+   </service>
+</scr:component>

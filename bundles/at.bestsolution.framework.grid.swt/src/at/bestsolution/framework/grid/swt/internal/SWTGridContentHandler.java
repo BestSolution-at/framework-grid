@@ -34,11 +34,11 @@ import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.SWT;
 
 import at.bestsolution.framework.grid.Property;
-import at.bestsolution.framework.grid.XGrid.Selection;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.XGridContentProvider.ContentChangeListener;
 import at.bestsolution.framework.grid.XGridContentProvider.ContentChangeType;
+import at.bestsolution.framework.grid.XSelection;
 import at.bestsolution.framework.grid.swt.SWTGridColumn;
 import at.bestsolution.framework.grid.swt.SWTGridTable;
 
@@ -69,7 +69,7 @@ public class SWTGridContentHandler<R> {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void registerPropertyListeners() {
 		defaultSortProperty.addChangeListener((property, oldValue, newValue) -> resetContent(contentProvider, contentProvider));
@@ -78,7 +78,7 @@ public class SWTGridContentHandler<R> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param newContentProvider
 	 *            the new content provider
 	 */
@@ -90,7 +90,7 @@ public class SWTGridContentHandler<R> {
 		}
 		contentProvider = newContentProvider;
 
-		Selection<@Nullable R, @Nullable R> previousSelection = grid.selectionProperty().get();
+		XSelection<@NonNull R> previousSelection = grid.selectionProperty().get();
 		dataByR.clear();
 		dataByCol.clear();
 		nebulaGrid.disposeAllItems();

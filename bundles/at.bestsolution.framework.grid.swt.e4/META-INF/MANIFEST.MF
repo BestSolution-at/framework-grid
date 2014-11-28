@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: E4
+Bundle-SymbolicName: at.bestsolution.framework.grid.swt.e4
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: at.bestsolution.framework.grid.component,
+ at.bestsolution.framework.grid,
+ org.eclipse.swt,
+ at.bestsolution.framework.grid.swt,
+ org.eclipse.nebula.widgets.grid;bundle-version="1.0.0",
+ org.eclipse.e4.core.contexts,
+ org.eclipse.e4.core.di;bundle-version="1.4.0"
+Import-Package: javax.inject;version="1.0.0"
+Service-Component: OSGI-INF/services/factory.xml
+Bundle-ActivationPolicy: lazy

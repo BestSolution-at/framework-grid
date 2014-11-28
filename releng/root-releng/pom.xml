@@ -31,6 +31,11 @@
 		<module>../../bundles/at.bestsolution.framework.grid.emf</module>
 		<module>../../bundles/at.bestsolution.framework.grid.swt</module>
 
+		<module>../../bundles/at.bestsolution.framework.grid.component</module>
+		<module>../../bundles/at.bestsolution.framework.grid.component.e4</module>
+		<module>../../bundles/at.bestsolution.framework.grid.component.emf</module>
+		<module>../../bundles/at.bestsolution.framework.grid.swt.e4</module>
+
 		<!-- Features -->
 		<module>../../features/at.bestsolution.framework.grid.swt.feature</module>
 		<module>../../features/at.bestsolution.framework.grid.model.feature</module>
