@@ -70,7 +70,7 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 		selectionListener = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				column.getContentHandler().filter();
+				column.getContentHandler().resetContent();
 			}
 		};
 		combo.addSelectionListener(selectionListener);

@@ -45,7 +45,6 @@ import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.XGridMetaData;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.XSelection;
-import at.bestsolution.framework.grid.func.MetaDataFunction;
 import at.bestsolution.framework.grid.swt.internal.SWTGridCell;
 import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
 import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
@@ -81,7 +80,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	public SWTGridTable(Composite parent, int style) {
 		nebulaGrid = new Grid(parent, style);
 		nebulaGrid.setHeaderVisible(true);
-		contentHandler = new SWTGridContentHandler<R>(this, nebulaGrid);
+		contentHandler = new SWTGridContentHandler<R>(this);
 		registerSelectionListener();
 		registerPropertyListeners();
 	}

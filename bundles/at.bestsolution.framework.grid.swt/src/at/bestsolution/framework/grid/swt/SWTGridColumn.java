@@ -275,7 +275,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		cellValueFunctionProperty.addChangeListener((property, oldValue, newValue) -> requestUpdate());
 		sortingProperty.addChangeListener((property, oldValue, newValue) -> applySorting(property, oldValue, newValue));
 		autoFilterTypeProperty.addChangeListener((property, oldValue, newValue) -> applyFilterType(oldValue, newValue));
-		autoFilterFreeTextProperty.addChangeListener((property, oldValue, newValue) -> grid.getContentHandler().filter());
+		autoFilterFreeTextProperty.addChangeListener((property, oldValue, newValue) -> grid.getContentHandler().resetContent());
 	}
 
 	private void applyAutoWidth(Boolean autoWidth) {

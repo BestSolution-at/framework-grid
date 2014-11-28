@@ -85,12 +85,16 @@ public class EListGridContentProvider<@NonNull R> implements XGridContentProvide
 
 	@Override
 	public void addChangeListener(ContentChangeListener<@NonNull R> listener) {
-		listenerList.add(listener);
+		synchronized (listenerList) {
+			listenerList.add(listener);
+		}
 	}
 
 	@Override
 	public void removeChangeListener(ContentChangeListener<@NonNull R> listener) {
-		listenerList.remove(listener);
+		synchronized (listenerList) {
+			listenerList.remove(listener);
+		}
 	}
 
 	void notifyListeners(@NonNull ContentChangeType type, @NonNull List<@NonNull R> values) {
@@ -98,7 +102,7 @@ public class EListGridContentProvider<@NonNull R> implements XGridContentProvide
 		@NonNull
 		List<@NonNull R> unmodifiableList = Collections.unmodifiableList(values);
 		synchronized (listenerList) {
-			for (ContentChangeListener<R> listener : listenerList) {
+			for (ContentChangeListener<R> listener : new ArrayList<>(listenerList)) {
 				listener.contentChanged(type, unmodifiableList);
 			}
 		}
