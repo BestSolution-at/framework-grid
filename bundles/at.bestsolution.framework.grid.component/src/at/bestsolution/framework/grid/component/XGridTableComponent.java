@@ -45,9 +45,10 @@ public final class XGridTableComponent<O> {
 	private XConfiguredGridTable<O> configuredGrid;
 	private XGridTableConfiguration configuration;
 	private XGridContentProvider<O> contentProvider;
-	private XGridEventPublisher publisher;
+	private XGridEventPublisher eventPublisher;
 	private XGridTable<O> grid;
 	private XGridTableConfigurator configurator;
+	private XSelectionPublisher selectionPublisher;
 
 	/**
 	 * Initialize the component
@@ -56,13 +57,16 @@ public final class XGridTableComponent<O> {
 	 *            the factory to create the grid
 	 * @param configurator
 	 *            the configurator to use
-	 * @param publisher
-	 *            the publisher for grid informations
+	 * @param eventPublisher
+	 *            the event publisher for grid informations
+	 * @param selectionPublisher
+	 *            publisher for selections
 	 */
 	@PostConstruct
 	public final void init(@NonNull XGridFactory factory, @NonNull XGridTableConfigurator configurator,
-			@NonNull XGridEventPublisher publisher) {
-		this.publisher = publisher;
+			@NonNull XGridEventPublisher eventPublisher, @NonNull XSelectionPublisher selectionPublisher) {
+		this.eventPublisher = eventPublisher;
+		this.selectionPublisher = selectionPublisher;
 		this.configurator = configurator;
 		grid = factory.createGridTable();
 
@@ -73,18 +77,19 @@ public final class XGridTableComponent<O> {
 
 	private void handleSelectionChanged(Property<XSelection<@NonNull O>> property, XSelection<@NonNull O> oldValue,
 			XSelection<@NonNull O> newValue) {
-		publisher.publish(XGridEventPublisher.SELECTION_CHANGED, newValue);
+		selectionPublisher.publishSelection(newValue);
+		eventPublisher.publish(XGridEventPublisher.SELECTION_CHANGED, newValue);
 		if (newValue != null) {
 			if (newValue instanceof XCellSelection) {
 				XCellSelection<@NonNull O> selection = (@NonNull XCellSelection<@NonNull O>) newValue;
 				for (XGridCell<@NonNull O, Object> c : selection.getCells()) {
 					for (XGridMetaData d : c.getMetaData()) {
-						publisher.publish(d.getTopic(), d);
+						eventPublisher.publish(d.getTopic(), d);
 					}
 				}
 			} else {
 				for (XGridMetaData d : newValue.getMetaData()) {
-					publisher.publish(d.getTopic(), d);
+					eventPublisher.publish(d.getTopic(), d);
 				}
 			}
 		}
