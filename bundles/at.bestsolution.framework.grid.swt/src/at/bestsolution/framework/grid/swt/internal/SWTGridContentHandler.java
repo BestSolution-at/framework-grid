@@ -123,7 +123,6 @@ public class SWTGridContentHandler<R> {
 		clearData();
 		grid.getNebulaGrid().disposeAllItems();
 		if (newContentProvider != null) {
-			newContentProvider.addChangeListener(contentChangeListener);
 			insertData(newContentProvider);
 			createGridItems();
 			for (R element : previousSelection.asList()) {
