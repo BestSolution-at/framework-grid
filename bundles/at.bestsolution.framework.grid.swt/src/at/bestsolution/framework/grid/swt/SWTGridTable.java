@@ -34,16 +34,19 @@ import org.eclipse.nebula.widgets.grid.Grid;
 import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Util;
-import at.bestsolution.framework.grid.XGrid;
+import at.bestsolution.framework.grid.XCellSelection;
 import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.XGridMetaData;
 import at.bestsolution.framework.grid.XGridTable;
+import at.bestsolution.framework.grid.XSelection;
+import at.bestsolution.framework.grid.func.MetaDataFunction;
 import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
 import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
 
@@ -55,11 +58,11 @@ import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
  */
 public class SWTGridTable<R> implements XGridTable<R> {
 	@SuppressWarnings("all")
-	private @NonNull Property<@NonNull SelectionMode> selectionModeProperty = new SimpleProperty<>(SelectionMode.SINGLE_ROW);
+	@NonNull Property<@NonNull SelectionMode> selectionModeProperty = new SimpleProperty<>(SelectionMode.SINGLE_ROW);
 	@NonNull
 	Property<@Nullable XGridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(null);
 	@NonNull
-	Property<@NonNull Selection<@NonNull R, @NonNull R>> selectionProperty = new SimpleProperty<>(Util.emptySelection());
+	Property<@NonNull XSelection<@NonNull R>> selectionProperty = new SimpleProperty<>(Util.emptySelection());
 	@SuppressWarnings("null")
 	private @NonNull Property<@NonNull Locale> localeProperty = new SimpleProperty<>(Locale.getDefault());
 
@@ -108,7 +111,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	}
 
 	@Override
-	public @NonNull Property<@NonNull Selection<@NonNull R, @NonNull R>> selectionProperty() {
+	public @NonNull Property<@NonNull XSelection<@NonNull R>> selectionProperty() {
 		return selectionProperty;
 	}
 
@@ -157,8 +160,18 @@ public class SWTGridTable<R> implements XGridTable<R> {
 					selectionProperty.set(Util.emptySelection());
 				} else if (selection.length == 1) {
 					R selectedRow = getContentHandler().get(selection[0]);
-					XGridColumn<R, R> b = null; // TODO
-					selectionProperty.set(new SimpleSelection<R, R>(selectedRow, b, selectedRow));
+					if( selectionModeProperty.get() == SelectionMode.SINGLE_ROW ) {
+						selectionProperty.set(new SimpleSelection<R>(Collections.singletonList(selectedRow), columns));
+					} else {
+						Point[] cellSelection = nebulaGrid.getCellSelection();
+						List<XGridCell<R, ?>> cellList = new ArrayList<XGridCell<R,?>>();
+						for( Point p : cellSelection ) {
+							Object v = columns.get(p.x).cellValueFunctionProperty().get();
+							List<@NonNull XGridMetaData> metaData = ((MetaDataFunction<R, Object>)columns.get(p.x).metaDataFunctionProperty().get()).getMetaData(selectedRow, v);
+							cellList.add(new XGridCell<R, Object>(selectedRow, v, (@NonNull XGridColumn<R, Object>) columns.get(p.x), metaData));
+						}
+						selectionProperty.set(new SimpleCellSelection<R>(cellList,Collections.singletonList(selectedRow),columns));
+					}
 				} else {
 					// multiple row selection is not supported
 					e.doit = false;
@@ -177,26 +190,24 @@ public class SWTGridTable<R> implements XGridTable<R> {
 		return Collections.unmodifiableList(columns);
 	}
 
-	static class SimpleSelection<R, O> implements Selection<R, O> {
-		private final @NonNull R r;
-		private final @NonNull XGridColumn<R, O> column;
-		private final O c;
+	static class SimpleSelection<R> implements XSelection<R> {
+		private final @NonNull List<R> rowList;
+		private final @NonNull List<SWTGridColumn<R,?>> columnList;
 
-		SimpleSelection(@NonNull R r,@NonNull XGridColumn<R, O> column, O c) {
-			this.r = r;
-			this.column = column;
-			this.c = c;
+		SimpleSelection(@NonNull List<@NonNull R> rowList,@NonNull List<@NonNull SWTGridColumn<R, ?>> columnList) {
+			this.rowList = rowList;
+			this.columnList = columnList;
 		}
 
 		@Override
-		public O getFirst() {
-			return c;
+		public @Nullable R getFirst() {
+			return rowList.isEmpty() ? null : rowList.get(0);
 		}
 
 		@SuppressWarnings("null")
 		@Override
-		public @NonNull List<@NonNull O> asList() {
-			return Arrays.asList(c);
+		public @NonNull List<@NonNull R> asList() {
+			return Collections.unmodifiableList(rowList);
 		}
 
 		@Override
@@ -204,18 +215,35 @@ public class SWTGridTable<R> implements XGridTable<R> {
 			return false;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
-		public <C> XGrid.@NonNull Selection<R, XGridCell<R, C>> asCellSelection() {
-			@Nullable
-			XGridCell<R, C> a = null;
-			XGridColumn<R, XGridCell<R, C>> col = null;
-			return new SimpleSelection<R, XGridCell<R, C>>(r, col, a);
+		public @NonNull List<@NonNull XGridMetaData> getMetaData() {
+			List<@NonNull XGridMetaData> rv = new ArrayList<>();
+			for( R r : rowList ) {
+				for( XGridColumn<R,?> c : columnList ) {
+					List<@NonNull XGridMetaData> data = ((XGridColumn<R,Object>)c).metaDataFunctionProperty().get().getMetaData(r, c.cellValueFunctionProperty().get().apply(r));
+					rv.addAll(data);
+				}
+			}
+			return rv;
+		}
+	}
+
+	static class SimpleCellSelection<R> extends SimpleSelection<R> implements XCellSelection<R> {
+		//TODO Should we do that lazy??
+		private List<XGridCell<R, ?>> cells;
+
+		SimpleCellSelection(List<XGridCell<R, ?>> cells, @NonNull List<@NonNull R> rowList, @NonNull List<@NonNull SWTGridColumn<R, ?>> columnList) {
+			super(rowList, columnList);
+			this.cells = cells;
 		}
 
 		@Override
-		public @NonNull List<@NonNull XGridMetaData> getMetaData() {
-			return column.metaDataFunctionProperty().get().getMetaData(r, c);
+		public <C> List<XGridCell<R, C>> getCells() {
+			List<XGridCell<R, C>> l = (List<XGridCell<R, C>>)(List<?>)cells;
+			return Collections.<XGridCell<R, C>>unmodifiableList(l);
 		}
+
 	}
 
 	@Override

@@ -42,8 +42,8 @@ import org.eclipse.swt.widgets.Shell;
 
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
-import at.bestsolution.framework.grid.XGrid.Selection;
 import at.bestsolution.framework.grid.XGridTable;
+import at.bestsolution.framework.grid.XSelection;
 import at.bestsolution.framework.grid.emf.EListGridContentProvider;
 import at.bestsolution.framework.grid.emf.EmfGridTableConfigurator;
 import at.bestsolution.framework.grid.model.grid.GridPackage;
@@ -254,10 +254,10 @@ public class PersonSample {
 		gd.grabExcessHorizontalSpace = true;
 		// gd.widthHint=200;
 		lSelectedItems.setLayoutData(gd);
-		table.selectionProperty().addChangeListener(new ChangeListener<Selection<Person, Person>>() {
+		table.selectionProperty().addChangeListener(new ChangeListener<XSelection<Person>>() {
 			@Override
-			public void valueChanged(Property<Selection<Person, Person>> property, Selection<Person, Person> oldValue,
-					Selection<Person, Person> newValue) {
+			public void valueChanged(Property<XSelection<Person>> property, XSelection<Person> oldValue,
+					XSelection<Person> newValue) {
 				StringBuffer sb = new StringBuffer();
 				for (Person p : newValue.asList()) {
 					if (sb.length() > 0) {
