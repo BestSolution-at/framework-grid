@@ -34,6 +34,7 @@ import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridColumn.Alignment;
 import at.bestsolution.framework.grid.XGridColumn.AutoFilterType;
+import at.bestsolution.framework.grid.XGridColumn.Sorting;
 import at.bestsolution.framework.grid.XGridColumn.SortingBehavior;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CompositeTranslationFunction;
@@ -175,7 +176,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	/**
 	 * apply text function configuration to grid
 	 */
-	void applyTextFunction() {
+	private void applyTextFunction() {
 		Property<@NonNull CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> textFunctionProperty = column
 				.textFunctionProperty();
 		CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> textFunction = createTextFunction(config.getColumn()
@@ -304,7 +305,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	/**
 	 * apply header title
 	 */
-	void applyHeaderTitle() {
+	private void applyHeaderTitle() {
 		@SuppressWarnings("null")
 		@NonNull
 		String key = config.getColumn().getTitleKey();
@@ -336,5 +337,13 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	 */
 	public void dispose() {
 		column.getGrid().localeProperty().removeChangeListener(localeChangelistener);
+	}
+
+	/**
+	 * @param sorting
+	 *            the current sorting
+	 */
+	public void applySorting(@NonNull Sorting sorting) {
+		column.sortingProperty().set(sorting);
 	}
 }

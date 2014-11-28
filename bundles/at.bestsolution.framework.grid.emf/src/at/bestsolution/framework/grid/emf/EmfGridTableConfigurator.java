@@ -113,6 +113,7 @@ public class EmfGridTableConfigurator<R> {
 	private void applyDefaultSort() {
 		if (config.getDefaultSortColumn() != null) {
 			table.defaultSortProperty().set(columnConfigurators.get(config.getDefaultSortColumn()).createDefaultComparator());
+			columnConfigurators.get(config.getDefaultSortColumn()).applySorting(XGridColumn.Sorting.UP);
 		}
 	}
 
