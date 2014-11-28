@@ -73,7 +73,7 @@ public class SWTTextColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 			if (timer != null) {
 				timer.cancel();
 			}
-			timer = new Timer();
+			timer = new Timer(true);
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
