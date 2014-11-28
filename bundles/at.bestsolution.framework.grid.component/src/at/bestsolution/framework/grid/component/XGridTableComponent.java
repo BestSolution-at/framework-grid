@@ -27,12 +27,12 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.Property;
-import at.bestsolution.framework.grid.XGrid;
-import at.bestsolution.framework.grid.XGrid.Selection;
+import at.bestsolution.framework.grid.XCellSelection;
 import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.XGridMetaData;
 import at.bestsolution.framework.grid.XGridTable;
+import at.bestsolution.framework.grid.XSelection;
 import at.bestsolution.framework.grid.component.XGridTableConfigurator.XConfiguredGridTable;
 
 /**
@@ -71,14 +71,13 @@ public final class XGridTableComponent<O> {
 		}
 	}
 
-	private void handleSelectionChanged(Property<Selection<@NonNull O, @NonNull O>> property, Selection<@NonNull O, @NonNull O> oldValue,
-			Selection<@NonNull O, @NonNull O> newValue) {
+	private void handleSelectionChanged(Property<XSelection<@NonNull O>> property, XSelection<@NonNull O> oldValue,
+			XSelection<@NonNull O> newValue) {
 		publisher.publish(XGridEventPublisher.SELECTION_CHANGED, newValue);
 		if (newValue != null) {
-			if (grid.selectionModeProperty().get() == XGrid.SelectionMode.SINGLE_CELL) {
-				@NonNull
-				Selection<@NonNull O, XGridCell<@NonNull O, Object>> selection = newValue.asCellSelection();
-				for (XGridCell<@NonNull O, Object> c : selection.asList()) {
+			if (newValue instanceof XCellSelection) {
+				XCellSelection<@NonNull O> selection = (@NonNull XCellSelection<@NonNull O>) newValue;
+				for (XGridCell<@NonNull O, Object> c : selection.getCells()) {
 					for (XGridMetaData d : c.getMetaData()) {
 						publisher.publish(d.getTopic(), d);
 					}
