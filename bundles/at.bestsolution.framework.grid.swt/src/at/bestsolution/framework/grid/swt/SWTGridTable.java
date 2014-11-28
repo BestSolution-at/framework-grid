@@ -21,7 +21,6 @@
 package at.bestsolution.framework.grid.swt;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -47,6 +46,7 @@ import at.bestsolution.framework.grid.XGridMetaData;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.XSelection;
 import at.bestsolution.framework.grid.func.MetaDataFunction;
+import at.bestsolution.framework.grid.swt.internal.SWTGridCell;
 import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
 import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
 
@@ -166,9 +166,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 						Point[] cellSelection = nebulaGrid.getCellSelection();
 						List<XGridCell<R, ?>> cellList = new ArrayList<XGridCell<R,?>>();
 						for( Point p : cellSelection ) {
-							Object v = columns.get(p.x).cellValueFunctionProperty().get();
-							List<@NonNull XGridMetaData> metaData = ((MetaDataFunction<R, Object>)columns.get(p.x).metaDataFunctionProperty().get()).getMetaData(selectedRow, v);
-							cellList.add(new XGridCell<R, Object>(selectedRow, v, (@NonNull XGridColumn<R, Object>) columns.get(p.x), metaData));
+							cellList.add(new SWTGridCell<R, Object>(selectedRow, (@NonNull XGridColumn<R, Object>) columns.get(p.x)));
 						}
 						selectionProperty.set(new SimpleCellSelection<R>(cellList,Collections.singletonList(selectedRow),columns));
 					}

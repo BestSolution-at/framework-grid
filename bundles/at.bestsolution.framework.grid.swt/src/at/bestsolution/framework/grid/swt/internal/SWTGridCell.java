@@ -18,40 +18,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package at.bestsolution.framework.grid;
+package at.bestsolution.framework.grid.swt.internal;
 
 import java.util.List;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-/**
- * Represents a cell in the grid
- *
- * @param <R>
- *            the row type
- * @param <C>
- *            the cell type
- * @since 1.0
- */
-public interface XGridCell<R, C> extends XGridMetaDataProvider {
-	/**
-	 * @return the row value
-	 */
-	public @NonNull R getRowValue();
+import at.bestsolution.framework.grid.XGridCell;
+import at.bestsolution.framework.grid.XGridColumn;
+import at.bestsolution.framework.grid.XGridMetaData;
 
-	/**
-	 * @return the cell value, might be <code>null</code>
-	 */
-	public @Nullable C getCellValue();
+public class SWTGridCell<R,C> implements XGridCell<R, C> {
+	@NonNull
+	private final R row;
 
-	/**
-	 * @return the column
-	 */
-	public @NonNull XGridColumn<R, C> getColumn();
+	@NonNull
+	private final XGridColumn<R, C> column;
 
-	/**
-	 * List of meta informations
-	 */
-	public @NonNull List<@NonNull XGridMetaData> getMetaData();
+	public SWTGridCell(@NonNull R row, @NonNull XGridColumn<R, C> column) {
+		this.row = row;
+		this.column = column;
+	}
+
+	@Override
+	public @NonNull R getRowValue() {
+		return row;
+	}
+
+	@Override
+	public @Nullable C getCellValue() {
+		return column.cellValueFunctionProperty().get().apply(row);
+	}
+
+	@Override
+	public @NonNull XGridColumn<R, C> getColumn() {
+		return column;
+	}
+
+	@Override
+	public @NonNull List<@NonNull XGridMetaData> getMetaData() {
+		return column.metaDataFunctionProperty().get().getMetaData(row, getCellValue());
+	}
+
 }
