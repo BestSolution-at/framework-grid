@@ -75,26 +75,25 @@ public final class XGridTableComponent<O> {
 		}
 	}
 
-	private void handleSelectionChanged(Property<XSelection<@NonNull O>> property, XSelection<@NonNull O> oldValue,
-			XSelection<@NonNull O> newValue) {
+	private void handleSelectionChanged(Property<XSelection<@NonNull O>> property, @NonNull XSelection<@NonNull O> oldValue,
+			@NonNull XSelection<@NonNull O> newValue) {
 		selectionPublisher.publishSelection(newValue);
 		eventPublisher.publish(XGridEventPublisher.SELECTION_CHANGED, newValue);
-		if (newValue != null) {
-			if (newValue instanceof XCellSelection) {
-				XCellSelection<@NonNull O> selection = (@NonNull XCellSelection<@NonNull O>) newValue;
-				for (XGridCell<@NonNull O, Object> c : selection.getCells()) {
-					for (XGridMetaData d : c.getMetaData()) {
-						eventPublisher.publish(d.getTopic(), d);
-					}
-				}
-			} else {
-				for (XGridMetaData d : newValue.getMetaData()) {
+		if (newValue instanceof XCellSelection) {
+			XCellSelection<@NonNull O> selection = (@NonNull XCellSelection<@NonNull O>) newValue;
+			for (XGridCell<@NonNull O, Object> c : selection.getCells()) {
+				for (XGridMetaData d : c.getMetaData()) {
 					eventPublisher.publish(d.getTopic(), d);
 				}
+			}
+		} else {
+			for (XGridMetaData d : newValue.getMetaData()) {
+				eventPublisher.publish(d.getTopic(), d);
 			}
 		}
 	}
 
+	@SuppressWarnings("null")
 	private void configure() {
 		configuredGrid = configurator.configure(grid, configuration);
 		grid.contentProviderProperty().set(contentProvider);
