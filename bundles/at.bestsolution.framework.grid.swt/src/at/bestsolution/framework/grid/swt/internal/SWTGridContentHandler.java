@@ -98,7 +98,7 @@ public class SWTGridContentHandler<R> {
 	/**
 	 * reset content
 	 */
-	public synchronized void resetContent() {
+	public void resetContent() {
 		resetContent(contentProvider);
 	}
 
@@ -107,7 +107,7 @@ public class SWTGridContentHandler<R> {
 	 * @param newContentProvider
 	 *            the new content provider
 	 */
-	private synchronized void resetContent(@Nullable XGridContentProvider<R> newContentProvider) {
+	private void resetContent(@Nullable XGridContentProvider<R> newContentProvider) {
 		if (contentProvider != newContentProvider) {
 			@Nullable
 			XGridContentProvider<R> oldContentProvider = contentProvider;

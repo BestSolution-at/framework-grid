@@ -44,7 +44,7 @@ import at.bestsolution.framework.grid.XGridContentProvider;
  */
 public class EListGridContentProvider<@NonNull R> implements XGridContentProvider<R> {
 
-	private List<ContentChangeListener<R>> listenerList = Collections.synchronizedList(new ArrayList<ContentChangeListener<R>>());
+	private List<ContentChangeListener<R>> listenerList = new ArrayList<ContentChangeListener<R>>();
 	@NonNull
 	final EObject parent;
 	@NonNull
@@ -85,26 +85,22 @@ public class EListGridContentProvider<@NonNull R> implements XGridContentProvide
 
 	@Override
 	public void addChangeListener(ContentChangeListener<@NonNull R> listener) {
-		synchronized (listenerList) {
-			listenerList.add(listener);
-		}
+		listenerList.add(listener);
 	}
 
 	@Override
 	public void removeChangeListener(ContentChangeListener<@NonNull R> listener) {
-		synchronized (listenerList) {
-			listenerList.remove(listener);
-		}
+		listenerList.remove(listener);
 	}
 
 	void notifyListeners(@NonNull ContentChangeType type, @NonNull List<@NonNull R> values) {
 		@SuppressWarnings("null")
 		@NonNull
 		List<@NonNull R> unmodifiableList = Collections.unmodifiableList(values);
-		synchronized (listenerList) {
-			for (ContentChangeListener<R> listener : new ArrayList<>(listenerList)) {
-				listener.contentChanged(type, unmodifiableList);
-			}
+		@SuppressWarnings("unchecked")
+		ContentChangeListener<R>[] listeners = listenerList.toArray(new ContentChangeListener[listenerList.size()]);
+		for (ContentChangeListener<R> listener : listeners) {
+			listener.contentChanged(type, unmodifiableList);
 		}
 	}
 
