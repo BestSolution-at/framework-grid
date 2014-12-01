@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: at.bestsolution.framework.grid.personsample.model;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Vendor: %providerName
+Bundle-Vendor: BestSolution.at EDV Systemhaus GmbH
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Grid
+Bundle-Vendor: BestSolution.at EDV Systemhaus GmbH
 Bundle-SymbolicName: at.bestsolution.framework.grid
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
