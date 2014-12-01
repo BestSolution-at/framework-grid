@@ -57,6 +57,7 @@ public class DefaultExportValueFunction<@NonNull R, @Nullable C> implements Expo
 
 	/**
 	 * @param column
+	 *            the column
 	 */
 	public DefaultExportValueFunction(@NonNull XGridColumn<@NonNull R, @Nullable C> column) {
 		this.column = column;

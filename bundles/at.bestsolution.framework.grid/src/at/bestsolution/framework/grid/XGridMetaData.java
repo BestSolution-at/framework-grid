@@ -31,11 +31,15 @@ import org.eclipse.jdt.annotation.Nullable;
 public interface XGridMetaData {
 	/**
 	 * @return the value
+	 * @param <V>
+	 *            value type
 	 */
 	public <V> @Nullable V getValue();
 
 	/**
 	 * @return the meta data
+	 * @param <M>
+	 *            MetaData type
 	 */
 	public <M> @Nullable M getMetaData();
 

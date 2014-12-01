@@ -31,6 +31,8 @@ import java.util.List;
 public interface XCellSelection<R> extends XSelection<R> {
 	/**
 	 * @return selected cells
+	 * @param <C>
+	 *            cell type
 	 */
 	public <C> List<XGridCell<R, C>> getCells();
 }
