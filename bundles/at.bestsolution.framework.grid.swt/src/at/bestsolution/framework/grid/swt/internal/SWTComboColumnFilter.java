@@ -56,6 +56,7 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 	private final @NonNull CCombo combo;
 	private final @NonNull SWTGridColumn<R, C> column;
 	private final @NonNull ChangeListener<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>>> autoFilterDataSupplierListener = this::handleAutoFilterDataSupplierChange;
+	private final @NonNull ChangeListener<@Nullable CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> autoFilterTextFunctionListener = this::handleAutoFilterTextFunctionChange;
 	private final @NonNull ChangeListener<@NonNull Locale> localeListener = this::handleLocaleChange;
 	private final @NonNull ChangeListener<@Nullable XGridContentProvider<@NonNull R>> contentProviderListener = this::handleContentProviderChange;
 	private final @NonNull SelectionListener selectionListener;
@@ -77,6 +78,7 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 		column.getNebulaColumn().setHeaderControl(combo);
 		updateFilterComboContent();
 		column.autoFilterDataSupplierProperty().addChangeListener(autoFilterDataSupplierListener);
+		column.autoFilterTextFunctionProperty().addChangeListener(autoFilterTextFunctionListener);
 		// translated values need refresh
 		column.getGrid().localeProperty().addChangeListener(localeListener);
 		// new input needs filter update
@@ -93,6 +95,12 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 			CellValueMatcherFunction<R, @Nullable C, Object> matcher = filterEntry.getMatcher();
 			return matcher.apply(element, column.cellValueFunctionProperty().get().apply(element), filterEntry.getName());
 		}
+	}
+
+	private void handleAutoFilterTextFunctionChange(Property<CellDataFunction<@NonNull R, @Nullable C, CharSequence>> property,
+			CellDataFunction<@NonNull R, @Nullable C, CharSequence> oldValue,
+			CellDataFunction<@NonNull R, @Nullable C, CharSequence> newValue) {
+		updateFilterComboContent();
 	}
 
 	private void handleAutoFilterDataSupplierChange(
@@ -113,6 +121,12 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 
 	private void updateFilterComboContent() {
 		if (column.autoFilterTypeProperty().get() == AutoFilterType.DROPDOWN) {
+			// Try to keep the selection
+			// do it via index if it's a default entry, via text otherwise.
+			String previousSelection = combo.getText();
+			final int selectionIndex = combo.getSelectionIndex();
+			boolean selectionIsDefaultEntry = selectionIndex < column.autoFilterDataSupplierProperty().get().get().size();
+
 			combo.removeAll();
 			autoFilterComboContent.clear();
 			// add default entries
@@ -147,6 +161,12 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 				autoFilterComboContent.put(new Integer(index), new ComboAutoFilterEntry<Object>(text, textFunction));
 				index++;
 			}
+
+			if (selectionIsDefaultEntry) {
+				combo.select(selectionIndex);
+			} else {
+				combo.setText(previousSelection);
+			}
 		}
 	}
 
@@ -175,6 +195,7 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 	@Override
 	public void dispose() {
 		column.autoFilterDataSupplierProperty().removeChangeListener(autoFilterDataSupplierListener);
+		column.autoFilterTextFunctionProperty().removeChangeListener(autoFilterTextFunctionListener);
 		column.getGrid().localeProperty().removeChangeListener(localeListener);
 		column.getGrid().contentProviderProperty().removeChangeListener(contentProviderListener);
 		combo.removeSelectionListener(selectionListener);
