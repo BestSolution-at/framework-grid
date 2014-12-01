@@ -29,13 +29,27 @@ import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridMetaData;
 
-public class SWTGridCell<R,C> implements XGridCell<R, C> {
+/**
+ * Grid cell implementation
+ *
+ * @param <R>
+ *            row type
+ * @param <C>
+ *            cell type
+ */
+public class SWTGridCell<R, C> implements XGridCell<R, C> {
 	@NonNull
 	private final R row;
 
 	@NonNull
 	private final XGridColumn<R, C> column;
 
+	/**
+	 * @param row
+	 *            the row
+	 * @param column
+	 *            the column
+	 */
 	public SWTGridCell(@NonNull R row, @NonNull XGridColumn<R, C> column) {
 		this.row = row;
 		this.column = column;
@@ -60,5 +74,4 @@ public class SWTGridCell<R,C> implements XGridCell<R, C> {
 	public @NonNull List<@NonNull XGridMetaData> getMetaData() {
 		return column.metaDataFunctionProperty().get().getMetaData(row, getCellValue());
 	}
-
 }

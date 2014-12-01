@@ -94,10 +94,10 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	private final @NonNull Property<@NonNull String> autoFilterFreeTextProperty = new SimpleProperty<>(""); //$NON-NLS-1$
 	private final @NonNull Property<@NonNull ExportValueFunction<@NonNull R, @Nullable C>> exportValueFunctionProperty = new SimpleProperty<>(
 			new DefaultExportValueFunction<R, C>(this));
-	private static final MetaDataFunction<?, ?> DEFAULT_META = new MetaDataFunction<Object, Object>() {
-
+	private final @NonNull MetaDataFunction<@NonNull R,@Nullable C> DEFAULT_META = new MetaDataFunction<R, C>() {
+		@SuppressWarnings("null")
 		@Override
-		public @NonNull List<@NonNull XGridMetaData> getMetaData(Object rowValue, Object cellValue) {
+		public @NonNull List<@NonNull XGridMetaData> getMetaData(R rowValue, C cellValue) {
 			return Collections.emptyList();
 		}
 	};

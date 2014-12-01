@@ -66,7 +66,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	private @NonNull Property<@NonNull Locale> localeProperty = new SimpleProperty<>(Locale.getDefault());
 
 	protected @NonNull Grid nebulaGrid;
-	final List<@NonNull SWTGridColumn<R, ?>> columns = new ArrayList<>();
+	final @NonNull List<@NonNull SWTGridColumn<@NonNull R, ?>> columns = new ArrayList<>();
 	private final @NonNull SWTGridContentHandler<R> contentHandler;
 
 	/**
@@ -158,16 +158,21 @@ public class SWTGridTable<R> implements XGridTable<R> {
 				if (selection == null || selection.length == 0) {
 					selectionProperty.set(Util.emptySelection());
 				} else if (selection.length == 1) {
-					R selectedRow = getContentHandler().get(selection[0]);
+					@SuppressWarnings("null")
+					@NonNull R selectedRow = getContentHandler().get(selection[0]);
+					@SuppressWarnings("null")
+					@NonNull List<@NonNull R> singletonList = Collections.singletonList(selectedRow);
 					if( selectionModeProperty.get() == SelectionMode.SINGLE_ROW ) {
-						selectionProperty.set(new SimpleSelection<R>(Collections.singletonList(selectedRow), columns));
+						selectionProperty.set(new SimpleSelection<@NonNull R>(singletonList, columns));
 					} else {
 						Point[] cellSelection = nebulaGrid.getCellSelection();
-						List<XGridCell<R, ?>> cellList = new ArrayList<XGridCell<R,?>>();
+						List<XGridCell<@NonNull R, ?>> cellList = new ArrayList<XGridCell<@NonNull R,?>>();
 						for( Point p : cellSelection ) {
-							cellList.add(new SWTGridCell<R, Object>(selectedRow, (@NonNull XGridColumn<R, Object>) columns.get(p.x)));
+							@SuppressWarnings("unchecked")
+							SWTGridCell<@NonNull R, Object> cell = new SWTGridCell<@NonNull R, Object>(selectedRow, (@NonNull XGridColumn<@NonNull R, Object>) columns.get(p.x));
+							cellList.add(cell);
 						}
-						selectionProperty.set(new SimpleCellSelection<R>(cellList,Collections.singletonList(selectedRow),columns));
+						selectionProperty.set(new SimpleCellSelection<@NonNull R>(cellList,singletonList,columns));
 					}
 				} else {
 					// multiple row selection is not supported
@@ -188,7 +193,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	}
 
 	static class SimpleSelection<R> implements XSelection<R> {
-		private final @NonNull List<R> rowList;
+		private final @NonNull List<@NonNull R> rowList;
 		private final @NonNull List<SWTGridColumn<R,?>> columnList;
 
 		SimpleSelection(@NonNull List<@NonNull R> rowList,@NonNull List<@NonNull SWTGridColumn<R, ?>> columnList) {
@@ -237,6 +242,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 
 		@Override
 		public <C> List<XGridCell<R, C>> getCells() {
+			@SuppressWarnings("unchecked")
 			List<XGridCell<R, C>> l = (List<XGridCell<R, C>>)(List<?>)cells;
 			return Collections.<XGridCell<R, C>>unmodifiableList(l);
 		}
