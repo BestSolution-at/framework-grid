@@ -203,7 +203,15 @@ public class SWTGridContentHandler<R> {
 		switch (type) {
 		case ADD:
 		case REMOVE:
-			resetContent(contentProvider);
+			resetContent();
+			break;
+		case MODIFY:
+			for (R element : values) {
+				for (@NonNull
+				XGridColumn<@NonNull R, @Nullable ?> col : grid.getColumns()) {
+					col.requestUpdate(element);
+				}
+			}
 			break;
 		default:
 			break;

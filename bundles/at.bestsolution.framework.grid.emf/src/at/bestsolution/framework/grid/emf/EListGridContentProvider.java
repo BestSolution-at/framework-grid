@@ -27,10 +27,10 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.jdt.annotation.NonNull;
 
 import at.bestsolution.framework.grid.XGridContentProvider;
@@ -49,6 +49,7 @@ public class EListGridContentProvider<@NonNull R> implements XGridContentProvide
 	final EObject parent;
 	@NonNull
 	final EReference reference;
+
 	private @NonNull final EList<R> data;
 	private @NonNull final Adapter adapter;
 
@@ -104,41 +105,58 @@ public class EListGridContentProvider<@NonNull R> implements XGridContentProvide
 		}
 	}
 
-	private class XGridEListAdapter extends AdapterImpl {
+	private class XGridEListAdapter extends EContentAdapter {
 		public XGridEListAdapter() {
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
 		public void notifyChanged(Notification notification) {
-			if (notification.getNotifier() == parent && notification.getFeature() == reference) {
-				switch (notification.getEventType()) {
-				case Notification.ADD:
-					@SuppressWarnings("null")
-					@NonNull
-					List<@NonNull R> listAdd = Arrays.asList((R) notification.getNewValue());
-					notifyListeners(ContentChangeType.ADD, listAdd);
-					break;
-				case Notification.ADD_MANY:
-					@SuppressWarnings("null")
-					@NonNull
-					List<@NonNull R> listAddMany = (List<R>) notification.getNewValue();
-					notifyListeners(ContentChangeType.ADD, listAddMany);
-					break;
-				case Notification.REMOVE:
-					@SuppressWarnings("null")
-					@NonNull
-					List<@NonNull R> listRemove = Arrays.asList((R) notification.getOldValue());
-					notifyListeners(ContentChangeType.REMOVE, listRemove);
-					break;
-				case Notification.REMOVE_MANY:
-					@SuppressWarnings("null")
-					@NonNull
-					List<@NonNull R> listRemoveMany = (List<R>) notification.getOldValue();
-					notifyListeners(ContentChangeType.REMOVE, listRemoveMany);
-					break;
-				default:
-					// ignore other modifications
+			if (notification.getNotifier() == parent) {
+				if (notification.getFeature() == reference) {
+					switch (notification.getEventType()) {
+					case Notification.ADD:
+						@SuppressWarnings("null")
+						@NonNull
+						List<@NonNull R> listAdd = Arrays.asList((R) notification.getNewValue());
+						notifyListeners(ContentChangeType.ADD, listAdd);
+						break;
+					case Notification.ADD_MANY:
+						@SuppressWarnings("null")
+						@NonNull
+						List<@NonNull R> listAddMany = (List<R>) notification.getNewValue();
+						notifyListeners(ContentChangeType.ADD, listAddMany);
+						break;
+					case Notification.REMOVE:
+						@SuppressWarnings("null")
+						@NonNull
+						List<@NonNull R> listRemove = Arrays.asList((R) notification.getOldValue());
+						notifyListeners(ContentChangeType.REMOVE, listRemove);
+						break;
+					case Notification.REMOVE_MANY:
+						@SuppressWarnings("null")
+						@NonNull
+						List<@NonNull R> listRemoveMany = (List<R>) notification.getOldValue();
+						notifyListeners(ContentChangeType.REMOVE, listRemoveMany);
+						break;
+					default:
+						// ignore other modifications
+					}
+				}
+			} else {
+				// notifier may be any object in the content tree
+				Object changedObject = notification.getNotifier();
+				while (changedObject != null) {
+					if (reference.getEReferenceType().getInstanceClass().isAssignableFrom(changedObject.getClass())) {
+						@SuppressWarnings("null")
+						final @NonNull List<@NonNull R> asList = Arrays.asList((R) changedObject);
+						notifyListeners(ContentChangeType.MODIFY, asList);
+					}
+					if (changedObject instanceof EObject) {
+						changedObject = ((EObject) changedObject).eContainer();
+					} else {
+						changedObject = null;
+					}
 				}
 			}
 		}

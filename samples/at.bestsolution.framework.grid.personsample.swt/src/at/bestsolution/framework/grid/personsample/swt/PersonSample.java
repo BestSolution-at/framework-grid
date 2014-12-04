@@ -89,6 +89,7 @@ public class PersonSample {
 		addToggleConfiguration(settings);
 		addToggleContent(settings);
 		addExportButtons(settings);
+		addIncrementNumber(settings);
 
 		table.contentProviderProperty().set(new EListGridContentProvider<Person>(data, PersonPackage.Literals.ROOT__PERSONS));
 
@@ -100,6 +101,28 @@ public class PersonSample {
 		}
 		display.dispose();
 
+	}
+
+	private void addIncrementNumber(Composite settings) {
+		Button bExport = new Button(settings, SWT.NONE);
+		bExport.setText("Increment number");
+		bExport.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				@NonNull
+				XSelection<@NonNull Person> s = table.selectionProperty().get();
+				if (!s.isEmpty()) {
+					Person p = s.getFirst();
+					if (p.getAddress() != null) {
+						if (p.getAddress().getNumber() != null) {
+							p.getAddress().setNumber(p.getAddress().getNumber() + 1);
+						} else {
+							p.getAddress().setNumber(1);
+						}
+					}
+				}
+			}
+		});
 	}
 
 	private void addExportButtons(Composite settings) {
@@ -300,7 +323,7 @@ public class PersonSample {
 		}
 		lSelectedItems.setText(sb.toString());
 	}
-	
+
 	private static class PersonComparer implements ElementComparer<Person> {
 		@Override
 		public boolean equals(@NonNull Person a, Object obj) {
@@ -311,7 +334,7 @@ public class PersonSample {
 			if (a.getClass() != obj.getClass())
 				return false;
 			Person other = (Person) obj;
-			if (a.getFirstname()== null) {
+			if (a.getFirstname() == null) {
 				if (other.getFirstname() != null)
 					return false;
 			} else if (!a.getFirstname().equals(other.getFirstname()))
@@ -328,12 +351,10 @@ public class PersonSample {
 		public int hashCode(@NonNull Person element) {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result
-					+ ((element.getFirstname() == null) ? 0 : element.getFirstname().hashCode());
-			result = prime * result
-					+ ((element.getLastname() == null) ? 0 : element.getLastname().hashCode());
+			result = prime * result + ((element.getFirstname() == null) ? 0 : element.getFirstname().hashCode());
+			result = prime * result + ((element.getLastname() == null) ? 0 : element.getLastname().hashCode());
 			return result;
 		}
-		
+
 	}
 }

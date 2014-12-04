@@ -60,7 +60,11 @@ public interface XGridContentProvider<R> {
 		/**
 		 * remove elements
 		 */
-		REMOVE
+		REMOVE,
+		/**
+		 * modify elements
+		 */
+		MODIFY
 	}
 
 	/**
