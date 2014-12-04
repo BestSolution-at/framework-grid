@@ -46,7 +46,12 @@
   <persons firstname="Maria"
       lastname="Grande">
   </persons>
-  <countries
+  <persons firstname="Johanna"
+      lastname="Huber">
+  </persons>
+  <persons firstname="Stefan"
+      lastname="Fischer">
+  </persons>  <countries
       name="Austria"/>
   <countries
       name="Germany"/>
