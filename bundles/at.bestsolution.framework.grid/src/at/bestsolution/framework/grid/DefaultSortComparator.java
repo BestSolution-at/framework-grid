@@ -64,8 +64,8 @@ public class DefaultSortComparator<@NonNull R, C> implements Comparator<R> {
 			CharSequence textValue2 = column.textFunctionProperty().get().apply(o2, cellValue2);
 			if (textValue1 instanceof Comparable) {
 				value1 = (Comparable<Object>) textValue1;
-				value2 = textValue2;
 			}
+			value2 = textValue2;
 		}
 		if (value1 == null && value2 == null) {
 			return 0;
