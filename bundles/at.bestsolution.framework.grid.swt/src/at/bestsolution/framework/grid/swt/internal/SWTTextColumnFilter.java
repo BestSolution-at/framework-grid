@@ -63,27 +63,21 @@ public class SWTTextColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 	}
 
 	private class FreeTextModifyListener implements ModifyListener {
-		private Timer timer = null;
+		final Runnable runnable = new Runnable() {
+			public void run() {
+				if (!text.isDisposed()) {
+					column.autoFilterFreeTextProperty().set(text.getText());
+				}
+			}
+		};
 
 		public FreeTextModifyListener() {
 		}
 
 		@Override
 		public void modifyText(ModifyEvent e) {
-			if (timer != null) {
-				timer.cancel();
-			}
-			timer = new Timer(true);
-			timer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					Display.getDefault().syncExec(new Runnable() {
-						public void run() {
-							column.autoFilterFreeTextProperty().set(text.getText());
-						}
-					});
-				}
-			}, 300);
+			Display.getDefault().disposeExec(runnable);
+			Display.getDefault().timerExec(300, runnable);
 		}
 	}
 
