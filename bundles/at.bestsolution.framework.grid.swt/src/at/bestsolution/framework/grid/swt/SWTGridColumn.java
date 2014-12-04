@@ -32,6 +32,8 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.nebula.widgets.grid.GridColumn;
 import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
@@ -94,14 +96,15 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	private final @NonNull Property<@NonNull String> autoFilterFreeTextProperty = new SimpleProperty<>(""); //$NON-NLS-1$
 	private final @NonNull Property<@NonNull ExportValueFunction<@NonNull R, @Nullable C>> exportValueFunctionProperty = new SimpleProperty<>(
 			new DefaultExportValueFunction<R, C>(this));
-	private final @NonNull MetaDataFunction<@NonNull R,@Nullable C> DEFAULT_META = new MetaDataFunction<R, C>() {
+	private final @NonNull MetaDataFunction<@NonNull R, @Nullable C> DEFAULT_META = new MetaDataFunction<R, C>() {
 		@SuppressWarnings("null")
 		@Override
 		public @NonNull List<@NonNull XGridMetaData> getMetaData(R rowValue, C cellValue) {
 			return Collections.emptyList();
 		}
 	};
-	private final @NonNull Property<@NonNull MetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty = new SimpleProperty<>((MetaDataFunction<R,C>)DEFAULT_META);
+	private final @NonNull Property<@NonNull MetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty = new SimpleProperty<>(
+			(MetaDataFunction<R, C>) DEFAULT_META);
 
 	GridColumn nebulaColumn;
 	@Nullable
@@ -145,6 +148,12 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 				default:
 					sortingProperty().set(Sorting.UP);
 				}
+			}
+		});
+		nebulaColumn.addControlListener(new ControlAdapter() {
+			@Override
+			public void controlResized(ControlEvent e) {
+				checkWidth();
 			}
 		});
 	}
@@ -278,12 +287,11 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		autoFilterFreeTextProperty.addChangeListener((property, oldValue, newValue) -> grid.getContentHandler().resetContent());
 	}
 
-	private void applyAutoWidth(Boolean autoWidth) {
-		// TODO
+	private void applyAutoWidth(@NonNull Boolean autoWidth) {
+		checkWidth();
 	}
 
 	private void applyMaxWidth(Integer maxWidth) {
-		// TODO
 		checkWidth();
 	}
 
@@ -323,11 +331,28 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		grid.getContentHandler().sortColumnProperty().set(this);
 	}
 
-	private void checkWidth() {
+	void checkWidth() {
+		boolean autoWidth = false;
+		if (autoWidthProperty.get().booleanValue()) {
+			autoWidth = true;
+		} else {
+			for (@NonNull
+			XGridColumn<@NonNull R, @Nullable ?> col : grid.getColumns()) {
+				if (col.autoWidthProperty().get().booleanValue()) {
+					autoWidth = true;
+					break;
+				}
+			}
+		}
+		nebulaColumn.getParent().setAutoWidth(autoWidth);
+
 		@Nullable
 		Integer minWidth = minWidthProperty.get();
 		@Nullable
 		Integer maxWidth = maxWidthProperty.get();
+		if (maxWidth != null && nebulaColumn.getWidth() > maxWidth.intValue()) {
+			nebulaColumn.setWidth(maxWidth.intValue());
+		}
 		if (minWidth != null && maxWidth != null && minWidth.equals(maxWidth)) {
 			nebulaColumn.setWidth(minWidth.intValue());
 		}
@@ -430,13 +455,15 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	}
 
 	private void applyMinWidth(Integer minWidth) {
+		int min = 0;
 		if (minWidth != null) {
 			if (minWidth.intValue() < 0) {
 				throw new IllegalArgumentException("min width must be a non-negative number"); //$NON-NLS-1$
 			}
-			nebulaColumn.setMinimumWidth(minWidth.intValue());
-			checkWidth();
+			min = minWidth.intValue();
 		}
+		nebulaColumn.setMinimumWidth(min);
+		checkWidth();
 	}
 
 	private void applyAlignment(Alignment alignment) {
@@ -461,7 +488,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	}
 
 	@NonNull
-	public Property<@NonNull MetaDataFunction<@NonNull R,@Nullable C>> metaDataFunctionProperty() {
+	public Property<@NonNull MetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty() {
 		return metaDataFunctionProperty;
 	}
 }

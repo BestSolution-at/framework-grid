@@ -93,7 +93,7 @@ public class PersonSample {
 
 		table.contentProviderProperty().set(new EListGridContentProvider<Person>(data, PersonPackage.Literals.ROOT__PERSONS));
 
-		shell.setSize(1000, 400);
+		shell.setSize(1400, 400);
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch())

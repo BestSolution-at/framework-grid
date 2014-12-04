@@ -151,6 +151,14 @@ public class SWTGridContentHandler<R> {
 				grid.selectionProperty().set(new SimpleCellSelection<@NonNull R>(cellList, newSelection, grid.getColumns()));
 			}
 		}
+		// pack 
+		for (@NonNull
+		XGridColumn<@NonNull R, @Nullable ?> xcol : grid.getColumns()) {
+			if (xcol.autoWidthProperty().get().booleanValue()) {
+				SWTGridColumn<R, ?> col = (SWTGridColumn<R, ?>) xcol;
+				col.getNebulaColumn().pack();
+			}
+		}
 	}
 
 	private Comparator<@NonNull Wrapper> getComparator() {
