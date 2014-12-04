@@ -20,9 +20,6 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.swt.internal;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.SWT;
