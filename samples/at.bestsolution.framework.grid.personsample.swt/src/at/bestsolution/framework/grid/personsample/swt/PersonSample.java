@@ -24,8 +24,8 @@ import java.io.IOException;
 import java.util.Locale;
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -40,8 +40,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import at.bestsolution.framework.grid.Property;
-import at.bestsolution.framework.grid.Property.ChangeListener;
+import at.bestsolution.framework.grid.ElementComparer;
 import at.bestsolution.framework.grid.XCellSelection;
 import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridTable;
@@ -67,6 +66,7 @@ public class PersonSample {
 	private final Root dataSample = getData("sampleData.xmi");
 	private final Root dataSampleMass = getData("sampleDataMass.xmi");
 	private Root data = dataSample;
+	private Label lSelectedItems;
 
 	public PersonSample() throws Exception {
 		Display display = new Display();
@@ -74,9 +74,8 @@ public class PersonSample {
 		shell.setLayout(new FillLayout());
 
 		table = new SWTGridTable<>(shell, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+		table.elementComparerProperty().set(new PersonComparer());
 		configurator = new EmfGridTableConfigurator<Person>(table, currentConfig);
-
-		table.contentProviderProperty().set(new EListGridContentProvider<Person>(data, PersonPackage.Literals.ROOT__PERSONS));
 
 		Composite settings = new Composite(shell, SWT.FILL);
 		settings.setLayout(new GridLayout(1, false));
@@ -89,8 +88,9 @@ public class PersonSample {
 		addToggleLocale(settings);
 		addToggleConfiguration(settings);
 		addToggleContent(settings);
-		addAddRemoveButtons(settings);
 		addExportButtons(settings);
+
+		table.contentProviderProperty().set(new EListGridContentProvider<Person>(data, PersonPackage.Literals.ROOT__PERSONS));
 
 		shell.setSize(1000, 400);
 		shell.open();
@@ -100,29 +100,6 @@ public class PersonSample {
 		}
 		display.dispose();
 
-	}
-
-	private void addAddRemoveButtons(Composite settings) {
-		Button bAdd = new Button(settings, SWT.NONE);
-		bAdd.setText("duplicate first entry");
-		bAdd.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				if (!data.getPersons().isEmpty()) {
-					data.getPersons().add(EcoreUtil.copy(data.getPersons().get(0)));
-				}
-			}
-		});
-		Button bRemove = new Button(settings, SWT.NONE);
-		bRemove.setText("remove last entry");
-		bRemove.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				if (!data.getPersons().isEmpty()) {
-					data.getPersons().remove(data.getPersons().size() - 1);
-				}
-			}
-		});
 	}
 
 	private void addExportButtons(Composite settings) {
@@ -250,37 +227,13 @@ public class PersonSample {
 		comp.setLayoutData(cData);
 		Label lSelection = new Label(comp, SWT.NONE);
 		lSelection.setText("Selection:"); //$NON-NLS-1$
-		final Label lSelectedItems = new Label(comp, SWT.NONE);
+		lSelectedItems = new Label(comp, SWT.NONE);
 		GridData gd = new GridData();
 		gd.horizontalAlignment = SWT.FILL;
 		gd.grabExcessHorizontalSpace = true;
 		// gd.widthHint=200;
 		lSelectedItems.setLayoutData(gd);
-		table.selectionProperty().addChangeListener(new ChangeListener<XSelection<Person>>() {
-			@Override
-			public void valueChanged(Property<XSelection<Person>> property, XSelection<Person> oldValue,
-					XSelection<Person> newValue) {
-				StringBuffer sb = new StringBuffer();
-
-				if( newValue instanceof XCellSelection<?> ) {
-					XCellSelection<Person> s = (XCellSelection<Person>) newValue;
-					for( XGridCell<Person, Object> p : s.getCells() ) {
-						if (sb.length() > 0) {
-							sb.append(", "); //$NON-NLS-1$
-						}
-						sb.append(p.getCellValue());
-					}
-				} else {
-					for (Person p : newValue.asList()) {
-						if (sb.length() > 0) {
-							sb.append(", "); //$NON-NLS-1$
-						}
-						sb.append(p.getFirstname() + " " + p.getLastname()); //$NON-NLS-1$
-					}
-				}
-				lSelectedItems.setText(sb.toString());
-			}
-		});
+		table.selectionProperty().addChangeListener((property, oldValue, newValue) -> updateSelectionLabel(newValue));
 	}
 
 	private void addToggleSelectionMode(Composite parent) {
@@ -294,6 +247,7 @@ public class PersonSample {
 			public void widgetSelected(SelectionEvent e) {
 				if (bSingleCell.getSelection()) {
 					config1.setViewSelectionMode(MSelectionMode.SINGLE_CELL);
+					updateSelectionLabel(table.selectionProperty().get());
 				}
 			}
 		});
@@ -305,6 +259,7 @@ public class PersonSample {
 			public void widgetSelected(SelectionEvent e) {
 				if (bSingleRow.getSelection()) {
 					config1.setViewSelectionMode(MSelectionMode.SINGLE_ROW);
+					updateSelectionLabel(table.selectionProperty().get());
 				}
 			}
 		});
@@ -323,5 +278,62 @@ public class PersonSample {
 		Resource resourceModel = new XMIResourceImpl();
 		resourceModel.load(PersonSample.class.getResourceAsStream(dataFile), null); //$NON-NLS-1$
 		return (Root) resourceModel.getContents().get(0);
+	}
+
+	private void updateSelectionLabel(XSelection<Person> newValue) {
+		StringBuffer sb = new StringBuffer();
+		if (newValue instanceof XCellSelection<?>) {
+			XCellSelection<Person> s = (XCellSelection<Person>) newValue;
+			for (XGridCell<Person, Object> p : s.getCells()) {
+				if (sb.length() > 0) {
+					sb.append(", "); //$NON-NLS-1$
+				}
+				sb.append(p.getCellValue());
+			}
+		} else {
+			for (Person p : newValue.asList()) {
+				if (sb.length() > 0) {
+					sb.append(", "); //$NON-NLS-1$
+				}
+				sb.append(p.getFirstname() + " " + p.getLastname()); //$NON-NLS-1$
+			}
+		}
+		lSelectedItems.setText(sb.toString());
+	}
+	
+	private static class PersonComparer implements ElementComparer<Person> {
+		@Override
+		public boolean equals(@NonNull Person a, Object obj) {
+			if (a == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (a.getClass() != obj.getClass())
+				return false;
+			Person other = (Person) obj;
+			if (a.getFirstname()== null) {
+				if (other.getFirstname() != null)
+					return false;
+			} else if (!a.getFirstname().equals(other.getFirstname()))
+				return false;
+			if (a.getLastname() == null) {
+				if (other.getLastname() != null)
+					return false;
+			} else if (!a.getLastname().equals(other.getLastname()))
+				return false;
+			return true;
+		}
+
+		@Override
+		public int hashCode(@NonNull Person element) {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result
+					+ ((element.getFirstname() == null) ? 0 : element.getFirstname().hashCode());
+			result = prime * result
+					+ ((element.getLastname() == null) ? 0 : element.getLastname().hashCode());
+			return result;
+		}
+		
 	}
 }

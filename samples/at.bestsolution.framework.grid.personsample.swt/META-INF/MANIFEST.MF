@@ -16,4 +16,5 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: at.bestsolution.framework.grid,
- at.bestsolution.framework.grid.func
+ at.bestsolution.framework.grid.func,
+ org.eclipse.jdt.annotation

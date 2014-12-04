@@ -62,6 +62,36 @@ public class Util {
 		}
 	}
 
+	static class EmptyCellSelection<R> implements XCellSelection<R> {
+
+		@Override
+		public @Nullable R getFirst() {
+			return null;
+		}
+
+		@SuppressWarnings("null")
+		@Override
+		public @NonNull List<@NonNull R> asList() {
+			return Collections.emptyList();
+		}
+
+		@Override
+		public boolean isEmpty() {
+			return true;
+		}
+
+		@SuppressWarnings("null")
+		@Override
+		public @NonNull List<@NonNull XGridMetaData> getMetaData() {
+			return Collections.emptyList();
+		}
+
+		@Override
+		public <C> List<XGridCell<R, C>> getCells() {
+			return Collections.emptyList();
+		}
+	}
+
 	/**
 	 * @param <R>
 	 *            the row type
@@ -69,6 +99,15 @@ public class Util {
 	 */
 	public static <R> @NonNull XSelection<R> emptySelection() {
 		return new EmptySelection<>();
+	}
+
+	/**
+	 * @param <R>
+	 *            the row type
+	 * @return an empty cell selection
+	 */
+	public static <R> @NonNull XCellSelection<R> emptyCellSelection() {
+		return new EmptyCellSelection<>();
 	}
 
 	/**
@@ -217,5 +256,24 @@ public class Util {
 	 */
 	public static <O> @NonNull Function<@NonNull O, @Nullable CharSequence> defaultToStringFunction() {
 		return t -> t.toString();
+	}
+
+	/**
+	 * @return a default {@link ElementComparer} which uses default
+	 *         implementations of {@link #equals(Object)} and
+	 *         {@link #hashCode()}
+	 */
+	public static <R> @NonNull ElementComparer<R> defaultElementComparer() {
+		return new ElementComparer<R>() {
+			@Override
+			public boolean equals(@NonNull R a, @NonNull Object b) {
+				return a.equals(b);
+			}
+
+			@Override
+			public int hashCode(@NonNull R element) {
+				return element.hashCode();
+			}
+		};
 	}
 }

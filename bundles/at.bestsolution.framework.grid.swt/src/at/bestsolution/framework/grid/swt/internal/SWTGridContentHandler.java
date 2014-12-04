@@ -34,6 +34,9 @@ import org.eclipse.swt.SWT;
 
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
+import at.bestsolution.framework.grid.Util;
+import at.bestsolution.framework.grid.XGrid.SelectionMode;
+import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.XGridContentProvider.ContentChangeListener;
@@ -47,11 +50,11 @@ import at.bestsolution.framework.grid.swt.SWTGridTable;
  *            content type
  */
 public class SWTGridContentHandler<R> {
-	private final List<@NonNull Wrapper<R>> data = new ArrayList<@NonNull Wrapper<R>>();
+	private final List<@NonNull Wrapper> data = new ArrayList<@NonNull Wrapper>();
 	private final Map<@NonNull Integer, @Nullable GridItem> dataMapByR = new HashMap<>();
-	private final Map<@NonNull GridItem, @NonNull Wrapper<R>> dataMapByCol = new HashMap<>();
+	private final Map<@NonNull GridItem, @NonNull Wrapper> dataMapByCol = new HashMap<>();
 
-	private final @NonNull SWTGridTable<R> grid;
+	final @NonNull SWTGridTable<R> grid;
 
 	private final @NonNull Property<@Nullable Comparator<@NonNull R>> defaultSortProperty = new SimpleProperty<>(null);
 	private final @NonNull Property<@Nullable SWTGridColumn<R, ?>> sortColumnProperty = new SimpleProperty<>(null);
@@ -108,6 +111,7 @@ public class SWTGridContentHandler<R> {
 	 *            the new content provider
 	 */
 	private void resetContent(@Nullable XGridContentProvider<R> newContentProvider) {
+		XSelection<@NonNull R> previousSelection = grid.selectionProperty().get();
 		if (contentProvider != newContentProvider) {
 			@Nullable
 			XGridContentProvider<R> oldContentProvider = contentProvider;
@@ -119,25 +123,37 @@ public class SWTGridContentHandler<R> {
 				newContentProvider.addChangeListener(contentChangeListener);
 			}
 		}
-		XSelection<@NonNull R> previousSelection = grid.selectionProperty().get();
 		clearData();
 		grid.getNebulaGrid().disposeAllItems();
 		if (newContentProvider != null) {
 			insertData(newContentProvider);
 			createGridItems();
+			List<@NonNull R> newSelection = new ArrayList<>();
+
 			for (R element : previousSelection.asList()) {
-				List<GridItem> gridItems = new ArrayList<GridItem>();
-				GridItem griditem = get(element);
-				if (griditem != null) {
-					gridItems.add(griditem);
+				// find elements which match elements from old selection
+				if (data.contains(new Wrapper(element))) {
+					newSelection.add(element);
 				}
-				// restore selection
-				grid.getNebulaGrid().setSelection(gridItems.toArray(new GridItem[gridItems.size()]));
+			}
+			// restore selection
+			if (newSelection.isEmpty() && !data.isEmpty()) {
+				// if there is no previous selection select the first item
+				newSelection.add(data.get(0).get());
+			}
+			if (newSelection.isEmpty()) {
+				grid.selectionProperty().set(Util.emptySelection());
+			} else if (grid.selectionModeProperty().get() == SelectionMode.SINGLE_ROW) {
+				grid.selectionProperty().set(new SimpleSelection<@NonNull R>(newSelection, grid.getColumns()));
+			} else if (grid.selectionModeProperty().get() == SelectionMode.SINGLE_CELL) {
+				SimpleCellSelection<R> scs = (SimpleCellSelection<R>) previousSelection;
+				List<XGridCell<@NonNull R, ?>> cellList = new ArrayList<XGridCell<@NonNull R, ?>>(scs.getCells());
+				grid.selectionProperty().set(new SimpleCellSelection<@NonNull R>(cellList, newSelection, grid.getColumns()));
 			}
 		}
 	}
 
-	private Comparator<@NonNull Wrapper<R>> getComparator() {
+	private Comparator<@NonNull Wrapper> getComparator() {
 		@Nullable
 		SWTGridColumn<R, ?> column = sortColumnProperty.get();
 		Comparator<@NonNull R> comp = null;
@@ -169,9 +185,9 @@ public class SWTGridContentHandler<R> {
 
 	private void insertData(XGridContentProvider<R> newContentProvider) {
 		for (int i = 0; i < newContentProvider.size(); i++) {
-			data.add(new Wrapper<R>(newContentProvider.getElementAt(i)));
+			data.add(new Wrapper(newContentProvider.getElementAt(i)));
 		}
-		Comparator<@NonNull Wrapper<R>> comparator = getComparator();
+		Comparator<@NonNull Wrapper> comparator = getComparator();
 		if (comparator != null) {
 			data.sort(comparator);
 		}
@@ -202,7 +218,7 @@ public class SWTGridContentHandler<R> {
 		grid.getNebulaGrid().setRedraw(false);
 		try {
 			for (@NonNull
-			Wrapper<R> element : data) {
+			Wrapper element : data) {
 				if (dataMapByR.get(element) == null) {
 					boolean visible = true;
 					for (@NonNull
@@ -243,7 +259,7 @@ public class SWTGridContentHandler<R> {
 	 * @return corresponding GridItem
 	 */
 	public @Nullable GridItem get(@NonNull R r) {
-		return dataMapByR.get(new Integer(new Wrapper<>(r).hashCode()));
+		return dataMapByR.get(new Integer(new Wrapper(r).hashCode()));
 	}
 
 	/**
@@ -279,8 +295,8 @@ public class SWTGridContentHandler<R> {
 		if (allRows) {
 			return getData(data);
 		} else {
-			List<@NonNull Wrapper<R>> unFilteredElements = new ArrayList<>();
-			for (Wrapper<R> w : data) {
+			List<@NonNull Wrapper> unFilteredElements = new ArrayList<>();
+			for (Wrapper w : data) {
 				if (get(w.get()) != null) {
 					unFilteredElements.add(w);
 				}
@@ -289,10 +305,10 @@ public class SWTGridContentHandler<R> {
 		}
 	}
 
-	private Object[][] getData(List<@NonNull Wrapper<R>> rows) {
+	private Object[][] getData(List<@NonNull Wrapper> rows) {
 		Object[][] exportData = new Object[dataMapByR.size()][grid.getColumns().size()];
 		int rowIndex = 0;
-		for (Wrapper<R> element : rows) {
+		for (Wrapper element : rows) {
 			int colIndex = 0;
 			for (XGridColumn<R, ?> column : grid.getColumns()) {
 				exportData[rowIndex][colIndex] = column.getExportValue(element.get());
@@ -321,30 +337,32 @@ public class SWTGridContentHandler<R> {
 	}
 
 	/**
-	 * 
-	 * @author martin
-	 *
-	 * @param <O>
+	 * content wrapper
 	 */
-	private static class Wrapper<@NonNull O> {
-		private final @NonNull O object;
+	private class Wrapper {
+		private final @NonNull R object;
 
-		public Wrapper(@NonNull O object) {
+		public Wrapper(@NonNull R object) {
 			this.object = object;
 		}
 
-		public O get() {
+		public @NonNull R get() {
 			return object;
 		}
 
 		@Override
 		public int hashCode() {
-			return object.hashCode();
+			return grid.elementComparerProperty().get().hashCode(object);
 		}
 
 		@Override
 		public boolean equals(Object obj) {
-			return object.equals(obj);
+			if (obj != null && obj instanceof SWTGridContentHandler.Wrapper) {
+				@SuppressWarnings("unchecked")
+				Wrapper w = (Wrapper) obj;
+				return grid.elementComparerProperty().get().equals(object, w.get());
+			}
+			return false;
 		}
 	}
 }

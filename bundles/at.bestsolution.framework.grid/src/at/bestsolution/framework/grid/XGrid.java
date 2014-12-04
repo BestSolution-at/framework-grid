@@ -124,6 +124,18 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	Property<@NonNull XSelection<@NonNull R>> selectionProperty();
 
 	/**
+	 * The element comparer property
+	 * <p>
+	 * Default implementation provides {@link #hashCode()} and
+	 * {@link #equals(Object)} of R
+	 * </p>
+	 *
+	 * @return the property
+	 */
+	@NonNull
+	Property<@NonNull ElementComparer<@NonNull R>> elementComparerProperty();
+
+	/**
 	 * @return list of columns
 	 */
 	@NonNull

@@ -26,6 +26,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
@@ -36,18 +37,21 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
+import at.bestsolution.framework.grid.ElementComparer;
 import at.bestsolution.framework.grid.Property;
+import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.XCellSelection;
 import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
-import at.bestsolution.framework.grid.XGridMetaData;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.XSelection;
 import at.bestsolution.framework.grid.swt.internal.SWTGridCell;
 import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
+import at.bestsolution.framework.grid.swt.internal.SimpleCellSelection;
 import at.bestsolution.framework.grid.swt.internal.SimpleProperty;
+import at.bestsolution.framework.grid.swt.internal.SimpleSelection;
 
 /**
  * An SWT implementation of the table
@@ -65,7 +69,9 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	Property<@NonNull XSelection<@NonNull R>> selectionProperty = new SimpleProperty<>(Util.emptySelection());
 	@SuppressWarnings("null")
 	private @NonNull Property<@NonNull Locale> localeProperty = new SimpleProperty<>(Locale.getDefault());
+	private @NonNull Property<@NonNull ElementComparer<@NonNull R>> elementComparer = new SimpleProperty<>(Util.defaultElementComparer());
 
+	private final @NonNull ChangeListener<@NonNull XSelection<@NonNull R>> selectionChangedListener = this::handleSelectionChanged;
 	protected @NonNull Grid nebulaGrid;
 	final @NonNull List<@NonNull SWTGridColumn<@NonNull R, ?>> columns = new ArrayList<>();
 	private final @NonNull SWTGridContentHandler<R> contentHandler;
@@ -120,6 +126,11 @@ public class SWTGridTable<R> implements XGridTable<R> {
 		return localeProperty;
 	}
 
+	@Override
+	public @NonNull Property<@NonNull ElementComparer<@NonNull R>> elementComparerProperty() {
+		return elementComparer;
+	}
+
 	/**
 	 * @return the nebulaGrid widget
 	 */
@@ -132,73 +143,118 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	 */
 	private void registerPropertyListeners() {
 		selectionModeProperty.addChangeListener((property, oldValue, newValue) -> applySelectionMode(newValue));
+		selectionProperty.addChangeListener(selectionChangedListener);
 	}
 
-	private void applySelectionMode(SelectionMode newSelectionMode) {
-		if (newSelectionMode == null) {
+	private void applySelectionMode(@NonNull SelectionMode newSelectionMode) {
+		switch (newSelectionMode) {
+		case SINGLE_CELL:
+			nebulaGrid.setCellSelectionEnabled(true);
+			nebulaGrid.deselectAll();
+			Point focusCell = nebulaGrid.getFocusCell();
+			if (focusCell.x < 0) { // this happens if no cell got focus
+				nebulaGrid.selectCell(new Point(0, focusCell.y));
+			} else {
+				nebulaGrid.selectCell(focusCell);
+			}
+			break;
+		case SINGLE_ROW:
+		default:
 			nebulaGrid.setCellSelectionEnabled(false);
-		} else {
-			switch (newSelectionMode) {
-			case SINGLE_CELL:
-				nebulaGrid.setCellSelectionEnabled(true);
-				break;
-			case SINGLE_ROW:
-			default:
-				nebulaGrid.setCellSelectionEnabled(false);
+			nebulaGrid.deselectAll();
+			@Nullable
+			R currentSelection = selectionProperty.get().getFirst();
+			if (currentSelection != null) {
+				nebulaGrid.setSelection(new GridItem[] { contentHandler.get(currentSelection) });
+			} else {
+				if (nebulaGrid.getRootItemCount() > 0) {
+					nebulaGrid.setSelection(0);
+				}
 			}
 		}
+		selectionProperty.set(createSelection(true));
 	}
 
 	private void registerSelectionListener() {
 		nebulaGrid.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				@SuppressWarnings("null")
-				@NonNull
-				GridItem[] selection = nebulaGrid.getSelection();
-				if (selection == null || selection.length == 0) {
-					selectionProperty.set(Util.emptySelection());
-				} else {
-					if (selectionModeProperty.get() == SelectionMode.SINGLE_ROW) {
-						R selectedRow = getSelectedElement();
-						List<@NonNull R> singletonList = createSingletonList(selectedRow);
-						selectionProperty.set(new SimpleSelection<@NonNull R>(singletonList, columns));
-					} else {
-						Point[] cellSelection = nebulaGrid.getCellSelection();
-						if (cellSelection.length == 0) {
-							selectionProperty.set(Util.emptySelection());
-						} else {
-							nebulaGrid.deselectAllCells();
-							nebulaGrid.selectCell(nebulaGrid.getFocusCell());
+				selectionProperty.set(createSelection(false));
+			}
 
-							R selectedRow = getSelectedElement();
-							List<@NonNull R> singletonList = createSingletonList(selectedRow);
-							List<XGridCell<@NonNull R, ?>> cellList = new ArrayList<XGridCell<@NonNull R, ?>>();
-							Point p = nebulaGrid.getFocusCell();
-							@SuppressWarnings("unchecked")
-							SWTGridCell<@NonNull R, Object> cell = new SWTGridCell<@NonNull R, Object>(selectedRow,
-									(@NonNull XGridColumn<@NonNull R, Object>) columns.get(p.x));
-							cellList.add(cell);
-							selectionProperty.set(new SimpleCellSelection<@NonNull R>(cellList, singletonList, columns));
+		});
+	}
+
+	@NonNull
+	XSelection<@NonNull R> createSelection(boolean respectiveCurrentSelection) {
+		@SuppressWarnings("null")
+		@NonNull
+		GridItem[] selection = nebulaGrid.getSelection();
+		@NonNull
+		XSelection<@NonNull R> xSelection;
+		if (selection == null || selection.length == 0) {
+			xSelection = Util.emptySelection();
+		} else {
+			if (selectionModeProperty.get() == SelectionMode.SINGLE_ROW) {
+				@Nullable
+				R selectedRow = getSelectedElement(respectiveCurrentSelection);
+				if (selectedRow != null) {
+					List<@NonNull R> singletonList = createSingletonList(selectedRow);
+					xSelection = new SimpleSelection<@NonNull R>(singletonList, getColumns());
+				} else {
+					xSelection = Util.emptySelection();
+				}
+			} else {
+				Point[] cellSelection = nebulaGrid.getCellSelection();
+				if (cellSelection.length == 0) {
+					xSelection = Util.emptyCellSelection();
+				} else {
+					nebulaGrid.deselectAllCells();
+					nebulaGrid.selectCell(nebulaGrid.getFocusCell());
+
+					@Nullable
+					R selectedRow = getSelectedElement(respectiveCurrentSelection);
+					if (selectedRow != null) {
+						List<@NonNull R> singletonList = createSingletonList(selectedRow);
+						List<XGridCell<@NonNull R, ?>> cellList = new ArrayList<XGridCell<@NonNull R, ?>>();
+						Point p = nebulaGrid.getFocusCell();
+						if (p.x < 0) {
+							p.x = 0;
 						}
+						@SuppressWarnings("unchecked")
+						SWTGridCell<@NonNull R, Object> cell = new SWTGridCell<@NonNull R, Object>(selectedRow,
+								(@NonNull XGridColumn<@NonNull R, Object>) columns.get(p.x));
+						cellList.add(cell);
+						xSelection = new SimpleCellSelection<@NonNull R>(cellList, singletonList, getColumns());
+					} else {
+						xSelection = Util.emptyCellSelection();
 					}
 				}
 			}
+		}
+		return xSelection;
+	}
 
-			private @NonNull List<@NonNull R> createSingletonList(R selectedRow) {
-				@SuppressWarnings("null")
-				@NonNull
-				List<@NonNull R> singletonList = Collections.singletonList(selectedRow);
-				return singletonList;
-			}
+	private @NonNull List<@NonNull R> createSingletonList(R selectedRow) {
+		@SuppressWarnings("null")
+		@NonNull
+		List<@NonNull R> singletonList = Collections.singletonList(selectedRow);
+		return singletonList;
+	}
 
-			private @NonNull R getSelectedElement() {
-				@SuppressWarnings("null")
-				@NonNull
-				R selectedRow = getContentHandler().get(nebulaGrid.getSelection()[0]);
-				return selectedRow;
+	private @Nullable R getSelectedElement(boolean respectiveCurrentSelection) {
+		@SuppressWarnings("null")
+		@NonNull
+		GridItem[] selection = nebulaGrid.getSelection();
+		if (selection.length == 0) {
+			if (respectiveCurrentSelection) {
+				return selectionProperty.get().getFirst();
 			}
-		});
+			return null;
+		} else {
+			R selectedRow = getContentHandler().get(selection[0]);
+			return selectedRow;
+		}
 	}
 
 	/**
@@ -211,63 +267,50 @@ public class SWTGridTable<R> implements XGridTable<R> {
 		return Collections.unmodifiableList(columns);
 	}
 
-	static class SimpleSelection<R> implements XSelection<R> {
-		private final @NonNull List<@NonNull R> rowList;
-		private final @NonNull List<SWTGridColumn<R, ?>> columnList;
-
-		SimpleSelection(@NonNull List<@NonNull R> rowList, @NonNull List<@NonNull SWTGridColumn<R, ?>> columnList) {
-			this.rowList = rowList;
-			this.columnList = columnList;
-		}
-
-		@Override
-		public @Nullable R getFirst() {
-			return rowList.isEmpty() ? null : rowList.get(0);
-		}
-
-		@SuppressWarnings("null")
-		@Override
-		public @NonNull List<@NonNull R> asList() {
-			return Collections.unmodifiableList(rowList);
-		}
-
-		@Override
-		public boolean isEmpty() {
-			return false;
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public @NonNull List<@NonNull XGridMetaData> getMetaData() {
-			List<@NonNull XGridMetaData> rv = new ArrayList<>();
-			for (R r : rowList) {
-				for (XGridColumn<R, ?> c : columnList) {
-					List<@NonNull XGridMetaData> data = ((XGridColumn<R, Object>) c).metaDataFunctionProperty().get()
-							.getMetaData(r, c.cellValueFunctionProperty().get().apply(r));
-					rv.addAll(data);
+	private void handleSelectionChanged(Property<XSelection<R>> property, XSelection<R> oldSelection, XSelection<R> newSelection) {
+		if (newSelection instanceof XCellSelection) {
+			// fix selection mode if necessary
+			switch (selectionModeProperty.get()) {
+			case SINGLE_ROW:
+				selectionModeProperty.set(SelectionMode.SINGLE_CELL);
+				break;
+			default:
+				nebulaGrid.deselectAll();
+				if (!newSelection.isEmpty()) {
+					XCellSelection<R> cellSelection = (XCellSelection<R>) newSelection;
+					boolean scrolled = false;
+					for (XGridCell<R, Object> cell : cellSelection.getCells()) {
+						final int x = getColumns().indexOf(cell.getColumn());
+						final @Nullable GridItem item = contentHandler.get(cell.getRowValue());
+						if (item != null) {
+							final int y = nebulaGrid.indexOf(item);
+							nebulaGrid.selectCell(new Point(x, y));
+							if (!scrolled) {
+								nebulaGrid.showItem(item);
+							}
+						}
+					}
 				}
 			}
-			return rv;
+		} else {
+			// fix selection mode if necessary
+			switch (selectionModeProperty.get()) {
+			case SINGLE_CELL:
+				selectionModeProperty.set(SelectionMode.SINGLE_ROW);
+				break;
+			default:
+				// TODO we could ignore this if the selection is set inside
+				nebulaGrid.deselectAll();
+				if (!newSelection.isEmpty()) {
+					List<GridItem> elements = newSelection.asList().stream().map((x) -> contentHandler.get(x)).filter((x) -> x != null)
+							.collect(Collectors.<@Nullable GridItem> toList());
+					nebulaGrid.setSelection(elements.toArray(new GridItem[elements.size()]));
+					if (!elements.isEmpty()) {
+						nebulaGrid.showItem(elements.get(0));
+					}
+				}
+			}
 		}
-	}
-
-	static class SimpleCellSelection<R> extends SimpleSelection<R> implements XCellSelection<R> {
-		// TODO Should we do that lazy??
-		private List<XGridCell<R, ?>> cells;
-
-		SimpleCellSelection(List<XGridCell<R, ?>> cells, @NonNull List<@NonNull R> rowList,
-				@NonNull List<@NonNull SWTGridColumn<R, ?>> columnList) {
-			super(rowList, columnList);
-			this.cells = cells;
-		}
-
-		@Override
-		public <C> List<XGridCell<R, C>> getCells() {
-			@SuppressWarnings("unchecked")
-			List<XGridCell<R, C>> l = (List<XGridCell<R, C>>) (List<?>) cells;
-			return Collections.<XGridCell<R, C>> unmodifiableList(l);
-		}
-
 	}
 
 	@Override
@@ -276,6 +319,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 		XGridColumn<@NonNull R, @Nullable ?> col : getColumns()) {
 			col.dispose();
 		}
+		selectionProperty.removeChangeListener(selectionChangedListener);
 		nebulaGrid.dispose();
 		selectionModeProperty.dispose();
 		contentProviderProperty.dispose();
