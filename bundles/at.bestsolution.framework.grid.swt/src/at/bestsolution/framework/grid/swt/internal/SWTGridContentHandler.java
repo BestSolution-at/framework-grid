@@ -322,7 +322,7 @@ public class SWTGridContentHandler<R> {
 	}
 
 	private Object[][] getData(List<@NonNull Wrapper> rows) {
-		Object[][] exportData = new Object[dataMapByR.size()][grid.getColumns().size()];
+		Object[][] exportData = new Object[rows.size()][grid.getColumns().size()];
 		int rowIndex = 0;
 		for (Wrapper element : rows) {
 			int colIndex = 0;
