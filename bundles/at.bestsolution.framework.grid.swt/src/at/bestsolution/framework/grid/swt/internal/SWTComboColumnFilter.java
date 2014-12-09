@@ -32,6 +32,7 @@ import java.util.function.Supplier;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -56,7 +57,7 @@ import at.bestsolution.framework.grid.swt.SWTGridColumn;
  */
 public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 	private final @NonNull Map<@NonNull Integer, @NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>> autoFilterComboContent = new HashMap<>();
-	private final @NonNull Combo combo;
+	private final @NonNull CCombo combo;
 	private final @NonNull SWTGridColumn<R, C> column;
 	private final @NonNull ChangeListener<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>>> autoFilterDataSupplierListener = this::handleAutoFilterDataSupplierChange;
 	private final @NonNull ChangeListener<@Nullable CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> autoFilterTextFunctionListener = this::handleAutoFilterTextFunctionChange;
@@ -71,7 +72,7 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 	 */
 	public SWTComboColumnFilter(@NonNull SWTGridColumn<R, C> column) {
 		this.column = column;
-		combo = new Combo(column.getNebulaColumn().getParent(), SWT.READ_ONLY | SWT.BORDER) {
+		combo = new CCombo(column.getNebulaColumn().getParent(), SWT.READ_ONLY | SWT.BORDER) {
 
 			@Override
 			public Point computeSize(int wHint, int hHint, boolean changed) {
