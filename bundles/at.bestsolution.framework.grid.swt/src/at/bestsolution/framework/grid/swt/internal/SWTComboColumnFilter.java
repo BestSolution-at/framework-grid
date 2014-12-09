@@ -20,6 +20,7 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.swt.internal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -31,10 +32,12 @@ import java.util.function.Supplier;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Combo;
 
 import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.Property.ChangeListener;
@@ -53,13 +56,14 @@ import at.bestsolution.framework.grid.swt.SWTGridColumn;
  */
 public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 	private final @NonNull Map<@NonNull Integer, @NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>> autoFilterComboContent = new HashMap<>();
-	private final @NonNull CCombo combo;
+	private final @NonNull Combo combo;
 	private final @NonNull SWTGridColumn<R, C> column;
 	private final @NonNull ChangeListener<@NonNull Supplier<@NonNull List<@NonNull AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object>>>> autoFilterDataSupplierListener = this::handleAutoFilterDataSupplierChange;
 	private final @NonNull ChangeListener<@Nullable CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence>> autoFilterTextFunctionListener = this::handleAutoFilterTextFunctionChange;
 	private final @NonNull ChangeListener<@NonNull Locale> localeListener = this::handleLocaleChange;
 	private final @NonNull ChangeListener<@Nullable XGridContentProvider<@NonNull R>> contentProviderListener = this::handleContentProviderChange;
 	private final @NonNull SelectionListener selectionListener;
+	@Nullable Point cachedBounds;
 
 	/**
 	 * @param column
@@ -67,7 +71,21 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 	 */
 	public SWTComboColumnFilter(@NonNull SWTGridColumn<R, C> column) {
 		this.column = column;
-		combo = new CCombo(column.getNebulaColumn().getParent(), SWT.READ_ONLY | SWT.BORDER);
+		combo = new Combo(column.getNebulaColumn().getParent(), SWT.READ_ONLY | SWT.BORDER) {
+
+			@Override
+			public Point computeSize(int wHint, int hHint, boolean changed) {
+				if( cachedBounds != null ) {
+					return cachedBounds;
+				}
+				return cachedBounds = super.computeSize(wHint, hHint, changed);
+			}
+
+			@Override
+			protected void checkSubclass() {
+				// keep empty
+			}
+		};
 		selectionListener = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -79,9 +97,9 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 		updateFilterComboContent();
 		column.autoFilterDataSupplierProperty().addChangeListener(autoFilterDataSupplierListener);
 		column.autoFilterTextFunctionProperty().addChangeListener(autoFilterTextFunctionListener);
-		// translated values need refresh
+//		// translated values need refresh
 		column.getGrid().localeProperty().addChangeListener(localeListener);
-		// new input needs filter update
+//		// new input needs filter update
 		column.getGrid().contentProviderProperty().addChangeListener(contentProviderListener);
 	}
 
@@ -129,13 +147,7 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 
 			combo.removeAll();
 			autoFilterComboContent.clear();
-			// add default entries
-			int index = 0;
-			for (AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object> entry : column.autoFilterDataSupplierProperty().get().get()) {
-				combo.add(entry.getName());
-				autoFilterComboContent.put(new Integer(index), entry);
-				index++;
-			}
+
 
 			@NonNull
 			CellDataFunction<@NonNull R, @Nullable C, @Nullable CharSequence> textFunction;
@@ -156,12 +168,25 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 					otherEntries.add(text);
 				}
 			}
-			for (CharSequence text : otherEntries) {
-				combo.add(text.toString());
-				autoFilterComboContent.put(new Integer(index), new ComboAutoFilterEntry<Object>(text, textFunction));
+
+			List<String> data = new ArrayList<>(otherEntries.size()+column.autoFilterDataSupplierProperty().get().get().size());
+			// add default entries
+			int index = 0;
+			for (AutoFilterEntry<@NonNull R, @Nullable C, @NonNull Object> entry : column.autoFilterDataSupplierProperty().get().get()) {
+				//combo.add(entry.getName());
+				data.add(entry.getName());
+				autoFilterComboContent.put(new Integer(index), entry);
 				index++;
 			}
 
+			for (CharSequence text : otherEntries) {
+				data.add(text.toString());
+				autoFilterComboContent.put(Integer.valueOf(index), new ComboAutoFilterEntry<Object>(text, textFunction));
+				index++;
+			}
+
+			combo.setItems(data.toArray(new String[0]));
+			cachedBounds = null;
 			if (selectionIsDefaultEntry) {
 				combo.select(selectionIndex);
 			} else {

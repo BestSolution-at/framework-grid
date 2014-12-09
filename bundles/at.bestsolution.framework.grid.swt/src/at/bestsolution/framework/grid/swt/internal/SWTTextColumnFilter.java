@@ -25,6 +25,7 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
@@ -42,13 +43,27 @@ public class SWTTextColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 	final @NonNull SWTGridColumn<R, C> column;
 	final @NonNull FreeTextModifyListener modifyListener = new FreeTextModifyListener();
 
+	@Nullable Point cachedBounds;
+
 	/**
 	 * @param column
 	 *            the corresponding column
 	 */
 	public SWTTextColumnFilter(@NonNull SWTGridColumn<R, C> column) {
 		this.column = column;
-		text = new Text(column.getNebulaColumn().getParent(), SWT.BORDER);
+		text = new Text(column.getNebulaColumn().getParent(), SWT.BORDER) {
+			@Override
+			public Point computeSize(int wHint, int hHint, boolean changed) {
+				if( cachedBounds != null ) {
+					return cachedBounds;
+				}
+				return cachedBounds = super.computeSize(wHint, hHint, changed);
+			}
+
+			protected void checkSubclass() {
+				// keep empty
+			}
+		};
 		column.getNebulaColumn().setHeaderControl(text);
 		text.addModifyListener(modifyListener);
 	}
