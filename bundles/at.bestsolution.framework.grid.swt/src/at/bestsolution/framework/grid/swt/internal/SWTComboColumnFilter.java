@@ -36,7 +36,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Combo;
 
 import at.bestsolution.framework.grid.Property;
@@ -181,7 +180,9 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 
 			for (CharSequence text : otherEntries) {
 				data.add(text.toString());
-				autoFilterComboContent.put(Integer.valueOf(index), new ComboAutoFilterEntry<Object>(text, textFunction));
+				@SuppressWarnings("null")
+				@NonNull Integer integerIndex = Integer.valueOf(index);
+				autoFilterComboContent.put(integerIndex, new ComboAutoFilterEntry<Object>(text, textFunction));
 				index++;
 			}
 
