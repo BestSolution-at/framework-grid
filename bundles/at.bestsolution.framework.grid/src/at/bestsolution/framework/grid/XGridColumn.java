@@ -130,6 +130,21 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	Property<@Nullable String> labelProperty();
 
 	/**
+	 * presentation of not presentable values.
+	 * <p>
+	 * this may happen if values are not resolvable or cannot be applied to
+	 * column text functions
+	 * </p>
+	 * <p>
+	 * The default value is <code>#N/A</code>
+	 * </p>
+	 *
+	 * @return the property
+	 */
+	@NonNull
+	Property<@NonNull String> notPresentableValuePresentationProperty();
+
+	/**
 	 * The icon to display
 	 *
 	 * @return the icon property
@@ -175,7 +190,7 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 
 	/**
 	 * The provider of the cell value
-	 *
+	 * 
 	 * @return the provider property
 	 */
 	@NonNull
@@ -187,6 +202,11 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 * <p>
 	 * Default provider creates a {@link Object#toString()} representation of
 	 * the value
+	 * </p>
+	 * <p>
+	 * if the cell value is not resolvable (e.g. invalid format configuration),
+	 * the value of {@link #notPresentableValuePresentationProperty()} will be
+	 * provided
 	 * </p>
 	 *
 	 * @return the provider property
@@ -321,12 +341,14 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	/**
 	 * Function consulted to retrieve
 	 * <p>
-	 * Property value is initialized with a default function who returns no meta data
+	 * Property value is initialized with a default function who returns no meta
+	 * data
 	 * </p>
+	 * 
 	 * @return the property
 	 */
 	@NonNull
-	Property<@NonNull MetaDataFunction<@NonNull R,@Nullable C>> metaDataFunctionProperty();
+	Property<@NonNull MetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty();
 
 	/**
 	 * Grid which contains this column

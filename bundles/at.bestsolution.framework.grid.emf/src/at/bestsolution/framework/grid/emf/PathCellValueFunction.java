@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
+import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.model.grid.MPathCellValueFunction;
 import at.bestsolution.framework.grid.model.grid.MPathSegment;
 import at.bestsolution.framework.grid.model.grid.MSimplePathSegment;
@@ -39,12 +40,16 @@ import at.bestsolution.framework.grid.model.grid.MSimplePathSegment;
  */
 public class PathCellValueFunction<@NonNull R> implements Function<R, @Nullable Object> {
 	private final @NonNull MPathCellValueFunction mFunction;
+	private final @NonNull XGridColumn<@NonNull R, @Nullable ?> column;
 
 	/**
+	 * @param column
+	 *            the corresponding column
 	 * @param mFunction
 	 *            the specified function
 	 */
-	public PathCellValueFunction(@NonNull MPathCellValueFunction mFunction) {
+	public PathCellValueFunction(@NonNull XGridColumn<@NonNull R, @Nullable ?> column, @NonNull MPathCellValueFunction mFunction) {
+		this.column = column;
 		this.mFunction = mFunction;
 	}
 
@@ -73,11 +78,15 @@ public class PathCellValueFunction<@NonNull R> implements Function<R, @Nullable 
 	 *            path segment
 	 * @return obtained value
 	 */
-	private static Object getSegmentValue(@NonNull EObject r, @NonNull MPathSegment segment) {
+	private Object getSegmentValue(@NonNull EObject r, @NonNull MPathSegment segment) {
 		if (segment instanceof MSimplePathSegment) {
 			String featureName = ((MSimplePathSegment) segment).getFeatureName();
 			EStructuralFeature f = r.eClass().getEStructuralFeature(featureName);
-			return r.eGet(f);
+			if (f != null) {
+				return r.eGet(f);
+			} else {
+				return column.notPresentableValuePresentationProperty().get();
+			}
 		} else {
 			throw new UnsupportedOperationException("unknown path segment type: " + segment); //$NON-NLS-1$
 		}
