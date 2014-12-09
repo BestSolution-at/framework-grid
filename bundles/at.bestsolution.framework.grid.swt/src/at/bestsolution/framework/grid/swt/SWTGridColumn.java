@@ -96,6 +96,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	private final @NonNull Property<@NonNull String> autoFilterFreeTextProperty = new SimpleProperty<>(""); //$NON-NLS-1$
 	private final @NonNull Property<@NonNull ExportValueFunction<@NonNull R, @Nullable C>> exportValueFunctionProperty = new SimpleProperty<>(
 			new DefaultExportValueFunction<R, C>(this));
+	private @NonNull Property<@NonNull String> notPresentableValuePresentationProperty = new SimpleProperty<>("#N/A"); //$NON-NLS-1$
 	private final @NonNull MetaDataFunction<@NonNull R, @Nullable C> DEFAULT_META = new MetaDataFunction<R, C>() {
 		@SuppressWarnings("null")
 		@Override
@@ -490,5 +491,10 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	@NonNull
 	public Property<@NonNull MetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty() {
 		return metaDataFunctionProperty;
+	}
+
+	@Override
+	public @NonNull Property<@NonNull String> notPresentableValuePresentationProperty() {
+		return notPresentableValuePresentationProperty;
 	}
 }

@@ -94,7 +94,11 @@ public class LocalizedDecimalCellDataFunction<R, C> implements DisposableCellDat
 	@Override
 	public CharSequence apply(R row, C number) {
 		if (number != null) {
-			return format.format(number);
+			try {
+				return format.format(number);
+			} catch (Exception e) {
+				return column.notPresentableValuePresentationProperty().get();
+			}
 		} else {
 			return null;
 		}

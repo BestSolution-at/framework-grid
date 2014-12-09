@@ -86,7 +86,11 @@ public class DateCellDataFunction<R, C> implements DisposableCellDataFunction<R,
 	@Override
 	public CharSequence apply(R row, C date) {
 		if (date != null) {
-			return format.format(date);
+			try {
+				return format.format(date);
+			} catch (Exception e) {
+				return column.notPresentableValuePresentationProperty().get();
+			}
 		} else {
 			return null;
 		}

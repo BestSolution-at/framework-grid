@@ -66,6 +66,25 @@
           patternKey="datepattern"/>
     </cellTextFunction>
   </columns>
+  <columns id="invalid"
+      titleKey="header.invalid"
+      minWidth="100"
+      maxWidth="100"
+      alignment="CENTER">
+    <cellValueFunction
+        xsi:type="grid:MPathCellValueFunction">
+      <segments
+          xsi:type="grid:MSimplePathSegment"
+          featureName="invalidpath"/>
+    </cellValueFunction>
+    <cellTextFunction
+        xsi:type="grid:MFormattedCellTextFunction"
+        formatType="DATE">
+      <pattern
+          xsi:type="grid:MReferencePattern"
+          patternKey="datepattern"/>
+    </cellTextFunction>
+  </columns>
   <configurations>
     <columns
         column="//@columns.0"/>
@@ -75,6 +94,8 @@
         column="//@columns.2"/>
     <columns
         column="//@columns.3"/>
+    <columns
+        column="//@columns.4"/>
   </configurations>
   <configurationSets
       viewConfiguration="//@configurations.0"
@@ -91,6 +112,9 @@
         key="header.birthdate"
         value="Geburtsdatum"/>
     <entries
+        key="header.invalid"
+        value="Ung&#xfc;ltiger Pfad"/>
+    <entries
         key="datepattern"
         value="dd. MM. yyyy"/>
   </resources>
@@ -105,6 +129,9 @@
     <entries
         key="header.birthdate"
         value="Birthdate"/>
+    <entries
+        key="header.invalid"
+        value="Invalid path"/>
     <entries
         key="datepattern"
         value="MMM dd, yyyy"/>
