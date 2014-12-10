@@ -20,6 +20,7 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.emf;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -36,6 +37,7 @@ import at.bestsolution.framework.grid.XGridColumn.Alignment;
 import at.bestsolution.framework.grid.XGridColumn.AutoFilterType;
 import at.bestsolution.framework.grid.XGridColumn.Sorting;
 import at.bestsolution.framework.grid.XGridColumn.SortingBehavior;
+import at.bestsolution.framework.grid.XGridMetaData;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CompositeTranslationFunction;
 import at.bestsolution.framework.grid.func.TranslationFunction;
@@ -48,8 +50,10 @@ import at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction;
 import at.bestsolution.framework.grid.model.grid.MFreeTextAutoFilterConfiguration;
 import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationColumn;
+import at.bestsolution.framework.grid.model.grid.MMetaData;
 import at.bestsolution.framework.grid.model.grid.MPattern;
 import at.bestsolution.framework.grid.model.grid.MReferencePattern;
+import at.bestsolution.framework.grid.model.grid.MSimpleMetaData;
 import at.bestsolution.framework.grid.model.grid.MSortingBehavior;
 import at.bestsolution.framework.grid.model.grid.MStringPattern;
 
@@ -72,7 +76,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 
 	/**
 	 * EMF Model column configurator
-	 * 
+	 *
 	 * @param column
 	 *            the column to configure
 	 * @param config
@@ -118,7 +122,27 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 		applyAutoFilter();
 
 		applySortingBehavior();
-		// TODO add missing features
+		applyMetaData();
+	}
+
+	private void applyMetaData() {
+		if( ! config.getColumn().getMetaDataList().isEmpty() ) {
+			column.metaDataFunctionProperty().set(this::handleMetaData);
+		}
+	}
+
+	@SuppressWarnings("null")
+	private @NonNull List<@NonNull XGridMetaData> handleMetaData(R row, C cellValue) {
+		List<@NonNull XGridMetaData> rv = new ArrayList<>(config.getColumn().getMetaDataList().size());
+		for( MMetaData m : config.getColumn().getMetaDataList() ) {
+			if( m instanceof MSimpleMetaData ) {
+				MSimpleMetaData ms = (MSimpleMetaData) m;
+				C tmp = cellValue; // compiler bug in eclipse
+				rv.add(new GridMetaData(m.getTopic(),ms.getMetaDataValue(),tmp));
+			}
+
+		}
+		return rv;
 	}
 
 	private void applySortingBehavior() {
@@ -219,7 +243,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 
 	/**
 	 * create a cell data function depending on type and pattern
-	 * 
+	 *
 	 * @param type
 	 *            format type
 	 * @param pattern
@@ -242,7 +266,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	/**
 	 * create a cell data function depending on type and pattern, where the
 	 * pattern is locale dependent
-	 * 
+	 *
 	 * @param type
 	 *            format type
 	 * @param pattern

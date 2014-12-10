@@ -18,6 +18,10 @@
     </cellValueFunction>
     <autoFilterConfiguration
         xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
+    <metaDataList
+        xsi:type="grid:MSimpleMetaData"
+        topic="persongrid/cellinfo"
+        metaDataValue="firstname"/>
   </columns>
   <columns id="lastname"
       titleKey="header.lastname"
@@ -30,6 +34,10 @@
     </cellValueFunction>
     <autoFilterConfiguration
         xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
+    <metaDataList
+        xsi:type="grid:MSimpleMetaData"
+        topic="persongrid/cellinfo"
+        metaDataValue="lastname"/>
   </columns>
   <columns id="street"
       titleKey="header.street"
@@ -47,6 +55,10 @@
     </cellValueFunction>
     <autoFilterConfiguration
         xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
+    <metaDataList
+        xsi:type="grid:MSimpleMetaData"
+        topic="persongrid/cellinfo"
+        metaDataValue="street"/>
   </columns>
   <columns id="number"
       titleKey="header.number"
@@ -70,6 +82,10 @@
     </cellTextFunction>
     <autoFilterConfiguration
         xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
+    <metaDataList
+        xsi:type="grid:MSimpleMetaData"
+        topic="persongrid/cellinfo"
+        metaDataValue="number"/>
   </columns>
   <columns id="birthdate"
       titleKey="header.birthdate"
@@ -111,6 +127,10 @@
             pattern="ddMMyyyy"/>
       </cellTextFunction>
     </autoFilterConfiguration>
+    <metaDataList
+        xsi:type="grid:MSimpleMetaData"
+        topic="persongrid/cellinfo"
+        metaDataValue="birthdate"/>
   </columns>
   <columns id="localizedBirthdate"
       titleKey="header.birthdate"
@@ -131,6 +151,10 @@
           xsi:type="grid:MReferencePattern"
           patternKey="datepattern"/>
     </cellTextFunction>
+    <metaDataList
+        xsi:type="grid:MSimpleMetaData"
+        topic="persongrid/cellinfo"
+        metaDataValue="birthdate2"/>
   </columns>
   <configurations>
     <columns

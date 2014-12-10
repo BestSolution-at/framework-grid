@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Shell;
 import at.bestsolution.framework.grid.ElementComparer;
 import at.bestsolution.framework.grid.XCellSelection;
 import at.bestsolution.framework.grid.XGridCell;
+import at.bestsolution.framework.grid.XGridMetaData;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.XSelection;
 import at.bestsolution.framework.grid.emf.EListGridContentProvider;
@@ -67,6 +68,7 @@ public class PersonSample {
 	private final Root dataSampleMass = getData("sampleDataMass.xmi");
 	private Root data = dataSample;
 	private Label lSelectedItems;
+	private Label lSelectionMetaItems;
 
 	public PersonSample() throws Exception {
 		Display display = new Display();
@@ -256,7 +258,21 @@ public class PersonSample {
 		gd.grabExcessHorizontalSpace = true;
 		// gd.widthHint=200;
 		lSelectedItems.setLayoutData(gd);
+
+		Label lSelectionMeta = new Label(comp, SWT.NONE);
+		lSelectionMeta.setText("Selection-Meta-Data:"); //$NON-NLS-1$
+		lSelectionMetaItems = new Label(comp, SWT.NONE);
+
+		gd = new GridData();
+		gd.horizontalAlignment = SWT.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		// gd.widthHint=200;
+		lSelectionMetaItems.setLayoutData(gd);
+
+
 		table.selectionProperty().addChangeListener((property, oldValue, newValue) -> updateSelectionLabel(newValue));
+
+
 	}
 
 	private void addToggleSelectionMode(Composite parent) {
@@ -305,6 +321,8 @@ public class PersonSample {
 
 	private void updateSelectionLabel(XSelection<Person> newValue) {
 		StringBuffer sb = new StringBuffer();
+		StringBuffer metaSb = new StringBuffer();
+
 		if (newValue instanceof XCellSelection<?>) {
 			XCellSelection<Person> s = (XCellSelection<Person>) newValue;
 			for (XGridCell<Person, Object> p : s.getCells()) {
@@ -312,6 +330,10 @@ public class PersonSample {
 					sb.append(", "); //$NON-NLS-1$
 				}
 				sb.append(p.getCellValue());
+
+				for( XGridMetaData m : p.getMetaData() ) {
+					metaSb.append( m + "\n");
+				}
 			}
 		} else {
 			for (Person p : newValue.asList()) {
@@ -320,8 +342,14 @@ public class PersonSample {
 				}
 				sb.append(p.getFirstname() + " " + p.getLastname()); //$NON-NLS-1$
 			}
+
+			for( XGridMetaData m : newValue.getMetaData() ) {
+				metaSb.append( m + "\n");
+			}
 		}
+
 		lSelectedItems.setText(sb.toString());
+		lSelectionMetaItems.setText(metaSb.toString());
 	}
 
 	private static class PersonComparer implements ElementComparer<Person> {
