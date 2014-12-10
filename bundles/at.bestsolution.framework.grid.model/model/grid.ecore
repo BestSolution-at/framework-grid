@@ -53,6 +53,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="autoFilterConfiguration"
         eType="#//MAutoFilterConfiguration" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sortingBehavior" eType="#//MSortingBehavior"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metaDataList" upperBound="-1"
+        eType="#//MMetaData" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MCellValueFunction" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="MPathCellValueFunction" eSuperTypes="#//MCellValueFunction">
@@ -97,6 +99,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="MTextAutoFilterEntry" eSuperTypes="#//MAutoFilterEntry"/>
   <eClassifiers xsi:type="ecore:EClass" name="MDefaultAutoFilterEntry" eSuperTypes="#//MAutoFilterEntry">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//MDefaultAutoFilterEntryType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MMetaData" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="topic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MSimpleMetaData" eSuperTypes="#//MMetaData">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="metaDataValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MSelectionMode">
     <eLiterals name="SINGLE_ROW" literal="SINGLE_ROW"/>

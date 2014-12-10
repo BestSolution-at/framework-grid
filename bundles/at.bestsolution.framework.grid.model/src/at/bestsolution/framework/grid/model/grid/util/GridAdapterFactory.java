@@ -182,6 +182,14 @@ public class GridAdapterFactory extends AdapterFactoryImpl {
 				return createMDefaultAutoFilterEntryAdapter();
 			}
 			@Override
+			public Adapter caseMMetaData(MMetaData object) {
+				return createMMetaDataAdapter();
+			}
+			@Override
+			public Adapter caseMSimpleMetaData(MSimpleMetaData object) {
+				return createMSimpleMetaDataAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -506,6 +514,34 @@ public class GridAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMDefaultAutoFilterEntryAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link at.bestsolution.framework.grid.model.grid.MMetaData <em>MMeta Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see at.bestsolution.framework.grid.model.grid.MMetaData
+	 * @generated
+	 */
+	public Adapter createMMetaDataAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link at.bestsolution.framework.grid.model.grid.MSimpleMetaData <em>MSimple Meta Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see at.bestsolution.framework.grid.model.grid.MSimpleMetaData
+	 * @generated
+	 */
+	public Adapter createMSimpleMetaDataAdapter() {
 		return null;
 	}
 

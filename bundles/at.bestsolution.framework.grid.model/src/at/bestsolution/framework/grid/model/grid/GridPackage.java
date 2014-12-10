@@ -505,13 +505,22 @@ public interface GridPackage extends EPackage {
 	int MGRID_COLUMN__SORTING_BEHAVIOR = 10;
 
 	/**
+	 * The feature id for the '<em><b>Meta Data List</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MGRID_COLUMN__META_DATA_LIST = 11;
+
+	/**
 	 * The number of structural features of the '<em>MGrid Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_COLUMN_FEATURE_COUNT = 11;
+	int MGRID_COLUMN_FEATURE_COUNT = 12;
 
 	/**
 	 * The number of operations of the '<em>MGrid Column</em>' class.
@@ -1069,6 +1078,89 @@ public interface GridPackage extends EPackage {
 	int MDEFAULT_AUTO_FILTER_ENTRY_OPERATION_COUNT = MAUTO_FILTER_ENTRY_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.impl.MMetaDataImpl <em>MMeta Data</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.bestsolution.framework.grid.model.grid.impl.MMetaDataImpl
+	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMMetaData()
+	 * @generated
+	 */
+	int MMETA_DATA = 22;
+
+	/**
+	 * The feature id for the '<em><b>Topic</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MMETA_DATA__TOPIC = 0;
+
+	/**
+	 * The number of structural features of the '<em>MMeta Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MMETA_DATA_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>MMeta Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MMETA_DATA_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.impl.MSimpleMetaDataImpl <em>MSimple Meta Data</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.bestsolution.framework.grid.model.grid.impl.MSimpleMetaDataImpl
+	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMSimpleMetaData()
+	 * @generated
+	 */
+	int MSIMPLE_META_DATA = 23;
+
+	/**
+	 * The feature id for the '<em><b>Topic</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSIMPLE_META_DATA__TOPIC = MMETA_DATA__TOPIC;
+
+	/**
+	 * The feature id for the '<em><b>Meta Data Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSIMPLE_META_DATA__META_DATA_VALUE = MMETA_DATA_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>MSimple Meta Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSIMPLE_META_DATA_FEATURE_COUNT = MMETA_DATA_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>MSimple Meta Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSIMPLE_META_DATA_OPERATION_COUNT = MMETA_DATA_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MFormatType <em>MFormat Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1076,7 +1168,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMFormatType()
 	 * @generated
 	 */
-	int MFORMAT_TYPE = 22;
+	int MFORMAT_TYPE = 24;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MSelectionMode <em>MSelection Mode</em>}' enum.
@@ -1086,7 +1178,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMSelectionMode()
 	 * @generated
 	 */
-	int MSELECTION_MODE = 23;
+	int MSELECTION_MODE = 25;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MAlignment <em>MAlignment</em>}' enum.
@@ -1096,7 +1188,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMAlignment()
 	 * @generated
 	 */
-	int MALIGNMENT = 24;
+	int MALIGNMENT = 26;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MDefaultAutoFilterEntryType <em>MDefault Auto Filter Entry Type</em>}' enum.
@@ -1106,7 +1198,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMDefaultAutoFilterEntryType()
 	 * @generated
 	 */
-	int MDEFAULT_AUTO_FILTER_ENTRY_TYPE = 25;
+	int MDEFAULT_AUTO_FILTER_ENTRY_TYPE = 27;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MAutoFilterMatchType <em>MAuto Filter Match Type</em>}' enum.
@@ -1116,7 +1208,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMAutoFilterMatchType()
 	 * @generated
 	 */
-	int MAUTO_FILTER_MATCH_TYPE = 26;
+	int MAUTO_FILTER_MATCH_TYPE = 28;
 
 
 	/**
@@ -1127,7 +1219,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMSortingBehavior()
 	 * @generated
 	 */
-	int MSORTING_BEHAVIOR = 27;
+	int MSORTING_BEHAVIOR = 29;
 
 	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MResourceBundle <em>MResource Bundle</em>}'.
@@ -1497,6 +1589,17 @@ public interface GridPackage extends EPackage {
 	EAttribute getMGridColumn_SortingBehavior();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getMetaDataList <em>Meta Data List</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Meta Data List</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MGridColumn#getMetaDataList()
+	 * @see #getMGridColumn()
+	 * @generated
+	 */
+	EReference getMGridColumn_MetaDataList();
+
+	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MCellValueFunction <em>MCell Value Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1777,6 +1880,48 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getMDefaultAutoFilterEntry_Type();
+
+	/**
+	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MMetaData <em>MMeta Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>MMeta Data</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MMetaData
+	 * @generated
+	 */
+	EClass getMMetaData();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MMetaData#getTopic <em>Topic</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Topic</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MMetaData#getTopic()
+	 * @see #getMMetaData()
+	 * @generated
+	 */
+	EAttribute getMMetaData_Topic();
+
+	/**
+	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MSimpleMetaData <em>MSimple Meta Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>MSimple Meta Data</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MSimpleMetaData
+	 * @generated
+	 */
+	EClass getMSimpleMetaData();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MSimpleMetaData#getMetaDataValue <em>Meta Data Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Meta Data Value</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MSimpleMetaData#getMetaDataValue()
+	 * @see #getMSimpleMetaData()
+	 * @generated
+	 */
+	EAttribute getMSimpleMetaData_MetaDataValue();
 
 	/**
 	 * Returns the meta object for enum '{@link at.bestsolution.framework.grid.model.grid.MFormatType <em>MFormat Type</em>}'.
@@ -2148,6 +2293,14 @@ public interface GridPackage extends EPackage {
 		EAttribute MGRID_COLUMN__SORTING_BEHAVIOR = eINSTANCE.getMGridColumn_SortingBehavior();
 
 		/**
+		 * The meta object literal for the '<em><b>Meta Data List</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MGRID_COLUMN__META_DATA_LIST = eINSTANCE.getMGridColumn_MetaDataList();
+
+		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MCellValueFunctionImpl <em>MCell Value Function</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2392,6 +2545,42 @@ public interface GridPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MDEFAULT_AUTO_FILTER_ENTRY__TYPE = eINSTANCE.getMDefaultAutoFilterEntry_Type();
+
+		/**
+		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MMetaDataImpl <em>MMeta Data</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.bestsolution.framework.grid.model.grid.impl.MMetaDataImpl
+		 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMMetaData()
+		 * @generated
+		 */
+		EClass MMETA_DATA = eINSTANCE.getMMetaData();
+
+		/**
+		 * The meta object literal for the '<em><b>Topic</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MMETA_DATA__TOPIC = eINSTANCE.getMMetaData_Topic();
+
+		/**
+		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MSimpleMetaDataImpl <em>MSimple Meta Data</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.bestsolution.framework.grid.model.grid.impl.MSimpleMetaDataImpl
+		 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMSimpleMetaData()
+		 * @generated
+		 */
+		EClass MSIMPLE_META_DATA = eINSTANCE.getMSimpleMetaData();
+
+		/**
+		 * The meta object literal for the '<em><b>Meta Data Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MSIMPLE_META_DATA__META_DATA_VALUE = eINSTANCE.getMSimpleMetaData_MetaDataValue();
 
 		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.MFormatType <em>MFormat Type</em>}' enum.

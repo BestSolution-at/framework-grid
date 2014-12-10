@@ -21,6 +21,7 @@
  */
 package at.bestsolution.framework.grid.model.grid;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -42,6 +43,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getAlignment <em>Alignment</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getAutoFilterConfiguration <em>Auto Filter Configuration</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getSortingBehavior <em>Sorting Behavior</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.MGridColumn#getMetaDataList <em>Meta Data List</em>}</li>
  * </ul>
  * </p>
  *
@@ -350,5 +352,21 @@ public interface MGridColumn extends EObject {
 	 * @generated
 	 */
 	void setSortingBehavior(MSortingBehavior value);
+
+	/**
+	 * Returns the value of the '<em><b>Meta Data List</b></em>' containment reference list.
+	 * The list contents are of type {@link at.bestsolution.framework.grid.model.grid.MMetaData}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Meta Data List</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Meta Data List</em>' containment reference list.
+	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGridColumn_MetaDataList()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<MMetaData> getMetaDataList();
 
 } // MGridColumn

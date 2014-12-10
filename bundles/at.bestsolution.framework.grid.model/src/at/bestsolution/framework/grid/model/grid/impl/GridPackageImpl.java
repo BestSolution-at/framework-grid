@@ -40,6 +40,7 @@ import at.bestsolution.framework.grid.model.grid.MGridColumn;
 import at.bestsolution.framework.grid.model.grid.MGridConfiguration;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationColumn;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationSet;
+import at.bestsolution.framework.grid.model.grid.MMetaData;
 import at.bestsolution.framework.grid.model.grid.MPathCellValueFunction;
 import at.bestsolution.framework.grid.model.grid.MPathSegment;
 import at.bestsolution.framework.grid.model.grid.MPattern;
@@ -47,6 +48,7 @@ import at.bestsolution.framework.grid.model.grid.MReferencePattern;
 import at.bestsolution.framework.grid.model.grid.MResourceBundle;
 import at.bestsolution.framework.grid.model.grid.MResourceBundleEntry;
 import at.bestsolution.framework.grid.model.grid.MSelectionMode;
+import at.bestsolution.framework.grid.model.grid.MSimpleMetaData;
 import at.bestsolution.framework.grid.model.grid.MSimplePathSegment;
 import at.bestsolution.framework.grid.model.grid.MSortingBehavior;
 import at.bestsolution.framework.grid.model.grid.MStringPattern;
@@ -225,6 +227,20 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * @generated
 	 */
 	private EClass mDefaultAutoFilterEntryEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass mMetaDataEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass mSimpleMetaDataEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -640,6 +656,15 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMGridColumn_MetaDataList() {
+		return (EReference)mGridColumnEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMCellValueFunction() {
 		return mCellValueFunctionEClass;
 	}
@@ -883,6 +908,42 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getMMetaData() {
+		return mMetaDataEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMMetaData_Topic() {
+		return (EAttribute)mMetaDataEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMSimpleMetaData() {
+		return mSimpleMetaDataEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMSimpleMetaData_MetaDataValue() {
+		return (EAttribute)mSimpleMetaDataEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getMFormatType() {
 		return mFormatTypeEEnum;
 	}
@@ -1000,6 +1061,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		createEAttribute(mGridColumnEClass, MGRID_COLUMN__ALIGNMENT);
 		createEReference(mGridColumnEClass, MGRID_COLUMN__AUTO_FILTER_CONFIGURATION);
 		createEAttribute(mGridColumnEClass, MGRID_COLUMN__SORTING_BEHAVIOR);
+		createEReference(mGridColumnEClass, MGRID_COLUMN__META_DATA_LIST);
 
 		mCellValueFunctionEClass = createEClass(MCELL_VALUE_FUNCTION);
 
@@ -1042,6 +1104,12 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 
 		mDefaultAutoFilterEntryEClass = createEClass(MDEFAULT_AUTO_FILTER_ENTRY);
 		createEAttribute(mDefaultAutoFilterEntryEClass, MDEFAULT_AUTO_FILTER_ENTRY__TYPE);
+
+		mMetaDataEClass = createEClass(MMETA_DATA);
+		createEAttribute(mMetaDataEClass, MMETA_DATA__TOPIC);
+
+		mSimpleMetaDataEClass = createEClass(MSIMPLE_META_DATA);
+		createEAttribute(mSimpleMetaDataEClass, MSIMPLE_META_DATA__META_DATA_VALUE);
 
 		// Create enums
 		mFormatTypeEEnum = createEEnum(MFORMAT_TYPE);
@@ -1089,6 +1157,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		mFreeTextAutoFilterConfigurationEClass.getESuperTypes().add(this.getMAutoFilterConfiguration());
 		mTextAutoFilterEntryEClass.getESuperTypes().add(this.getMAutoFilterEntry());
 		mDefaultAutoFilterEntryEClass.getESuperTypes().add(this.getMAutoFilterEntry());
+		mSimpleMetaDataEClass.getESuperTypes().add(this.getMMetaData());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(mResourceBundleEClass, MResourceBundle.class, "MResourceBundle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1131,6 +1200,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		initEAttribute(getMGridColumn_Alignment(), this.getMAlignment(), "alignment", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGridColumn_AutoFilterConfiguration(), this.getMAutoFilterConfiguration(), null, "autoFilterConfiguration", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMGridColumn_SortingBehavior(), this.getMSortingBehavior(), "sortingBehavior", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMGridColumn_MetaDataList(), this.getMMetaData(), null, "metaDataList", null, 0, -1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mCellValueFunctionEClass, MCellValueFunction.class, "MCellValueFunction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1173,6 +1243,12 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 
 		initEClass(mDefaultAutoFilterEntryEClass, MDefaultAutoFilterEntry.class, "MDefaultAutoFilterEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMDefaultAutoFilterEntry_Type(), this.getMDefaultAutoFilterEntryType(), "type", null, 0, 1, MDefaultAutoFilterEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(mMetaDataEClass, MMetaData.class, "MMetaData", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMMetaData_Topic(), ecorePackage.getEString(), "topic", null, 0, 1, MMetaData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(mSimpleMetaDataEClass, MSimpleMetaData.class, "MSimpleMetaData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMSimpleMetaData_MetaDataValue(), ecorePackage.getEString(), "metaDataValue", null, 0, 1, MSimpleMetaData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(mFormatTypeEEnum, MFormatType.class, "MFormatType");

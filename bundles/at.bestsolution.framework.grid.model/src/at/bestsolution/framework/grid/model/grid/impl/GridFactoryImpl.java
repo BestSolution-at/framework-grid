@@ -99,6 +99,7 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 			case GridPackage.MFREE_TEXT_AUTO_FILTER_CONFIGURATION: return createMFreeTextAutoFilterConfiguration();
 			case GridPackage.MTEXT_AUTO_FILTER_ENTRY: return createMTextAutoFilterEntry();
 			case GridPackage.MDEFAULT_AUTO_FILTER_ENTRY: return createMDefaultAutoFilterEntry();
+			case GridPackage.MSIMPLE_META_DATA: return createMSimpleMetaData();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -312,6 +313,16 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 	public MDefaultAutoFilterEntry createMDefaultAutoFilterEntry() {
 		MDefaultAutoFilterEntryImpl mDefaultAutoFilterEntry = new MDefaultAutoFilterEntryImpl();
 		return mDefaultAutoFilterEntry;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MSimpleMetaData createMSimpleMetaData() {
+		MSimpleMetaDataImpl mSimpleMetaData = new MSimpleMetaDataImpl();
+		return mSimpleMetaData;
 	}
 
 	/**

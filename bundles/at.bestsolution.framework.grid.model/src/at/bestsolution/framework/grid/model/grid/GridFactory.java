@@ -192,6 +192,15 @@ public interface GridFactory extends EFactory {
 	MDefaultAutoFilterEntry createMDefaultAutoFilterEntry();
 
 	/**
+	 * Returns a new object of class '<em>MSimple Meta Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>MSimple Meta Data</em>'.
+	 * @generated
+	 */
+	MSimpleMetaData createMSimpleMetaData();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -1,23 +1,23 @@
 /**
  *   Copyright (c) 2014 BestSolution.at EDV Systemhaus GmbH/Austria,
  *   http://www.BestSolution.at
- *  
+ *
  *   This file is part of framework-grid which was developed with funding
  *   from DI Christoph Hermann - InformationsTechnologie Beratung Hermann
  *   /Austria.
- *  
+ *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
  *   You may obtain a copy of the License at
- *  
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *   Unless required by applicable law or agreed to in writing, software
  *   distributed under the License is distributed on an "AS IS" BASIS,
  *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
- * 
+ *
  */
 package at.bestsolution.framework.grid.model.grid.util;
 
@@ -230,6 +230,19 @@ public class GridSwitch<@Nullable T> extends Switch<T> {
 				MDefaultAutoFilterEntry mDefaultAutoFilterEntry = (MDefaultAutoFilterEntry)theEObject;
 				T result = caseMDefaultAutoFilterEntry(mDefaultAutoFilterEntry);
 				if (result == null) result = caseMAutoFilterEntry(mDefaultAutoFilterEntry);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GridPackage.MMETA_DATA: {
+				MMetaData mMetaData = (MMetaData)theEObject;
+				T result = caseMMetaData(mMetaData);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GridPackage.MSIMPLE_META_DATA: {
+				MSimpleMetaData mSimpleMetaData = (MSimpleMetaData)theEObject;
+				T result = caseMSimpleMetaData(mSimpleMetaData);
+				if (result == null) result = caseMMetaData(mSimpleMetaData);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -564,6 +577,36 @@ public class GridSwitch<@Nullable T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseMDefaultAutoFilterEntry(MDefaultAutoFilterEntry object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>MMeta Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>MMeta Data</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMMetaData(MMetaData object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>MSimple Meta Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>MSimple Meta Data</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMSimpleMetaData(MSimpleMetaData object) {
 		return null;
 	}
 
