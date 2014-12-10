@@ -27,6 +27,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
@@ -79,7 +82,17 @@ public class PersonSample {
 		table.elementComparerProperty().set(new PersonComparer());
 		configurator = new EmfGridTableConfigurator<Person>(table, currentConfig);
 
-		Composite settings = new Composite(shell, SWT.FILL);
+		ScrolledComposite sc = new ScrolledComposite(shell, SWT.FILL | SWT.H_SCROLL | SWT.V_SCROLL);
+		Composite settings = new Composite(sc, SWT.NONE);
+		sc.setContent(settings);
+		sc.setExpandVertical(true);
+		sc.setExpandHorizontal(true);
+		sc.addControlListener(new ControlAdapter() {
+			public void controlResized(ControlEvent e) {
+				sc.setMinSize(settings.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			}
+		});
+
 		settings.setLayout(new GridLayout(1, false));
 		GridData layoutData = new GridData();
 		layoutData.grabExcessHorizontalSpace = true;
