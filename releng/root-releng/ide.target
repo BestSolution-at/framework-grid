@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Running Platform" sequenceNumber="12">
+<?pde version="3.8"?><target name="Running Platform" sequenceNumber="17">
 <locations>
 <location path="${eclipse_home}" type="Profile"/>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.nebula.widgets.grid.feature.feature.group" version="1.0.0.201412011502"/>
+<unit id="org.eclipse.nebula.widgets.grid.feature.feature.group" version="1.0.0.201412092132"/>
 <repository location="http://download.eclipse.org/technology/nebula/snapshot"/>
 </location>
 </locations>
-<environment>
-<os>macosx</os>
-<ws>cocoa</ws>
-<arch>x86_64</arch>
-<nl>de_DE</nl>
-</environment>
 <launcherArgs>
 <vmArgs>-Xms40m -Xmx2044m -Xdock:icon=../Resources/Eclipse.icns -XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts -Demap.eclasslookup.verbose=true</vmArgs>
 </launcherArgs>
