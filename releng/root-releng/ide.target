@@ -8,6 +8,6 @@
 </location>
 </locations>
 <launcherArgs>
-<vmArgs>-Xms40m -Xmx2044m -Xdock:icon=../Resources/Eclipse.icns -XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts -Demap.eclasslookup.verbose=true</vmArgs>
+<vmArgs>-Xms40m -Xmx2044m -Demap.eclasslookup.verbose=true</vmArgs>
 </launcherArgs>
 </target>
