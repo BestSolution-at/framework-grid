@@ -134,6 +134,13 @@ public class GridSwitch<@Nullable T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GridPackage.MBOOLEAN_GRID_COLUMN: {
+				MBooleanGridColumn mBooleanGridColumn = (MBooleanGridColumn)theEObject;
+				T result = caseMBooleanGridColumn(mBooleanGridColumn);
+				if (result == null) result = caseMGridColumn(mBooleanGridColumn);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GridPackage.MCELL_VALUE_FUNCTION: {
 				MCellValueFunction mCellValueFunction = (MCellValueFunction)theEObject;
 				T result = caseMCellValueFunction(mCellValueFunction);
@@ -352,6 +359,21 @@ public class GridSwitch<@Nullable T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseMGridColumn(MGridColumn object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>MBoolean Grid Column</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>MBoolean Grid Column</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMBooleanGridColumn(MBooleanGridColumn object) {
 		return null;
 	}
 

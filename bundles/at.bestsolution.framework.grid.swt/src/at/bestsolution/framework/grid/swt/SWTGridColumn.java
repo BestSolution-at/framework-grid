@@ -114,15 +114,31 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	/**
 	 * Create a new column
 	 *
+	 * @param grid
+	 *            the containing grid
 	 * @param cellValueFunction
 	 *            the value function
 	 */
-	SWTGridColumn(@NonNull SWTGridTable<R> grid, @NonNull Function<@NonNull R, @Nullable C> cellValueFunction) {
+	public SWTGridColumn(@NonNull SWTGridTable<R> grid, @NonNull Function<@NonNull R, @Nullable C> cellValueFunction) {
+		this(grid, cellValueFunction, SWT.NONE);
+	}
+
+	/**
+	 * Create a new column
+	 *
+	 * @param grid
+	 *            the containing grid
+	 * @param cellValueFunction
+	 *            the value function
+	 * @param style
+	 *            SWT style
+	 */
+	protected SWTGridColumn(@NonNull SWTGridTable<R> grid, @NonNull Function<@NonNull R, @Nullable C> cellValueFunction, int style) {
 		this.cellValueFunctionProperty = new SimpleProperty<>(cellValueFunction);
 		this.grid = grid;
 		this.indexProperty = new SimpleProperty<@NonNull Integer>(new Integer(grid.getColumns().size()));
 
-		nebulaColumn = new GridColumn(grid.getNebulaGrid(), SWT.NONE);
+		nebulaColumn = new GridColumn(grid.getNebulaGrid(), style);
 
 		registerListeners();
 		registerPropertyListeners();
@@ -365,18 +381,14 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	 * @param element
 	 *            row element
 	 */
-	private void fillGridItem(@NonNull GridItem item, @NonNull R element) {
+	protected void fillGridItem(@NonNull GridItem item, @NonNull R element) {
 		C value = cellValueFunctionProperty().get().apply(element);
 		if (value != null) {
-			if (value instanceof Boolean) {
-				item.setChecked(indexProperty().get().intValue(), ((Boolean) value).booleanValue());
+			CharSequence textValue = textFunctionProperty.get().apply(element, value);
+			if (textValue != null) {
+				item.setText(indexProperty().get().intValue(), textValue.toString());
 			} else {
-				CharSequence textValue = textFunctionProperty.get().apply(element, value);
-				if (textValue != null) {
-					item.setText(indexProperty().get().intValue(), textValue.toString());
-				} else {
-					item.setText(indexProperty().get().intValue(), ""); //$NON-NLS-1$
-				}
+				item.setText(indexProperty().get().intValue(), ""); //$NON-NLS-1$
 			}
 		} else {
 			item.setText(indexProperty().get().intValue(), ""); //$NON-NLS-1$

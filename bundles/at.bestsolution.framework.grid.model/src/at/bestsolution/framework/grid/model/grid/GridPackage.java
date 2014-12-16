@@ -532,6 +532,142 @@ public interface GridPackage extends EPackage {
 	int MGRID_COLUMN_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.impl.MBooleanGridColumnImpl <em>MBoolean Grid Column</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.bestsolution.framework.grid.model.grid.impl.MBooleanGridColumnImpl
+	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMBooleanGridColumn()
+	 * @generated
+	 */
+	int MBOOLEAN_GRID_COLUMN = 7;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__ID = MGRID_COLUMN__ID;
+
+	/**
+	 * The feature id for the '<em><b>Grid</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__GRID = MGRID_COLUMN__GRID;
+
+	/**
+	 * The feature id for the '<em><b>Title Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__TITLE_KEY = MGRID_COLUMN__TITLE_KEY;
+
+	/**
+	 * The feature id for the '<em><b>Min Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__MIN_WIDTH = MGRID_COLUMN__MIN_WIDTH;
+
+	/**
+	 * The feature id for the '<em><b>Max Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__MAX_WIDTH = MGRID_COLUMN__MAX_WIDTH;
+
+	/**
+	 * The feature id for the '<em><b>Auto Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__AUTO_WIDTH = MGRID_COLUMN__AUTO_WIDTH;
+
+	/**
+	 * The feature id for the '<em><b>Cell Value Function</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__CELL_VALUE_FUNCTION = MGRID_COLUMN__CELL_VALUE_FUNCTION;
+
+	/**
+	 * The feature id for the '<em><b>Cell Text Function</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__CELL_TEXT_FUNCTION = MGRID_COLUMN__CELL_TEXT_FUNCTION;
+
+	/**
+	 * The feature id for the '<em><b>Alignment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__ALIGNMENT = MGRID_COLUMN__ALIGNMENT;
+
+	/**
+	 * The feature id for the '<em><b>Auto Filter Configuration</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__AUTO_FILTER_CONFIGURATION = MGRID_COLUMN__AUTO_FILTER_CONFIGURATION;
+
+	/**
+	 * The feature id for the '<em><b>Sorting Behavior</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__SORTING_BEHAVIOR = MGRID_COLUMN__SORTING_BEHAVIOR;
+
+	/**
+	 * The feature id for the '<em><b>Meta Data List</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN__META_DATA_LIST = MGRID_COLUMN__META_DATA_LIST;
+
+	/**
+	 * The number of structural features of the '<em>MBoolean Grid Column</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN_FEATURE_COUNT = MGRID_COLUMN_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>MBoolean Grid Column</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MBOOLEAN_GRID_COLUMN_OPERATION_COUNT = MGRID_COLUMN_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.impl.MCellValueFunctionImpl <em>MCell Value Function</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -539,7 +675,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMCellValueFunction()
 	 * @generated
 	 */
-	int MCELL_VALUE_FUNCTION = 7;
+	int MCELL_VALUE_FUNCTION = 8;
 
 	/**
 	 * The number of structural features of the '<em>MCell Value Function</em>' class.
@@ -567,7 +703,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMPathCellValueFunction()
 	 * @generated
 	 */
-	int MPATH_CELL_VALUE_FUNCTION = 8;
+	int MPATH_CELL_VALUE_FUNCTION = 9;
 
 	/**
 	 * The feature id for the '<em><b>Segments</b></em>' containment reference list.
@@ -604,7 +740,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMPathSegment()
 	 * @generated
 	 */
-	int MPATH_SEGMENT = 9;
+	int MPATH_SEGMENT = 10;
 
 	/**
 	 * The number of structural features of the '<em>MPath Segment</em>' class.
@@ -632,7 +768,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMSimplePathSegment()
 	 * @generated
 	 */
-	int MSIMPLE_PATH_SEGMENT = 10;
+	int MSIMPLE_PATH_SEGMENT = 11;
 
 	/**
 	 * The feature id for the '<em><b>Feature Name</b></em>' attribute.
@@ -669,7 +805,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMCellTextFunction()
 	 * @generated
 	 */
-	int MCELL_TEXT_FUNCTION = 11;
+	int MCELL_TEXT_FUNCTION = 12;
 
 	/**
 	 * The number of structural features of the '<em>MCell Text Function</em>' class.
@@ -697,7 +833,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMFormattedCellTextFunction()
 	 * @generated
 	 */
-	int MFORMATTED_CELL_TEXT_FUNCTION = 12;
+	int MFORMATTED_CELL_TEXT_FUNCTION = 13;
 
 	/**
 	 * The feature id for the '<em><b>Format Type</b></em>' attribute.
@@ -743,7 +879,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMPattern()
 	 * @generated
 	 */
-	int MPATTERN = 13;
+	int MPATTERN = 14;
 
 	/**
 	 * The number of structural features of the '<em>MPattern</em>' class.
@@ -771,7 +907,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMStringPattern()
 	 * @generated
 	 */
-	int MSTRING_PATTERN = 14;
+	int MSTRING_PATTERN = 15;
 
 	/**
 	 * The feature id for the '<em><b>Pattern</b></em>' attribute.
@@ -808,7 +944,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMReferencePattern()
 	 * @generated
 	 */
-	int MREFERENCE_PATTERN = 15;
+	int MREFERENCE_PATTERN = 16;
 
 	/**
 	 * The feature id for the '<em><b>Pattern Key</b></em>' attribute.
@@ -845,7 +981,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMAutoFilterConfiguration()
 	 * @generated
 	 */
-	int MAUTO_FILTER_CONFIGURATION = 16;
+	int MAUTO_FILTER_CONFIGURATION = 17;
 
 	/**
 	 * The number of structural features of the '<em>MAuto Filter Configuration</em>' class.
@@ -873,7 +1009,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMComboAutoFilterConfiguration()
 	 * @generated
 	 */
-	int MCOMBO_AUTO_FILTER_CONFIGURATION = 17;
+	int MCOMBO_AUTO_FILTER_CONFIGURATION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Predefined Values</b></em>' containment reference list.
@@ -928,7 +1064,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMFreeTextAutoFilterConfiguration()
 	 * @generated
 	 */
-	int MFREE_TEXT_AUTO_FILTER_CONFIGURATION = 18;
+	int MFREE_TEXT_AUTO_FILTER_CONFIGURATION = 19;
 
 	/**
 	 * The feature id for the '<em><b>Match Type</b></em>' attribute.
@@ -965,7 +1101,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMAutoFilterEntry()
 	 * @generated
 	 */
-	int MAUTO_FILTER_ENTRY = 19;
+	int MAUTO_FILTER_ENTRY = 20;
 
 	/**
 	 * The feature id for the '<em><b>Resource Key</b></em>' attribute.
@@ -1002,7 +1138,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMTextAutoFilterEntry()
 	 * @generated
 	 */
-	int MTEXT_AUTO_FILTER_ENTRY = 20;
+	int MTEXT_AUTO_FILTER_ENTRY = 21;
 
 	/**
 	 * The feature id for the '<em><b>Resource Key</b></em>' attribute.
@@ -1039,7 +1175,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMDefaultAutoFilterEntry()
 	 * @generated
 	 */
-	int MDEFAULT_AUTO_FILTER_ENTRY = 21;
+	int MDEFAULT_AUTO_FILTER_ENTRY = 22;
 
 	/**
 	 * The feature id for the '<em><b>Resource Key</b></em>' attribute.
@@ -1085,7 +1221,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMMetaData()
 	 * @generated
 	 */
-	int MMETA_DATA = 22;
+	int MMETA_DATA = 23;
 
 	/**
 	 * The feature id for the '<em><b>Topic</b></em>' attribute.
@@ -1122,7 +1258,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMSimpleMetaData()
 	 * @generated
 	 */
-	int MSIMPLE_META_DATA = 23;
+	int MSIMPLE_META_DATA = 24;
 
 	/**
 	 * The feature id for the '<em><b>Topic</b></em>' attribute.
@@ -1168,7 +1304,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMFormatType()
 	 * @generated
 	 */
-	int MFORMAT_TYPE = 24;
+	int MFORMAT_TYPE = 25;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MSelectionMode <em>MSelection Mode</em>}' enum.
@@ -1178,7 +1314,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMSelectionMode()
 	 * @generated
 	 */
-	int MSELECTION_MODE = 25;
+	int MSELECTION_MODE = 26;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MAlignment <em>MAlignment</em>}' enum.
@@ -1188,7 +1324,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMAlignment()
 	 * @generated
 	 */
-	int MALIGNMENT = 26;
+	int MALIGNMENT = 27;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MDefaultAutoFilterEntryType <em>MDefault Auto Filter Entry Type</em>}' enum.
@@ -1198,7 +1334,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMDefaultAutoFilterEntryType()
 	 * @generated
 	 */
-	int MDEFAULT_AUTO_FILTER_ENTRY_TYPE = 27;
+	int MDEFAULT_AUTO_FILTER_ENTRY_TYPE = 28;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.framework.grid.model.grid.MAutoFilterMatchType <em>MAuto Filter Match Type</em>}' enum.
@@ -1208,7 +1344,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMAutoFilterMatchType()
 	 * @generated
 	 */
-	int MAUTO_FILTER_MATCH_TYPE = 28;
+	int MAUTO_FILTER_MATCH_TYPE = 29;
 
 
 	/**
@@ -1219,7 +1355,7 @@ public interface GridPackage extends EPackage {
 	 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMSortingBehavior()
 	 * @generated
 	 */
-	int MSORTING_BEHAVIOR = 29;
+	int MSORTING_BEHAVIOR = 30;
 
 	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MResourceBundle <em>MResource Bundle</em>}'.
@@ -1598,6 +1734,16 @@ public interface GridPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMGridColumn_MetaDataList();
+
+	/**
+	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MBooleanGridColumn <em>MBoolean Grid Column</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>MBoolean Grid Column</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MBooleanGridColumn
+	 * @generated
+	 */
+	EClass getMBooleanGridColumn();
 
 	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MCellValueFunction <em>MCell Value Function</em>}'.
@@ -2299,6 +2445,16 @@ public interface GridPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MGRID_COLUMN__META_DATA_LIST = eINSTANCE.getMGridColumn_MetaDataList();
+
+		/**
+		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MBooleanGridColumnImpl <em>MBoolean Grid Column</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.bestsolution.framework.grid.model.grid.impl.MBooleanGridColumnImpl
+		 * @see at.bestsolution.framework.grid.model.grid.impl.GridPackageImpl#getMBooleanGridColumn()
+		 * @generated
+		 */
+		EClass MBOOLEAN_GRID_COLUMN = eINSTANCE.getMBooleanGridColumn();
 
 		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MCellValueFunctionImpl <em>MCell Value Function</em>}' class.

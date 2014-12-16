@@ -37,8 +37,10 @@ import at.bestsolution.framework.grid.model.grid.MSimplePathSegment;
  *
  * @param <R>
  *            data type
+ * @param <C>
+ *            cell type
  */
-public class PathCellValueFunction<@NonNull R> implements Function<R, @Nullable Object> {
+public class PathCellValueFunction<@NonNull R, C> implements Function<R, @Nullable C> {
 	private final @NonNull MPathCellValueFunction mFunction;
 	private final @NonNull XGridColumn<@NonNull R, @Nullable ?> column;
 
@@ -54,7 +56,7 @@ public class PathCellValueFunction<@NonNull R> implements Function<R, @Nullable 
 	}
 
 	@Override
-	public Object apply(R r) {
+	public C apply(R r) {
 		Object value = r;
 		for (@Nullable
 		// TODO we could cache the path to improve performance
@@ -68,7 +70,7 @@ public class PathCellValueFunction<@NonNull R> implements Function<R, @Nullable 
 				value = getSegmentValue(value, segment);
 			}
 		}
-		return value;
+		return (C) value;
 	}
 
 	/**
