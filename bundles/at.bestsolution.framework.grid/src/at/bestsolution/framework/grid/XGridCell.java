@@ -34,7 +34,7 @@ import org.eclipse.jdt.annotation.Nullable;
  *            the cell type
  * @since 1.0
  */
-public interface XGridCell<R, C> extends XGridMetaDataProvider {
+public interface XGridCell<R, C> extends XGridMetaDataProvider<R> {
 	/**
 	 * @return the row value
 	 */
@@ -50,8 +50,4 @@ public interface XGridCell<R, C> extends XGridMetaDataProvider {
 	 */
 	public @NonNull XGridColumn<R, C> getColumn();
 
-	/**
-	 * List of meta informations
-	 */
-	public @NonNull List<@NonNull XGridMetaData> getMetaData();
 }

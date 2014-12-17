@@ -20,32 +20,31 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid;
 
-import java.util.List;
-
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 /**
- * Selection on the grid
+ * Object with meta data
  *
- * @param <R>
- *            the row type
+ * @since 1.0
  */
-public interface XSelection<R> extends XGridMetaDataProvider<R> {
+public interface XGridCellMetaData<R> {
 	/**
-	 * @return the first entry or <code>null</code> if empty
+	 * @return the value
+	 * @param <V>
+	 *            value type
 	 */
-	@Nullable
-	R getFirst();
+	public <V> @Nullable V getValue();
 
 	/**
-	 * @return as a list
+	 * @return the meta data
+	 * @param <M>
+	 *            MetaData type
 	 */
-	@NonNull
-	List<@NonNull R> asList();
+	public <M> @Nullable M getMetaData();
 
 	/**
-	 * @return check if empty
+	 * @return the object
 	 */
-	boolean isEmpty();
+	public @NonNull String getTopic();
 }

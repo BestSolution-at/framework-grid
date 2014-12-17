@@ -18,6 +18,10 @@
     </cellValueFunction>
     <autoFilterConfiguration
         xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
+    <metaDataList
+        xsi:type="grid:MSimpleMetaData"
+        topic="test/data"
+        metaDataValue="firstname"/>
   </columns>
   <columns id="lastname"
       titleKey="header.lastname"
@@ -30,6 +34,10 @@
     </cellValueFunction>
     <autoFilterConfiguration
         xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
+    <metaDataList
+        xsi:type="grid:MSimpleMetaData"
+        topic="test/data"
+        metaDataValue="lastname"/>
   </columns>
   <columns id="street"
       titleKey="header.street"

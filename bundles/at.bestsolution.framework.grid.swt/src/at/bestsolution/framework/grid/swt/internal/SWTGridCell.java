@@ -27,7 +27,7 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridColumn;
-import at.bestsolution.framework.grid.XGridMetaData;
+import at.bestsolution.framework.grid.XGridCellMetaData;
 
 /**
  * Grid cell implementation
@@ -71,7 +71,7 @@ public class SWTGridCell<R, C> implements XGridCell<R, C> {
 	}
 
 	@Override
-	public @NonNull List<@NonNull XGridMetaData> getMetaData() {
+	public @NonNull List<@NonNull XGridCellMetaData<R>> getMetaData() {
 		return column.metaDataFunctionProperty().get().getMetaData(row, getCellValue());
 	}
 }

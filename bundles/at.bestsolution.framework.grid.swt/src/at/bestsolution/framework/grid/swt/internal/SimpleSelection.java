@@ -28,7 +28,7 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.XGridColumn;
-import at.bestsolution.framework.grid.XGridMetaData;
+import at.bestsolution.framework.grid.XGridCellMetaData;
 import at.bestsolution.framework.grid.XSelection;
 
 /**
@@ -70,11 +70,11 @@ public class SimpleSelection<R> implements XSelection<R> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public @NonNull List<@NonNull XGridMetaData> getMetaData() {
-		List<@NonNull XGridMetaData> rv = new ArrayList<>();
+	public @NonNull List<@NonNull XGridCellMetaData<R>> getMetaData() {
+		List<@NonNull XGridCellMetaData<R>> rv = new ArrayList<>();
 		for (R r : rowList) {
 			for (XGridColumn<R, ?> c : columnList) {
-				List<@NonNull XGridMetaData> data = ((XGridColumn<R, Object>) c).metaDataFunctionProperty().get()
+				List<@NonNull XGridCellMetaData<R>> data = ((XGridColumn<R, Object>) c).metaDataFunctionProperty().get()
 						.getMetaData(r, c.cellValueFunctionProperty().get().apply(r));
 				rv.addAll(data);
 			}

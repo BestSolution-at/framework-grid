@@ -29,9 +29,9 @@ import org.eclipse.jdt.annotation.NonNull;
  *
  * @since 1.0
  */
-public interface XGridMetaDataProvider {
+public interface XGridMetaDataProvider<R> {
 	/**
 	 * @return the list of meta data
 	 */
-	public @NonNull List<@NonNull XGridMetaData> getMetaData();
+	public @NonNull List<@NonNull XGridCellMetaData<R>> getMetaData();
 }

@@ -23,12 +23,15 @@ package at.bestsolution.framework.grid.emf;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import at.bestsolution.framework.grid.XGridMetaData;
+import at.bestsolution.framework.grid.XGridCellMetaData;
 
 /**
  * Meta data impl
+ *
+ * @param <R>
+ *            row type
  */
-public class GridMetaData implements XGridMetaData {
+public class GridMetaData<R> implements XGridCellMetaData<R> {
 
 	@NonNull
 	private final String topic;

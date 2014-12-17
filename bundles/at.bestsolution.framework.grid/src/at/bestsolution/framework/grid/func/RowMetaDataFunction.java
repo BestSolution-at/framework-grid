@@ -20,30 +20,9 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid.func;
 
-import java.util.List;
-
-import org.eclipse.jdt.annotation.NonNull;
-
-import at.bestsolution.framework.grid.XGridMetaData;
-
 /**
- * Function to retrieve XMetaData for a given cell
  *
- * @param <R>
- *            the row type
- * @param <C>
- *            the cell type
  */
-@FunctionalInterface
-public interface MetaDataFunction<R, C> {
-	/**
-	 * Retrieve meta data for the given cell
-	 *
-	 * @param rowValue
-	 *            the row value
-	 * @param cellValue
-	 *            the cell value
-	 * @return the list of meta data
-	 */
-	public @NonNull List<@NonNull XGridMetaData> getMetaData(R rowValue, C cellValue);
+public interface RowMetaDataFunction {
+
 }

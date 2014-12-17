@@ -37,7 +37,7 @@ import at.bestsolution.framework.grid.XGridColumn.Alignment;
 import at.bestsolution.framework.grid.XGridColumn.AutoFilterType;
 import at.bestsolution.framework.grid.XGridColumn.Sorting;
 import at.bestsolution.framework.grid.XGridColumn.SortingBehavior;
-import at.bestsolution.framework.grid.XGridMetaData;
+import at.bestsolution.framework.grid.XGridCellMetaData;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CompositeTranslationFunction;
 import at.bestsolution.framework.grid.func.TranslationFunction;
@@ -132,13 +132,13 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 	}
 
 	@SuppressWarnings("null")
-	private @NonNull List<@NonNull XGridMetaData> handleMetaData(R row, C cellValue) {
-		List<@NonNull XGridMetaData> rv = new ArrayList<>(config.getColumn().getMetaDataList().size());
+	private @NonNull List<@NonNull XGridCellMetaData<R>> handleMetaData(R row, C cellValue) {
+		List<@NonNull XGridCellMetaData<R>> rv = new ArrayList<>(config.getColumn().getMetaDataList().size());
 		for( MMetaData m : config.getColumn().getMetaDataList() ) {
 			if( m instanceof MSimpleMetaData ) {
 				MSimpleMetaData ms = (MSimpleMetaData) m;
 				C tmp = cellValue; // compiler bug in eclipse
-				rv.add(new GridMetaData(m.getTopic(),ms.getMetaDataValue(),tmp));
+				rv.add(new GridMetaData<R>(m.getTopic(),ms.getMetaDataValue(),tmp));
 			}
 
 		}

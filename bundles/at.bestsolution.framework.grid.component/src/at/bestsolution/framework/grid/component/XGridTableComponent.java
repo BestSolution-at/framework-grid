@@ -30,7 +30,7 @@ import at.bestsolution.framework.grid.Property;
 import at.bestsolution.framework.grid.XCellSelection;
 import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridContentProvider;
-import at.bestsolution.framework.grid.XGridMetaData;
+import at.bestsolution.framework.grid.XGridCellMetaData;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.XSelection;
 import at.bestsolution.framework.grid.component.XGridTableConfigurator.XConfiguredGridTable;
@@ -82,12 +82,12 @@ public final class XGridTableComponent<O> {
 		if (newValue instanceof XCellSelection) {
 			XCellSelection<@NonNull O> selection = (@NonNull XCellSelection<@NonNull O>) newValue;
 			for (XGridCell<@NonNull O, Object> c : selection.getCells()) {
-				for (XGridMetaData d : c.getMetaData()) {
+				for (XGridCellMetaData<O> d : c.getMetaData()) {
 					eventPublisher.publish(d.getTopic(), d);
 				}
 			}
 		} else {
-			for (XGridMetaData d : newValue.getMetaData()) {
+			for (XGridCellMetaData<O> d : newValue.getMetaData()) {
 				eventPublisher.publish(d.getTopic(), d);
 			}
 		}

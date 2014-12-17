@@ -43,7 +43,7 @@ import org.eclipse.swt.widgets.Shell;
 import at.bestsolution.framework.grid.ElementComparer;
 import at.bestsolution.framework.grid.XCellSelection;
 import at.bestsolution.framework.grid.XGridCell;
-import at.bestsolution.framework.grid.XGridMetaData;
+import at.bestsolution.framework.grid.XGridCellMetaData;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.XSelection;
 import at.bestsolution.framework.grid.emf.EListGridContentProvider;
@@ -331,7 +331,7 @@ public class PersonSample {
 				}
 				sb.append(p.getCellValue());
 
-				for( XGridMetaData m : p.getMetaData() ) {
+				for( XGridCellMetaData m : p.getMetaData() ) {
 					metaSb.append( m + "\n");
 				}
 			}
@@ -343,7 +343,7 @@ public class PersonSample {
 				sb.append(p.getFirstname() + " " + p.getLastname()); //$NON-NLS-1$
 			}
 
-			for( XGridMetaData m : newValue.getMetaData() ) {
+			for( XGridCellMetaData m : newValue.getMetaData() ) {
 				metaSb.append( m + "\n");
 			}
 		}

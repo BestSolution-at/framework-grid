@@ -44,13 +44,13 @@ import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.XGrid;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
-import at.bestsolution.framework.grid.XGridMetaData;
+import at.bestsolution.framework.grid.XGridCellMetaData;
 import at.bestsolution.framework.grid.func.AutoFilterEntry;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 import at.bestsolution.framework.grid.func.DisposableCellDataFunction;
 import at.bestsolution.framework.grid.func.ExportValueFunction;
-import at.bestsolution.framework.grid.func.MetaDataFunction;
+import at.bestsolution.framework.grid.func.CellMetaDataFunction;
 import at.bestsolution.framework.grid.swt.internal.SWTColumnFilter;
 import at.bestsolution.framework.grid.swt.internal.SWTComboColumnFilter;
 import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
@@ -97,15 +97,15 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	private final @NonNull Property<@NonNull ExportValueFunction<@NonNull R, @Nullable C>> exportValueFunctionProperty = new SimpleProperty<>(
 			new DefaultExportValueFunction<R, C>(this));
 	private @NonNull Property<@NonNull String> notPresentableValuePresentationProperty = new SimpleProperty<>("#N/A"); //$NON-NLS-1$
-	private final @NonNull MetaDataFunction<@NonNull R, @Nullable C> DEFAULT_META = new MetaDataFunction<R, C>() {
+	private final @NonNull CellMetaDataFunction<@NonNull R, @Nullable C> DEFAULT_META = new CellMetaDataFunction<R, C>() {
 		@SuppressWarnings("null")
 		@Override
-		public @NonNull List<@NonNull XGridMetaData> getMetaData(R rowValue, C cellValue) {
+		public @NonNull List<@NonNull XGridCellMetaData<R>> getMetaData(R rowValue, C cellValue) {
 			return Collections.emptyList();
 		}
 	};
-	private final @NonNull Property<@NonNull MetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty = new SimpleProperty<>(
-			(MetaDataFunction<R, C>) DEFAULT_META);
+	private final @NonNull Property<@NonNull CellMetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty = new SimpleProperty<>(
+			(CellMetaDataFunction<R, C>) DEFAULT_META);
 
 	GridColumn nebulaColumn;
 	@Nullable
@@ -518,7 +518,7 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	}
 
 	@NonNull
-	public Property<@NonNull MetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty() {
+	public Property<@NonNull CellMetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty() {
 		return metaDataFunctionProperty;
 	}
 

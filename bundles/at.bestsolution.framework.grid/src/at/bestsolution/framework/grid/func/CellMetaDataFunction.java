@@ -18,33 +18,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package at.bestsolution.framework.grid;
+package at.bestsolution.framework.grid.func;
+
+import java.util.List;
 
 import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
+
+import at.bestsolution.framework.grid.XGridCellMetaData;
 
 /**
- * Object with meta data
+ * Function to retrieve XMetaData for a given cell
  *
- * @since 1.0
+ * @param <R>
+ *            the row type
+ * @param <C>
+ *            the cell type
  */
-public interface XGridMetaData {
+@FunctionalInterface
+public interface CellMetaDataFunction<R, C> {
 	/**
-	 * @return the value
-	 * @param <V>
-	 *            value type
+	 * Retrieve meta data for the given cell
+	 *
+	 * @param rowValue
+	 *            the row value
+	 * @param cellValue
+	 *            the cell value
+	 * @return the list of meta data
 	 */
-	public <V> @Nullable V getValue();
-
-	/**
-	 * @return the meta data
-	 * @param <M>
-	 *            MetaData type
-	 */
-	public <M> @Nullable M getMetaData();
-
-	/**
-	 * @return the object
-	 */
-	public @NonNull String getTopic();
+	public @NonNull List<@NonNull XGridCellMetaData<R>> getMetaData(R rowValue, C cellValue);
 }

@@ -33,7 +33,7 @@ import at.bestsolution.framework.grid.func.AutoFilterEntry;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
 import at.bestsolution.framework.grid.func.ExportValueFunction;
-import at.bestsolution.framework.grid.func.MetaDataFunction;
+import at.bestsolution.framework.grid.func.CellMetaDataFunction;
 
 /**
  * Column of a grid
@@ -348,7 +348,7 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 * @return the property
 	 */
 	@NonNull
-	Property<@NonNull MetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty();
+	Property<@NonNull CellMetaDataFunction<@NonNull R, @Nullable C>> metaDataFunctionProperty();
 
 	/**
 	 * Grid which contains this column
