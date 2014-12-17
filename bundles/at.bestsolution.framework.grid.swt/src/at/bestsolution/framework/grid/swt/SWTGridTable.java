@@ -117,7 +117,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	}
 
 	@Override
-	public @NonNull Property<@NonNull XSelection<@NonNull R>> selectionProperty() {
+	public @NonNull Property<@NonNull XSelection<R>> selectionProperty() {
 		return selectionProperty;
 	}
 

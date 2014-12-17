@@ -121,7 +121,7 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 * @return the default selection
 	 */
 	@NonNull
-	Property<@NonNull XSelection<@NonNull R>> selectionProperty();
+	Property<@NonNull XSelection<R>> selectionProperty();
 
 	/**
 	 * The element comparer property
