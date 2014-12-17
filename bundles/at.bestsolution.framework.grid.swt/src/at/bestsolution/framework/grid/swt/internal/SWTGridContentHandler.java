@@ -75,7 +75,7 @@ public class SWTGridContentHandler<R> {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void registerPropertyListeners() {
 		defaultSortProperty.addChangeListener(defaultSortChangeListener);
@@ -106,12 +106,12 @@ public class SWTGridContentHandler<R> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param newContentProvider
 	 *            the new content provider
 	 */
 	private void resetContent(@Nullable XGridContentProvider<R> newContentProvider) {
-		XSelection<@NonNull R> previousSelection = grid.selectionProperty().get();
+		XSelection<R> previousSelection = grid.selectionProperty().get();
 		if (contentProvider != newContentProvider) {
 			@Nullable
 			XGridContentProvider<R> oldContentProvider = contentProvider;
@@ -151,7 +151,7 @@ public class SWTGridContentHandler<R> {
 				grid.selectionProperty().set(new SimpleCellSelection<@NonNull R>(cellList, newSelection, grid.getColumns()));
 			}
 		}
-		// pack 
+		// pack
 		for (@NonNull
 		XGridColumn<@NonNull R, @Nullable ?> xcol : grid.getColumns()) {
 			if (xcol.autoWidthProperty().get().booleanValue()) {

@@ -276,6 +276,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 		return Collections.unmodifiableList(columns);
 	}
 
+	@SuppressWarnings("all")
 	private void handleSelectionChanged(Property<XSelection<R>> property, XSelection<R> oldSelection, XSelection<R> newSelection) {
 		if (newSelection instanceof XCellSelection) {
 			// fix selection mode if necessary
