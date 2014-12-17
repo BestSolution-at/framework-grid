@@ -111,6 +111,8 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 	@Nullable
 	SWTColumnFilter<R, C> columnFilter = null;
 
+	private boolean noupdate = false;
+
 	/**
 	 * Create a new column
 	 *
@@ -339,13 +341,28 @@ public class SWTGridColumn<@NonNull R, @Nullable C> implements XGridColumn<R, C>
 		default:
 			nebulaColumn.setSort(SWT.NONE);
 		}
-		@Nullable
-		SWTGridColumn<@NonNull R, ?> currentSortColumn = grid.getContentHandler().sortColumnProperty().get();
-		// reset sorting state on previous sorted other column
-		if (currentSortColumn != null && currentSortColumn != this) {
-			currentSortColumn.sortingProperty.set(Sorting.NONE);
+		if( ! noupdate ) {
+			@Nullable
+			SWTGridColumn<@NonNull R, ?> currentSortColumn = grid.getContentHandler().sortColumnProperty().get();
+			// reset sorting state on previous sorted other column
+			if (currentSortColumn != null && currentSortColumn != this) {
+				currentSortColumn.resetToDefault();
+			}
+			grid.getContentHandler().sortColumnProperty().set(this);
 		}
-		grid.getContentHandler().sortColumnProperty().set(this);
+	}
+
+	/**
+	 *
+	 */
+	private void resetToDefault() {
+		try {
+			noupdate = true;
+			sortingProperty.set(Sorting.NONE);
+		} finally {
+			noupdate = false;
+		}
+
 	}
 
 	void checkWidth() {
