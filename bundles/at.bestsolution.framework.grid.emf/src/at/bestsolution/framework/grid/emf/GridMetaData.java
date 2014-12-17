@@ -42,6 +42,9 @@ public class GridMetaData<R> implements XGridCellMetaData<R> {
 	@Nullable
 	private final Object data;
 
+	@NonNull
+	private final R rowValue;
+
 	/**
 	 * Create a meta data object
 	 *
@@ -49,19 +52,27 @@ public class GridMetaData<R> implements XGridCellMetaData<R> {
 	 *            the topic
 	 * @param data
 	 *            the data
+	 * @param rowValue
+	 *            the row value
 	 * @param value
 	 *            the value
 	 */
-	public GridMetaData(@NonNull String topic, Object data, Object value) {
+	public GridMetaData(@NonNull String topic, Object data, @NonNull R rowValue, Object value) {
 		this.topic = topic;
 		this.data = data;
 		this.value = value;
+		this.rowValue = rowValue;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public <V> @Nullable V getCellValue() {
 		return (V) value;
+	}
+
+	@Override
+	public @NonNull R getRowValue() {
+		return rowValue;
 	}
 
 	@SuppressWarnings("unchecked")

@@ -40,6 +40,11 @@ public interface XGridCellMetaData<R> {
 	public <V> @Nullable V getCellValue();
 
 	/**
+	 * @return the row value
+	 */
+	public R getRowValue();
+
+	/**
 	 * @return the meta data
 	 * @param <M>
 	 *            MetaData type
