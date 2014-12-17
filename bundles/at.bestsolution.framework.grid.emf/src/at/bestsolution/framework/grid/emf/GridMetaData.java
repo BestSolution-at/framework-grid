@@ -60,7 +60,7 @@ public class GridMetaData<R> implements XGridCellMetaData<R> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <V> @Nullable V getValue() {
+	public <V> @Nullable V getCellValue() {
 		return (V) value;
 	}
 

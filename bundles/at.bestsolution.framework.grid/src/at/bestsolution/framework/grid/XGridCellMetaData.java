@@ -26,6 +26,9 @@ import org.eclipse.jdt.annotation.Nullable;
 /**
  * Object with meta data
  *
+ * @param <R>
+ *            the row type
+ *
  * @since 1.0
  */
 public interface XGridCellMetaData<R> {
@@ -34,7 +37,7 @@ public interface XGridCellMetaData<R> {
 	 * @param <V>
 	 *            value type
 	 */
-	public <V> @Nullable V getValue();
+	public <V> @Nullable V getCellValue();
 
 	/**
 	 * @return the meta data

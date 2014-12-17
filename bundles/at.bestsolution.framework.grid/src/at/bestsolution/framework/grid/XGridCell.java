@@ -20,8 +20,6 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid;
 
-import java.util.List;
-
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 

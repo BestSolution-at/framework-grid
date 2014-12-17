@@ -27,6 +27,9 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Base interface implemented by all services who provide meta data
  *
+ * @param <R>
+ *            the row type
+ *
  * @since 1.0
  */
 public interface XGridMetaDataProvider<R> {
