@@ -31,6 +31,7 @@ import at.bestsolution.framework.grid.XCellSelection;
 import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.XGridCellMetaData;
+import at.bestsolution.framework.grid.XGridRowMetaData;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.XSelection;
 import at.bestsolution.framework.grid.component.XGridTableConfigurator.XConfiguredGridTable;
@@ -79,15 +80,20 @@ public final class XGridTableComponent<O> {
 			@NonNull XSelection<@NonNull O> newValue) {
 		selectionPublisher.publishSelection(newValue);
 		eventPublisher.publish(XGridEventPublisher.SELECTION_CHANGED, newValue);
+
+		for( XGridRowMetaData<O> d : newValue.getRowMetaData() ) {
+			eventPublisher.publish(d.getTopic(), d);
+		}
+
 		if (newValue instanceof XCellSelection) {
 			XCellSelection<@NonNull O> selection = (@NonNull XCellSelection<@NonNull O>) newValue;
 			for (XGridCell<@NonNull O, Object> c : selection.getCells()) {
-				for (XGridCellMetaData<O> d : c.getMetaData()) {
+				for (XGridCellMetaData<O> d : c.getCellMetaData()) {
 					eventPublisher.publish(d.getTopic(), d);
 				}
 			}
 		} else {
-			for (XGridCellMetaData<O> d : newValue.getMetaData()) {
+			for (XGridCellMetaData<O> d : newValue.getCellMetaData()) {
 				eventPublisher.publish(d.getTopic(), d);
 			}
 		}

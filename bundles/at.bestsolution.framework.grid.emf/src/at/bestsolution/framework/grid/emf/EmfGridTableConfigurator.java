@@ -22,6 +22,7 @@ package at.bestsolution.framework.grid.emf;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -32,7 +33,9 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.XGrid.SelectionMode;
+import at.bestsolution.framework.grid.XGridCellMetaData;
 import at.bestsolution.framework.grid.XGridColumn;
+import at.bestsolution.framework.grid.XGridRowMetaData;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.model.grid.GridPackage;
 import at.bestsolution.framework.grid.model.grid.MBooleanGridColumn;
@@ -40,7 +43,9 @@ import at.bestsolution.framework.grid.model.grid.MCellValueFunction;
 import at.bestsolution.framework.grid.model.grid.MGridColumn;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationColumn;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationSet;
+import at.bestsolution.framework.grid.model.grid.MMetaData;
 import at.bestsolution.framework.grid.model.grid.MPathCellValueFunction;
+import at.bestsolution.framework.grid.model.grid.MSimpleMetaData;
 
 /**
  * configure a grid instance with model meta data
@@ -57,7 +62,7 @@ public class EmfGridTableConfigurator<R> {
 
 	/**
 	 * EMF Model table configurator
-	 * 
+	 *
 	 * @param table
 	 *            the table to configure
 	 * @param config
@@ -71,7 +76,7 @@ public class EmfGridTableConfigurator<R> {
 
 	/**
 	 * reconfigure grid with a new configuration
-	 * 
+	 *
 	 * @param config
 	 *            the new configuration
 	 */
@@ -108,7 +113,26 @@ public class EmfGridTableConfigurator<R> {
 		applySelectionMode();
 		addViewColumns();
 		applyDefaultSort();
-		// TODO add missing features
+		applyMetaData();
+	}
+
+	private void applyMetaData() {
+		if( ! config.getGrid().getMetaDataList().isEmpty() ) {
+			table.metaDataFunctionProperty().set(this::handleMetaData);
+		}
+	}
+
+	@SuppressWarnings("null")
+	private @NonNull List<@NonNull XGridRowMetaData<R>> handleMetaData(R row) {
+		List<@NonNull XGridRowMetaData<R>> rv = new ArrayList<>(config.getGrid().getMetaDataList().size());
+		for( MMetaData m : config.getGrid().getMetaDataList() ) {
+			if( m instanceof MSimpleMetaData ) {
+				MSimpleMetaData ms = (MSimpleMetaData) m;
+				rv.add(new GridRowMetaData<R>(m.getTopic(),ms.getMetaDataValue(),row));
+			}
+
+		}
+		return rv;
 	}
 
 	private void applyDefaultSort() {

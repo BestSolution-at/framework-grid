@@ -44,6 +44,7 @@ import at.bestsolution.framework.grid.ElementComparer;
 import at.bestsolution.framework.grid.XCellSelection;
 import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridCellMetaData;
+import at.bestsolution.framework.grid.XGridRowMetaData;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.XSelection;
 import at.bestsolution.framework.grid.emf.EListGridContentProvider;
@@ -69,6 +70,7 @@ public class PersonSample {
 	private Root data = dataSample;
 	private Label lSelectedItems;
 	private Label lSelectionMetaItems;
+	private Label lSelectionRowMetaItems;
 
 	public PersonSample() throws Exception {
 		Display display = new Display();
@@ -260,7 +262,7 @@ public class PersonSample {
 		lSelectedItems.setLayoutData(gd);
 
 		Label lSelectionMeta = new Label(comp, SWT.NONE);
-		lSelectionMeta.setText("Selection-Meta-Data:"); //$NON-NLS-1$
+		lSelectionMeta.setText("Selection-Cell-Meta-Data:"); //$NON-NLS-1$
 		lSelectionMetaItems = new Label(comp, SWT.NONE);
 
 		gd = new GridData();
@@ -268,6 +270,16 @@ public class PersonSample {
 		gd.grabExcessHorizontalSpace = true;
 		// gd.widthHint=200;
 		lSelectionMetaItems.setLayoutData(gd);
+
+		Label lSelectionRowMeta = new Label(comp, SWT.NONE);
+		lSelectionRowMeta.setText("Selection-Row-Meta-Data:"); //$NON-NLS-1$
+		lSelectionRowMetaItems = new Label(comp, SWT.NONE);
+
+		gd = new GridData();
+		gd.horizontalAlignment = SWT.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		// gd.widthHint=200;
+		lSelectionRowMetaItems.setLayoutData(gd);
 
 
 		table.selectionProperty().addChangeListener((property, oldValue, newValue) -> updateSelectionLabel(newValue));
@@ -321,7 +333,12 @@ public class PersonSample {
 
 	private void updateSelectionLabel(XSelection<Person> newValue) {
 		StringBuffer sb = new StringBuffer();
+		StringBuffer metaRowSb = new StringBuffer();
 		StringBuffer metaSb = new StringBuffer();
+
+		for( XGridRowMetaData<Person> m : newValue.getRowMetaData() ) {
+			metaRowSb.append(m + "\n");
+		}
 
 		if (newValue instanceof XCellSelection<?>) {
 			XCellSelection<Person> s = (XCellSelection<Person>) newValue;
@@ -331,7 +348,7 @@ public class PersonSample {
 				}
 				sb.append(p.getCellValue());
 
-				for( XGridCellMetaData m : p.getMetaData() ) {
+				for( XGridCellMetaData<Person> m : p.getCellMetaData() ) {
 					metaSb.append( m + "\n");
 				}
 			}
@@ -343,13 +360,14 @@ public class PersonSample {
 				sb.append(p.getFirstname() + " " + p.getLastname()); //$NON-NLS-1$
 			}
 
-			for( XGridCellMetaData m : newValue.getMetaData() ) {
+			for( XGridCellMetaData<Person> m : newValue.getCellMetaData() ) {
 				metaSb.append( m + "\n");
 			}
 		}
 
 		lSelectedItems.setText(sb.toString());
 		lSelectionMetaItems.setText(metaSb.toString());
+		lSelectionRowMetaItems.setText(metaRowSb.toString());
 	}
 
 	private static class PersonComparer implements ElementComparer<Person> {

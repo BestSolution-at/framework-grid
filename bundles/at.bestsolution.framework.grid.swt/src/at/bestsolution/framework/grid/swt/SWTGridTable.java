@@ -43,10 +43,13 @@ import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.XCellSelection;
 import at.bestsolution.framework.grid.XGridCell;
+import at.bestsolution.framework.grid.XGridCellMetaData;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
+import at.bestsolution.framework.grid.XGridRowMetaData;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.XSelection;
+import at.bestsolution.framework.grid.func.RowMetaDataFunction;
 import at.bestsolution.framework.grid.swt.internal.SWTGridCell;
 import at.bestsolution.framework.grid.swt.internal.SWTGridContentHandler;
 import at.bestsolution.framework.grid.swt.internal.SimpleCellSelection;
@@ -70,6 +73,16 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	@SuppressWarnings("null")
 	private @NonNull Property<@NonNull Locale> localeProperty = new SimpleProperty<>(Locale.getDefault());
 	private @NonNull Property<@NonNull ElementComparer<@NonNull R>> elementComparer = new SimpleProperty<>(Util.defaultElementComparer());
+	@SuppressWarnings("null")
+	private final @NonNull RowMetaDataFunction<@NonNull R> DEFAULT_META = new RowMetaDataFunction<R>() {
+		@Override
+		public @NonNull List<@NonNull XGridRowMetaData<R>> getMetaData(R rowValue) {
+			return Collections.emptyList();
+		}
+	};
+	@SuppressWarnings("null")
+	private final @NonNull Property<@NonNull RowMetaDataFunction<@NonNull R>> metaDataFunctionProperty = new SimpleProperty<>(
+			(RowMetaDataFunction<R>) DEFAULT_META);
 
 	private final @NonNull ChangeListener<@NonNull XSelection<@NonNull R>> selectionChangedListener = this::handleSelectionChanged;
 	protected @NonNull Grid nebulaGrid;
@@ -209,7 +222,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 				R selectedRow = getSelectedElement(respectiveCurrentSelection);
 				if (selectedRow != null) {
 					List<@NonNull R> singletonList = createSingletonList(selectedRow);
-					xSelection = new SimpleSelection<@NonNull R>(singletonList, getColumns());
+					xSelection = new SimpleSelection<@NonNull R>(this,singletonList, getColumns());
 				} else {
 					xSelection = Util.emptySelection();
 				}
@@ -234,7 +247,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 						SWTGridCell<@NonNull R, Object> cell = new SWTGridCell<@NonNull R, Object>(selectedRow,
 								(@NonNull XGridColumn<@NonNull R, Object>) columns.get(p.x));
 						cellList.add(cell);
-						xSelection = new SimpleCellSelection<@NonNull R>(cellList, singletonList, getColumns());
+						xSelection = new SimpleCellSelection<@NonNull R>(this,cellList, singletonList, getColumns());
 					} else {
 						xSelection = Util.emptyCellSelection();
 					}
@@ -335,6 +348,11 @@ public class SWTGridTable<R> implements XGridTable<R> {
 		contentProviderProperty.dispose();
 		selectionProperty.dispose();
 		localeProperty.dispose();
+	}
+
+	@Override
+	public @NonNull Property<@NonNull RowMetaDataFunction<@NonNull R>> metaDataFunctionProperty() {
+		return metaDataFunctionProperty;
 	}
 
 	/**

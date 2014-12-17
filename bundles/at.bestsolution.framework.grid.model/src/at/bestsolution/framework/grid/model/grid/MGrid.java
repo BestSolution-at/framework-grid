@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGrid#getConfigurationSets <em>Configuration Sets</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGrid#getDefaultConfiguration <em>Default Configuration</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.MGrid#getResources <em>Resources</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.MGrid#getMetaDataList <em>Meta Data List</em>}</li>
  * </ul>
  * </p>
  *
@@ -146,5 +147,21 @@ public interface MGrid extends EObject {
 	 * @generated
 	 */
 	EList<MResourceBundle> getResources();
+
+	/**
+	 * Returns the value of the '<em><b>Meta Data List</b></em>' containment reference list.
+	 * The list contents are of type {@link at.bestsolution.framework.grid.model.grid.MMetaData}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Meta Data List</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Meta Data List</em>' containment reference list.
+	 * @see at.bestsolution.framework.grid.model.grid.GridPackage#getMGrid_MetaDataList()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<MMetaData> getMetaDataList();
 
 } // MGrid

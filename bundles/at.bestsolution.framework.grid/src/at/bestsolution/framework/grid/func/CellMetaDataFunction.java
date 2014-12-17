@@ -27,7 +27,7 @@ import org.eclipse.jdt.annotation.NonNull;
 import at.bestsolution.framework.grid.XGridCellMetaData;
 
 /**
- * Function to retrieve XMetaData for a given cell
+ * Function to retrieve {@link XGridCellMetaData} for a given cell
  *
  * @param <R>
  *            the row type

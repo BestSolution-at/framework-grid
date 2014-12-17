@@ -242,4 +242,8 @@
         key="filter.custom"
         value="Custom"/>
   </resources>
+  <metaDataList
+      xsi:type="grid:MSimpleMetaData"
+      topic="testrow"
+      metaDataValue="person"/>
 </grid:MGrid>

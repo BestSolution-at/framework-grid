@@ -26,6 +26,7 @@ import at.bestsolution.framework.grid.model.grid.MGrid;
 import at.bestsolution.framework.grid.model.grid.MGridColumn;
 import at.bestsolution.framework.grid.model.grid.MGridConfiguration;
 import at.bestsolution.framework.grid.model.grid.MGridConfigurationSet;
+import at.bestsolution.framework.grid.model.grid.MMetaData;
 import at.bestsolution.framework.grid.model.grid.MResourceBundle;
 import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
@@ -51,6 +52,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridImpl#getConfigurationSets <em>Configuration Sets</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridImpl#getDefaultConfiguration <em>Default Configuration</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridImpl#getResources <em>Resources</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridImpl#getMetaDataList <em>Meta Data List</em>}</li>
  * </ul>
  * </p>
  *
@@ -113,6 +115,16 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 	 * @ordered
 	 */
 	protected EList<MResourceBundle> resources;
+
+	/**
+	 * The cached value of the '{@link #getMetaDataList() <em>Meta Data List</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetaDataList()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MMetaData> metaDataList;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -224,6 +236,18 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<MMetaData> getMetaDataList() {
+		if (metaDataList == null) {
+			metaDataList = new EObjectContainmentEList<MMetaData>(MMetaData.class, this, GridPackage.MGRID__META_DATA_LIST);
+		}
+		return metaDataList;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -252,6 +276,8 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 				return ((InternalEList<?>)getConfigurationSets()).basicRemove(otherEnd, msgs);
 			case GridPackage.MGRID__RESOURCES:
 				return ((InternalEList<?>)getResources()).basicRemove(otherEnd, msgs);
+			case GridPackage.MGRID__META_DATA_LIST:
+				return ((InternalEList<?>)getMetaDataList()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -275,6 +301,8 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 				return basicGetDefaultConfiguration();
 			case GridPackage.MGRID__RESOURCES:
 				return getResources();
+			case GridPackage.MGRID__META_DATA_LIST:
+				return getMetaDataList();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -307,6 +335,10 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 				getResources().clear();
 				getResources().addAll((Collection<? extends MResourceBundle>)newValue);
 				return;
+			case GridPackage.MGRID__META_DATA_LIST:
+				getMetaDataList().clear();
+				getMetaDataList().addAll((Collection<? extends MMetaData>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -334,6 +366,9 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 			case GridPackage.MGRID__RESOURCES:
 				getResources().clear();
 				return;
+			case GridPackage.MGRID__META_DATA_LIST:
+				getMetaDataList().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -356,6 +391,8 @@ public class MGridImpl extends MinimalEObjectImpl.Container implements MGrid {
 				return defaultConfiguration != null;
 			case GridPackage.MGRID__RESOURCES:
 				return resources != null && !resources.isEmpty();
+			case GridPackage.MGRID__META_DATA_LIST:
+				return metaDataList != null && !metaDataList.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

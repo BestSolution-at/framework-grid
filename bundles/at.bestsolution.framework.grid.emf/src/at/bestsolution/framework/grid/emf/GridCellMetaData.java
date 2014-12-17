@@ -18,60 +18,76 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package at.bestsolution.framework.grid.swt.internal;
-
-import java.util.List;
+package at.bestsolution.framework.grid.emf;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import at.bestsolution.framework.grid.XGridCell;
-import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridCellMetaData;
 
 /**
- * Grid cell implementation
+ * Meta data impl
  *
  * @param <R>
  *            row type
- * @param <C>
- *            cell type
  */
-public class SWTGridCell<R, C> implements XGridCell<R, C> {
-	@NonNull
-	private final R row;
+public class GridCellMetaData<R> implements XGridCellMetaData<R> {
 
 	@NonNull
-	private final XGridColumn<R, C> column;
+	private final String topic;
+
+	@Nullable
+	private final Object value;
+
+	@Nullable
+	private final Object data;
+
+	@NonNull
+	private final R rowValue;
 
 	/**
-	 * @param row
-	 *            the row
-	 * @param column
-	 *            the column
+	 * Create a meta data object
+	 *
+	 * @param topic
+	 *            the topic
+	 * @param data
+	 *            the data
+	 * @param rowValue
+	 *            the row value
+	 * @param value
+	 *            the value
 	 */
-	public SWTGridCell(@NonNull R row, @NonNull XGridColumn<R, C> column) {
-		this.row = row;
-		this.column = column;
+	public GridCellMetaData(@NonNull String topic, Object data, @NonNull R rowValue, Object value) {
+		this.topic = topic;
+		this.data = data;
+		this.value = value;
+		this.rowValue = rowValue;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <V> @Nullable V getCellValue() {
+		return (V) value;
 	}
 
 	@Override
 	public @NonNull R getRowValue() {
-		return row;
+		return rowValue;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <M> @Nullable M getMetaData() {
+		return (M) data;
 	}
 
 	@Override
-	public @Nullable C getCellValue() {
-		return column.cellValueFunctionProperty().get().apply(row);
+	public @NonNull String getTopic() {
+		return topic;
 	}
 
 	@Override
-	public @NonNull XGridColumn<R, C> getColumn() {
-		return column;
-	}
-
-	@Override
-	public @NonNull List<@NonNull XGridCellMetaData<R>> getCellMetaData() {
-		return column.metaDataFunctionProperty().get().getMetaData(row, getCellValue());
+	public String toString() {
+		return "GridCellMetaData [topic=" + topic + ", value=" + value + ", data=" + data + ", rowValue=" + rowValue + "]"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	}
 }

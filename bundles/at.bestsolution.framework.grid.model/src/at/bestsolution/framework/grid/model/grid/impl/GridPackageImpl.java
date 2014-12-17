@@ -466,6 +466,15 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMGrid_MetaDataList() {
+		return (EReference)mGridEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMGridConfigurationSet() {
 		return mGridConfigurationSetEClass;
 	}
@@ -1052,6 +1061,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		createEReference(mGridEClass, MGRID__CONFIGURATION_SETS);
 		createEReference(mGridEClass, MGRID__DEFAULT_CONFIGURATION);
 		createEReference(mGridEClass, MGRID__RESOURCES);
+		createEReference(mGridEClass, MGRID__META_DATA_LIST);
 
 		mGridConfigurationSetEClass = createEClass(MGRID_CONFIGURATION_SET);
 		createEReference(mGridConfigurationSetEClass, MGRID_CONFIGURATION_SET__VIEW_CONFIGURATION);
@@ -1194,6 +1204,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		initEReference(getMGrid_ConfigurationSets(), this.getMGridConfigurationSet(), this.getMGridConfigurationSet_Grid(), "configurationSets", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGrid_DefaultConfiguration(), this.getMGridConfigurationSet(), null, "defaultConfiguration", null, 0, 1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGrid_Resources(), this.getMResourceBundle(), null, "resources", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMGrid_MetaDataList(), this.getMMetaData(), null, "metaDataList", null, 0, -1, MGrid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mGridConfigurationSetEClass, MGridConfigurationSet.class, "MGridConfigurationSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMGridConfigurationSet_ViewConfiguration(), this.getMGridConfiguration(), null, "viewConfiguration", null, 0, 1, MGridConfigurationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -26,12 +26,14 @@ import java.util.List;
 import org.eclipse.jdt.annotation.NonNull;
 
 import at.bestsolution.framework.grid.XCellSelection;
+import at.bestsolution.framework.grid.XGrid;
 import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridColumn;
+import at.bestsolution.framework.grid.XGridContentProvider;
 
 /**
  * a simple cell selection implementation
- * 
+ *
  * @param <R>
  *            row type
  */
@@ -47,9 +49,9 @@ public class SimpleCellSelection<R> extends SimpleSelection<R> implements XCellS
 	 * @param columnList
 	 *            selected columns
 	 */
-	public SimpleCellSelection(List<XGridCell<R, ?>> cells, @NonNull List<@NonNull R> rowList,
+	public SimpleCellSelection(@NonNull XGrid<R, XGridContentProvider<R>> grid, List<XGridCell<R, ?>> cells, @NonNull List<@NonNull R> rowList,
 			@NonNull List<@NonNull XGridColumn<R, ?>> columnList) {
-		super(rowList, columnList);
+		super(grid, rowList, columnList);
 		this.cells = cells;
 	}
 

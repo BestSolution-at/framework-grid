@@ -57,7 +57,12 @@ public class Util {
 
 		@SuppressWarnings("null")
 		@Override
-		public @NonNull List<@NonNull XGridCellMetaData<R>> getMetaData() {
+		public @NonNull List<@NonNull XGridCellMetaData<R>> getCellMetaData() {
+			return Collections.emptyList();
+		}
+
+		@Override
+		public List<XGridRowMetaData<R>> getRowMetaData() {
 			return Collections.emptyList();
 		}
 	}
@@ -82,12 +87,17 @@ public class Util {
 
 		@SuppressWarnings("null")
 		@Override
-		public @NonNull List<@NonNull XGridCellMetaData<R>> getMetaData() {
+		public @NonNull List<@NonNull XGridCellMetaData<R>> getCellMetaData() {
 			return Collections.emptyList();
 		}
 
 		@Override
 		public <C> List<XGridCell<R, C>> getCells() {
+			return Collections.emptyList();
+		}
+
+		@Override
+		public List<XGridRowMetaData<R>> getRowMetaData() {
 			return Collections.emptyList();
 		}
 	}

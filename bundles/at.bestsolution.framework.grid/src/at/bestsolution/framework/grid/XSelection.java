@@ -48,4 +48,9 @@ public interface XSelection<R> extends XGridMetaDataProvider<R> {
 	 * @return check if empty
 	 */
 	boolean isEmpty();
+
+	/**
+	 * @return row meta data
+	 */
+	public List<XGridRowMetaData<R>> getRowMetaData();
 }

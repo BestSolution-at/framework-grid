@@ -231,13 +231,22 @@ public interface GridPackage extends EPackage {
 	int MGRID__RESOURCES = 4;
 
 	/**
+	 * The feature id for the '<em><b>Meta Data List</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MGRID__META_DATA_LIST = 5;
+
+	/**
 	 * The number of structural features of the '<em>MGrid</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_FEATURE_COUNT = 5;
+	int MGRID_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>MGrid</em>' class.
@@ -1487,6 +1496,17 @@ public interface GridPackage extends EPackage {
 	EReference getMGrid_Resources();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link at.bestsolution.framework.grid.model.grid.MGrid#getMetaDataList <em>Meta Data List</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Meta Data List</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MGrid#getMetaDataList()
+	 * @see #getMGrid()
+	 * @generated
+	 */
+	EReference getMGrid_MetaDataList();
+
+	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet <em>MGrid Configuration Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2253,6 +2273,14 @@ public interface GridPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MGRID__RESOURCES = eINSTANCE.getMGrid_Resources();
+
+		/**
+		 * The meta object literal for the '<em><b>Meta Data List</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MGRID__META_DATA_LIST = eINSTANCE.getMGrid_MetaDataList();
 
 		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationSetImpl <em>MGrid Configuration Set</em>}' class.

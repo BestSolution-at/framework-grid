@@ -190,7 +190,7 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 
 	/**
 	 * The provider of the cell value
-	 * 
+	 *
 	 * @return the provider property
 	 */
 	@NonNull
@@ -339,12 +339,12 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	Property<@NonNull ExportValueFunction<@NonNull R, @Nullable C>> exportValueFunctionProperty();
 
 	/**
-	 * Function consulted to retrieve
+	 * Function consulted to retrieve cell meta data
 	 * <p>
 	 * Property value is initialized with a default function who returns no meta
 	 * data
 	 * </p>
-	 * 
+	 *
 	 * @return the property
 	 */
 	@NonNull

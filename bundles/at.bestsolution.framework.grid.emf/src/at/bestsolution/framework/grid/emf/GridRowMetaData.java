@@ -23,7 +23,7 @@ package at.bestsolution.framework.grid.emf;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import at.bestsolution.framework.grid.XGridCellMetaData;
+import at.bestsolution.framework.grid.XGridRowMetaData;
 
 /**
  * Meta data impl
@@ -31,13 +31,10 @@ import at.bestsolution.framework.grid.XGridCellMetaData;
  * @param <R>
  *            row type
  */
-public class GridMetaData<R> implements XGridCellMetaData<R> {
+public class GridRowMetaData<R> implements XGridRowMetaData<R> {
 
 	@NonNull
 	private final String topic;
-
-	@Nullable
-	private final Object value;
 
 	@Nullable
 	private final Object data;
@@ -54,20 +51,11 @@ public class GridMetaData<R> implements XGridCellMetaData<R> {
 	 *            the data
 	 * @param rowValue
 	 *            the row value
-	 * @param value
-	 *            the value
 	 */
-	public GridMetaData(@NonNull String topic, Object data, @NonNull R rowValue, Object value) {
+	public GridRowMetaData(@NonNull String topic, Object data, @NonNull R rowValue) {
 		this.topic = topic;
 		this.data = data;
-		this.value = value;
 		this.rowValue = rowValue;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public <V> @Nullable V getCellValue() {
-		return (V) value;
 	}
 
 	@Override
@@ -88,7 +76,6 @@ public class GridMetaData<R> implements XGridCellMetaData<R> {
 
 	@Override
 	public String toString() {
-		return "GridMetaData [topic=" + topic + ", value=" + value + ", data=" + data + "]"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		return "GridRowMetaData [topic=" + topic + ", data=" + data + ", rowValue=" + rowValue + "]"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
-
 }

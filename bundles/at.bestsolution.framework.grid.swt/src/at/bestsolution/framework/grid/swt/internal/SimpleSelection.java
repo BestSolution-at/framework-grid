@@ -27,8 +27,11 @@ import java.util.List;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
+import at.bestsolution.framework.grid.XGrid;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridCellMetaData;
+import at.bestsolution.framework.grid.XGridContentProvider;
+import at.bestsolution.framework.grid.XGridRowMetaData;
 import at.bestsolution.framework.grid.XSelection;
 
 /**
@@ -40,15 +43,20 @@ import at.bestsolution.framework.grid.XSelection;
 public class SimpleSelection<R> implements XSelection<R> {
 	private final @NonNull List<@NonNull R> rowList;
 	private final @NonNull List<XGridColumn<R, ?>> columnList;
+	private final @NonNull XGrid<R, XGridContentProvider<R>> grid;
 
 	/**
 	 * @param rowList
 	 *            selected rows
+	 * @param grid
+	 *            the grid
 	 * @param columnList
 	 *            selected columns
 	 */
-	public SimpleSelection(@NonNull List<@NonNull R> rowList, @NonNull List<@NonNull XGridColumn<R, ?>> columnList) {
+	public SimpleSelection(@NonNull XGrid<R, XGridContentProvider<R>> grid, @NonNull List<@NonNull R> rowList,
+			@NonNull List<@NonNull XGridColumn<R, ?>> columnList) {
 		this.rowList = rowList;
+		this.grid = grid;
 		this.columnList = columnList;
 	}
 
@@ -70,7 +78,7 @@ public class SimpleSelection<R> implements XSelection<R> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public @NonNull List<@NonNull XGridCellMetaData<R>> getMetaData() {
+	public @NonNull List<@NonNull XGridCellMetaData<R>> getCellMetaData() {
 		List<@NonNull XGridCellMetaData<R>> rv = new ArrayList<>();
 		for (R r : rowList) {
 			for (XGridColumn<R, ?> c : columnList) {
@@ -78,6 +86,16 @@ public class SimpleSelection<R> implements XSelection<R> {
 						.getMetaData(r, c.cellValueFunctionProperty().get().apply(r));
 				rv.addAll(data);
 			}
+		}
+		return rv;
+	}
+
+	@Override
+	public List<XGridRowMetaData<@NonNull R>> getRowMetaData() {
+		List<XGridRowMetaData<@NonNull R>> rv = new ArrayList<>();
+		for( R r : rowList ) {
+			List<@NonNull XGridRowMetaData<@NonNull R>> metaData = grid.metaDataFunctionProperty().get().getMetaData(r);
+			rv.addAll(metaData);
 		}
 		return rv;
 	}

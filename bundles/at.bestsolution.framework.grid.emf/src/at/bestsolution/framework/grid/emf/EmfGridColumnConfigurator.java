@@ -138,7 +138,7 @@ public class EmfGridColumnConfigurator<@NonNull R, @Nullable C> {
 			if( m instanceof MSimpleMetaData ) {
 				MSimpleMetaData ms = (MSimpleMetaData) m;
 				C tmp = cellValue; // compiler bug in eclipse
-				rv.add(new GridMetaData<R>(m.getTopic(),ms.getMetaDataValue(),row,tmp));
+				rv.add(new GridCellMetaData<R>(m.getTopic(),ms.getMetaDataValue(),row,tmp));
 			}
 
 		}

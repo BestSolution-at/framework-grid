@@ -20,21 +20,32 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid;
 
-import java.util.List;
-
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
- * Base interface implemented by all services who provide meta data
+ * Object with meta data
  *
  * @param <R>
  *            the row type
  *
  * @since 1.0
  */
-public interface XGridMetaDataProvider<R> {
+public interface XGridRowMetaData<@NonNull R> {
 	/**
-	 * @return the list of meta data
+	 * @return the row value
 	 */
-	public @NonNull List<@NonNull XGridCellMetaData<R>> getCellMetaData();
+	public R getRowValue();
+
+	/**
+	 * @return the meta data
+	 * @param <M>
+	 *            MetaData type
+	 */
+	public <M> @Nullable M getMetaData();
+
+	/**
+	 * @return the object
+	 */
+	public @NonNull String getTopic();
 }

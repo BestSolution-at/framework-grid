@@ -144,11 +144,11 @@ public class SWTGridContentHandler<R> {
 			if (newSelection.isEmpty()) {
 				grid.selectionProperty().set(Util.emptySelection());
 			} else if (grid.selectionModeProperty().get() == SelectionMode.SINGLE_ROW) {
-				grid.selectionProperty().set(new SimpleSelection<@NonNull R>(newSelection, grid.getColumns()));
+				grid.selectionProperty().set(new SimpleSelection<@NonNull R>(grid,newSelection, grid.getColumns()));
 			} else if (grid.selectionModeProperty().get() == SelectionMode.SINGLE_CELL) {
 				SimpleCellSelection<R> scs = (SimpleCellSelection<R>) previousSelection;
 				List<XGridCell<@NonNull R, ?>> cellList = new ArrayList<XGridCell<@NonNull R, ?>>(scs.getCells());
-				grid.selectionProperty().set(new SimpleCellSelection<@NonNull R>(cellList, newSelection, grid.getColumns()));
+				grid.selectionProperty().set(new SimpleCellSelection<@NonNull R>(grid,cellList, newSelection, grid.getColumns()));
 			}
 		}
 		// pack

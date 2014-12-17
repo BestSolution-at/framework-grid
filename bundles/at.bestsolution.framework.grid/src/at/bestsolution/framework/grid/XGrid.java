@@ -28,6 +28,8 @@ import java.util.function.Function;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
+import at.bestsolution.framework.grid.func.RowMetaDataFunction;
+
 /**
  * Base interface of grid
  *
@@ -154,6 +156,18 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	 */
 	@NonNull
 	List<@NonNull XGridColumn<@NonNull R, @Nullable ?>> getColumns();
+
+	/**
+	 * Function consulted to retrieve row meta data
+	 * <p>
+	 * Property value is initialized with a default function who returns no meta
+	 * data
+	 * </p>
+	 *
+	 * @return the property
+	 */
+	@NonNull
+	Property<@NonNull RowMetaDataFunction<@NonNull R>> metaDataFunctionProperty();
 
 	/**
 	 * dispose grid
