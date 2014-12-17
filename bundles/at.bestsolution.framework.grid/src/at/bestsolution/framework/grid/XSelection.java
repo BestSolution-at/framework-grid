@@ -31,7 +31,7 @@ import org.eclipse.jdt.annotation.Nullable;
  * @param <R>
  *            the row type
  */
-public interface XSelection<R> {
+public interface XSelection<R> extends XGridMetaDataProvider {
 	/**
 	 * @return the first entry or <code>null</code> if empty
 	 */
@@ -48,9 +48,4 @@ public interface XSelection<R> {
 	 * @return check if empty
 	 */
 	boolean isEmpty();
-
-	/**
-	 * @return the list of meta data
-	 */
-	public @NonNull List<@NonNull XGridMetaData> getMetaData();
 }
