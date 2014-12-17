@@ -66,7 +66,7 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	@NonNull
 	Property<@Nullable XGridContentProvider<R>> contentProviderProperty = new SimpleProperty<>(null);
 	@NonNull
-	Property<@NonNull XSelection<@NonNull R>> selectionProperty = new SimpleProperty<>(Util.emptySelection());
+	Property<@NonNull XSelection<R>> selectionProperty = new SimpleProperty<>(Util.emptySelection());
 	@SuppressWarnings("null")
 	private @NonNull Property<@NonNull Locale> localeProperty = new SimpleProperty<>(Locale.getDefault());
 	private @NonNull Property<@NonNull ElementComparer<@NonNull R>> elementComparer = new SimpleProperty<>(Util.defaultElementComparer());
