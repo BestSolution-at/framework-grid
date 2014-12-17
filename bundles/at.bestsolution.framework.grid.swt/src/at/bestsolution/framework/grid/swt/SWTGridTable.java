@@ -96,7 +96,16 @@ public class SWTGridTable<R> implements XGridTable<R> {
 	@Override
 	public <C> @NonNull XGridColumn<@NonNull R, @Nullable C> createColumn(String id,
 			@NonNull Function<@NonNull R, @Nullable C> cellValueFunction) {
-		SWTGridColumn<@NonNull R, @Nullable C> swtGridColumn = new SWTGridColumn<@NonNull R, @Nullable C>(this, cellValueFunction);
+		SWTGridColumn<@NonNull R, @Nullable C> swtGridColumn = new SWTGridColumn<>(this, cellValueFunction);
+		columns.add(swtGridColumn);
+		return swtGridColumn;
+	}
+
+	@SuppressWarnings("null")
+	@Override
+	public @NonNull XGridColumn<@NonNull R, @Nullable Boolean> createCheckedColumn(String id,
+			@NonNull Function<@NonNull R, @Nullable Boolean> cellValueFunction) {
+		SWTGridColumn<@NonNull R, @Nullable Boolean> swtGridColumn = new SWTCheckedGridColumn<R>(this, cellValueFunction);
 		columns.add(swtGridColumn);
 		return swtGridColumn;
 	}

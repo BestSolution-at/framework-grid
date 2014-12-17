@@ -90,6 +90,7 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 			case GridPackage.MGRID_CONFIGURATION: return createMGridConfiguration();
 			case GridPackage.MGRID_CONFIGURATION_COLUMN: return createMGridConfigurationColumn();
 			case GridPackage.MGRID_COLUMN: return createMGridColumn();
+			case GridPackage.MBOOLEAN_GRID_COLUMN: return createMBooleanGridColumn();
 			case GridPackage.MPATH_CELL_VALUE_FUNCTION: return createMPathCellValueFunction();
 			case GridPackage.MSIMPLE_PATH_SEGMENT: return createMSimplePathSegment();
 			case GridPackage.MFORMATTED_CELL_TEXT_FUNCTION: return createMFormattedCellTextFunction();
@@ -223,6 +224,16 @@ public class GridFactoryImpl extends EFactoryImpl implements GridFactory {
 	public MGridColumn createMGridColumn() {
 		MGridColumnImpl mGridColumn = new MGridColumnImpl();
 		return mGridColumn;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MBooleanGridColumn createMBooleanGridColumn() {
+		MBooleanGridColumnImpl mBooleanGridColumn = new MBooleanGridColumnImpl();
+		return mBooleanGridColumn;
 	}
 
 	/**

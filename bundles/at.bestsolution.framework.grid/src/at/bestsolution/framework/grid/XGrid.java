@@ -69,6 +69,20 @@ public interface XGrid<R, CP extends XGridContentProvider<R>> {
 	<C> @NonNull XGridColumn<@NonNull R, @Nullable C> createColumn(String id, @NonNull Function<@NonNull R, @Nullable C> cellValueFunction);
 
 	/**
+	 * Create a column which presents boolean values as check box
+	 *
+	 * @param id
+	 *            the id of the column
+	 * @param cellValueFunction
+	 *            the cell value function
+	 * @return column instance
+	 * @see XGridColumn#cellValueFunctionProperty()
+	 */
+	@NonNull
+	XGridColumn<@NonNull R, @Nullable Boolean> createCheckedColumn(String id,
+			@NonNull Function<@NonNull R, @Nullable Boolean> cellValueFunction);
+
+	/**
 	 * The selection mode.
 	 * <p>
 	 * Default {@link SelectionMode#SINGLE_ROW}

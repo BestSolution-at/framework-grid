@@ -18,24 +18,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package at.bestsolution.framework.grid.emf;
+package at.bestsolution.framework.grid.swt;
 
 import java.util.function.Function;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.nebula.widgets.grid.GridItem;
+import org.eclipse.swt.SWT;
 
 /**
- * A cell value function which provides null
+ * SWT checked column implementation
  *
  * @param <R>
- *            data type
- * @param <C>
  *            row type
  */
-public class NullCellValueFunction<@NonNull R, @Nullable C> implements Function<R, @Nullable C> {
+public class SWTCheckedGridColumn<R> extends SWTGridColumn<R, Boolean> {
+	/**
+	 * Create a new checked column
+	 *
+	 * @param grid
+	 *            the containing grid
+	 * @param cellValueFunction
+	 *            the value function
+	 */
+	public SWTCheckedGridColumn(@NonNull SWTGridTable<@NonNull R> grid, @NonNull Function<@NonNull R, @Nullable Boolean> cellValueFunction) {
+		super(grid, cellValueFunction, SWT.CHECK);
+		getNebulaColumn().setCheckable(true);
+	}
+
+	/**
+	 * @param item
+	 *            grid item
+	 * @param element
+	 *            row element
+	 */
 	@Override
-	public C apply(R r) {
-		return null;
+	protected void fillGridItem(@NonNull GridItem item, @NonNull R element) {
+		Boolean value = cellValueFunctionProperty().get().apply(element);
+		final int index = indexProperty().get().intValue();
+		item.setCheckable(index, false);
+		if (value != null) {
+			item.setChecked(index, value.booleanValue());
+			
+		} 
 	}
 }

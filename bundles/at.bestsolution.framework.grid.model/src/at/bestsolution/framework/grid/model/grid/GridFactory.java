@@ -111,6 +111,15 @@ public interface GridFactory extends EFactory {
 	MGridColumn createMGridColumn();
 
 	/**
+	 * Returns a new object of class '<em>MBoolean Grid Column</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>MBoolean Grid Column</em>'.
+	 * @generated
+	 */
+	MBooleanGridColumn createMBooleanGridColumn();
+
+	/**
 	 * Returns a new object of class '<em>MPath Cell Value Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -18,10 +18,6 @@
     </cellValueFunction>
     <autoFilterConfiguration
         xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
-    <metaDataList
-        xsi:type="grid:MSimpleMetaData"
-        topic="persongrid/cellinfo"
-        metaDataValue="firstname"/>
   </columns>
   <columns id="lastname"
       titleKey="header.lastname"
@@ -34,10 +30,6 @@
     </cellValueFunction>
     <autoFilterConfiguration
         xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
-    <metaDataList
-        xsi:type="grid:MSimpleMetaData"
-        topic="persongrid/cellinfo"
-        metaDataValue="lastname"/>
   </columns>
   <columns id="street"
       titleKey="header.street"
@@ -55,10 +47,6 @@
     </cellValueFunction>
     <autoFilterConfiguration
         xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
-    <metaDataList
-        xsi:type="grid:MSimpleMetaData"
-        topic="persongrid/cellinfo"
-        metaDataValue="street"/>
   </columns>
   <columns id="number"
       titleKey="header.number"
@@ -82,10 +70,6 @@
     </cellTextFunction>
     <autoFilterConfiguration
         xsi:type="grid:MFreeTextAutoFilterConfiguration"/>
-    <metaDataList
-        xsi:type="grid:MSimpleMetaData"
-        topic="persongrid/cellinfo"
-        metaDataValue="number"/>
   </columns>
   <columns id="birthdate"
       titleKey="header.birthdate"
@@ -127,10 +111,6 @@
             pattern="ddMMyyyy"/>
       </cellTextFunction>
     </autoFilterConfiguration>
-    <metaDataList
-        xsi:type="grid:MSimpleMetaData"
-        topic="persongrid/cellinfo"
-        metaDataValue="birthdate"/>
   </columns>
   <columns id="localizedBirthdate"
       titleKey="header.birthdate"
@@ -151,10 +131,17 @@
           xsi:type="grid:MReferencePattern"
           patternKey="datepattern"/>
     </cellTextFunction>
-    <metaDataList
-        xsi:type="grid:MSimpleMetaData"
-        topic="persongrid/cellinfo"
-        metaDataValue="birthdate2"/>
+  </columns>
+  <columns xsi:type="grid:MBooleanGridColumn"
+      id="married"
+      titleKey="header.married"
+      minWidth="100">
+    <cellValueFunction
+        xsi:type="grid:MPathCellValueFunction">
+      <segments
+          xsi:type="grid:MSimplePathSegment"
+          featureName="married"/>
+    </cellValueFunction>
   </columns>
   <configurations>
     <columns
@@ -169,6 +156,8 @@
         column="//@columns.4"/>
     <columns
         column="//@columns.5"/>
+    <columns
+        column="//@columns.6"/>
   </configurations>
   <configurationSets
       viewConfiguration="//@configurations.0"
@@ -190,6 +179,9 @@
     <entries
         key="header.birthdate"
         value="Geburtsdatum"/>
+    <entries
+        key="header.married"
+        value="Verheiratet"/>
     <entries
         key="datepattern"
         value="dd. MM. yyyy"/>
@@ -223,6 +215,9 @@
     <entries
         key="header.birthdate"
         value="Birthdate"/>
+    <entries
+        key="header.married"
+        value="Married"/>
     <entries
         key="datepattern"
         value="MMM dd, yyyy"/>

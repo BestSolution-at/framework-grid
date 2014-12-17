@@ -27,6 +27,7 @@ import at.bestsolution.framework.grid.model.grid.MAlignment;
 import at.bestsolution.framework.grid.model.grid.MAutoFilterConfiguration;
 import at.bestsolution.framework.grid.model.grid.MAutoFilterEntry;
 import at.bestsolution.framework.grid.model.grid.MAutoFilterMatchType;
+import at.bestsolution.framework.grid.model.grid.MBooleanGridColumn;
 import at.bestsolution.framework.grid.model.grid.MCellTextFunction;
 import at.bestsolution.framework.grid.model.grid.MCellValueFunction;
 import at.bestsolution.framework.grid.model.grid.MComboAutoFilterConfiguration;
@@ -122,6 +123,13 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * @generated
 	 */
 	private EClass mGridColumnEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass mBooleanGridColumnEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -665,6 +673,15 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getMBooleanGridColumn() {
+		return mBooleanGridColumnEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMCellValueFunction() {
 		return mCellValueFunctionEClass;
 	}
@@ -1063,6 +1080,8 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		createEAttribute(mGridColumnEClass, MGRID_COLUMN__SORTING_BEHAVIOR);
 		createEReference(mGridColumnEClass, MGRID_COLUMN__META_DATA_LIST);
 
+		mBooleanGridColumnEClass = createEClass(MBOOLEAN_GRID_COLUMN);
+
 		mCellValueFunctionEClass = createEClass(MCELL_VALUE_FUNCTION);
 
 		mPathCellValueFunctionEClass = createEClass(MPATH_CELL_VALUE_FUNCTION);
@@ -1148,6 +1167,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		mBooleanGridColumnEClass.getESuperTypes().add(this.getMGridColumn());
 		mPathCellValueFunctionEClass.getESuperTypes().add(this.getMCellValueFunction());
 		mSimplePathSegmentEClass.getESuperTypes().add(this.getMPathSegment());
 		mFormattedCellTextFunctionEClass.getESuperTypes().add(this.getMCellTextFunction());
@@ -1201,6 +1221,8 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		initEReference(getMGridColumn_AutoFilterConfiguration(), this.getMAutoFilterConfiguration(), null, "autoFilterConfiguration", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMGridColumn_SortingBehavior(), this.getMSortingBehavior(), "sortingBehavior", null, 0, 1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGridColumn_MetaDataList(), this.getMMetaData(), null, "metaDataList", null, 0, -1, MGridColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(mBooleanGridColumnEClass, MBooleanGridColumn.class, "MBooleanGridColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(mCellValueFunctionEClass, MCellValueFunction.class, "MCellValueFunction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
