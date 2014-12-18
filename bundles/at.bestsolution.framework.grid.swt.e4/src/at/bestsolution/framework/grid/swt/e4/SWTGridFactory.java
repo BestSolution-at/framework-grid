@@ -48,7 +48,7 @@ public class SWTGridFactory implements XGridFactory {
 
 	@Override
 	public <R> XGridTable<R> createGridTable() {
-		return new SWTGridTable<>(parent, SWT.NONE);
+		return new SWTGridTable<>(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 	}
 
 }
