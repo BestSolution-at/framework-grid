@@ -43,7 +43,6 @@ import at.bestsolution.framework.grid.Property.ChangeListener;
 import at.bestsolution.framework.grid.Util;
 import at.bestsolution.framework.grid.XCellSelection;
 import at.bestsolution.framework.grid.XGridCell;
-import at.bestsolution.framework.grid.XGridCellMetaData;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.XGridRowMetaData;
