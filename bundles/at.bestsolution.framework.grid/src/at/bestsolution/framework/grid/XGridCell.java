@@ -20,6 +20,8 @@
  *******************************************************************************/
 package at.bestsolution.framework.grid;
 
+import java.util.List;
+
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -32,7 +34,7 @@ import org.eclipse.jdt.annotation.Nullable;
  *            the cell type
  * @since 1.0
  */
-public interface XGridCell<R, C> extends XGridMetaDataProvider<R> {
+public interface XGridCell<R, C> {
 	/**
 	 * @return the row value
 	 */
@@ -48,4 +50,8 @@ public interface XGridCell<R, C> extends XGridMetaDataProvider<R> {
 	 */
 	public @NonNull XGridColumn<R, C> getColumn();
 
+	/**
+	 * @return the list of cell meta data
+	 */
+	public @NonNull List<@NonNull XGridCellMetaData<R>> getCellMetaData();
 }

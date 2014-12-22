@@ -385,4 +385,27 @@ public interface XGridColumn<@NonNull R, @Nullable C> {
 	 * @return the export value
 	 */
 	Object getExportValue(R element);
+
+//	interface FluentSetup<R,C> {
+//		public FluentSetup<R,C> setAlignment();
+//		public FluentSetup<R, C> setAutoFilterDataSupplier();
+//		autoFilterMatcherFunction()
+//		autoFilterTextFunction()
+//		autoFilterType()
+//		autoWidth()
+//		cellValueFunction()
+//		exportValueFunction()
+//		iconFunction()
+//		icon()
+//		index()
+//		label()
+//		maxWidth()
+//		metaDataFunction()
+//		minWidth()
+//		notPresentableValuePresentation()
+//		sorter()
+//		sortingBehavior()
+//		sorting()
+//		textFunction();
+//	}
 }

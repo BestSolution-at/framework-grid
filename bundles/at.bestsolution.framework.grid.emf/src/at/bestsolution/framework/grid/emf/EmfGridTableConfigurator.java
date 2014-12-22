@@ -33,7 +33,6 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import at.bestsolution.framework.grid.XGrid.SelectionMode;
-import at.bestsolution.framework.grid.XGridCellMetaData;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridRowMetaData;
 import at.bestsolution.framework.grid.XGridTable;
@@ -117,7 +116,7 @@ public class EmfGridTableConfigurator<R> {
 	}
 
 	private void applyMetaData() {
-		if( ! config.getGrid().getMetaDataList().isEmpty() ) {
+		if (!config.getGrid().getMetaDataList().isEmpty()) {
 			table.metaDataFunctionProperty().set(this::handleMetaData);
 		}
 	}
@@ -125,10 +124,10 @@ public class EmfGridTableConfigurator<R> {
 	@SuppressWarnings("null")
 	private @NonNull List<@NonNull XGridRowMetaData<R>> handleMetaData(R row) {
 		List<@NonNull XGridRowMetaData<R>> rv = new ArrayList<>(config.getGrid().getMetaDataList().size());
-		for( MMetaData m : config.getGrid().getMetaDataList() ) {
-			if( m instanceof MSimpleMetaData ) {
+		for (MMetaData m : config.getGrid().getMetaDataList()) {
+			if (m instanceof MSimpleMetaData) {
 				MSimpleMetaData ms = (MSimpleMetaData) m;
-				rv.add(new GridRowMetaData<R>(m.getTopic(),ms.getMetaDataValue(),row));
+				rv.add(new GridRowMetaData<R>(m.getTopic(), ms.getMetaDataValue(), row));
 			}
 
 		}
@@ -167,8 +166,8 @@ public class EmfGridTableConfigurator<R> {
 		}
 	}
 
-	private @NonNull <@Nullable C> Function<@NonNull R, @Nullable C> createCellValueFunction(@NonNull XGridColumn<@NonNull R, @Nullable ?> column,
-			@Nullable MCellValueFunction mFunction) {
+	private @NonNull <@Nullable C> Function<@NonNull R, @Nullable C> createCellValueFunction(
+			@NonNull XGridColumn<@NonNull R, @Nullable ?> column, @Nullable MCellValueFunction mFunction) {
 		if (mFunction == null) {
 			return new NullCellValueFunction<R, C>();
 		} else if (mFunction instanceof MPathCellValueFunction) {
@@ -187,5 +186,18 @@ public class EmfGridTableConfigurator<R> {
 		default:
 			table.selectionModeProperty().set(SelectionMode.SINGLE_ROW);
 		}
+	}
+
+	/**
+	 * Configure a grid
+	 *
+	 * @param table
+	 *            the table
+	 * @param config
+	 *            the config
+	 * @return a configurator instance
+	 */
+	public static final <R, C> EmfGridTableConfigurator<R> configure(@NonNull XGridTable<R> table, @NonNull MGridConfigurationSet config) {
+		return new EmfGridTableConfigurator<R>(table, config);
 	}
 }
