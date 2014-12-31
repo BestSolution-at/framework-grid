@@ -31,7 +31,7 @@ import org.eclipse.jdt.annotation.Nullable;
  *
  * @since 1.0
  */
-public interface XGridCellMetaData<R> {
+public interface XGridCellMetaData<@NonNull R> {
 	/**
 	 * @return the value
 	 * @param <V>
