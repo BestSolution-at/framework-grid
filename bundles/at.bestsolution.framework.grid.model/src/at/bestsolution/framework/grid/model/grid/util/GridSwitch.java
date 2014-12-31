@@ -21,12 +21,37 @@
  */
 package at.bestsolution.framework.grid.model.grid.util;
 
-import at.bestsolution.framework.grid.model.grid.*;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.eclipse.jdt.annotation.Nullable;
+
+import at.bestsolution.framework.grid.model.grid.GridPackage;
+import at.bestsolution.framework.grid.model.grid.MAutoFilterConfiguration;
+import at.bestsolution.framework.grid.model.grid.MAutoFilterEntry;
+import at.bestsolution.framework.grid.model.grid.MBooleanGridColumn;
+import at.bestsolution.framework.grid.model.grid.MCellTextFunction;
+import at.bestsolution.framework.grid.model.grid.MCellValueFunction;
+import at.bestsolution.framework.grid.model.grid.MComboAutoFilterConfiguration;
+import at.bestsolution.framework.grid.model.grid.MDefaultAutoFilterEntry;
+import at.bestsolution.framework.grid.model.grid.MFormattedCellTextFunction;
+import at.bestsolution.framework.grid.model.grid.MFreeTextAutoFilterConfiguration;
+import at.bestsolution.framework.grid.model.grid.MGrid;
+import at.bestsolution.framework.grid.model.grid.MGridColumn;
+import at.bestsolution.framework.grid.model.grid.MGridConfiguration;
+import at.bestsolution.framework.grid.model.grid.MGridConfigurationColumn;
+import at.bestsolution.framework.grid.model.grid.MGridConfigurationSet;
+import at.bestsolution.framework.grid.model.grid.MMetaData;
+import at.bestsolution.framework.grid.model.grid.MPathCellValueFunction;
+import at.bestsolution.framework.grid.model.grid.MPathSegment;
+import at.bestsolution.framework.grid.model.grid.MPattern;
+import at.bestsolution.framework.grid.model.grid.MReferencePattern;
+import at.bestsolution.framework.grid.model.grid.MResourceBundle;
+import at.bestsolution.framework.grid.model.grid.MResourceBundleEntry;
+import at.bestsolution.framework.grid.model.grid.MSimpleMetaData;
+import at.bestsolution.framework.grid.model.grid.MSimplePathSegment;
+import at.bestsolution.framework.grid.model.grid.MStringPattern;
+import at.bestsolution.framework.grid.model.grid.MTextAutoFilterEntry;
 
 /**
  * <!-- begin-user-doc -->

@@ -556,6 +556,15 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getMGridConfiguration_Name() {
+		return (EAttribute)mGridConfigurationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMGridConfigurationColumn() {
 		return mGridConfigurationColumnEClass;
 	}
@@ -1082,6 +1091,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 
 		mGridConfigurationEClass = createEClass(MGRID_CONFIGURATION);
 		createEReference(mGridConfigurationEClass, MGRID_CONFIGURATION__COLUMNS);
+		createEAttribute(mGridConfigurationEClass, MGRID_CONFIGURATION__NAME);
 
 		mGridConfigurationColumnEClass = createEClass(MGRID_CONFIGURATION_COLUMN);
 		createEReference(mGridConfigurationColumnEClass, MGRID_CONFIGURATION_COLUMN__COLUMN);
@@ -1226,6 +1236,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 
 		initEClass(mGridConfigurationEClass, MGridConfiguration.class, "MGridConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMGridConfiguration_Columns(), this.getMGridConfigurationColumn(), null, "columns", null, 0, -1, MGridConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMGridConfiguration_Name(), ecorePackage.getEString(), "name", null, 0, 1, MGridConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mGridConfigurationColumnEClass, MGridConfigurationColumn.class, "MGridConfigurationColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMGridConfigurationColumn_Column(), this.getMGridColumn(), null, "column", null, 0, 1, MGridConfigurationColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

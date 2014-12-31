@@ -27,6 +27,7 @@ import at.bestsolution.framework.grid.model.grid.MGridConfigurationColumn;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -34,6 +35,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -47,6 +49,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationImpl#getColumns <em>Columns</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,6 +72,26 @@ public class MGridConfigurationImpl extends MinimalEObjectImpl.Container impleme
 	 * @ordered
 	 */
 	protected EList<MGridConfigurationColumn> columns;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -106,6 +129,27 @@ public class MGridConfigurationImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GridPackage.MGRID_CONFIGURATION__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -125,6 +169,8 @@ public class MGridConfigurationImpl extends MinimalEObjectImpl.Container impleme
 		switch (featureID) {
 			case GridPackage.MGRID_CONFIGURATION__COLUMNS:
 				return getColumns();
+			case GridPackage.MGRID_CONFIGURATION__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -142,6 +188,9 @@ public class MGridConfigurationImpl extends MinimalEObjectImpl.Container impleme
 				getColumns().clear();
 				getColumns().addAll((Collection<? extends MGridConfigurationColumn>)newValue);
 				return;
+			case GridPackage.MGRID_CONFIGURATION__NAME:
+				setName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -157,6 +206,9 @@ public class MGridConfigurationImpl extends MinimalEObjectImpl.Container impleme
 			case GridPackage.MGRID_CONFIGURATION__COLUMNS:
 				getColumns().clear();
 				return;
+			case GridPackage.MGRID_CONFIGURATION__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -171,8 +223,26 @@ public class MGridConfigurationImpl extends MinimalEObjectImpl.Container impleme
 		switch (featureID) {
 			case GridPackage.MGRID_CONFIGURATION__COLUMNS:
 				return columns != null && !columns.isEmpty();
+			case GridPackage.MGRID_CONFIGURATION__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //MGridConfigurationImpl

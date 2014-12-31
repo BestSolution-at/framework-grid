@@ -359,13 +359,22 @@ public interface GridPackage extends EPackage {
 	int MGRID_CONFIGURATION__COLUMNS = 0;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MGRID_CONFIGURATION__NAME = 1;
+
+	/**
 	 * The number of structural features of the '<em>MGrid Configuration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_CONFIGURATION_FEATURE_COUNT = 1;
+	int MGRID_CONFIGURATION_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>MGrid Configuration</em>' class.
@@ -1613,6 +1622,17 @@ public interface GridPackage extends EPackage {
 	EReference getMGridConfiguration_Columns();
 
 	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MGridConfiguration#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MGridConfiguration#getName()
+	 * @see #getMGridConfiguration()
+	 * @generated
+	 */
+	EAttribute getMGridConfiguration_Name();
+
+	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationColumn <em>MGrid Configuration Column</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2377,6 +2397,14 @@ public interface GridPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MGRID_CONFIGURATION__COLUMNS = eINSTANCE.getMGridConfiguration_Columns();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MGRID_CONFIGURATION__NAME = eINSTANCE.getMGridConfiguration_Name();
 
 		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationColumnImpl <em>MGrid Configuration Column</em>}' class.
