@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationSetImpl#getExportConfiguration <em>Export Configuration</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationSetImpl#getDefaultSortColumn <em>Default Sort Column</em>}</li>
  *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationSetImpl#getGrid <em>Grid</em>}</li>
+ *   <li>{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationSetImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -112,6 +113,26 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 	 * @ordered
 	 */
 	protected MGridColumn defaultSortColumn;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -313,6 +334,27 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GridPackage.MGRID_CONFIGURATION_SET__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -373,6 +415,8 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 				return basicGetDefaultSortColumn();
 			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
 				return getGrid();
+			case GridPackage.MGRID_CONFIGURATION_SET__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -399,6 +443,9 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 				return;
 			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
 				setGrid((MGrid)newValue);
+				return;
+			case GridPackage.MGRID_CONFIGURATION_SET__NAME:
+				setName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -427,6 +474,9 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
 				setGrid((MGrid)null);
 				return;
+			case GridPackage.MGRID_CONFIGURATION_SET__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -449,6 +499,8 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 				return defaultSortColumn != null;
 			case GridPackage.MGRID_CONFIGURATION_SET__GRID:
 				return getGrid() != null;
+			case GridPackage.MGRID_CONFIGURATION_SET__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -465,6 +517,8 @@ public class MGridConfigurationSetImpl extends MinimalEObjectImpl.Container impl
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (viewSelectionMode: ");
 		result.append(viewSelectionMode);
+		result.append(", name: ");
+		result.append(name);
 		result.append(')');
 		return result.toString();
 	}

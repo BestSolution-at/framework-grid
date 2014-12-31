@@ -529,6 +529,15 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getMGridConfigurationSet_Name() {
+		return (EAttribute)mGridConfigurationSetEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMGridConfiguration() {
 		return mGridConfigurationEClass;
 	}
@@ -1069,6 +1078,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		createEReference(mGridConfigurationSetEClass, MGRID_CONFIGURATION_SET__EXPORT_CONFIGURATION);
 		createEReference(mGridConfigurationSetEClass, MGRID_CONFIGURATION_SET__DEFAULT_SORT_COLUMN);
 		createEReference(mGridConfigurationSetEClass, MGRID_CONFIGURATION_SET__GRID);
+		createEAttribute(mGridConfigurationSetEClass, MGRID_CONFIGURATION_SET__NAME);
 
 		mGridConfigurationEClass = createEClass(MGRID_CONFIGURATION);
 		createEReference(mGridConfigurationEClass, MGRID_CONFIGURATION__COLUMNS);
@@ -1212,6 +1222,7 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		initEReference(getMGridConfigurationSet_ExportConfiguration(), this.getMGridConfiguration(), null, "exportConfiguration", null, 0, 1, MGridConfigurationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGridConfigurationSet_DefaultSortColumn(), this.getMGridColumn(), null, "defaultSortColumn", null, 0, 1, MGridConfigurationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMGridConfigurationSet_Grid(), this.getMGrid(), this.getMGrid_ConfigurationSets(), "grid", null, 0, 1, MGridConfigurationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMGridConfigurationSet_Name(), ecorePackage.getEString(), "name", null, 0, 1, MGridConfigurationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mGridConfigurationEClass, MGridConfiguration.class, "MGridConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMGridConfiguration_Columns(), this.getMGridConfigurationColumn(), null, "columns", null, 0, -1, MGridConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -8,11 +8,117 @@
   <foreignModel>grid.ecore</foreignModel>
   <genPackages prefix="Grid" basePackage="at.bestsolution.framework.grid.model" disposableProviderFactory="true"
       ecorePackage="grid.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="grid.ecore#//MFormatType">
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MFormatType/NUMBER"/>
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MFormatType/DATE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="grid.ecore#//MSelectionMode">
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MSelectionMode/SINGLE_ROW"/>
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MSelectionMode/SINGLE_CELL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="grid.ecore#//MAlignment">
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MAlignment/LEFT"/>
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MAlignment/CENTER"/>
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MAlignment/RIGHT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="grid.ecore#//MDefaultAutoFilterEntryType">
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MDefaultAutoFilterEntryType/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MDefaultAutoFilterEntryType/EMPTY"/>
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MDefaultAutoFilterEntryType/NOT_EMPTY"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="grid.ecore#//MAutoFilterMatchType">
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MAutoFilterMatchType/SUBSTRING"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="grid.ecore#//MSortingBehavior">
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MSortingBehavior/UP_DOWN"/>
+      <genEnumLiterals ecoreEnumLiteral="grid.ecore#//MSortingBehavior/UP_DOWN_DEFAULT"/>
+    </genEnums>
+    <genClasses ecoreClass="grid.ecore#//MResourceBundle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MResourceBundle/locale"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MResourceBundle/entries"/>
+    </genClasses>
+    <genClasses ecoreClass="grid.ecore#//MResourceBundleEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MResourceBundleEntry/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MResourceBundleEntry/value"/>
+    </genClasses>
     <genClasses ecoreClass="grid.ecore#//MGrid">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MGrid/columns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MGrid/configurations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MGrid/configurationSets"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grid.ecore#//MGrid/defaultConfiguration"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MGrid/resources"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MGrid/metaDataList"/>
+    </genClasses>
+    <genClasses ecoreClass="grid.ecore#//MGridConfigurationSet">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grid.ecore#//MGridConfigurationSet/viewConfiguration"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MGridConfigurationSet/viewSelectionMode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grid.ecore#//MGridConfigurationSet/exportConfiguration"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grid.ecore#//MGridConfigurationSet/defaultSortColumn"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference grid.ecore#//MGridConfigurationSet/grid"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MGridConfigurationSet/name"/>
+    </genClasses>
+    <genClasses ecoreClass="grid.ecore#//MGridConfiguration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MGridConfiguration/columns"/>
+    </genClasses>
+    <genClasses ecoreClass="grid.ecore#//MGridConfigurationColumn">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grid.ecore#//MGridConfigurationColumn/column"/>
     </genClasses>
     <genClasses ecoreClass="grid.ecore#//MGridColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MGridColumn/id"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference grid.ecore#//MGridColumn/grid"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MGridColumn/titleKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MGridColumn/minWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MGridColumn/maxWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MGridColumn/autoWidth"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MGridColumn/cellValueFunction"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MGridColumn/cellTextFunction"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MGridColumn/alignment"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MGridColumn/autoFilterConfiguration"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MGridColumn/sortingBehavior"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MGridColumn/metaDataList"/>
+    </genClasses>
+    <genClasses ecoreClass="grid.ecore#//MBooleanGridColumn"/>
+    <genClasses image="false" ecoreClass="grid.ecore#//MCellValueFunction"/>
+    <genClasses ecoreClass="grid.ecore#//MPathCellValueFunction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MPathCellValueFunction/segments"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="grid.ecore#//MPathSegment"/>
+    <genClasses ecoreClass="grid.ecore#//MSimplePathSegment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MSimplePathSegment/featureName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="grid.ecore#//MCellTextFunction"/>
+    <genClasses ecoreClass="grid.ecore#//MFormattedCellTextFunction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MFormattedCellTextFunction/formatType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MFormattedCellTextFunction/pattern"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="grid.ecore#//MPattern"/>
+    <genClasses ecoreClass="grid.ecore#//MStringPattern">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MStringPattern/pattern"/>
+    </genClasses>
+    <genClasses ecoreClass="grid.ecore#//MReferencePattern">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MReferencePattern/patternKey"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="grid.ecore#//MAutoFilterConfiguration"/>
+    <genClasses ecoreClass="grid.ecore#//MComboAutoFilterConfiguration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MComboAutoFilterConfiguration/predefinedValues"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grid.ecore#//MComboAutoFilterConfiguration/defaultSelection"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grid.ecore#//MComboAutoFilterConfiguration/cellTextFunction"/>
+    </genClasses>
+    <genClasses ecoreClass="grid.ecore#//MFreeTextAutoFilterConfiguration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MFreeTextAutoFilterConfiguration/matchType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="grid.ecore#//MAutoFilterEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MAutoFilterEntry/resourceKey"/>
+    </genClasses>
+    <genClasses ecoreClass="grid.ecore#//MTextAutoFilterEntry"/>
+    <genClasses ecoreClass="grid.ecore#//MDefaultAutoFilterEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MDefaultAutoFilterEntry/type"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="grid.ecore#//MMetaData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MMetaData/topic"/>
+    </genClasses>
+    <genClasses ecoreClass="grid.ecore#//MSimpleMetaData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grid.ecore#//MSimpleMetaData/metaDataValue"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

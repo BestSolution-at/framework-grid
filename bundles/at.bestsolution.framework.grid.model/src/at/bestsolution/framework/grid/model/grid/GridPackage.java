@@ -313,13 +313,22 @@ public interface GridPackage extends EPackage {
 	int MGRID_CONFIGURATION_SET__GRID = 4;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MGRID_CONFIGURATION_SET__NAME = 5;
+
+	/**
 	 * The number of structural features of the '<em>MGrid Configuration Set</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MGRID_CONFIGURATION_SET_FEATURE_COUNT = 5;
+	int MGRID_CONFIGURATION_SET_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>MGrid Configuration Set</em>' class.
@@ -1572,6 +1581,17 @@ public interface GridPackage extends EPackage {
 	EReference getMGridConfigurationSet_Grid();
 
 	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see at.bestsolution.framework.grid.model.grid.MGridConfigurationSet#getName()
+	 * @see #getMGridConfigurationSet()
+	 * @generated
+	 */
+	EAttribute getMGridConfigurationSet_Name();
+
+	/**
 	 * Returns the meta object for class '{@link at.bestsolution.framework.grid.model.grid.MGridConfiguration <em>MGrid Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2331,6 +2351,14 @@ public interface GridPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MGRID_CONFIGURATION_SET__GRID = eINSTANCE.getMGridConfigurationSet_Grid();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MGRID_CONFIGURATION_SET__NAME = eINSTANCE.getMGridConfigurationSet_Name();
 
 		/**
 		 * The meta object literal for the '{@link at.bestsolution.framework.grid.model.grid.impl.MGridConfigurationImpl <em>MGrid Configuration</em>}' class.
