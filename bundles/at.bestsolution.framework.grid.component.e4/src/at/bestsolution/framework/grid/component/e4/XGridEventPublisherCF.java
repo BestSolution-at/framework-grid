@@ -35,25 +35,33 @@ public class XGridEventPublisherCF extends ContextFunction {
 	@Override
 	public Object compute(IEclipseContext context, String contextKey) {
 		MPart mPart = context.get(MPart.class);
-		return new XGridEventPublisherImpl(context.get(IEventBroker.class), mPart.getPersistedState().get("xgrid.eventprefix")); //$NON-NLS-1$
+		return new XGridEventPublisherImpl(context.get(IEventBroker.class), mPart.getPersistedState().get("xgrid.eventprefix"), mPart.getPersistedState().get("xgrid.eventsynctype")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	static class XGridEventPublisherImpl implements XGridEventPublisher {
 		private final IEventBroker broker;
 		@Nullable
 		private final String prefix;
+		private final String syncType;
 
-		public XGridEventPublisherImpl(IEventBroker broker, @Nullable String prefix) {
+		public XGridEventPublisherImpl(IEventBroker broker, @Nullable String prefix, @Nullable String syncType) {
 			this.broker = broker;
 			this.prefix = prefix;
+			this.syncType = syncType == null ? XGridEventPublisher.SYNC_TYPE_ASYNC : SYNC_TYPE_SYNC;
 		}
 
 		@Override
 		public void publish(String topic, Object data) {
+			String t = topic;
+
 			if (prefix != null) {
-				broker.send(prefix + "/" + topic, data); //$NON-NLS-1$
+				t = prefix + t;
+			}
+
+			if( XGridEventPublisher.SYNC_TYPE_ASYNC.equals(syncType) ) {
+				broker.post(t, data);
 			} else {
-				broker.send(topic, data);
+				broker.send(t, data);
 			}
 		}
 

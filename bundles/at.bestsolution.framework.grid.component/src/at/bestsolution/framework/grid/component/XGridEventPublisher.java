@@ -36,6 +36,16 @@ public interface XGridEventPublisher {
 	public static final String SELECTION_CHANGED = ROOT_TOPIC + "/selection"; //$NON-NLS-1$
 
 	/**
+	 * Publish the event asynchronous (=none blocking)
+	 */
+	public static final String SYNC_TYPE_ASYNC = "async"; //$NON-NLS-1$
+
+	/**
+	 * Publish the event synchronous (=blocking)
+	 */
+	public static final String SYNC_TYPE_SYNC = "sync"; //$NON-NLS-1$
+
+	/**
 	 * Publish informations
 	 *
 	 * @param topic
