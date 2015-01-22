@@ -45,6 +45,7 @@ import at.bestsolution.framework.grid.XGridContentProvider;
 import at.bestsolution.framework.grid.func.AutoFilterEntry;
 import at.bestsolution.framework.grid.func.CellDataFunction;
 import at.bestsolution.framework.grid.func.CellValueMatcherFunction;
+import at.bestsolution.framework.grid.swt.SWTCheckedGridColumn;
 import at.bestsolution.framework.grid.swt.SWTGridColumn;
 
 /**
@@ -160,11 +161,13 @@ public class SWTComboColumnFilter<R, C> implements SWTColumnFilter<R, C> {
 			}
 
 			Set<CharSequence> otherEntries = new TreeSet<>();
-			for (R element : column.getContentHandler().getVisibleElements()) {
-				@Nullable
-				CharSequence text = textFunction.apply(element, column.cellValueFunctionProperty().get().apply(element));
-				if (text != null) {
-					otherEntries.add(text);
+			if( !(column instanceof SWTCheckedGridColumn) ) {
+				for (R element : column.getContentHandler().getVisibleElements()) {
+					@Nullable
+					CharSequence text = textFunction.apply(element, column.cellValueFunctionProperty().get().apply(element));
+					if (text != null) {
+						otherEntries.add(text);
+					}
 				}
 			}
 

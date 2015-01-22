@@ -150,6 +150,20 @@
           xsi:type="grid:MSimplePathSegment"
           featureName="married"/>
     </cellValueFunction>
+    <autoFilterConfiguration
+        xsi:type="grid:MComboAutoFilterConfiguration">
+      <predefinedValues
+          xsi:type="grid:MDefaultAutoFilterEntry"
+          resourceKey="filter.all"/>
+      <predefinedValues
+          xsi:type="grid:MDefaultAutoFilterEntry"
+          resourceKey="filter.married"
+          type="TRUE"/>
+      <predefinedValues
+          xsi:type="grid:MDefaultAutoFilterEntry"
+          resourceKey="filter.unmarried"
+          type="NOT_TRUE"/>
+    </autoFilterConfiguration>
   </columns>
   <configurations>
     <columns
@@ -205,6 +219,12 @@
     <entries
         key="filter.custom"
         value="Benutzerdefiniert"/>
+    <entries
+        key="filter.married"
+        value="verheiratet"/>
+    <entries
+        key="filter.unmarried"
+        value="ledig"/>
   </resources>
   <resources
       locale="en">
@@ -241,6 +261,12 @@
     <entries
         key="filter.custom"
         value="Custom"/>
+    <entries
+        key="filter.married"
+        value="married"/>
+    <entries
+        key="filter.unmarried"
+        value="unmarried"/>
   </resources>
   <metaDataList
       xsi:type="grid:MSimpleMetaData"

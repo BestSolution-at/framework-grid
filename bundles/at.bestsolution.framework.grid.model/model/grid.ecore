@@ -124,6 +124,8 @@
     <eLiterals name="ALL"/>
     <eLiterals name="EMPTY" value="1"/>
     <eLiterals name="NOT_EMPTY" value="2"/>
+    <eLiterals name="TRUE" value="3"/>
+    <eLiterals name="NOT_TRUE" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MAutoFilterMatchType">
     <eLiterals name="SUBSTRING"/>

@@ -250,6 +250,20 @@ public class Util {
 	}
 
 	/**
+	 * @return matcher which matches the domain value to true
+	 */
+	public static <R, C, O> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultBooleanTrueMatcher() {
+		return (r,c,f) -> {return c != null && Boolean.TRUE.equals(c);};
+	}
+
+	/**
+	 * @return matcher which matches the domain as the opposite of true
+	 */
+	public static <R, C, O> @NonNull CellValueMatcherFunction<@NonNull R, @Nullable C, @NonNull O> defaultBooleanNotTrueMatcher() {
+		return (r,c,f) -> {return ! defaultBooleanTrueMatcher().apply(r, c, f);};
+	}
+
+	/**
 	 * @param <O>
 	 *            the list element type
 	 * @return supplier of empty list

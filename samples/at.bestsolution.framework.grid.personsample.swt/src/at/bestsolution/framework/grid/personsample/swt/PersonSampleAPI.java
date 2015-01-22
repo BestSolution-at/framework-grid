@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,11 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import at.bestsolution.framework.grid.DefaultXGridCellMetaData;
+import at.bestsolution.framework.grid.DefaultXGridRowMetaData;
 import at.bestsolution.framework.grid.ListGridContentProvider;
+import at.bestsolution.framework.grid.XCellSelection;
+import at.bestsolution.framework.grid.XGridCell;
 import at.bestsolution.framework.grid.XGridColumn;
 import at.bestsolution.framework.grid.XGridTable;
 import at.bestsolution.framework.grid.personsample.model.person.Person;
@@ -45,10 +50,15 @@ public class PersonSampleAPI {
 		s.setLayout(new FillLayout());
 
 		XGridTable<Person> t = new SWTGridTable<>(s, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		t.metaDataFunctionProperty().set(
+				r -> Collections.singletonList(new DefaultXGridRowMetaData<Person>(r, "Person Object", "persongrid/person")));
 
 		{
 			XGridColumn<Person, String> c = t.createColumn("firstname", p -> p.getFirstname());
 			c.labelProperty().set("Firstname");
+			c.metaDataFunctionProperty().set(
+					( rv, cv ) -> Collections.singletonList(
+							new DefaultXGridCellMetaData<Person>(rv, cv, "Person Firstname", "persongrid/person/firstname")));
 		}
 
 		{
@@ -64,6 +74,20 @@ public class PersonSampleAPI {
 		}
 
 		t.contentProviderProperty().set(new ListGridContentProvider<Person>(getPersonList()));
+		t.selectionProperty().addChangeListener( (p,o,n) -> {
+			if( n != null ) {
+				System.out.println(n.getRowMetaData());
+				if( n instanceof XCellSelection<?> ) {
+					XCellSelection<Person> cn = (XCellSelection<Person>) n;
+					for( XGridCell<Person, ?>  c : cn.getCells() ) {
+						System.out.println(c.getCellMetaData());
+					}
+				} else {
+					System.out.println(n);
+				}
+			}
+		});
+
 
 		s.open();
 

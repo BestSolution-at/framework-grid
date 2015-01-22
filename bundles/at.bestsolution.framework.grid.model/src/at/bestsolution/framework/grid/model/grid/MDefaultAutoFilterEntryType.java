@@ -65,7 +65,23 @@ public enum MDefaultAutoFilterEntryType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NOT_EMPTY(2, "NOT_EMPTY", "NOT_EMPTY");
+	NOT_EMPTY(2, "NOT_EMPTY", "NOT_EMPTY"), /**
+	 * The '<em><b>TRUE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TRUE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	TRUE(3, "TRUE", "TRUE"), /**
+	 * The '<em><b>NOT TRUE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NOT_TRUE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NOT_TRUE(4, "NOT_TRUE", "NOT_TRUE");
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -120,6 +136,36 @@ public enum MDefaultAutoFilterEntryType implements Enumerator {
 	public static final int NOT_EMPTY_VALUE = 2;
 
 	/**
+	 * The '<em><b>TRUE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>TRUE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #TRUE
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int TRUE_VALUE = 3;
+
+	/**
+	 * The '<em><b>NOT TRUE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>NOT TRUE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NOT_TRUE
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NOT_TRUE_VALUE = 4;
+
+	/**
 	 * An array of all the '<em><b>MDefault Auto Filter Entry Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -130,6 +176,8 @@ public enum MDefaultAutoFilterEntryType implements Enumerator {
 			ALL,
 			EMPTY,
 			NOT_EMPTY,
+			TRUE,
+			NOT_TRUE,
 		};
 
 	/**
@@ -183,6 +231,8 @@ public enum MDefaultAutoFilterEntryType implements Enumerator {
 			case ALL_VALUE: return ALL;
 			case EMPTY_VALUE: return EMPTY;
 			case NOT_EMPTY_VALUE: return NOT_EMPTY;
+			case TRUE_VALUE: return TRUE;
+			case NOT_TRUE_VALUE: return NOT_TRUE;
 		}
 		return null;
 	}

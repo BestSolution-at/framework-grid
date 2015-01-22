@@ -1323,6 +1323,8 @@ public class GridPackageImpl extends EPackageImpl implements GridPackage {
 		addEEnumLiteral(mDefaultAutoFilterEntryTypeEEnum, MDefaultAutoFilterEntryType.ALL);
 		addEEnumLiteral(mDefaultAutoFilterEntryTypeEEnum, MDefaultAutoFilterEntryType.EMPTY);
 		addEEnumLiteral(mDefaultAutoFilterEntryTypeEEnum, MDefaultAutoFilterEntryType.NOT_EMPTY);
+		addEEnumLiteral(mDefaultAutoFilterEntryTypeEEnum, MDefaultAutoFilterEntryType.TRUE);
+		addEEnumLiteral(mDefaultAutoFilterEntryTypeEEnum, MDefaultAutoFilterEntryType.NOT_TRUE);
 
 		initEEnum(mAutoFilterMatchTypeEEnum, MAutoFilterMatchType.class, "MAutoFilterMatchType");
 		addEEnumLiteral(mAutoFilterMatchTypeEEnum, MAutoFilterMatchType.SUBSTRING);

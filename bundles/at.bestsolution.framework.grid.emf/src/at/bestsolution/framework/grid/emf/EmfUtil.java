@@ -47,7 +47,7 @@ public class EmfUtil {
 	/**
 	 * create a {@link TranslationFunction} which tries to find translations in
 	 * the given grid configuration
-	 * 
+	 *
 	 * @param grid
 	 *            grid configuration
 	 * @return TranslationFunction
@@ -112,6 +112,12 @@ public class EmfUtil {
 								break;
 							case NOT_EMPTY:
 								matcher = Util.defaultNotEmptyMatcher(column.textFunctionProperty());
+								break;
+							case TRUE:
+								matcher = Util.defaultBooleanTrueMatcher();
+								break;
+							case NOT_TRUE:
+								matcher = Util.defaultBooleanNotTrueMatcher();
 								break;
 							default:
 								throw new UnsupportedOperationException("unknown autofilter default entry type: " + defEntry.getType()); //$NON-NLS-1$
